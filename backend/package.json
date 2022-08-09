@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "fake-rest": "json-server --watch db.json --port 3004"
   },
   "dependencies": {
     "dotenv": "^16.0.1",
