@@ -13,6 +13,7 @@ app.listen(PORT, () => {
 
 app.get('/', async (req, res) => {
 	try {
+		res.render('index', { title: 'Its working!' })
 		return res.sendStatus(200)
 	} catch (ex) {
 		return res.sendStatus(500)

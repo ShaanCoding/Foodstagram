@@ -14,7 +14,7 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: asd-backend
-  AZURE_WEBAPP_PACKAGE_PATH: './backend'
+  AZURE_WEBAPP_PACKAGE_PATH: '.'
   NODE_VERSION: '14.16.0'
 
 jobs:
@@ -31,7 +31,7 @@ jobs:
       run: |
         # Build and test the project, then
         # deploy to Azure Web App.
-        cd backend
+        cp backend/* .
         npm install
         npm run build --if-present
         npm run test --if-present
