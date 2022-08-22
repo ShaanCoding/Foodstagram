@@ -1,4 +1,4 @@
-FROM node:12-alpine as frontend
+FROM node:16.10.0 as frontend-build
 
 # CREATE an app directory
 RUN mkdir -p /app
@@ -7,17 +7,23 @@ RUN mkdir -p /app
 WORKDIR /app
 
 # COPY lock files
-COPY /package*.json ./
+COPY /frontend/package*.json ./
+COPY /frontend/yarn.lock ./
 
 # Install Node
-RUN npm install
+RUN yarn install
 
 # COPY REST
-COPY . .
+COPY frontend/ .
 
 # Build app
-RUN npm run build
+RUN yarn run build
 
-# START
-CMD ["npm", "install", "-g", "serve"]
-CMD ["serve", "-s", "build"]
+# production environment
+FROM nginx:1.22.0
+
+COPY --from=frontend-build /app/build /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
