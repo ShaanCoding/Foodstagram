@@ -1,14 +1,19 @@
-FROM node:12-alpine as backend
+FROM node:16.4.2 as backend
 
+# CREATE an app directory
 RUN mkdir -p /app
 
+# SET workdir
 WORKDIR /app
 
-COPY backend/* ./
+# COPY lock files
+COPY /package*.json ./
 
+# Install Node
 RUN npm install
 
-COPY . .
+# COPY REST
+COPY backend/* ./
 
 ENV PORT 80
 

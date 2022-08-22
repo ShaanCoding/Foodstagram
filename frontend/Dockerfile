@@ -1,4 +1,4 @@
-FROM node:12-alpine as frontend
+FROM node:16.4.2 as frontend
 
 # CREATE an app directory
 RUN mkdir -p /app
@@ -13,10 +13,14 @@ COPY /package*.json ./
 RUN npm install
 
 # COPY REST
-COPY . .
+COPY frontend/* ./
 
 # Build app
 RUN npm run build
+
+ENV PORT 80
+
+EXPOSE 80
 
 # START
 CMD ["npm", "install", "-g", "serve"]
