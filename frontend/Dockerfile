@@ -1,4 +1,4 @@
-FROM node:16.4.2 as frontend
+FROM node:16.10.0 as frontend
 
 # CREATE an app directory
 RUN mkdir -p /app
