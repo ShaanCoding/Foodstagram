@@ -1,17 +1,23 @@
-FROM node:12-alpine as backend
+FROM node:16.4.2 as backend
 
+# CREATE an app directory
 RUN mkdir -p /app
 
+# SET workdir
 WORKDIR /app
 
-COPY backend/* ./
+# COPY lock files
+COPY /backend/package.json ./
+COPY /backend/yarn.lock ./
 
-RUN npm install
+# Install Node
+RUN yarn install
 
-COPY . .
+# COPY REST
+COPY backend/ ./
 
 ENV PORT 80
 
 EXPOSE 80
 
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
