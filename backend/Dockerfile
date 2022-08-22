@@ -7,16 +7,17 @@ RUN mkdir -p /app
 WORKDIR /app
 
 # COPY lock files
-COPY /package*.json ./
+COPY /backend/package.json ./
+COPY /backend/yarn.lock ./
 
 # Install Node
-RUN npm install
+RUN yarn install
 
 # COPY REST
-COPY backend/* ./
+COPY backend/ ./
 
 ENV PORT 80
 
 EXPOSE 80
 
-CMD ["npm", "start"]
+CMD ["yarn", "start"]

@@ -7,21 +7,22 @@ RUN mkdir -p /app
 WORKDIR /app
 
 # COPY lock files
-COPY /package*.json ./
+COPY /frontend/package*.json ./
+COPY /frontend/yarn.lock ./
 
 # Install Node
-RUN npm install
+RUN yarn install
 
 # COPY REST
-COPY frontend/* ./
+COPY frontend/ .
 
 # Build app
-RUN npm run build
+RUN yarn run build
 
 ENV PORT 80
 
 EXPOSE 80
 
 # START
-CMD ["npm", "install", "-g", "serve"]
+CMD ["yarn", "install", "-g", "serve"]
 CMD ["serve", "-s", "build"]
