@@ -1,0 +1,12 @@
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - 3000:3000
+    backend:
+    # environment:
+    # PORT: 3000
+    # PROXY_API: http://localhost:3000/api
+    build: ./backend
+    ports:
+      - 3001:3001
