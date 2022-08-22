@@ -19,10 +19,11 @@ COPY frontend/ .
 # Build app
 RUN yarn run build
 
-ENV PORT 80
+# production environment
+FROM nginx:stable-alpine
+
+COPY --from=build /app/build /usr/share/nginx/html
 
 EXPOSE 80
 
-# START
-CMD ["yarn", "install", "-g", "serve"]
-CMD ["serve", "-s", "build"]
+CMD ["nginx", "-g", "daemon off;"]
