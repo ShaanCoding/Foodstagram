@@ -1,4 +1,4 @@
-FROM node:16.10.0 as frontend
+FROM node:16.10.0 as frontend-build
 
 # CREATE an app directory
 RUN mkdir -p /app
@@ -20,9 +20,9 @@ COPY frontend/ .
 RUN yarn run build
 
 # production environment
-FROM nginx:stable-alpine
+FROM nginx:1.22.0
 
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=frontend-build /app/build /usr/share/nginx/html
 
 EXPOSE 80
 

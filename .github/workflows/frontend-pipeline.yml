@@ -27,9 +27,7 @@
 name: Build and deploy a container to an Azure Web App
 
 env:
-  AZURE_WEBAPP_NAME: asd-frontend # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: 'build'  # set this to the path to your web app project, defaults to the repository root
-  NODE_VERSION: '16.10.0'                # set this to the node version to use
+  AZURE_WEBAPP_NAME: asd-frontend  # set this to the name of your Azure Web App
 
 on:
   push:
@@ -37,29 +35,53 @@ on:
       - "main"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
-  build-and-deploy:
-    name: Build and Deploy
+  build:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ env.NODE_VERSION }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-    - name: yarn install, build, and test
-      run: |
-        # Build and test the project, then
-        # deploy to Azure Web App.
-        cd frontend
-        yarn install
-        yarn run build
-    - name: add process.json
-      run: |
-        echo '{ script: "serve", env: { PM2_SERVE_SPA: "true", PM2_SERVE_HOMEPAGE: "/index.html" } }' >> build/process.json
-    - name: 'Deploy to Azure WebApp'
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        publish-profile: ${{ secrets.FRONTEND_AZURE_WEBAPP_PUBLISH_PROFILE }}
-        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+      - uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Log in to GitHub container registry
+        uses: docker/login-action@v1.10.0
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.IMAGE_USERNAME }}
+          password: ${{ secrets.IMAGE_TOKEN }}
+
+      - name: Lowercase the repo name and username
+        run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+
+      - name: Build and push container image to registry
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}-frontend
+          file: ./frontend/Dockerfile
+
+  deploy:
+    permissions:
+      contents: none
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'Development'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Lowercase the repo name and username
+        run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.FRONTEND_AZURE_WEBAPP_PUBLISH_PROFILE }}
+          images: 'ghcr.io/${{ env.REPO }}:${{ github.sha }}-frontend'
