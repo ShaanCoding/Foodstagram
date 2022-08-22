@@ -1,10 +1,17 @@
-FROM node:14
+FROM node:12-alpine as backend
 
-# Create app directory
+RUN mkdir -p /app
+
 WORKDIR /app
 
-# Bundle app source
+COPY backend/* ./
+
+RUN npm install
+
 COPY . .
 
-EXPOSE 8080 80
-CMD [ "npm", "start" ]
+ENV PORT 80
+
+EXPOSE 80
+
+CMD ["npm", "start"]
