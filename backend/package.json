@@ -7,7 +7,7 @@
 		"node": "^16.10.0"
 	},
 	"scripts": {
-		"start": "node app.js",
+		"start": "node app.tsx",
 		"fake-rest": "json-server --watch db.json --port 3004"
 	},
 	"dependencies": {
