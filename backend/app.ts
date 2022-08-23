@@ -1,10 +1,10 @@
 import express from 'express'
 import http from 'http'
-import router from './routes/main.js'
+import router from './routes/main'
 
 require('dotenv').config()
 
-const app = new express()
+const app = express()
 
 app.use('/', router)
 
@@ -13,3 +13,5 @@ app.set('port', port)
 
 const server = http.createServer(app)
 server.listen(port)
+
+console.log('Express Server Started On Port ' + port)
