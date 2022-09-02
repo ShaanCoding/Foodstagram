@@ -1,9 +1,25 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Header from "./components/common/Header";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Test from "./pages/Test";
 
 function App() {
-  return <h1 className="text-3xl font-bold underline">Hello World</h1>;
+  return (
+    <>
+      <Router>
+        <Header />
+
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="/test" element={<Test />} />
+        </Routes>
+
+        <Footer />
+      </Router>
+    </>
+  );
 }
 
 export default App;
