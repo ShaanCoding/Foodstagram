@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <Router>
-        <Header />
+        <Header headerFocused="CreatePost" />
 
         <Routes>
           <Route index element={<Home />} />
