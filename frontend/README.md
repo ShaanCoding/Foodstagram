@@ -44,3 +44,26 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Docker
+
+To build the docker image run:
+
+```bash
+	export DOCKER_BUILDKIT=1
+	docker build -f frontend/Dockerfile -t asd-frontend .
+```
+
+To run the docker image run:
+
+```bash
+	docker run --name asd-frontend -p 80:80 asd-frontend
+```
+
+## FAQ
+
+To fix vmmen using all of your ram run:
+
+```bash
+	wsl --shutdown
+```
