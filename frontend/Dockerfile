@@ -20,10 +20,10 @@ COPY frontend/ .
 RUN yarn run build
 
 # production environment
-FROM nginx:1.22.0
+FROM steebchen/nginx-spa:stable
 
-COPY --from=frontend-build /app/build /usr/share/nginx/html
+COPY --from=frontend-build /app/build /app
 
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx"]
