@@ -7,6 +7,7 @@ import Test from './pages/Test'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import HeaderLayout from './components/header/HeaderLayout'
+import Search from './pages/Search'
 
 function App() {
 	return (
@@ -20,6 +21,7 @@ function App() {
 					<Route path="/register" element={<Register />} />
 					<Route path="/test" element={<Test />} />
 					<Route path="/home" element={<Home />} />
+					<Route path='/search' element={<Search />} />
 					<Route index element={<Register />} />
 				</Routes>
 
