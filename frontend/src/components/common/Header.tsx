@@ -19,7 +19,7 @@ const Header = ({ headerFocused = "None" }: iHeaderState) => {
     <div className="bg-white flex items-center justify-between w-full py-4 px-32 border-b-[1px] border-light-gray mb-16">
       <Link to="/">
         <div className="">
-          <img className="h-8 touch:" src={Foostaram} alt="Foostaram"/>
+          <img className="h-8 touch:" src={Foostaram} alt="Foostaram" />
         </div>
       </Link>
 
@@ -66,11 +66,12 @@ const Header = ({ headerFocused = "None" }: iHeaderState) => {
 
         {/* Profile icon */}
         <div className="px-4">
-          {/* Load up avatar */}
-          <img alt="avatar"
-            className="w-8 h-8 rounded-full border-2 border-gray-700"
-            src={userAvatar}
-          />
+          <Link to="/profile">
+            <img alt="avatar"
+              className="w-8 h-8 rounded-full border-2 border-gray-700"
+              src={userAvatar}
+            />
+          </Link>
         </div>
       </div>
     </div>
