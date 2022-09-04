@@ -8,7 +8,7 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import HeaderLayout from './components/header/HeaderLayout'
 import Search from './pages/Search'
-import Post from './pages/Post'
+import Post from './components/common/CreatePostModal'
 
 function App() {
 	return (
@@ -23,7 +23,6 @@ function App() {
 					<Route path="/test" element={<Test />} />
 					<Route path="/home" element={<Home />} />
 					<Route path='/search' element={<Search />} />
-					<Route path='/post' element={<Post />} />
 					<Route index element={<Register />} />
 				</Routes>
 
