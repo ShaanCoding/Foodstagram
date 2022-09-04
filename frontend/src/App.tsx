@@ -7,6 +7,7 @@ import Test from './pages/Test'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import HeaderLayout from './components/header/HeaderLayout'
+import Search from './pages/Search'
 import Profile from './pages/Profile'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
 					<Route path="/register" element={<Register />} />
 					<Route path="/test" element={<Test />} />
 					<Route path="/home" element={<Home />} />
+					<Route path='/search' element={<Search />} />
 					<Route path="/profile" element={<Profile />} />
 					<Route index element={<Register />} />
 				</Routes>
