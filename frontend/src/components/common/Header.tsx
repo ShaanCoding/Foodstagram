@@ -7,6 +7,7 @@ import userAvatar from "../../images/icons/avatar.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 import SearchBar from "./SearchBar";
+import CreatePostModal from "./CreatePostModal";
 
 type headerStates = "None" | "Home" | "CreatePost" | "Explore" | "Heart";
 
@@ -15,6 +16,7 @@ interface iHeaderState {
 }
 
 const Header = ({ headerFocused = "None" }: iHeaderState) => {
+  const newPostButtonRef = React.useRef(null);
   return (
     <div className="bg-white flex items-center justify-between w-full py-4 px-32 border-b-[1px] border-light-gray mb-16">
       <Link to="/">
@@ -28,6 +30,7 @@ const Header = ({ headerFocused = "None" }: iHeaderState) => {
       <div className="flex items-center justify-center">
         {/* Create post */}
         <div className="px-4">
+          <button type="button" ref={newPostButtonRef}>
           <FontAwesomeIcon
             className="w-6 h-6"
             icon={
@@ -36,6 +39,8 @@ const Header = ({ headerFocused = "None" }: iHeaderState) => {
                 : regular("square-plus")
             }
           />
+          </button>
+
         </div>
 
         {/* Explore */}
@@ -63,7 +68,7 @@ const Header = ({ headerFocused = "None" }: iHeaderState) => {
             />
           </Link>
         </div>
-
+            <CreatePostModal openButton={newPostButtonRef}/>
         {/* Profile icon */}
         <div className="px-4">
           <Link to="/profile">
