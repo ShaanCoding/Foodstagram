@@ -31,19 +31,15 @@ const Home = () => {
         Making strawberry and vodka jam 🍓
 				</p>
 
-					<form>
-          <input
-              className={`flex-1 p-2 rounded-sm mb-2 border hover:border-gray-500 focus-visible:border text-xs bg-white inline-block ${styles.greyBackground}`}
-              placeholder="Type a comment..."
-              type="string"
-            />
-						<button
-              className="flex-auto ml-1 bg-insta-green text-white text-sm p-[7px] rounded-md font-medium inline-block"
-              type="submit"
-            >
+        <form className="flex flex-row">
+
+        <label className="flex-auto block p-3 bg-gray-100 rounded-2xl">
+          <input className="w-full bg-transparent p-0 text-sm  text-gray-500 focus:outline-none" id="name" type="text" value="Type a comment..." />
+        </label>
+            <button className="ml-1 bg-insta-green text-white text-sm p-[7px] rounded-md font-medium inline-block h-auto w-1/6" type="submit">
               Post
             </button>
-					</form>
+        </form>
 				</div>
 			</div>
 		</div>
