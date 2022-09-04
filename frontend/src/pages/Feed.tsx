@@ -27,14 +27,18 @@ const Home = () => {
 						src={post1}
 					/>
 
+        <p className="text-sm text-black-500 text-left inline-block align-middle mb-4">
+        Making strawberry and vodka jam 🍓
+				</p>
+
 					<form>
           <input
-              className={`p-2 w-full rounded-sm mb-2 border hover:border-gray-500 focus-visible:border text-xs bg-white inline-block ${styles.greyBackground}`}
+              className={`flex-1 p-2 rounded-sm mb-2 border hover:border-gray-500 focus-visible:border text-xs bg-white inline-block ${styles.greyBackground}`}
               placeholder="Type a comment..."
               type="string"
             />
 						<button
-              className="ml-1 bg-insta-green text-white text-sm p-[7px] rounded-md font-medium inline-block"
+              className="flex-auto ml-1 bg-insta-green text-white text-sm p-[7px] rounded-md font-medium inline-block"
               type="submit"
             >
               Post
