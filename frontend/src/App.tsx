@@ -9,6 +9,7 @@ import Login from './pages/Login'
 import HeaderLayout from './components/header/HeaderLayout'
 import Search from './pages/Search'
 import Profile from './pages/Profile'
+import EditProfile from './pages/EditProfile'
 
 function App() {
 	return (
@@ -24,6 +25,7 @@ function App() {
 					<Route path="/home" element={<Home />} />
 					<Route path='/search' element={<Search />} />
 					<Route path="/profile" element={<Profile />} />
+					<Route path="/editprofile" element={<EditProfile />} />v
 					<Route index element={<Register />} />
 				</Routes>
 

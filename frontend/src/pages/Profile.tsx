@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../styles/Profile.module.css";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   return (
@@ -26,7 +27,9 @@ const Profile = () => {
           </div>
         </div>
 
-        <button className="my-5 px-5 py-2 font-semibold text-sm border border-gray-400">Edit profile</button>
+        <Link to="/editprofile">
+          <button className="my-5 px-5 py-2 font-semibold text-sm border border-gray-400 rounded">Edit profile</button>
+        </Link>
 
         <p className="mb-3 text-center">Hi, I like food and I love eating, and when I eat, it's usually healthy. However, since I'm only 22 years old I've never taken a Keto Diet (yet) but so far I feel great. I have a healthy appetite and am also healthy in my everyday life.</p>
       </div>
@@ -117,7 +120,7 @@ const Profile = () => {
 
         <div className="relative w-full h-60 bg-cover bg-center bg-no-repeat bg-[url('https://source.unsplash.com/hTR1XPtTo_k')]">
           <div className="absolute bottom-1 left-1 flex gap-1 text-white text-xs items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
             </svg>
