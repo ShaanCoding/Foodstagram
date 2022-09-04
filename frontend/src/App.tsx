@@ -10,6 +10,7 @@ import HeaderLayout from "./components/header/HeaderLayout";
 import Search from "./pages/Search";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
+import ManagePosts from "./pages/Business/ManagePosts";
 
 function App() {
   return (
@@ -25,7 +26,8 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/search" element={<Search />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/editprofile" element={<EditProfile />} />v
+          <Route path="/editprofile" element={<EditProfile />} />
+          <Route path="/manageposts" element={<ManagePosts />} />
           <Route index element={<Register />} />
         </Routes>
 
