@@ -11,6 +11,7 @@ import Search from './pages/Search'
 import Feed from './pages/Feed'
 import Profile from './pages/Profile'
 import EditProfile from './pages/EditProfile'
+import ManagePosts from "./pages/Business/ManagePosts";
 
 function App() {
 	return (
@@ -27,7 +28,8 @@ function App() {
 					<Route path='/search' element={<Search />} />
 					<Route path='/feed' element={<Feed />} />
 					<Route path="/profile" element={<Profile />} />
-					<Route path="/editprofile" element={<EditProfile />} />v
+					<Route path="/editprofile" element={<EditProfile />} />
+          <Route path="/manageposts" element={<ManagePosts />} />
 					<Route index element={<Register />} />
 				</Routes>
 
