@@ -13,7 +13,7 @@ const ManageDraftPostTableRow = () => {
           <div className="flex items-center justify-start">
             <img className="rounded-sm w-12 h-12 mr-4" src={exampleEvent} />
             <div>
-              <div className="whitespace-nowrap">Introduction to Docker</div>
+              <div className="">Introduction to Docker</div>
               <div className="flex items-center justify-start">
                 <img className="rounded-full w-4 h-4 mr-2" src={exampleLogo} />
                 <p>progsoc_uts</p>
@@ -22,12 +22,12 @@ const ManageDraftPostTableRow = () => {
           </div>
           <div className="flex items-center justify-end">
             <div className="mr-2">
-              <button className="font-semibold py-1 px-2 rounded-sm opacity-50 hover:opacity-100 bg-slate-100 whitespace-nowrap text-sm border-[1px] border-light-gray">
+              <button className="font-semibold py-1 px-2 rounded-sm opacity-50 hover:opacity-100 bg-slate-100  text-sm border-[1px] border-light-gray">
                 Edit post
               </button>
             </div>
             <div className="mr-2">
-              <button className="font-semibold py-1 px-2 rounded-sm opacity-50 hover:opacity-100 bg-slate-100 whitespace-nowrap text-sm border-[1px] border-light-gray">
+              <button className="font-semibold py-1 px-2 rounded-sm opacity-50 hover:opacity-100 bg-slate-100  text-sm border-[1px] border-light-gray">
                 ...
               </button>
             </div>
