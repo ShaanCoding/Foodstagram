@@ -31,10 +31,10 @@ function App() {
 					<Route index element={<Register />} />
 				</Routes>
 
-				<Footer />
-			</Router>
-		</>
-	)
+        <Footer />
+      </Router>
+    </>
+  );
 }
 
-export default App
+export default App;
