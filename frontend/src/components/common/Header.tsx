@@ -21,7 +21,7 @@ const Header = ({ headerFocused = "None" }: iHeaderState) => {
     <div className="bg-white flex items-center justify-between w-full py-4 px-32 border-b-[1px] border-light-gray mb-16">
       <Link to="/">
         <div className="">
-          <img className="h-8 touch:" src={Foostaram} alt="Foostaram" />
+          <img className="h-8 touch:" src={Foostaram} alt="Foostaram"/>
         </div>
       </Link>
 
@@ -71,12 +71,11 @@ const Header = ({ headerFocused = "None" }: iHeaderState) => {
             <CreatePostModal openButton={newPostButtonRef}/>
         {/* Profile icon */}
         <div className="px-4">
-          <Link to="/profile">
-            <img alt="avatar"
-              className="w-8 h-8 rounded-full border-2 border-gray-700"
-              src={userAvatar}
-            />
-          </Link>
+          {/* Load up avatar */}
+          <img alt="avatar"
+            className="w-8 h-8 rounded-full border-2 border-gray-700"
+            src={userAvatar}
+          />
         </div>
       </div>
     </div>
