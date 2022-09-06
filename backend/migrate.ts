@@ -20,7 +20,9 @@ async function RunMigrations() {
 		directoryWithScripts: __dirname + '/migrations',
 	})
 	await migrations.run('init')
-	migrations.run('migrate')
+	await migrations.run('migrate')
+	await connection.end()
+	console.log('Finished running migrations, serving website.')
 }
 
 export default RunMigrations
