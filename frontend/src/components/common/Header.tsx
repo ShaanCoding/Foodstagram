@@ -1,81 +1,86 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Foostaram from "../../images/Foostaram.svg";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import Foostaram from '../../images/Foostaram.svg'
 
-import userAvatar from "../../images/icons/avatar.png";
+import userAvatar from '../../images/icons/avatar.png'
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
-import SearchBar from "./SearchBar";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro'
+import SearchBar from './SearchBar'
+import CreatePostModal from './CreatePostModal'
 
-type headerStates = "None" | "Home" | "CreatePost" | "Explore" | "Heart";
+type headerStates = 'None' | 'Home' | 'CreatePost' | 'Explore' | 'Heart'
 
 interface iHeaderState {
-  headerFocused?: headerStates;
+	headerFocused?: headerStates
 }
 
-const Header = ({ headerFocused = "None" }: iHeaderState) => {
-  return (
-    <div className="bg-white flex items-center justify-between w-full py-4 px-32 border-b-[1px] border-light-gray mb-16">
-      <Link to="/">
-        <div className="">
-          <img className="h-8 touch:" src={Foostaram} alt="Foostaram" />
-        </div>
-      </Link>
+const Header = ({ headerFocused = 'None' }: iHeaderState) => {
+	const newPostButtonRef = React.useRef(null)
+	return (
+		<div className="bg-white flex items-center justify-between w-full py-4 px-32 border-b-[1px] border-light-gray mb-16">
+			<Link to="/">
+				<div className="">
+					<img className="h-8 touch:" src={Foostaram} alt="Foostaram" />
+				</div>
+			</Link>
 
-      <SearchBar />
+			<SearchBar />
 
-      <div className="flex items-center justify-center">
-        {/* Create post */}
-        <div className="px-4">
-          <FontAwesomeIcon
-            className="w-6 h-6"
-            icon={
-              headerFocused == "CreatePost"
-                ? solid("square-plus")
-                : regular("square-plus")
-            }
-          />
-        </div>
+			<div className="flex items-center justify-center">
+				{/* Create post */}
+				<div className="px-4">
+					<button type="button" ref={newPostButtonRef}>
+						<FontAwesomeIcon
+							className="w-6 h-6"
+							icon={
+								headerFocused == 'CreatePost'
+									? solid('square-plus')
+									: regular('square-plus')
+							}
+						/>
+					</button>
+				</div>
 
-        {/* Explore */}
-        <div className="px-4">
-          <Link to="/explore">
-            <FontAwesomeIcon
-              className="w-6 h-6"
-              icon={
-                headerFocused == "Explore"
-                  ? solid("compass")
-                  : regular("compass")
-              }
-            />
-          </Link>
-        </div>
+				{/* Explore */}
+				<div className="px-4">
+					<Link to="/explore">
+						<FontAwesomeIcon
+							className="w-6 h-6"
+							icon={
+								headerFocused == 'Explore'
+									? solid('compass')
+									: regular('compass')
+							}
+						/>
+					</Link>
+				</div>
 
-        {/* Heart modal */}
-        <div className="px-4">
-          <Link to="/favorite">
-            <FontAwesomeIcon
-              className="w-6 h-6"
-              icon={
-                headerFocused === "Heart" ? solid("heart") : regular("heart")
-              }
-            />
-          </Link>
-        </div>
+				{/* Heart modal */}
+				<div className="px-4">
+					<Link to="/favorite">
+						<FontAwesomeIcon
+							className="w-6 h-6"
+							icon={
+								headerFocused === 'Heart' ? solid('heart') : regular('heart')
+							}
+						/>
+					</Link>
+				</div>
+				<CreatePostModal openButton={newPostButtonRef} />
+				{/* Profile icon */}
+				<div className="px-4">
+					<Link to="/profile">
+						<img
+							alt="avatar"
+							className="w-8 h-8 rounded-full border-2 border-gray-700"
+							src="https://source.unsplash.com/8hI_OW99d28"
+						/>
+					</Link>
+				</div>
+			</div>
+		</div>
+	)
+}
 
-        {/* Profile icon */}
-        <div className="px-4">
-          <Link to="/profile">
-            <img alt="avatar"
-              className="w-8 h-8 rounded-full border-2 border-gray-700"
-              src={userAvatar}
-            />
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default Header;
+export default Header

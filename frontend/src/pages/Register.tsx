@@ -30,27 +30,15 @@ const Register = () => {
 						<InputField placeholder="Username" />
 						<InputField placeholder="Password" type="password" />
 						<p className="text-xs text-center text-gray-400 mt-2 mb-6">
-							People who use our service may have uploaded your contact
-							information to Instagram.
-							{' '}
-							<a className="font-medium text-gray-500" href="/">
-								Learn more
-							</a>
-							<br />
-							<br />
-							By signing up, you agree to our
-							{' '}
+							By signing up, you agree to our{' '}
 							<a className="font-medium text-gray-500" href="/">
 								Terms
 							</a>
-							,
-							{' '}
+							,{' '}
 							<a className="font-medium text-gray-500" href="/">
 								Privacy Policy
-							</a>
-							{' '}
-							and
-							{' '}
+							</a>{' '}
+							and{' '}
 							<a className="font-medium text-gray-500" href="/">
 								Cookies Policy
 							</a>
