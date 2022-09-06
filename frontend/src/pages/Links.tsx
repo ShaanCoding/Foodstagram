@@ -12,10 +12,10 @@ const Links = () => {
 					<Link to="/register">Registration (Jack)</Link>
 				</li>
 				<li>
-					<Link to="/profile">Profile (Jabriel)</Link>
+					<Link to="/profile">Profile (Jibreil)</Link>
 				</li>
 				<li>
-					<Link to="/editprofile">Edit Profile (Jabriel)</Link>
+					<Link to="/editprofile">Edit Profile (Jibreil)</Link>
 				</li>
 				<li>
 					<Link to="/links">Create Post (Alwin)</Link>
