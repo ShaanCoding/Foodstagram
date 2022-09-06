@@ -1,8 +1,15 @@
 import express from 'express'
 import http from 'http'
 import router from './routes/main'
+import RunMigrations from './migrate'
 
 require('dotenv').config()
+
+const migrations = async () => {
+	await RunMigrations()
+}
+
+migrations()
 
 const app = express()
 
