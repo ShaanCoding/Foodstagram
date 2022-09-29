@@ -18,7 +18,7 @@ COPY backend/ ./
 
 RUN --mount=type=secret,id=DB_HOST \
 	--mount=type=secret,id=DB_PASSWORD \
-	--mount=type=secret,id=DB_NAME \
+	--mount=type=secret,id=ENVIRONMENT \
 	--mount=type=secret,id=DB_USERNAME \
 	cd /run/secrets && \
 	for f in *; do (echo ${f}= | tr -d '\n'; cat ${f}; echo) >> .env; done && \

@@ -1,18 +1,26 @@
+import Spinner from '../common/Spinner'
+
 interface Props {
 	text: string
+	loading?: boolean
 }
 
 const SubmitButton = (props: Props) => {
-	const { text } = props
+	const { text, loading } = props
 
 	return (
 		<button
 			className="w-full bg-insta-green text-white text-sm p-[5px] rounded-md font-medium"
 			type="submit"
+			disabled={loading}
 		>
-			{text}
+			{loading ? <Spinner /> : text}
 		</button>
 	)
+}
+
+SubmitButton.defaultProps = {
+	loading: false,
 }
 
 export default SubmitButton

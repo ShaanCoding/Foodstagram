@@ -76,6 +76,11 @@ jobs:
       - name: Build and push container image to registry
         uses: docker/build-push-action@v2
         with:
+          secrets: |
+            "DB_HOST='${{ secrets.DB_HOST }}'"
+            "DB_PASSWORD='${{ secrets.DB_PASSWORD }}'"
+            "ENVIRONMENT='${{ secrets.ENVIRONMENT }}'"
+            "DB_USERNAME='${{ secrets.DB_USERNAME }}'"
           push: true
           tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}-frontend-pr
           file: ./frontend/Dockerfile
