@@ -76,11 +76,13 @@ jobs:
           cd ..
       
       - name: Build and push container image to registry
+        run: |
+            echo "test"
+            cd backend
+            ls -a
+            cd ..
         uses: docker/build-push-action@v2
         with:
-          no-cache: true
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
           push: true
           tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}-backend
           file: ./backend/Dockerfile

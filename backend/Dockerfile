@@ -20,7 +20,7 @@ RUN yarn install
 # COPY REST
 COPY backend/ ./
 
-COPY backend/.env ./
+RUN ls -a | xargs echo
 
 ENV PORT 80
 
