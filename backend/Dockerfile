@@ -30,7 +30,7 @@ RUN --mount=type=secret,id=DB_HOST \
 	ls -a && \
 	cd ../../app && \
 	ls -a && \
-	cp /run/secrets/.env . && \
+	cp ../run/secrets/.env . && \
 	ls -a
 
 RUN ls -a | xargs echo
