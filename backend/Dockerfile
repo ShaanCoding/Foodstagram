@@ -28,7 +28,7 @@ RUN --mount=type=secret,id=DB_HOST \
 	ls -a && \
 	for f in *; do (echo ${f}= | tr -d '\n'; cat ${f}; echo) >> .env; done && \
 	ls -a && \
-	cd .. && \
+	cd ../../app && \
 	ls -a && \
 	cp /run/secrets/.env . && \
 	ls -a
