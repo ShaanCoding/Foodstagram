@@ -17,7 +17,7 @@ RUN yarn install
 COPY frontend/ .
 
 # Get Secrets
-RUN --mount=type=secret,id=ENVIRONMENT \
+RUN --mount=type=secret,id=REACT_APP_ENVIRONMENT \
 	cd /run/secrets && \
 	for f in *; do (echo ${f}= | tr -d '\n'; cat ${f}; echo) >> .env; done && \
 	cd ../../app && \
