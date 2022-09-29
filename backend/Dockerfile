@@ -1,5 +1,7 @@
 FROM node:16.10.0 as backend
 
+ENV NODE_ENV production
+
 # CREATE an app directory
 RUN mkdir -p /app
 
@@ -15,6 +17,8 @@ RUN yarn install
 
 # COPY REST
 COPY backend/ ./
+
+COPY backend/.env ./
 
 ENV PORT 80
 
