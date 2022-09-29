@@ -1,7 +1,16 @@
 FROM node:16.10.0 as backend
 
 ENV NODE_ENV production
-ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
+
+RUN --mount=type=secret,id=DB_HOST \
+	--mount=type=secret,id=DB_PASSWORD \
+	--mount=type=secret,id=DB_NAME \
+	--mount=type=secret,id=DB_USERNAME \
+	export DB_HOST=$(cat /run/secrets/DB_HOST) && \
+	export DB_PASSWORD=$(cat /run/secrets/DB_PASSWORD) && \
+	export DB_NAME=$(cat /run/secrets/DB_NAME) && \
+	export DB_USERNAME=$(cat /run/secrets/DB_USERNAME)
+
 RUN ls -a | xargs echo
 
 # CREATE an app directory
