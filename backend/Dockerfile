@@ -1,7 +1,7 @@
 FROM node:16.10.0 as backend
 
 ENV NODE_ENV production
-
+ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN ls -a | xargs echo
 
 # CREATE an app directory

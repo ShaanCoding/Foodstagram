@@ -61,10 +61,10 @@ jobs:
       - name: Copy over environment variables
         run: |
           cd backend
-          echo "DB_HOST='${{ secrets.DB_HOST }}'" > .envExample
-          echo "DB_PASSWORD='${{ secrets.DB_PASSWORD }}'" >> .envExample
-          echo "DB_NAME='${{ secrets.DB_NAME }}'" >> .envExample
-          echo "DB_USERNAME='${{ secrets.DB_USERNAME }}'" >> .envExample
+          echo "DB_HOST='${{ secrets.DB_HOST }}'" > .env
+          echo "DB_PASSWORD='${{ secrets.DB_PASSWORD }}'" >> .env
+          echo "DB_NAME='${{ secrets.DB_NAME }}'" >> .env
+          echo "DB_USERNAME='${{ secrets.DB_USERNAME }}'" >> .env
           ls -a
           echo "test" > jack.test
           cd ..
