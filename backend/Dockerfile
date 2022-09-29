@@ -2,15 +2,6 @@ FROM node:16.10.0 as backend
 
 ENV NODE_ENV production
 
-RUN --mount=type=secret,id=DB_HOST \
-	--mount=type=secret,id=DB_PASSWORD \
-	--mount=type=secret,id=DB_NAME \
-	--mount=type=secret,id=DB_USERNAME \
-	export DB_HOST=$(cat /run/secrets/DB_HOST) && \
-	export DB_PASSWORD=$(cat /run/secrets/DB_PASSWORD) && \
-	export DB_NAME=$(cat /run/secrets/DB_NAME) && \
-	export DB_USERNAME=$(cat /run/secrets/DB_USERNAME)
-
 RUN ls -a | xargs echo
 
 # CREATE an app directory
@@ -29,6 +20,15 @@ RUN yarn install
 # COPY REST
 COPY backend/ ./
 
+RUN --mount=type=secret,id=DB_HOST \
+	--mount=type=secret,id=DB_PASSWORD \
+	--mount=type=secret,id=DB_NAME \
+	--mount=type=secret,id=DB_USERNAME \
+	cd /run/secrets && \
+	for f in *; do (echo ${f}= | tr -d '\n'; cat ${f}; echo) >> .env; done && \
+	cd ../../ && \
+	cp /run/secrets/.env .
+
 RUN ls -a | xargs echo
 
 ENV PORT 80
@@ -36,3 +36,10 @@ ENV PORT 80
 EXPOSE 80
 
 CMD ["yarn", "start"]
+
+
+#export DB_HOST=$(cat /run/secrets/DB_HOST) && \
+#export DB_PASSWORD=$(cat /run/secrets/DB_PASSWORD) && \
+#export DB_NAME=$(cat /run/secrets/DB_NAME) && \
+#export DB_USERNAME=$(cat /run/secrets/DB_USERNAME) && \
+#yarn start
