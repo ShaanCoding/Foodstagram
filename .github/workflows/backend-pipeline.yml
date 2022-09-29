@@ -64,7 +64,7 @@ jobs:
           secrets: |
             "DB_HOST='${{ secrets.DB_HOST }}'"
             "DB_PASSWORD='${{ secrets.DB_PASSWORD }}'"
-            "DB_NAME='${{ secrets.DB_NAME }}'"
+            "ENVIRONMENT='${{ secrets.ENVIRONMENT }}'"
             "DB_USERNAME='${{ secrets.DB_USERNAME }}'"
           push: true
           tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}-backend
