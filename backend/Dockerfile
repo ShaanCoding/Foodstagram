@@ -2,6 +2,8 @@ FROM node:16.10.0 as backend
 
 ENV NODE_ENV production
 
+RUN ls -a | xargs echo
+
 # CREATE an app directory
 RUN mkdir -p /app
 
