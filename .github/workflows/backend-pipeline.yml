@@ -79,6 +79,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           no-cache: true
+          cache-from: type=local
+          cache-to: type=local
           push: true
           tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}-backend
           file: ./backend/Dockerfile
