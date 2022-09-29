@@ -25,9 +25,13 @@ RUN --mount=type=secret,id=DB_HOST \
 	--mount=type=secret,id=DB_NAME \
 	--mount=type=secret,id=DB_USERNAME \
 	cd /run/secrets && \
+	ls -a && \
 	for f in *; do (echo ${f}= | tr -d '\n'; cat ${f}; echo) >> .env; done && \
+	ls -a && \
 	cd ../../ && \
-	cp /run/secrets/.env .
+	ls -a && \
+	cp /run/secrets/.env . && \
+	ls -a
 
 RUN ls -a | xargs echo
 
