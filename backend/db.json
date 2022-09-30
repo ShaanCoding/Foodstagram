@@ -7,29 +7,50 @@
       "location_lat": 33.8568,
       "location_long": 151.2153,
       "caption": "Take a look at this wonderful new dessert I ordered last night!",
-      "post_images": [
-        "https://picsum.photos/id/250/500/1",
-        "https://picsum.photos/id/250/500/2",
-        "https://picsum.photos/id/250/500/3",
-        "https://picsum.photos/id/250/500/4"
-      ],
+      "post_image": "https://picsum.photos/id/250/500/1",
       "upload_date": "2012-04-23T18:25:43.511Z",
       "edit_date": "",
       "likes": 1,
-      "comment_amount": 2
+      "comment_amount": 1
     },
     {
-      "id": 1,
+      "id": 2,
       "account_id": 2,
       "location_name": "Harbour Bridge, Sydney",
       "location_lat": 39.8568,
       "location_long": 150.2153,
       "caption": "Eating food on top of the bridge. #lifegoals",
-      "post_images": ["https://picsum.photos/id/250/500/5"],
+      "post_image": "https://picsum.photos/id/250/500/5",
       "upload_date": "2021-04-23T18:25:43.511Z",
       "edit_date": "2022-04-23T18:25:43.511Z",
       "likes": 86,
-      "comment_amount": 1
+      "comment_amount": 3
+    },
+    {
+      "id": 3,
+      "account_id": 2,
+      "location_name": "Guylian Belgian Chocolate Café",
+      "location_lat": 39.8568,
+      "location_long": 150.2153,
+      "caption": "Eating food on top of the bridge. #lifegoals",
+      "post_image": "https://picsum.photos/id/250/500/5",
+      "upload_date": "2021-04-23T18:25:43.511Z",
+      "edit_date": "2022-04-23T18:25:43.511Z",
+      "likes": 3,
+      "comment_amount": 0
+    },
+    {
+      "id": 4,
+      "account_id": 4,
+      "location_name": "",
+      "location_lat": null,
+      "location_long": null,
+      "caption": "Making strawberry and vodka jam 🍓",
+      "post_image": "https://puu.sh/JntWa/79426a7dc2.jpg",
+      "upload_date": "2021-07-21T12:22:03.011Z",
+      "edit_date": "2022-07-21T12:22:03.011Z",
+      "likes": 108,
+      "comment_amount": 0
     }
   ],
   "comments": [
@@ -60,10 +81,10 @@
       "id": 1,
       "name": "Shaan",
       "biography": "I love long walks on the beach and staring into the sunset.",
-      "username": "Hea^y",
+      "username": "shaaaaan",
       "email": "shaanyboi@gmail.com",
       "password_hash": "5f4dcc3b5aa765d61d8327deb882cf99",
-      "profile_picture": "https://picsum.photos/id/500/500/100",
+      "profile_picture": "https://puu.sh/JnsWB/322cad4d8e.png",
       "is_verified": true
     },
     {
@@ -73,7 +94,7 @@
       "username": "codyblack01",
       "email": "fighter_cody@hotmail.com",
       "password_hash": "5f4fio54aa765d61d8327deb882cf99",
-      "profile_picture": "https://picsum.photos/id/500/500/101",
+      "profile_picture": "https://puu.sh/JnsWh/9613d8373f.jpg",
       "is_verified": true
     },
     {
@@ -85,6 +106,26 @@
       "password_hash": "5f44344aa765d61d8327deb882cf99",
       "profile_picture": "https://picsum.photos/id/500/500/102",
       "is_verified": false
+    },
+    {
+      "id": 4,
+      "name": "Skye McAlpine",
+      "biography": "Cook & author. Living la dolce vita in London & Venice",
+      "username": "skyemcalpine",
+      "email": "skyeeats@gmail.com",
+      "password_hash": "5f44344aa765d61d8327deb882cf99",
+      "profile_picture": "https://puu.sh/JnsUt/2e6202d877.jpg",
+      "is_verified": true
+    },
+    {
+      "id": 5,
+      "name": "Dwayne Johnson",
+      "biography": "Cook & author. Living la dolce vita in London & Venice",
+      "username": "therock",
+      "email": "the.rock66@gmail.com",
+      "password_hash": "5f44344aa765d61d8327deb882cf99",
+      "profile_picture": "https://puu.sh/JnsVX/9c4b80225f.jpg",
+      "is_verified": true
     }
   ]
 }
