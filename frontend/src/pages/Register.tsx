@@ -2,8 +2,15 @@ import styles from '../styles/Register.module.css'
 import Foostaram from '../images/Foostaram.svg'
 import InputField from '../components/form/InputField'
 import SubmitButton from '../components/form/SubmitButton'
+import UseRegisterMutation from '../api/UseRegisterMutation'
+import Form from '../components/form/Form'
+import { AxiosError } from 'axios'
 
 const Register = () => {
+	const registerMutation = UseRegisterMutation()
+	if (registerMutation.isError) {
+		console.log(registerMutation.error)
+	}
 	return (
 		<div className="m-12 w-4/5 h-full ml-auto mr-auto flex max-w-[750px]">
 			<div className="hidden md:block flex-auto w-32 mr-8 mt-6">
@@ -24,40 +31,57 @@ const Register = () => {
 					<p className="font-medium text-lg text-gray-500 text-center mt-4 mb-8">
 						Sign up to see food photos from your friends.
 					</p>
-					<form>
-						<InputField placeholder="Email address" type="email" />
-						<InputField placeholder="Full Name" />
-						<InputField placeholder="Username" />
-						<InputField placeholder="Password" type="password" />
+					{registerMutation.isError && (
+						<div className="my-8 bg-red-300 rounded-lg p-4 text-center">
+							{`Failed to create account. ${
+								registerMutation.error instanceof AxiosError &&
+								registerMutation.error?.response?.status === 400
+									? registerMutation.error.response.data.message
+									: ''
+							}`}
+						</div>
+					)}
+
+					{registerMutation.isSuccess && (
+						<div className="my-8 bg-green-300 rounded-lg p-4 text-center">
+							{`Welcome, you've succesfully created an account!`}
+						</div>
+					)}
+					<Form
+						onSubmit={(data) => {
+							registerMutation.mutate({
+								fullName: data['fullName'],
+								username: data['username'],
+								email: data['email'],
+								password: data['password'],
+							})
+						}}
+					>
+						<InputField placeholder="Email address" type="email" name="email" />
+						<InputField placeholder="Full Name" name="fullName" />
+						<InputField placeholder="Username" name="username" />
+						<InputField
+							placeholder="Password"
+							type="password"
+							name="password"
+						/>
 						<p className="text-xs text-center text-gray-400 mt-2 mb-6">
-							People who use our service may have uploaded your contact
-							information to Instagram.
-							{' '}
-							<a className="font-medium text-gray-500" href="/">
-								Learn more
-							</a>
-							<br />
-							<br />
-							By signing up, you agree to our
-							{' '}
+							By signing up, you agree to our{' '}
 							<a className="font-medium text-gray-500" href="/">
 								Terms
 							</a>
-							,
-							{' '}
+							,{' '}
 							<a className="font-medium text-gray-500" href="/">
 								Privacy Policy
-							</a>
-							{' '}
-							and
-							{' '}
+							</a>{' '}
+							and{' '}
 							<a className="font-medium text-gray-500" href="/">
 								Cookies Policy
 							</a>
 							.
 						</p>
 						<SubmitButton text="Sign Up" />
-					</form>
+					</Form>
 				</div>
 				<div className={`mt-2 py-4 px-8 bg-white border ${styles.greyBorder}`}>
 					<p className="text-sm text-center">

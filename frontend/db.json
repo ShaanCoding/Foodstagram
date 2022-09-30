@@ -1,0 +1,90 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "account_id": 1,
+      "location_name": "13 Smith Street, North Sydney",
+      "location_lat": 33.8568,
+      "location_long": 151.2153,
+      "caption": "Take a look at this wonderful new dessert I ordered last night!",
+      "post_images": [
+        "https://picsum.photos/id/250/500/1",
+        "https://picsum.photos/id/250/500/2",
+        "https://picsum.photos/id/250/500/3",
+        "https://picsum.photos/id/250/500/4"
+      ],
+      "upload_date": "2012-04-23T18:25:43.511Z",
+      "edit_date": "",
+      "likes": 1,
+      "comment_amount": 2
+    },
+    {
+      "id": 1,
+      "account_id": 2,
+      "location_name": "Harbour Bridge, Sydney",
+      "location_lat": 39.8568,
+      "location_long": 150.2153,
+      "caption": "Eating food on top of the bridge. #lifegoals",
+      "post_images": ["https://picsum.photos/id/250/500/5"],
+      "upload_date": "2021-04-23T18:25:43.511Z",
+      "edit_date": "2022-04-23T18:25:43.511Z",
+      "likes": 86,
+      "comment_amount": 1
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "post_id": 1,
+      "account_id": 1,
+      "comment": "This is absolute trash, what are you doing on here?",
+      "likes": 32
+    },
+    {
+      "id": 1,
+      "post_id": 1,
+      "account_id": 2,
+      "comment": "Who even eats dessert nowadays?!?!",
+      "likes": 32
+    },
+    {
+      "id": 1,
+      "post_id": 2,
+      "account_id": 3,
+      "comment": "Imagine how many calories are in that!",
+      "likes": 32
+    }
+  ],
+  "accounts": [
+    {
+      "id": 1,
+      "name": "Shaan",
+      "biography": "I love long walks on the beach and staring into the sunset.",
+      "username": "Hea^y",
+      "email": "shaanyboi@gmail.com",
+      "password_hash": "5f4dcc3b5aa765d61d8327deb882cf99",
+      "profile_picture": "https://picsum.photos/id/500/500/100",
+      "is_verified": true
+    },
+    {
+      "id": 2,
+      "name": "Cody Simpson",
+      "biography": "Fight me. Come on. I bet you won't!",
+      "username": "codyblack01",
+      "email": "fighter_cody@hotmail.com",
+      "password_hash": "5f4fio54aa765d61d8327deb882cf99",
+      "profile_picture": "https://picsum.photos/id/500/500/101",
+      "is_verified": true
+    },
+    {
+      "id": 3,
+      "name": "Spam Account",
+      "biography": "I'm not even verified, are you sure I should be visible here?",
+      "username": "lilsp4mmy",
+      "email": "invalidEmail@optusnet.com.au",
+      "password_hash": "5f44344aa765d61d8327deb882cf99",
+      "profile_picture": "https://picsum.photos/id/500/500/102",
+      "is_verified": false
+    }
+  ]
+}
