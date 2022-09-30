@@ -5,12 +5,13 @@ interface Props {
 	name: string
 	placeholder: string
 	type?: string
+	initialValue?: string
 }
 
 const InputField = (props: Props) => {
-	const { placeholder, type, name } = props
+	const { placeholder, type, name, initialValue } = props
 
-	const [value, setValue] = useState('')
+	const [value, setValue] = useState(initialValue)
 
 	return (
 		<input
@@ -28,6 +29,7 @@ const InputField = (props: Props) => {
 
 InputField.defaultProps = {
 	type: 'text',
+	initialValue: '',
 }
 
 export default InputField
