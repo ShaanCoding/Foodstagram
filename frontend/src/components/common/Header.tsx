@@ -56,6 +56,20 @@ const Header = ({ headerFocused = 'None' }: iHeaderState) => {
 					</Link>
 				</div>
 
+				{/* Explore */}
+				<div className="px-4">
+					<Link to="/explore">
+						<FontAwesomeIcon
+							className="w-6 h-6"
+							icon={
+								headerFocused == 'Explore'
+									? solid('compass')
+									: regular('compass')
+							}
+						/>
+					</Link>
+				</div>
+
 				{/* Heart modal */}
 				<div className="px-4">
 					<Link to="/favorite">
@@ -70,13 +84,12 @@ const Header = ({ headerFocused = 'None' }: iHeaderState) => {
 				<CreatePostModal openButton={newPostButtonRef} />
 				{/* Profile icon */}
 				<div className="px-4">
-					<Link to="/profile">
-						<img
-							alt="avatar"
-							className="w-8 h-8 rounded-full border-2 border-gray-700"
-							src="https://source.unsplash.com/8hI_OW99d28"
-						/>
-					</Link>
+					{/* Load up avatar */}
+					<img
+						alt="avatar"
+						className="w-8 h-8 rounded-full border-2 border-gray-700"
+						src={userAvatar}
+					/>
 				</div>
 			</div>
 		</div>
