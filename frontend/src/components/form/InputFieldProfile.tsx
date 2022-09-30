@@ -8,14 +8,14 @@ interface Props {
 	initialValue?: string
 }
 
-const InputField = (props: Props) => {
+const InputFieldProfile = (props: Props) => {
 	const { placeholder, type, name, initialValue } = props
 
 	const [value, setValue] = useState(initialValue)
 
 	return (
 		<input
-			className={`p-2 w-full rounded-sm mb-2 border hover:border-gray-500 focus-visible:border text-xs bg-white ${styles.greyBackground}`}
+			className={`w-full bg-transparent p-0 text-sm  text-gray-500 focus:outline-none`}
 			placeholder={placeholder}
 			value={value}
 			type={type}
@@ -27,9 +27,9 @@ const InputField = (props: Props) => {
 	)
 }
 
-InputField.defaultProps = {
+InputFieldProfile.defaultProps = {
 	type: 'text',
 	initialValue: '',
 }
 
-export default InputField
+export default InputFieldProfile
