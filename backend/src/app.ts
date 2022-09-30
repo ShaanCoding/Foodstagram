@@ -4,11 +4,13 @@ import router from './routes/main'
 import RunMigrations from './migrate'
 import chalk from 'chalk'
 import cors from 'cors'
+import { CreateEnvironmentContainers } from './storage'
 
 require('dotenv').config()
 
 const Run = async () => {
 	await RunMigrations()
+	await CreateEnvironmentContainers()
 
 	const app = express()
 
