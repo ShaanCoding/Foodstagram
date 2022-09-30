@@ -69,7 +69,7 @@ const ManagePosts = () => {
               />
             </div>
             <div className="flex items-center justify-end relative">
-              <button className="pl-10 pr-2 bg-insta-dark-blue rounded-[5px] text-white p-2 opacity-90 hover:opacity-100">
+              <button className="pl-10 pr-2 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100">
                 Create Post
               </button>
               <FontAwesomeIcon
