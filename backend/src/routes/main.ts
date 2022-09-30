@@ -28,6 +28,10 @@ router.get(
 	Post
 )
 
+router.get(
+	'./feed'
+)
+
 router.post('/login', body('email').isEmail(), body('password'), Login)
 
 export default router

@@ -21,9 +21,9 @@ const Home = () => {
             className="w-8 h-8 rounded-full border-2 border-gray-700 inline-block align-middle mb-4"
             src={avatar1}
           />
-          <p className="font-medium text-md text-black-500 text-left inline-block ml-4 align-middle mb-4">
+          <a href="/user/skyemcalpine" className="font-medium text-md text-black-500 text-left inline-block ml-4 align-middle mb-4">
           skyemcalpine
-					</p>
+					</a>
 					<img
 						alt="Post 1"
             className="mb-4"
@@ -92,9 +92,9 @@ const Home = () => {
       className="w-8 h-8 rounded-full border-2 border-gray-700 inline-block align-middle mb-4"
       src={avatar2}
     />
-    <p className="font-medium text-md text-black-500 text-left inline-block ml-4 align-middle mb-4">
-    therock
-    </p>
+    <a href="/user/therock" className="font-medium text-md text-black-500 text-left inline-block ml-4 align-middle mb-4">
+          therock
+		</a>
     <img
       alt="Post 2"
       className="mb-4"
