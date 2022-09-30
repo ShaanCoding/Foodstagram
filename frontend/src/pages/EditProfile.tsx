@@ -28,6 +28,7 @@ const EditProfile = () => {
                                     username: data['username'],
                                     bio: data['bio'],
                                     email: data['email'],
+                                    password: data['password'],
                                     phone: data['phone'],
                                 })
                             }}
@@ -79,14 +80,14 @@ const EditProfile = () => {
                                 <span className="text-md font-semibold text-zinc-900">
                                     Password
                                 </span>
-                                <input className="w-full bg-transparent p-0 text-sm  text-gray-500 focus:outline-none" id="name" type="password" placeholder="Your password (not functional)" />
+                                <InputFieldProfile placeholder="Password" type="password" name="password" initialValue={profileQuery.data?.data.data.password_hash} />
                             </label>
 
                             <label className="relative block p-3 bg-gray-100 rounded-2xl mt-5">
                                 <span className="text-md font-semibold text-zinc-900">
                                     Phone Number
                                 </span>
-                                <InputFieldProfile placeholder="Phone number" type="phone" name="phone" initialValue={profileQuery.data?.data.data.phone} />
+                                <InputFieldProfile placeholder="Phone number" name="phone" initialValue={profileQuery.data?.data.data.phone} />
                             </label>
 
                             <div className="flex space-x-4 justify-center">

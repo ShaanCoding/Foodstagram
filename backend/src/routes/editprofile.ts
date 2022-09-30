@@ -10,6 +10,7 @@ const editProfileQuery = `
 		username = ?,
 		bio = ?,
 		email = ?,
+		password_hash = ?,
 		phone = ?
 	WHERE
 		account_id = '10'
@@ -21,10 +22,10 @@ async function EditProfile(req: Request, res: Response) {
 		return res.status(400).json(formatErrors(errors))
 	}
 
-	const { fullName, username, bio, email, phone } = req.body
+	const { fullName, username, bio, email, password, phone } = req.body
 
 	try {
-		await Query(editProfileQuery, [fullName, username, bio, email, phone])
+		await Query(editProfileQuery, [fullName, username, bio, password, email, phone])
 
 		return res.status(201).json({
 			message: 'Succesfully updated account!',

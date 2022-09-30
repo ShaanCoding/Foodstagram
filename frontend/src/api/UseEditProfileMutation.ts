@@ -7,6 +7,7 @@ interface MutationVariables {
 	username: string
 	bio: string
 	email: string
+	password: string
 	phone: string
 }
 
@@ -18,6 +19,7 @@ export default function UseEditProfileMutation() {
 				username: variables.username,
 				bio: variables.bio,
 				email: variables.email,
+				password: variables.password,
 				phone: variables.phone,
 			})
 			.then((res) => res)
