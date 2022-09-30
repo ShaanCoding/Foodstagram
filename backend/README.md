@@ -1,6 +1,6 @@
 # Setup Instructions
 
-- Create a file called `.env` with the information given in `.envExample`
+- Create a file called `.env` with the information given in `.env.example`
 
 - To start
 
