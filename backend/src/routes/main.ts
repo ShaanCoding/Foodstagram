@@ -5,6 +5,7 @@ import { Index } from './index'
 import { Login } from './login'
 import { Post } from './post'
 import { Register } from './register'
+import { Profile } from './profile'
 
 const router = Router()
 
@@ -29,5 +30,7 @@ router.get(
 )
 
 router.post('/login', body('email').isEmail(), body('password'), Login)
+
+router.get('/profile', Profile)
 
 export default router
