@@ -6,10 +6,10 @@ import formatErrors from '../util/formatErrors'
 const editProfileQuery = `
 	UPDATE accounts
 	SET
-		name = ?
-		username = ?
-		bio = ?
-		email = ?
+		name = ?,
+		username = ?,
+		bio = ?,
+		email = ?,
 		phone = ?
 	WHERE
 		account_id = '10'

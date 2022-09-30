@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import Form from '../components/form/Form'
 import UseProfileQuery from "../api/UseProfileQuery";
 import UseEditProfileMutation from "../api/UseEditProfileMutation";
+import InputFieldProfile from "../components/form/InputFieldProfile";
+import SubmitButtonProfile from "../components/form/SubmitButtonProfile";
 
 const EditProfile = () => {
 
@@ -21,29 +23,17 @@ const EditProfile = () => {
 
                         <h1 className="text-3xl font-semibold py-3">Edit your profile</h1>
 
-                        <form className="mx-5 my-5">
-
-                            <Form
-                                onSubmit={(data) => {
-                                    editProfileMutation.mutate({
-                                        fullName: data['fullName'],
-                                        username: data['username'],
-                                        bio: data['bio'],
-                                        email: data['email'],
-                                        phone: data['phone'],
-                                    })
-                                }}
-                            >
-
-                                <InputField placeholder="Full Name" name="fullName" initialValue={profileQuery.data?.data.data.name} />
-                                <InputField placeholder="Username" name="username" initialValue={profileQuery.data?.data.data.username} />
-                                <InputField placeholder="Bio" name="bio" initialValue={profileQuery.data?.data.data.bio} />
-                                <InputField placeholder="Email address" type="email" name="email" initialValue={profileQuery.data?.data.data.email} />
-                                <InputField placeholder="Phone Number" type="phone" name="phone" initialValue={profileQuery.data?.data.data.phone} />
-
-                                <SubmitButton text="Save" />
-
-                            </Form>
+                        <Form
+                            onSubmit={(data) => {
+                                editProfileMutation.mutate({
+                                    fullName: data['fullName'],
+                                    username: data['username'],
+                                    bio: data['bio'],
+                                    email: data['email'],
+                                    phone: data['phone'],
+                                })
+                            }}
+                        >
 
                             <div className="grid grid-cols-5 py-3 mb-5">
                                 <div></div>
@@ -63,54 +53,52 @@ const EditProfile = () => {
                                 <span className="text-md font-semibold text-zinc-900">
                                     Username
                                 </span>
-                                <input className="w-full bg-transparent p-0 text-sm  text-gray-500 focus:outline-none" id="name" type="text" placeholder="Your username" value={profileQuery.data?.data.data.username} />
+                                <InputFieldProfile placeholder="Username" name="username" initialValue={profileQuery.data?.data.data.username} />
                             </label>
 
                             <label className="relative block p-3 bg-gray-100 rounded-2xl mt-5">
                                 <span className="text-md font-semibold text-zinc-900">
                                     Name
                                 </span>
-                                <input className="w-full bg-transparent p-0 text-sm  text-gray-500 focus:outline-none" id="name" type="text" placeholder="Your name" value={profileQuery.data?.data.data.name} />
+                                <InputFieldProfile placeholder="Full Name" name="fullName" initialValue={profileQuery.data?.data.data.name} />
                             </label>
 
                             <label className="relative block p-3 bg-gray-100 rounded-2xl mt-5">
                                 <span className="text-md font-semibold text-zinc-900">
                                     Profile description
                                 </span>
-                                <textarea id="profileDescription" rows={5} className="w-full bg-transparent p-0 text-sm  text-gray-500 focus:outline-none" placeholder="Profile description">{profileQuery.data?.data.data.bio}</textarea>
+                                <InputFieldProfile placeholder="Bio" name="bio" initialValue={profileQuery.data?.data.data.bio} />
                             </label>
 
                             <label className="relative block p-3 bg-gray-100 rounded-2xl mt-5">
                                 <span className="text-md font-semibold text-zinc-900">
                                     Email
                                 </span>
-                                <input className="w-full bg-transparent p-0 text-sm  text-gray-500 focus:outline-none" id="name" type="text" placeholder="Your email address" value={profileQuery.data?.data.data.email} />
+                                <InputFieldProfile placeholder="Email address" type="email" name="email" initialValue={profileQuery.data?.data.data.email} />
                             </label>
 
                             <label className="relative block p-3 bg-gray-100 rounded-2xl mt-5">
                                 <span className="text-md font-semibold text-zinc-900">
                                     Password
                                 </span>
-                                <input className="w-full bg-transparent p-0 text-sm  text-gray-500 focus:outline-none" id="name" type="password" placeholder="Your password" />
+                                <input className="w-full bg-transparent p-0 text-sm  text-gray-500 focus:outline-none" id="name" type="password" placeholder="Your password (not functional)" />
                             </label>
 
                             <label className="relative block p-3 bg-gray-100 rounded-2xl mt-5">
                                 <span className="text-md font-semibold text-zinc-900">
                                     Phone Number
                                 </span>
-                                <input className="w-full bg-transparent p-0 text-sm  text-gray-500 focus:outline-none" id="name" type="text" placeholder="Your phone number" value="+61 423 456 789" />
+                                <InputFieldProfile placeholder="Phone number" type="phone" name="phone" initialValue={profileQuery.data?.data.data.phone} />
                             </label>
 
-                        </form>
+                            <div className="flex space-x-4 justify-center">
+                                <SubmitButtonProfile text="Save" />
+                                <Link to="/profile">
+                                    <button className="my-5 px-5 py-2 font-semibold text-sm border border-gray-400 rounded">Back to profile</button>
+                                </Link>
+                            </div>
 
-                        <div className="flex space-x-4">
-                            <Link to="/profile">
-                                <button className="my-5 px-5 py-2 font-semibold text-sm border rounded bg-insta-green hover:bg-green-500 text-white">Save</button>
-                            </Link>
-                            <Link to="/profile">
-                                <button className="my-5 px-5 py-2 font-semibold text-sm border border-gray-400 rounded">Back to profile</button>
-                            </Link>
-                        </div>
+                        </Form>
 
                     </div>
                 </>
