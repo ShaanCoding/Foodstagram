@@ -1,7 +1,5 @@
 import React from "react";
 import styles from "../styles/Profile.module.css";
-import InputField from '../components/form/InputField'
-import SubmitButton from '../components/form/SubmitButton'
 import { Link } from "react-router-dom";
 import Form from '../components/form/Form'
 import UseProfileQuery from "../api/UseProfileQuery";
