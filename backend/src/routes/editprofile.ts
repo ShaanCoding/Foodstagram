@@ -25,7 +25,7 @@ async function EditProfile(req: Request, res: Response) {
 	const { fullName, username, bio, email, password, phone } = req.body
 
 	try {
-		await Query(editProfileQuery, [fullName, username, bio, password, email, phone])
+		await Query(editProfileQuery, [fullName, username, bio, email, password, phone])
 
 		return res.status(201).json({
 			message: 'Succesfully updated account!',
