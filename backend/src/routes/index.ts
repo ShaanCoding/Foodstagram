@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 
-function index(req: Request, res: Response) {
+function Index(req: Request, res: Response) {
 	res.send('hello world!')
 }
 
-export { index }
+export { Index }
