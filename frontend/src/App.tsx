@@ -11,10 +11,17 @@ import Search from './pages/Search'
 import Feed from './pages/Feed'
 import Profile from './pages/Profile'
 import EditProfile from './pages/EditProfile'
+import ManagePosts from './pages/Business/ManagePosts'
+import SchedulePosts from './pages/Business/SchedulePosts'
+import Links from './pages/Links'
+import { QueryClient, QueryClientProvider } from 'react-query'
+
+const queryClient = new QueryClient()
 
 function App() {
 	return (
 		<>
+		<QueryClientProvider client={queryClient}>
 			<Router>
 				<HeaderLayout>
 					<Header headerFocused="CreatePost" />
@@ -24,15 +31,19 @@ function App() {
 					<Route path="/register" element={<Register />} />
 					<Route path="/test" element={<Test />} />
 					<Route path="/home" element={<Home />} />
-					<Route path='/search' element={<Search />} />
-					<Route path='/feed' element={<Feed />} />
+					<Route path="/search" element={<Search />} />
+					<Route path="/feed" element={<Feed />} />
 					<Route path="/profile" element={<Profile />} />
-					<Route path="/editprofile" element={<EditProfile />} />v
+					<Route path="/editprofile" element={<EditProfile />} />
+					<Route path="/manageposts" element={<ManagePosts />} />
+					<Route path="/links" element={<Links />} />
+					<Route path="/scheduleposts" element={<SchedulePosts />} />
 					<Route index element={<Register />} />
 				</Routes>
 
 				<Footer />
 			</Router>
+			</QueryClientProvider>
 		</>
 	)
 }
