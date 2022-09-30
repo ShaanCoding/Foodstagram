@@ -14,10 +14,14 @@ import EditProfile from './pages/EditProfile'
 import ManagePosts from './pages/Business/ManagePosts'
 import SchedulePosts from './pages/Business/SchedulePosts'
 import Links from './pages/Links'
+import { QueryClient, QueryClientProvider } from 'react-query'
+
+const queryClient = new QueryClient()
 
 function App() {
 	return (
 		<>
+		<QueryClientProvider client={queryClient}>
 			<Router>
 				<HeaderLayout>
 					<Header headerFocused="CreatePost" />
@@ -39,6 +43,7 @@ function App() {
 
 				<Footer />
 			</Router>
+			</QueryClientProvider>
 		</>
 	)
 }

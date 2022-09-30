@@ -1,1 +1,4 @@
-PORT = 3001
+ENVIRONMENT='local'
+DB_USERNAME='asddbuser@asd-backend'
+DB_PASSWORD=''
+DB_HOST='asd-backend.mysql.database.azure.com'

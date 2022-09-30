@@ -16,6 +16,13 @@ RUN yarn install
 # COPY REST
 COPY frontend/ .
 
+# Get Secrets
+RUN --mount=type=secret,id=REACT_APP_ENVIRONMENT \
+	cd /run/secrets && \
+	for f in *; do (echo ${f}= | tr -d '\n'; cat ${f}; echo) >> .env; done && \
+	cd ../../app && \
+	cp ../run/secrets/.env .
+
 # Build app
 RUN yarn run build
 
