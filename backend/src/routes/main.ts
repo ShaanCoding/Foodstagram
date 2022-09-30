@@ -4,6 +4,7 @@ import { Hello } from './hello'
 import { Index } from './index'
 import { Login } from './login'
 import { Register } from './register'
+import { Profile } from './profile'
 
 const router = Router()
 
@@ -20,5 +21,7 @@ router.post(
 )
 
 router.post('/login', body('email').isEmail(), body('password'), Login)
+
+router.get('/profile', Profile)
 
 export default router
