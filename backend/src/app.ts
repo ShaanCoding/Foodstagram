@@ -1,12 +1,15 @@
-import express from 'express'
 import http from 'http'
-import router from './routes/main'
-import RunMigrations from './migrate'
+
 import chalk from 'chalk'
 import cors from 'cors'
-import { CreateEnvironmentContainers } from './storage'
+import * as dotenv from 'dotenv';
+import express from 'express'
 
-require('dotenv').config()
+dotenv.config();
+
+import RunMigrations from './migrate'
+import router from './routes/main'
+import { CreateEnvironmentContainers } from './storage'
 
 const Run = async () => {
 	await RunMigrations()
