@@ -1,5 +1,5 @@
 import { json, Request, Response } from 'express'
-import { Query } from '../db'
+import { Query } from '../util/db'
 import { validationResult } from 'express-validator'
 import formatErrors from '../util/formatErrors'
 
@@ -25,7 +25,14 @@ async function EditProfile(req: Request, res: Response) {
 	const { fullName, username, bio, email, password, phone } = req.body
 
 	try {
-		await Query(editProfileQuery, [fullName, username, bio, email, password, phone])
+		await Query(editProfileQuery, [
+			fullName,
+			username,
+			bio,
+			email,
+			password,
+			phone,
+		])
 
 		return res.status(201).json({
 			message: 'Succesfully updated account!',
