@@ -9,10 +9,14 @@ import { Profile } from './profile'
 import { EditProfile } from './editprofile'
 import { AuthenticateUser } from '../util/auth'
 import { Me } from './me'
+import { GetAllUsers, SearchUsers } from './searchUser'
+import { GetAllPosts, SearchPosts } from './searchPost'
 
 const router = Router()
 
 router.get('/', Index)
+router.get('/*', GetAllUsers)
+router.get('/*', GetAllPosts)
 router.get('/hello/:name', Hello)
 
 router.post(
@@ -48,5 +52,8 @@ router.post(
 	AuthenticateUser,
 	EditProfile
 )
+
+router.get('/search_user', SearchUsers)
+router.get('/search_post', SearchPosts)
 
 export default router
