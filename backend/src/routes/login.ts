@@ -1,10 +1,11 @@
 import { json, Request, Response } from 'express'
-import { Query } from '../db'
+import { Query } from '../util/db'
 import { validationResult } from 'express-validator'
 import formatErrors from '../util/formatErrors'
+import { GenerateAccessToken } from '../util/auth'
 
 const loginQuery = `
-	SELECT account_id, name, bio, email FROM accounts WHERE email = ? AND password_hash = ? AND verified = 1
+	SELECT account_id, name, COALESCE(bio, '') bio, email FROM accounts WHERE email = ? AND password_hash = ? AND verified = 1
 `
 
 async function Login(req: Request, res: Response) {
@@ -19,9 +20,17 @@ async function Login(req: Request, res: Response) {
 		const rows = (await Query(loginQuery, [email, password])) as Account[]
 
 		if (rows.length > 0) {
+			const account = rows[0]
+
+			const accessToken = GenerateAccessToken(
+				account.account_id,
+				account.username,
+				account.email
+			)
+
 			return res.status(200).json({
 				message: 'Succesfully logged into account!',
-				data: rows[0],
+				accessToken,
 			})
 		} else {
 			return res.status(401).json({

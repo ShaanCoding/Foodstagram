@@ -1,8 +1,8 @@
 import { json, Request, Response } from 'express'
-import { Query } from '../db'
+import { Query } from '../util/db'
 import { validationResult } from 'express-validator'
 import formatErrors from '../util/formatErrors'
-import { getBlobClient } from '../storage'
+import { getBlobClient } from '../util/storage'
 
 const postQuery =
 	'\
@@ -17,12 +17,10 @@ async function Post(req: Request, res: Response) {
 		.getBlockBlobClient('test.jpg')
 	const uploadResponse = await blobBlockClient.uploadFile('test.jpg')
 
-	res
-		.status(200)
-		.json({
-			url: `https://asdbackend.blob.core.windows.net/${ENVIRONMENT}/test.jpg`,
-			response: uploadResponse,
-		})
+	res.status(200).json({
+		url: `https://asdbackend.blob.core.windows.net/${ENVIRONMENT}/test.jpg`,
+		response: uploadResponse,
+	})
 	/*const errors = validationResult(req)
 	if (!errors.isEmpty()) {
 		return res.status(400).json(formatErrors(errors))
