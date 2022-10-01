@@ -9,6 +9,9 @@ import { Profile } from './profile'
 import { EditProfile } from './editprofile'
 import { AuthenticateUser } from '../util/auth'
 import { Me } from './me'
+import { PostCount } from './postCount'
+import { FollowerCount } from './followerCount'
+import { FollowingCount } from './followingCount'
 
 const router = Router()
 
@@ -37,6 +40,10 @@ router.get('/me', AuthenticateUser, Me)
 router.post('/login', body('email').isEmail(), body('password'), Login)
 
 router.get('/profile', Profile)
+
+router.get('/postCount', PostCount)
+router.get('/followerCount', FollowerCount)
+router.get('/followingCount', FollowingCount)
 
 router.post(
 	'/editprofile',
