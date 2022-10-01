@@ -13,12 +13,12 @@ async function GetAllPosts(req: Request, res: Response) {
 	}
 
 
-  const GetAllUsersQuery = `
+  const GetAllPostsQuery = `
     select * from post
   `
 
 	try {
-		const rows = (await Query(GetAllUsersQuery + req.body.searchStr, [])) as Account[]
+		const rows = (await Query(GetAllPostsQuery + req.body.searchStr, [])) as Post[]
 
 		if (rows.length > 0) {
 			return res.status(200).json({

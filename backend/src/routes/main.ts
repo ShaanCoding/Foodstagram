@@ -15,8 +15,9 @@ import { GetAllPosts, SearchPosts } from './searchPost'
 const router = Router()
 
 router.get('/', Index)
+//router.get('/*', GetAllPosts)
 router.get('/*', GetAllUsers)
-router.get('/*', GetAllPosts)
+
 router.get('/hello/:name', Hello)
 
 router.post(
@@ -53,7 +54,7 @@ router.post(
 	EditProfile
 )
 
-router.get('/search_user', SearchUsers)
+router.get('/api/search_user', SearchUsers)
 router.get('/search_post', SearchPosts)
 
 export default router

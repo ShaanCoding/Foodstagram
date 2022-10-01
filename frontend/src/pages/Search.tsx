@@ -106,7 +106,6 @@ const Search = () => {
           </div>
         </div>
       </section></>
-		</>
 	)
 }
 
