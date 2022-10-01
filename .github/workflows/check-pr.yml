@@ -47,6 +47,7 @@ jobs:
             "ENVIRONMENT='${{ secrets.ENVIRONMENT }}'"
             "DB_USERNAME='${{ secrets.DB_USERNAME }}'"
             "BLOB_CONNECTION_STRING='${{ secrets.BLOB_CONNECTION_STRING }}'"
+            "JWT_SECRET='${{ secrets.JWT_SECRET }}'"
           push: true
           tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}-backend-pr
           file: ./backend/Dockerfile

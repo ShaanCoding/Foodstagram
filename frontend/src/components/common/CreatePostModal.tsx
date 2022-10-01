@@ -1,9 +1,13 @@
-import 'react-responsive-modal/styles.css';
+import 'react-responsive-modal/styles.css'
 
-import { light, regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { MutableRefObject, useEffect, useState } from "react";
-import { Modal } from 'react-responsive-modal';
+import {
+	light,
+	regular,
+	solid,
+} from '@fortawesome/fontawesome-svg-core/import.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { MutableRefObject, useEffect, useState } from 'react'
+import { Modal } from 'react-responsive-modal'
 
 import Form from "../form/Form";
 

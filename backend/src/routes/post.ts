@@ -3,9 +3,9 @@ import { validationResult } from 'express-validator'
 import { OkPacket } from "mysql";
 import { v4 as uuidv4 } from "uuid";
 
-import { Query, pool } from '../db'
-import { getBlobClient } from '../storage'
+import { Query, pool } from '../util/db'
 import formatErrors from '../util/formatErrors'
+import { getBlobClient } from '../util/storage'
 
 const postQuery = 'INSERT INTO `posts` (`account_id`, `location_name`, `location_lat`, `location_long`, `caption`, `created_at`, `updated_at`) VALUES ( ?, ?, ?, ?, ?, NOW(), NOW() )';
 const potImagesQuery = 'INSERT INTO post_images ( post_id, image_url ) VALUES ( ?, ? )';
@@ -16,8 +16,6 @@ export async function Post(req: Request, res: Response) {
 	const { ENVIRONMENT } = process.env;
 	const { picture, caption, location } = req.body;
 	const pictureName = `${uuidv4()}`;
-
-	debugger;
 
 	Promise
 	.resolve()

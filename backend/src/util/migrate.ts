@@ -17,7 +17,7 @@ async function RunMigrations() {
 
 	let migrations = new CommandsRunner({
 		driver: new MysqlDriver(connection),
-		directoryWithScripts: path.join(__dirname, 'migrations'),
+		directoryWithScripts: path.join(__dirname, '../migrations'),
 	})
 
 	await migrations.run('init')
