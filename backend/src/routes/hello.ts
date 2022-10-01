@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { Query } from '../db'
+import { Query } from '../util/db'
 
 async function Hello(req: Request, res: Response) {
 	const name = req.params.name ?? 'world'

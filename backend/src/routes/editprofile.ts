@@ -3,32 +3,39 @@ import { Query } from '../util/db'
 import { validationResult } from 'express-validator'
 import formatErrors from '../util/formatErrors'
 
-const registerQuery = `
-	INSERT INTO
-		accounts (
-			name,
-			username,
-			password_hash,
-			email,
-			verified
-		)
-	VALUES
-		(?, ?, ?, ?, 1)
+const editProfileQuery = `
+	UPDATE accounts
+	SET
+		name = ?,
+		username = ?,
+		bio = ?,
+		email = ?,
+		password_hash = ?,
+		phone = ?
+	WHERE
+		account_id = '10'
 `
 
-async function Register(req: Request, res: Response) {
+async function EditProfile(req: Request, res: Response) {
 	const errors = validationResult(req)
 	if (!errors.isEmpty()) {
 		return res.status(400).json(formatErrors(errors))
 	}
 
-	const { fullName, username, email, password } = req.body
+	const { fullName, username, bio, email, password, phone } = req.body
 
 	try {
-		await Query(registerQuery, [fullName, username, password, email])
+		await Query(editProfileQuery, [
+			fullName,
+			username,
+			bio,
+			email,
+			password,
+			phone,
+		])
 
 		return res.status(201).json({
-			message: 'Succesfully created account!',
+			message: 'Succesfully updated account!',
 		})
 	} catch {
 		return res
@@ -37,4 +44,4 @@ async function Register(req: Request, res: Response) {
 	}
 }
 
-export { Register }
+export { EditProfile }

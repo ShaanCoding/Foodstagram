@@ -4,10 +4,19 @@ import InputField from '../components/form/InputField'
 import SubmitButton from '../components/form/SubmitButton'
 import Form from '../components/form/Form'
 import UseLoginMutation from '../api/UseLoginMutation'
+import Cookies from 'js-cookie'
+import { Navigate } from 'react-router-dom'
 
 const Login = () => {
 	const loginMutation = UseLoginMutation()
 
+	if (loginMutation.isSuccess) {
+		const token = loginMutation?.data?.data?.accessToken
+		if (token) {
+			Cookies.set('access_token', token)
+			return <Navigate replace to="/" />
+		}
+	}
 	return (
 		<div className="m-12 w-4/5 h-full ml-auto mr-auto flex max-w-[750px]">
 			<div className="hidden md:block flex-auto w-32 mr-8">
