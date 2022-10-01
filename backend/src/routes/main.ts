@@ -9,13 +9,15 @@ import { Profile } from './profile'
 import { EditProfile } from './editprofile'
 import { AuthenticateUser } from '../util/auth'
 import { Me } from './me'
-import { PostCount } from './postCount'
-import { FollowerCount } from './followerCount'
-import { FollowingCount } from './followingCount'
+import { GetAllUsers, SearchUsers } from './searchUser'
+import { GetAllPosts, SearchPosts } from './searchPost'
 
 const router = Router()
 
 router.get('/', Index)
+//router.get('/*', GetAllPosts)
+router.get('/*', GetAllUsers)
+
 router.get('/hello/:name', Hello)
 
 router.post(
@@ -41,10 +43,6 @@ router.post('/login', body('email').isEmail(), body('password'), Login)
 
 router.get('/profile', Profile)
 
-router.get('/postCount', PostCount)
-router.get('/followerCount', FollowerCount)
-router.get('/followingCount', FollowingCount)
-
 router.post(
 	'/editprofile',
 	body('email').isEmail(),
@@ -55,5 +53,8 @@ router.post(
 	AuthenticateUser,
 	EditProfile
 )
+
+router.get('/api/search_user', SearchUsers)
+router.get('/search_post', SearchPosts)
 
 export default router
