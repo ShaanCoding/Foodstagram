@@ -3,10 +3,16 @@ import styles from '../styles/Profile.module.css'
 import { Link } from 'react-router-dom'
 import UseProfileQuery from '../api/UseProfileQuery'
 import useAuth from '../api/util/useAuth'
+import UsePostCountQuery from '../api/UsePostCountQuery'
+import UseFollowerCountQuery from '../api/UseFollowerCountQuery'
+import UseFollowingCountQuery from '../api/UseFollowingCountQuery'
 
 const Profile = () => {
 	const [account, isLoading] = useAuth()
 	const profileQuery = UseProfileQuery('1')
+	const PostCountQuery = UsePostCountQuery('1')
+	const FollowerCountQuery = UseFollowerCountQuery('1')
+	const FollowingCountQuery = UseFollowingCountQuery('1')
 
 	return (
 		<div className="relative max-w-2xl mx-auto my-3">
@@ -30,15 +36,15 @@ const Profile = () => {
 
 						<div className="grid grid-cols-3 gap-10 text-sm">
 							<div className="flex flex-col items-center">
-								<span className="font-bold">9</span>
+								<span className="font-bold">{PostCountQuery.data?.data.data.count}</span>
 								<span>Posts</span>
 							</div>
 							<div className="flex flex-col items-center">
-								<span className="font-bold">1,082</span>
+								<span className="font-bold">{FollowerCountQuery.data?.data.data.followers}</span>
 								<span>Followers</span>
 							</div>
 							<div className="flex flex-col items-center">
-								<span className="font-bold">2,054</span>
+								<span className="font-bold">{FollowingCountQuery.data?.data.data.following}</span>
 								<span>Following</span>
 							</div>
 						</div>
