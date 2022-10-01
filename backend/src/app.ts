@@ -1,10 +1,10 @@
 import express from 'express'
 import http from 'http'
 import router from './routes/main'
-import RunMigrations from './migrate'
+import RunMigrations from './util/migrate'
 import chalk from 'chalk'
 import cors from 'cors'
-import { CreateEnvironmentContainers } from './storage'
+import { CreateEnvironmentContainers } from './util/storage'
 
 require('dotenv').config()
 
