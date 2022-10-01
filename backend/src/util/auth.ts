@@ -22,7 +22,7 @@ const GenerateAccessToken = (
 			email,
 		},
 		privateKey,
-		{ expiresIn: '5m' }
+		{ expiresIn: '2h' }
 	)
 }
 
