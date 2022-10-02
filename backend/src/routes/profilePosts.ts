@@ -16,7 +16,7 @@ SELECT P.post_id, coalesce (L.post_likes, 0) post_likes, A.username, profile_pic
 FROM (select post_id, COUNT(post_id) as post_likes from liked_posts) L, posts P
 LEFT JOIN accounts A ON P.account_id = A.account_id
 where L.post_id = P.post_id AND
-A.account_id = 1 ORDER BY created_at
+A.account_id = ? ORDER BY created_at
 `
 
 async function ProfilePosts(req: Request, res: Response) {
