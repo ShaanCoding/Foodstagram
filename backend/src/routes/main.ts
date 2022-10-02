@@ -61,10 +61,10 @@ router.post(
 )
 
 //search routes
-router.post('/api/search_user', SearchUsers)
-router.post('/api/search_post', SearchPosts)
-router.post('/api/search_user_results', ShowUserSearchResults)
-router.post('/api/search_post_results', ShowPostSearchResults)
+router.post('/api/search_user', body('searchStr'), SearchUsers)
+router.post('/api/search_post', body('searchStr'), SearchPosts)
+router.post('/api/search_user_results', body('searchStr'), ShowUserSearchResults)
+router.post('/api/search_post_results', body('searchStr'), ShowPostSearchResults)
 //end search routes
 
 router.get('/feed', AuthenticateUser, GetPosts)
