@@ -2,15 +2,15 @@ import formData from "express-form-data"
 import Router from 'express-promise-router'
 import { body, validationResult } from 'express-validator'
 
+import { AuthenticateUser } from '../util/auth'
+import { EditProfile } from './editprofile'
 import { Hello } from './hello'
 import { Index } from './index'
 import { Login } from './login'
-import { Post } from './post'
-import { Register } from './register'
-import { Profile } from './profile'
-import { EditProfile } from './editprofile'
-import { AuthenticateUser } from '../util/auth'
 import { Me } from './me'
+import { Post } from './post'
+import { Profile } from './profile'
+import { Register } from './register'
 
 const router = Router()
 router.use(formData.format())
@@ -32,9 +32,9 @@ router.post(
 
 router.post(
 	'/posts',
-	// body('picture').isLength({ min: 5 }),
-	// body('caption').isLength({ min: 5 }),
-	// body('location').isLength({ min: 5 }),
+	body('picture').isLength({ min: 5 }),
+	body('caption').isLength({ min: 5 }),
+	body('location').isLength({ min: 5 }),
 	Post
 )
 

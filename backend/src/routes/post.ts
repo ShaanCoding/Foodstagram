@@ -7,15 +7,18 @@ import { Query, pool } from '../util/db'
 import formatErrors from '../util/formatErrors'
 import { getBlobClient } from '../util/storage'
 
-const postQuery = 'INSERT INTO `posts` (`account_id`, `location_name`, `location_lat`, `location_long`, `caption`, `created_at`, `updated_at`) VALUES ( ?, ?, ?, ?, ?, NOW(), NOW() )';
-const potImagesQuery = 'INSERT INTO post_images ( post_id, image_url ) VALUES ( ?, ? )';
-
+const postQuery = 'INSERT INTO `posts` (`account_id`, `post_image`, `location_name`, `location_lat`, `location_long`, `caption`, `created_at`, `updated_at`) VALUES ( ?, ?, ?, ?, ?, ?, NOW(), NOW() )';
 
 export async function Post(req: Request, res: Response) {
 	
 	const { ENVIRONMENT } = process.env;
 	const { picture, caption, location } = req.body;
-	const pictureName = `${uuidv4()}`;
+	
+	const pictureName = uuidv4();
+	const pictureBuffer = Buffer.from(picture, 'base64');
+
+	const lognitude = 0.1;
+	const latitude = 0.1;
 
 	Promise
 	.resolve()
@@ -24,9 +27,8 @@ export async function Post(req: Request, res: Response) {
 		if (!errors.isEmpty()) throw formatErrors(errors);
 	})
 	.then(() => getBlobClient().getContainerClient(ENVIRONMENT!).getBlockBlobClient(pictureName)) // get the container
-	.then(blobBlockClient => blobBlockClient.upload(picture, picture.length)) // upload the file to the container
-	.then(uploadResponse => pool.promise().execute(postQuery, [1, location, 0.1, 0.1, caption]).then(([ok, _]) => (ok as unknown as OkPacket).insertId) ) // insert the post into the database // Query(postQuery, [1, location, 0.1, 0.1, caption])
-	.then(postId => Query(potImagesQuery, [postId + "", `https://asdbackend.blob.core.windows.net/${ENVIRONMENT}/${pictureName}`])) // insert the post_image into the database
+	.then(blobBlockClient => blobBlockClient.upload(pictureBuffer, pictureBuffer.length)) // upload the file to the container
+	.then(uploadResponse => Query(postQuery, [1, `https://asdbackend.blob.core.windows.net/${ENVIRONMENT}/${pictureName}`, location, lognitude, latitude, caption]))
 	.then(() => res.status(201).json({ message: 'Succesfully created post!' }))
 	.catch(error => {
 		console.log(error);

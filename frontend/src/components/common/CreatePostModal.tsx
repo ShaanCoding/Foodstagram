@@ -6,9 +6,10 @@ import {
 	solid,
 } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { MutableRefObject, useEffect, useState } from 'react'
+import React, { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { Modal } from 'react-responsive-modal'
 
+import { CreateNewPost, UseCreatePostMutation } from "../../api/UsePostMutation";
 import Form from "../form/Form";
 
 interface Props {
@@ -29,6 +30,34 @@ const CreatePostModal = (props: Props) => {
 
     }, [openButton])
 
+	const postMutation = UseCreatePostMutation();
+	
+	const picture = useRef<HTMLInputElement>(null);
+	const _picture = useRef<HTMLInputElement>(null);
+	
+	const img = useRef<HTMLImageElement>(null);
+	const onPictureSelected = (e: React.ChangeEvent<HTMLInputElement>) => 
+		new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.readAsDataURL(((e.target as HTMLInputElement).files![0] as unknown as File));
+			reader.onload = () => resolve(reader.result);
+			reader.onerror = error => reject(error);
+		})
+		.then(base64string => (base64string as string).slice("data:image/png;base64,".length))
+		.then(base64image => {
+			picture.current!.value = base64image;
+			setShowpreview(true)
+			if(img.current) img.current!.src = `data:image/png;base64,${base64image}`;
+		})
+		
+	const [showPreview, setShowpreview] = useState(false);
+
+	const onResetButtonClicked = () => {
+		_picture.current!.files = null; // clear the file input
+		picture.current!.value = ""; // clear the hidden input (base64)
+		img.current!.removeAttribute("src"); // clear the picture
+	}
+
     return (
         <div>
             <Modal classNames = {{modal:"rounded-md w-4/5 h-4/5"}} open={open} showCloseIcon={false} onClose={onCloseModal} center>
@@ -47,17 +76,12 @@ const CreatePostModal = (props: Props) => {
 							
 							<p className="text-xl font-extralight mt-4 mb-4">Drag photos and videos here</p>
 
-							{
-							/*
-								<Form onSubmit={ () => {} }>
-								</Form>
-							*/
-							}
-
-							<form action="http://localhost:3001/posts" method="POST">
+							<Form onSubmit={ (data) => postMutation.mutate(data as unknown as CreateNewPost) }>
 								<div>
-									
-									<input type="file" accept="image/png, image/jpeg, image/*" name="picture" required/>
+									<input ref={_picture} onChange={onPictureSelected} type="file" accept="image/png, image/jpeg, image/*" name="_picture" required/>
+									<button onClick={onResetButtonClicked}>Clear</button>
+									<img ref={img} width={100} height={100}/>
+									<input ref={picture} hidden name="picture" />
 									<br />
 
 									<label>
@@ -77,10 +101,11 @@ const CreatePostModal = (props: Props) => {
 									{
 										/*
 										<button type="button" className="bg-insta-green px-3 py-1 text-white rounded mt-3">Select from computer</button>
+										<form action="http://localhost:3001/posts" method="POST"></form>
 										*/
 									}
 								</div>
-							</form>
+							</Form>
 					</div>
                 </div>
             </Modal>

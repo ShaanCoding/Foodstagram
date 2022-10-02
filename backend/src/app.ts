@@ -5,13 +5,11 @@ import cors from 'cors'
 import * as dotenv from 'dotenv';
 import express from 'express'
 
-
-
 dotenv.config();
 
-import RunMigrations from './migrate'
 import router from './routes/main'
-import { CreateEnvironmentContainers } from './storage'
+import RunMigrations from './util/migrate'
+import { CreateEnvironmentContainers } from './util/storage'
 
 const Run = async () => {
 	await RunMigrations()
