@@ -1,24 +1,30 @@
 import React from 'react'
 import styles from '../styles/Profile.module.css'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 import UseProfileQuery from '../api/UseProfileQuery'
 import useAuth from '../api/util/useAuth'
 import UsePostCountQuery from '../api/UsePostCountQuery'
 import UseFollowerCountQuery from '../api/UseFollowerCountQuery'
 import UseFollowingCountQuery from '../api/UseFollowingCountQuery'
+import UseProfilePostsQuery from '../api/UseProfilePostsQuery'
 
 const Profile = () => {
 	const [account, isLoading] = useAuth()
-	const profileQuery = UseProfileQuery('1')
-	const PostCountQuery = UsePostCountQuery('1')
-	const FollowerCountQuery = UseFollowerCountQuery('1')
-	const FollowingCountQuery = UseFollowingCountQuery('1')
+	const param = useParams()
+	console.log(param)
+	if (param.profileID === undefined) { return (<Navigate to="/" />) }
+	const profileQuery = UseProfileQuery(param.profileID as string)
+	const postCountQuery = UsePostCountQuery(param.profileID)
+	const followerCountQuery = UseFollowerCountQuery(param.profileID)
+	const followingCountQuery = UseFollowingCountQuery(param.profileID)
+	const profilePostsQuery = UseProfilePostsQuery(param.profileID)
 
 	return (
 		<div className="relative max-w-2xl mx-auto my-3">
 			{/* top bar */}
 			{profileQuery.isLoading == false && (
 				<>
+
 					<div className="flex flex-col justify-center items-center my-5">
 						<div
 							className="w-32 h-32 bg-cover bg-center bg-no-repeat rounded-full"
@@ -34,192 +40,63 @@ const Profile = () => {
 							@{profileQuery.data?.data.data.username}
 						</span>
 
-						<div className="grid grid-cols-3 gap-10 text-sm">
+						<div className="grid grid-cols-3 gap-10 text-sm mb-3">
 							<div className="flex flex-col items-center">
-								<span className="font-bold">{PostCountQuery.data?.data.data.count}</span>
+								<span className="font-bold">{postCountQuery.data?.data.data.count}</span>
 								<span>Posts</span>
 							</div>
 							<div className="flex flex-col items-center">
-								<span className="font-bold">{FollowerCountQuery.data?.data.data.followers}</span>
+								<span className="font-bold">{followerCountQuery.data?.data.data.followers}</span>
 								<span>Followers</span>
 							</div>
 							<div className="flex flex-col items-center">
-								<span className="font-bold">{FollowingCountQuery.data?.data.data.following}</span>
+								<span className="font-bold">{followingCountQuery.data?.data.data.following}</span>
 								<span>Following</span>
 							</div>
 						</div>
 
-						<Link to="/editprofile">
-							<button className="my-5 px-5 py-2 font-semibold text-sm border border-gray-400 rounded">
-								Edit profile
-							</button>
-						</Link>
+						{account.account_id.toString() === param.profileID as string && (
+							<Link to="/editprofile">
+								<button className="my-5 px-5 py-2 font-semibold text-sm border border-gray-400 rounded">
+									Edit profile
+								</button>
+							</Link>
+						)}
 
-						<p className="mb-3 text-center">
+						<p className="mt-2 mb-3 text-center">
 							{profileQuery.data?.data.data.bio}
 						</p>
 					</div>
 					{/* top bar end */}
 
 					{/* post grid */}
-					<div className="grid grid-cols-3 gap-0.5 mt-2">
-						<div className="relative w-full h-60 bg-cover bg-center bg-no-repeat bg-[url('https://source.unsplash.com/kcA-c3f_3FE')]">
-							<div className="absolute bottom-1 left-1 flex gap-1 text-white text-xs items-center">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									className="h-4 w-4"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="2"
-								>
-									<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-									<path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
-								</svg>
-								<span>930</span>
-							</div>
-						</div>
+					<div className="grid grid-cols-3 gap-0.5 mt-2" >
 
-						<div className="relative w-full h-60 bg-cover bg-center bg-no-repeat bg-[url('https://source.unsplash.com/tkfRSPt-jdk')]">
-							<div className="absolute bottom-1 left-1 flex gap-1 text-white text-xs items-center">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									className="h-4 w-4"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="2"
-								>
-									<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-									<path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
-								</svg>
-								<span>673</span>
-							</div>
-						</div>
-
-						<div className="relative w-full h-60 bg-cover bg-center bg-no-repeat bg-[url('https://source.unsplash.com/rQsYZnCRU00')]">
-							<div className="absolute bottom-1 left-1 flex gap-1 text-white text-xs items-center">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									className="h-4 w-4"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="2"
-								>
-									<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-									<path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
-								</svg>
-								<span>993</span>
-							</div>
-						</div>
-
-						<div className="relative w-full h-60 bg-cover bg-center bg-no-repeat bg-[url('https://source.unsplash.com/rAyCBQTH7ws')]">
-							<div className="absolute bottom-1 left-1 flex gap-1 text-white text-xs items-center">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									className="h-4 w-4"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="2"
-								>
-									<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-									<path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
-								</svg>
-								<span>583</span>
-							</div>
-						</div>
-
-						<div className="relative w-full h-60 bg-cover bg-center bg-no-repeat bg-[url('https://source.unsplash.com/u9tN9NIJgMc')]">
-							<div className="absolute bottom-1 left-1 flex gap-1 text-white text-xs items-center">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									className="h-4 w-4"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="2"
-								>
-									<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-									<path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
-								</svg>
-								<span>667</span>
-							</div>
-						</div>
-
-						<div className="relative w-full h-60 bg-cover bg-center bg-no-repeat bg-[url('https://source.unsplash.com/uQs1802D0CQ')]">
-							<div className="absolute bottom-1 left-1 flex gap-1 text-white text-xs items-center">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									className="h-4 w-4"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="2"
-								>
-									<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-									<path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
-								</svg>
-								<span>923</span>
-							</div>
-						</div>
-
-						<div className="relative w-full h-60 bg-cover bg-center bg-no-repeat bg-[url('https://source.unsplash.com/bBzjWthTqb8')]">
-							<div className="absolute bottom-1 left-1 flex gap-1 text-white text-xs items-center">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									className="h-4 w-4"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="2"
-								>
-									<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-									<path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
-								</svg>
-								<span>783</span>
-							</div>
-						</div>
-
-						<div className="relative w-full h-60 bg-cover bg-center bg-no-repeat bg-[url('https://source.unsplash.com/E94j3rMcxlw')]">
-							<div className="absolute bottom-1 left-1 flex gap-1 text-white text-xs items-center">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									className="h-4 w-4"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="2"
-								>
-									<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-									<path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
-								</svg>
-								<span>493</span>
-							</div>
-						</div>
-
-						<div className="relative w-full h-60 bg-cover bg-center bg-no-repeat bg-[url('https://source.unsplash.com/hTR1XPtTo_k')]">
-							<div className="absolute bottom-1 left-1 flex gap-1 text-white text-xs items-center">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									className="h-4 w-4"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="2"
-								>
-									<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-									<path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
-								</svg>
-								<span>401</span>
-							</div>
-						</div>
+						{profilePostsQuery.isLoading === false && profilePostsQuery.isSuccess && profilePostsQuery.data?.data.posts !== undefined && (
+							profilePostsQuery.data?.data.posts.map((post: Post) => (
+								<div className="relative w-full h-full">
+									<img alt="Post" className="mb-4 w-full h-full object-cover aspect-square" src={post.post_image} />
+									<div className="absolute bottom-1 left-1 flex gap-1 text-white text-xs items-center">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											className="h-4 w-4 stroke-white"
+											fill="red"
+											viewBox="0 0 24 24"
+											stroke="currentColor"
+											stroke-width="2"
+										>
+											<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+											<path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
+										</svg>
+										<span className={`${styles.likeCounter}`}>{post.post_likes}</span>
+									</div>
+								</div>
+							)))}
 					</div>
 					{/* post grid end */}
 				</>
 			)}
-		</div>
+		</div >
 	)
 }
 
