@@ -5,6 +5,10 @@ import { Index } from './index'
 import { Login } from './login'
 import { Post } from './post'
 import { Register } from './register'
+import { Profile } from './profile'
+import { EditProfile } from './editprofile'
+import { AuthenticateUser } from '../util/auth'
+import { Me } from './me'
 
 const router = Router()
 
@@ -28,10 +32,21 @@ router.get(
 	Post
 )
 
-router.get(
-	'./feed'
-)
+router.get('/me', AuthenticateUser, Me)
 
 router.post('/login', body('email').isEmail(), body('password'), Login)
+
+router.get('/profile', Profile)
+
+router.post(
+	'/editprofile',
+	body('email').isEmail(),
+	body('fullName').isLength({ min: 5, max: 120 }),
+	body('bio').isLength({ min: 5, max: 200 }),
+	body('username').isLength({ min: 5, max: 80 }),
+	body('phone').isLength({ min: 2, max: 15 }),
+	AuthenticateUser,
+	EditProfile
+)
 
 export default router
