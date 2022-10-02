@@ -15,6 +15,7 @@ import { PostCount } from './postCount'
 import { FollowerCount } from './followerCount'
 import { FollowingCount } from './followingCount'
 import { GetPosts } from './feed'
+import { Follow } from './follow'
 
 const router = Router()
 
@@ -65,5 +66,6 @@ router.post(
 router.get('/api/search_user', SearchUsers)
 router.get('/search_post', SearchPosts)
 router.get('/feed', AuthenticateUser, GetPosts)
+router.post('/follow', body('account_to_follow'), Follow)
 
 export default router
