@@ -8,10 +8,13 @@ import post3 from '../images/post3.jpg'
 import avatar3 from '../images/avatar3.jpg'
 import like from '../images/like.png' // use this for like button (or find a new icon, then find the same icon filled in, so when you click like it becomes solid)
 import save from '../images/save.png'
+import useAuth from '../api/util/useAuth'
 // import posts from './db.json'
 
+// const [account, isLoading] = useAuth()
+
 const PullPosts = () => {
-  
+
 }
 
 

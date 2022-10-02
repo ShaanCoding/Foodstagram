@@ -7,23 +7,17 @@ import { json, Request, Response } from 'express'
 
 // Step 1: get the post IDs and post data based on the following account IDs (ID to reference is hardcoded for now)
 // Step 4: order by post date
+
+// REPLACE 13 WITH LOGGED IN ACCOUNT ID
+
+async function Feed(req: Request, res: Response) {
+	return req.account?.account_id
+}
+
 const feedQuery = `
 SELECT post_id, A.username, profile_picture_url, location_name, location_lat, location_long, caption, created_at, updated_at, post_image
 FROM posts P LEFT JOIN accounts A ON P.account_id = A.account_id
 WHERE A.account_id IN (SELECT followed_account_id FROM account_followers WHERE account_id = 13)
 `
-// REPLACE 13 WITH LOGGED IN ACCOUNT ID
-
-async function Feed(req: Request, res: Response) {
-	// const errors = validationResult(req)
-	// if (!errors.isEmpty()) {
-	// 	return res.status(400).json(formatErrors(errors))
-	// }
-
-	// const { email, password } = req.body
-
-	// try {
-	// 	const rows = (await Query(feedQuery, [email, password])) as Account[]
-}
 
 export { Feed }

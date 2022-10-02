@@ -9,6 +9,7 @@ import { Profile } from './profile'
 import { EditProfile } from './editprofile'
 import { AuthenticateUser } from '../util/auth'
 import { Me } from './me'
+import { Feed } from './feed'
 
 const router = Router()
 
@@ -49,6 +50,6 @@ router.post(
 	EditProfile
 )
 
-router.get('/feed', AuthenticateUser)
+router.get('/feed', AuthenticateUser, Feed)
 
 export default router
