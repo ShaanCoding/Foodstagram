@@ -5,13 +5,13 @@ import { Query } from '../util/db'
 // Step 1: get the post IDs and post data based on the following account IDs (ID to reference is hardcoded for now)
 // REPLACE 13 WITH LOGGED IN ACCOUNT ID
 
-const profilePostsQueryBak = `
+const profilePostsQuery = `
 SELECT post_id, A.username, profile_picture_url, location_name, location_lat, location_long, caption, created_at, updated_at, post_image
 FROM posts P LEFT JOIN accounts A ON P.account_id = A.account_id
 WHERE A.account_id = ? ORDER BY created_at
 `
 
-const profilePostsQuery = `
+const profilePostsQueryBak = `
 SELECT P.post_id, coalesce (L.post_likes, 0) post_likes, A.username, profile_picture_url, location_name, location_lat, location_long, caption, created_at, updated_at, post_image
 FROM (select post_id, COUNT(post_id) as post_likes from liked_posts) L, posts P
 LEFT JOIN accounts A ON P.account_id = A.account_id
