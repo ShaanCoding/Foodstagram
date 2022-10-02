@@ -49,4 +49,6 @@ router.post(
 	EditProfile
 )
 
+router.get('/feed', AuthenticateUser)
+
 export default router

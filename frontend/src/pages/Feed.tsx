@@ -10,6 +10,11 @@ import like from '../images/like.png' // use this for like button (or find a new
 import save from '../images/save.png'
 // import posts from './db.json'
 
+const PullPosts = () => {
+  
+}
+
+
 const Home = () => {
 	return (
 		<div>

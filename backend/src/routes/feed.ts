@@ -5,14 +5,14 @@ import { json, Request, Response } from 'express'
 
 // WHERE account_id = (SELECT account_id FROM accounts WHERE )
 
-// Step 1: get the following account IDs (hardcoded for now)
-// SELECT followed_account_id FROM account_followers WHERE account_id = 1
-// Step 2: get the post IDs based on each following account ID
-// Step 3: get the post data based on each post ID
+// Step 1: get the post IDs and post data based on the following account IDs (ID to reference is hardcoded for now)
 // Step 4: order by post date
 const feedQuery = `
-	SELECT post_id, account_id, location_name, location_lat, location_long, caption, created_at, updated_at, (SELECT profile_picture_url FROM accounts WHERE account_id IN (1, 2, 3)) FROM posts WHERE account_id IN (1, 2, 3) AS posts_table
+SELECT post_id, A.username, profile_picture_url, location_name, location_lat, location_long, caption, created_at, updated_at, post_image
+FROM posts P LEFT JOIN accounts A ON P.account_id = A.account_id
+WHERE A.account_id IN (SELECT followed_account_id FROM account_followers WHERE account_id = 13)
 `
+// REPLACE 13 WITH LOGGED IN ACCOUNT ID
 
 async function Feed(req: Request, res: Response) {
 	// const errors = validationResult(req)
@@ -24,8 +24,6 @@ async function Feed(req: Request, res: Response) {
 
 	// try {
 	// 	const rows = (await Query(feedQuery, [email, password])) as Account[]
-
-		
 }
 
 export { Feed }
