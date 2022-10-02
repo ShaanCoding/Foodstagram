@@ -1,12 +1,12 @@
 import UseAccountQuery from '../UseAccountQuery'
 import { useNavigate } from 'react-router-dom'
 
-function useAuth() {
+function useAuth() : [Account, boolean]{
 	const navigate = useNavigate()
 	const accountQuery = UseAccountQuery()
 
 	if (accountQuery.isLoading) {
-		return [{}, true]
+		return [{} as Account, true]
 	} else {
 		if (accountQuery.isError) {
 			navigate('/logout')
