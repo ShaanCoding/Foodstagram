@@ -51,25 +51,12 @@ const Feed = () => {
 						</span>
 
 						<p className="text-sm text-black-500 font-medium text-left inline-block align-middle mb-4 mr-2">
-							skyemcalpine says:
+							{post.username} says:
 						</p>
 						<p className="text-sm text-black-500 text-left inline-block align-middle mb-4">
-							Making strawberry and vodka jam 🍓
+							{post.caption}
 						</p>
-						<hr className="border-y-1 w-80 mb-4 mx-auto"></hr>
-						<p className="text-sm text-black-500 font-medium text-left inline-block align-middle mb-4 mr-2">
-							kanyewest says:
-						</p>
-						<p className="text-sm text-black-500 text-left inline-block align-middle mb-4">
-							Wow!!!
-						</p>
-						<br></br>
-						<p className="text-sm text-black-500 font-medium text-left inline-block align-middle mb-4 mr-2">
-							zuck says:
-						</p>
-						<p className="text-sm text-black-500 text-left inline-block align-middle mb-4">
-							Delicious.. I have to try this!
-						</p>
+
 
 						<form className="flex flex-row">
 							<label className="flex-auto block p-1 bg-gray-100 rounded-xl">
