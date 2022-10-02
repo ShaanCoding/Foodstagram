@@ -1,0 +1,2 @@
+ALTER TABLE posts
+ADD post_image VARCHAR(200)
