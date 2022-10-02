@@ -11,14 +11,9 @@ import save from '../images/save.png'
 import useAuth from '../api/util/useAuth'
 // import posts from './db.json'
 
-// const [account, isLoading] = useAuth()
 
-const PullPosts = () => {
-
-}
-
-
-const Home = () => {
+const Feed = () => {
+	const [account, isLoading] = useAuth()
 	return (
 		<div>
 			<div className="m-12 w-4/5 h-full ml-auto mr-auto flex max-w-[550px]">
@@ -208,4 +203,4 @@ const Home = () => {
 	)
 }
 
-export default Home
+export default Feed
