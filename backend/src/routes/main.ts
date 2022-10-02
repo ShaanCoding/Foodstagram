@@ -9,8 +9,7 @@ import { Profile } from './profile'
 import { EditProfile } from './editprofile'
 import { AuthenticateUser } from '../util/auth'
 import { Me } from './me'
-import { GetAllUsers, SearchUsers } from './searchUser'
-import { GetAllPosts, SearchPosts } from './searchPost'
+import { SearchUsers, SearchPosts, ShowUserSearchResults, ShowPostSearchResults } from './search'
 import { PostCount } from './postCount'
 import { FollowerCount } from './followerCount'
 import { FollowingCount } from './followingCount'
@@ -20,7 +19,6 @@ const router = Router()
 
 router.get('/', Index)
 //router.get('/*', GetAllPosts)
-router.get('/getallusers', GetAllUsers)
 
 router.get('/hello/:name', Hello)
 
@@ -62,8 +60,13 @@ router.post(
 	EditProfile
 )
 
-router.get('/api/search_user', SearchUsers)
-router.get('/search_post', SearchPosts)
+//search routes
+router.post('/api/search_user', SearchUsers)
+router.post('/api/search_post', SearchPosts)
+router.post('/api/search_user_results', ShowUserSearchResults)
+router.post('/api/search_post_results', ShowPostSearchResults)
+//end search routes
+
 router.get('/feed', AuthenticateUser, GetPosts)
 
 export default router
