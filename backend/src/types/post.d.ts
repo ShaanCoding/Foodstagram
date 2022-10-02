@@ -7,4 +7,5 @@ interface Post {
   caption: string
   create_at: string
   updated_at: string
+  post_likes: number
 }

@@ -4,7 +4,7 @@ import { validationResult } from 'express-validator'
 import formatErrors from '../util/formatErrors'
 
 const ProfileQuery = `
-select * from accounts where account_id = '10'
+select * from accounts where account_id = ?
 `
 
 async function Profile(req: Request, res: Response) {
@@ -16,7 +16,7 @@ async function Profile(req: Request, res: Response) {
 	//const { email, password } = req.body
 
 	try {
-		const rows = (await Query(ProfileQuery, [])) as Account[]
+		const rows = (await Query(ProfileQuery, [req.params.profileID])) as Account[]
 
 		if (rows.length > 0) {
 			return res.status(200).json({

@@ -14,6 +14,7 @@ import { GetAllPosts, SearchPosts } from './searchPost'
 import { PostCount } from './postCount'
 import { FollowerCount } from './followerCount'
 import { FollowingCount } from './followingCount'
+import { ProfilePosts } from './profilePosts'
 
 const router = Router()
 
@@ -44,14 +45,16 @@ router.get('/me', AuthenticateUser, Me)
 
 router.post('/login', body('email').isEmail(), body('password'), Login)
 
-router.get('/profile', Profile)
+router.get('/profile/:profileID', Profile)
 
-router.get('/postCount', PostCount)
-router.get('/followerCount', FollowerCount)
-router.get('/followingCount', FollowingCount)
+router.get('/postCount/:profileID', PostCount)
+router.get('/followerCount/:profileID', FollowerCount)
+router.get('/followingCount/:profileID', FollowingCount)
+
+router.get('/profilePosts/:profileID', AuthenticateUser, ProfilePosts)
 
 router.post(
-	'/editprofile',
+	'/editprofile/:profileID',
 	body('email').isEmail(),
 	body('fullName').isLength({ min: 5, max: 120 }),
 	body('bio').isLength({ min: 5, max: 200 }),
