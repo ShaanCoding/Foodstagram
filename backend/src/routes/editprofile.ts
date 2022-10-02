@@ -13,7 +13,7 @@ const editProfileQuery = `
 		password_hash = ?,
 		phone = ?
 	WHERE
-		account_id = '10'
+		account_id = ?
 `
 
 async function EditProfile(req: Request, res: Response) {
@@ -32,6 +32,7 @@ async function EditProfile(req: Request, res: Response) {
 			email,
 			password,
 			phone,
+			req.params.profileID,
 		])
 
 		return res.status(201).json({
