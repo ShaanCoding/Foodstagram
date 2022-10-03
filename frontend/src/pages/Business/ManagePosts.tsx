@@ -5,17 +5,16 @@ import { Link } from "react-router-dom";
 import UseBusinessPostQuery from "../../api/UseBusinessPostQuery";
 import { UseDeletePostMutation } from "../../api/UsePostMutation";
 import useAuth from "../../api/util/useAuth";
-import ManageDraftPostTableRow from "../../components/business/ManageDraftPostTableRow";
 import ManagePublishedPostTableRow from "../../components/business/ManagePublishedPostTableRow";
 import Spinner from "../../components/common/Spinner";
+import ManageScheduledPostTableRow from "../../components/business/ManageScheduledPostTableRow";
+import ManageDraftPostTableRow from "../../components/business/ManageDraftsPostTableRow";
 
 const ManagePosts = () => {
   const [openTab, setOpenTab] = useState("published");
 
 	const [account, isLoading] = useAuth()
   let viewPostsQuery = UseBusinessPostQuery();
-
-  console.log(viewPostsQuery);
 
   const [publishedTable, setPublishedTable] = useState<any>();
   const [scheduleTable, setScheduleTable] = useState<any>();
@@ -55,7 +54,7 @@ const ManagePosts = () => {
       let generatedTable: any[] = [];
       data.forEach((element: any) => {
         if(element.businessState == 2) {
-          generatedTable.push(<ManageDraftPostTableRow
+          generatedTable.push(<ManageScheduledPostTableRow
             image={element.post_image}
             title={element.caption}
             dateScheduled={element.businessScheduleTime}
@@ -77,7 +76,14 @@ const ManagePosts = () => {
       let generatedTable: any[] = [];
       data.forEach((element: any) => {
         if(element.businessState == 3) {
-          // generatedTable.push(<ManageDraftPostTableRow/>);
+          generatedTable.push(<ManageDraftPostTableRow
+            image={element.post_image}
+            title={element.caption}
+            dateCreated={element.created_at}
+            username={element.username}
+            post_id={element.post_id}
+            deletePost={deleteFunction}
+            profilePicture={element.profile_picture_url}/>);
         }
       })
 
@@ -268,7 +274,7 @@ useEffect(() => {
                   <p className="text-sm font-semibold mr-2">Title</p>
                 </th>
                 <th className="text-left" colSpan={4}>
-                  <p className="text-sm font-semibold mr-2">Date updated</p>
+                  <p className="text-sm font-semibold mr-2">Date created</p>
                 </th>
                 <th className="text-left" colSpan={4}>
                   <p className="text-sm font-semibold mr-2">Created by</p>

@@ -188,42 +188,45 @@ const SchedulePosts = () => {
             <button
               className={`text-black font-semibold py-1 px-2 rounded-sm opacity-50 hover:opacity-100 bg-insta-green`}
               onClick={async () => {
-                let data = await (await fetch(previewImage)).blob();
-                let base64: any = await blobToBase64(data);
-                let responseData: String = base64.replace(
-                  "data:image/jpeg;base64,",
-                  ""
-                );
+                if(publishState >= 1 && publishState <= 3) {
+                  let data = await (await fetch(previewImage)).blob();
+                  let base64: any = await blobToBase64(data);
+                  let responseData: String = base64.replace(
+                    "data:image/jpeg;base64,",
+                    ""
+                  );
 
-                let dbDateString = "";
-                dbDateString += scheduledDate.getFullYear();
-                dbDateString += "-"
+                  let dbDateString = "";
+                  dbDateString += scheduledDate.getFullYear();
+                  dbDateString += "-"
 
-                if(scheduledDate.getDay() < 10) {
-                  dbDateString += "0";
-                }
-                dbDateString += scheduledDate.getDay();
-                dbDateString += "-";
+                  if(scheduledDate.getDay() < 10) {
+                    dbDateString += "0";
+                  }
+                  dbDateString += scheduledDate.getDay();
+                  dbDateString += "-";
 
-                if(scheduledDate.getMonth() < 10) {
-                  dbDateString += "0";
-                }
-                dbDateString += scheduledDate.getMonth();
-               
-                dbDateString += ` ${scheduledTime}:00`
+                  if(scheduledDate.getMonth() < 10) {
+                    dbDateString += "0";
+                  }
+                  dbDateString += scheduledDate.getMonth();
+                
+                  dbDateString += ` ${scheduledTime}:00`
 
-                console.log(account);
+                  console.log(account);
 
-                let mutationData = {
-                  picture: responseData,
-                  caption: postDescription,
-                  location: postLocation,
-                  businessState: publishState,
-                  dateTime: dbDateString,
-                  account_id: account.account_id,
-                } as CreateNewBusinessPost;
+                  let mutationData = {
+                    picture: responseData,
+                    caption: postDescription,
+                    location: postLocation,
+                    businessState: publishState,
+                    dateTime: dbDateString,
+                    account_id: account.account_id,
+                  } as CreateNewBusinessPost;
 
-                createMutation.mutate(mutationData);
+                  createMutation.mutate(mutationData);
+              }
+
               }}
             >
               {createMutation.isLoading ? <Spinner /> : "Confirm"}
