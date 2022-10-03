@@ -13,8 +13,6 @@ async function PostCount(req: Request, res: Response) {
 		return res.status(400).json(formatErrors(errors))
 	}
 
-	//const { email, password } = req.body
-
 	try {
 		const rows = (await Query(PostCountQuery, [req.params.profileID])) as Account[]
 
