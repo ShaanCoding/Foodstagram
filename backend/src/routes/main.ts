@@ -21,6 +21,7 @@ import { FollowingCount } from './followingCount'
 import { ProfilePosts } from './profilePosts'
 import { GetPosts } from './feed'
 import { Follow } from './follow'
+import { Block } from './block'
 
 const router = Router()
 
@@ -86,6 +87,7 @@ router.post(
 //end search routes
 
 router.get('/feed', AuthenticateUser, GetPosts)
-router.post('/follow', body('account_to_follow'), Follow)
+router.post('/follow', body('account_to_follow'), AuthenticateUser, Follow)
+router.post('/block', body('account_to_block'), AuthenticateUser, Block)
 
 export default router
