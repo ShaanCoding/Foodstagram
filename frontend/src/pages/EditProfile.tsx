@@ -1,6 +1,6 @@
 import React, { MutableRefObject, useEffect, useRef, useState } from 'react'
 import styles from '../styles/Profile.module.css'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 import Form from '../components/form/Form'
 import UseProfileQuery from '../api/UseProfileQuery'
 import UseEditProfileMutation from '../api/UseEditProfileMutation'
@@ -15,9 +15,8 @@ import SubmitButtonProfilePic from '../components/form/SubmitButtonProfilePic'
 
 const EditProfile = () => {
     const [account, isLoading] = useAuth()
-    const profileQuery = UseProfileQuery(account.account_id.toString())
+    const profileQuery = UseProfileQuery(account.username as string)
     const editProfileMutation = UseEditProfileMutation(account.account_id.toString())
-
     const profilePicMutation = UseProfilePicMutation(account.account_id.toString())
     const picture = useRef<HTMLInputElement>(null);
     const _picture = useRef<HTMLInputElement>(null);
@@ -179,7 +178,7 @@ const EditProfile = () => {
 
                             <div className="flex space-x-4 justify-center">
                                 <SubmitButtonProfile text="Save" />
-                                <Link to={`/profile/${account.account_id}`}>
+                                <Link to={`/profile/${account.username}`}>
                                     <button className="my-5 px-5 py-2 font-semibold text-sm border border-gray-400 rounded">
                                         Back to profile
                                     </button>

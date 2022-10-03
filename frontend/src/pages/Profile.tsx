@@ -16,10 +16,10 @@ const Profile = () => {
 		return <Navigate to="/" />
 	}
 	const profileQuery = UseProfileQuery(param.username as string)
-	const postCountQuery = UsePostCountQuery(param.username)
-	const followerCountQuery = UseFollowerCountQuery(param.username)
-	const followingCountQuery = UseFollowingCountQuery(param.username)
-	const profilePostsQuery = UseProfilePostsQuery(param.username)
+	const postCountQuery = UsePostCountQuery(profileQuery.data?.data.data.account_id)
+	const followerCountQuery = UseFollowerCountQuery(profileQuery.data?.data.data.account_id)
+	const followingCountQuery = UseFollowingCountQuery(profileQuery.data?.data.data.account_id)
+	const profilePostsQuery = UseProfilePostsQuery(profileQuery.data?.data.data.account_id)
 
 	return (
 		<div className="relative max-w-2xl mx-auto my-3">
@@ -60,7 +60,7 @@ const Profile = () => {
 							</div>
 						</div>
 
-						{account.account_id.toString() === (param.username as string) && (
+						{account.username === (param.username as string) && (
 							<Link to="/editprofile">
 								<button className="my-5 px-5 py-2 font-semibold text-sm border border-gray-400 rounded">
 									Edit profile
