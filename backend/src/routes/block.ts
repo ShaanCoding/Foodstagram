@@ -34,7 +34,7 @@ async function Block(req: Request, res: Response) {
 			return res.status(200).json(
 				{message: "Account blocked."} 
 			)
-			// Follow
+			// Block
 		} else {
 			await Query(unblockQuery, [account?.account_id.toString(), account_to_block.toString()])
 			return res.status(200).json(
