@@ -87,7 +87,7 @@ const Header = ({ headerFocused = 'None' }: iHeaderState) => {
 				{/* Profile icon */}
 				<div className="px-4">
 					{/* Load up avatar */}
-					<Link to={`/profile/${account.account_id}`}>
+					<Link to={`/profile/${account.username}`}>
 						<img
 							alt="avatar"
 							className="w-8 h-8 rounded-full border-2 border-gray-700"

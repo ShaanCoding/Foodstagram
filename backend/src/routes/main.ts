@@ -47,7 +47,7 @@ router.get('/me', AuthenticateUser, Me)
 
 router.post('/login', body('email').isEmail(), body('password'), Login)
 
-router.get('/profile/:profileID', Profile)
+router.get('/profile/:username', Profile)
 router.get('/postCount/:profileID', PostCount)
 router.get('/followerCount/:profileID', FollowerCount)
 router.get('/followingCount/:profileID', FollowingCount)

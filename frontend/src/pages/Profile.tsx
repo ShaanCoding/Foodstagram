@@ -13,7 +13,7 @@ const Profile = () => {
 	const param = useParams()
 	console.log(param)
 	if (param.profileID === undefined) { return (<Navigate to="/" />) }
-	const profileQuery = UseProfileQuery(param.profileID as string)
+	const profileQuery = UseProfileQuery(param.username as string)
 	const postCountQuery = UsePostCountQuery(param.profileID)
 	const followerCountQuery = UseFollowerCountQuery(param.profileID)
 	const followingCountQuery = UseFollowingCountQuery(param.profileID)
