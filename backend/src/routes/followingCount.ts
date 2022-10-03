@@ -4,7 +4,7 @@ import { validationResult } from 'express-validator'
 import formatErrors from '../util/formatErrors'
 
 const FollowingCountQuery = `
-select count(*) as following from account_followers where account_id = "1"
+select count(*) as following from account_followers where account_id = ?
 `
 
 async function FollowingCount(req: Request, res: Response) {
@@ -13,10 +13,8 @@ async function FollowingCount(req: Request, res: Response) {
 		return res.status(400).json(formatErrors(errors))
 	}
 
-	//const { email, password } = req.body
-
 	try {
-		const rows = (await Query(FollowingCountQuery, [])) as Account[]
+		const rows = (await Query(FollowingCountQuery, [req.params.profileID])) as Account[]
 
 		if (rows.length > 0) {
 			return res.status(200).json({

@@ -10,8 +10,8 @@ import useAuth from '../api/util/useAuth'
 
 const EditProfile = () => {
     const [account, isLoading] = useAuth()
-    const profileQuery = UseProfileQuery('1')
-    const editProfileMutation = UseEditProfileMutation()
+    const profileQuery = UseProfileQuery(account.account_id.toString())
+    const editProfileMutation = UseEditProfileMutation(account.account_id.toString())
 
     return (
         <div className="relative max-w-2xl mx-auto my-3">
@@ -135,7 +135,7 @@ const EditProfile = () => {
 
                             <div className="flex space-x-4 justify-center">
                                 <SubmitButtonProfile text="Save" />
-                                <Link to="/profile">
+                                <Link to={`/profile/${account.account_id}`}>
                                     <button className="my-5 px-5 py-2 font-semibold text-sm border border-gray-400 rounded">
                                         Back to profile
                                     </button>

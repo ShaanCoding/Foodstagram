@@ -10,4 +10,5 @@ interface Post {
 	profile_picture_url: string
 	username: string
 	post_image: string
+  post_likes: number
 }
