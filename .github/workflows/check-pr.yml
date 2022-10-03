@@ -39,7 +39,7 @@ jobs:
           cd ..
 
       - name: "Run backend unit tests"
-      - run: |
+        run: |
           cd backend
           yarn install
           yarn run test
