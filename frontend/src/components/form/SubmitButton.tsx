@@ -5,9 +5,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	loading?: boolean;
 }
 
-const SubmitButton = (props: Props) => {
-	const { text, loading } = props
-
+const SubmitButton = ({ loading, text, ...props }: Props) => {
 	return (
 		<button
 			{ ...props }

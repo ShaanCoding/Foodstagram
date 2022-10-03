@@ -1,10 +1,10 @@
-// import React from "react";
-import styles from '../styles/Feed.module.css'
+import UseFeedQuery from '../api/UseFeedQuery'
+import useAuth from '../api/util/useAuth'
+import { Post } from '../components/post/Post'
 import like from '../images/like.png' // use this for like button (or find a new icon, then find the same icon filled in, so when you click like it becomes solid)
 import save from '../images/save.png'
-import useAuth from '../api/util/useAuth'
-import UseFeedQuery from '../api/UseFeedQuery'
-import { Post } from '../components/post/Post'
+// import React from "react";
+import styles from '../styles/Feed.module.css'
 
 const Feed = () => {
 	const [account, isLoading] = useAuth()
@@ -22,7 +22,7 @@ const Feed = () => {
 			{feedQuery.isLoading === false &&
 				feedQuery.isSuccess &&
 				feedQuery.data.data.posts !== undefined &&
-				feedQuery.data?.data.posts.map((post: Post) => <Post post={post} />)}
+				feedQuery.data?.data.posts.map((post, index) => <Post key={index} post={post} />)}
 			<p className="text-sm text-black-500 text-left inline-block align-middle mb-4">
 				No posts yet! Try following some users.
 			</p>

@@ -10,7 +10,8 @@
 		"start": "ts-node src/app.ts",
 		"dev": "nodemon src/app.ts",
 		"fake-rest": "json-server --watch db.json --port 3004",
-		"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+		"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+		"_test": "yarn dlx jest"
 	},
 	"dependencies": {
 		"@azure/storage-blob": "^12.11.0",

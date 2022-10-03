@@ -1,19 +1,11 @@
 import 'react-responsive-modal/styles.css'
 
-import {
-	light,
-	regular,
-	solid,
-} from '@fortawesome/fontawesome-svg-core/import.macro'
+import { light, regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { Modal } from 'react-responsive-modal'
 
-import {
-	CreateNewPost,
-	UseCreatePostMutation,
-	UseUpdatePostMutation,
-} from '../../api/UsePostMutation'
+import { CreateNewPost, UseCreatePostMutation, UseUpdatePostMutation } from '../../api/UsePostMutation'
 import Form from '../form/Form'
 import InputField from '../form/InputField'
 import SubmitButton from '../form/SubmitButton'
@@ -25,21 +17,11 @@ interface Props {
 	image?: string
 	caption?: string
 	location?: string
-	visible?: boolean
-
-	//openButton: MutableRefObject<any>
 }
 
-const CreatePostModal = (props: Props) => {
-	let { openButton, visible, image, caption, location } = props
-	if (visible === undefined) {
-		visible = false
-	}
-	const [imgSource, setImgSource] = useState(image)
-	const [imgPics, setImgPics] = useState(image)
-
-	const [imgUploaded, setImageUploaded] = useState(image !== '')
-	const [open, setOpen] = useState(visible)
+const CreatePostModal = ({ openButton }: Props) => {
+	const [imgUploaded, setImageUploaded] = useState(false)
+	const [open, setOpen] = useState(false)
 	const onOpenModal = () => setOpen(true)
 	const onCloseModal = () => {
 		setOpen(false)
@@ -65,31 +47,32 @@ const CreatePostModal = (props: Props) => {
 			reader.readAsDataURL(
 				(e.target as HTMLInputElement).files![0] as unknown as File
 			)
-			reader.onload = () => resolve(reader.result)
+			reader.onloadend = () => resolve(reader.result)
 			reader.onerror = (error) => reject(error)
 		})
 			.then((base64string) =>
 				(base64string as string).slice('data:image/png;base64,'.length)
 			)
-
 			.then((base64image) => {
 				setImageUploaded(true)
-				//picture.current!.value = base64image
-				setImgPics(base64image)
+				picture.current!.value = base64image
 				setShowpreview(true)
-				setImgSource(`data:image/png;base64,${base64image}`)
-				//if (img.current)
-				//	img.current!.src = `data:image/png;base64,${base64image}`
+				if (img.current)
+					img.current!.src = `data:image/png;base64,${base64image}`
 			})
 
 	const [showPreview, setShowpreview] = useState(false)
 
 	const onResetButtonClicked = () => {
 		_picture.current!.files = null // clear the file input
-		//picture.current!.value = '' // clear the hidden input (base64)
-		setImgPics('')
-		setImgSource('')
-		//img.current!.removeAttribute('src') // clear the picture
+		picture.current!.value = '' // clear the hidden input (base64)
+		img.current!.removeAttribute('src') // clear the picture
+	}
+
+	const onSubmit = (data: Record<string, string>) => {
+		createMutation.mutate(data as unknown as CreateNewPost)
+		setOpen(false)
+		alert('Post created!')
 	}
 
 	return (
@@ -104,10 +87,10 @@ const CreatePostModal = (props: Props) => {
 				<div className="flex flex-col justify center items-center h-full">
 					<h1 className="mb-3">Create a Post</h1>
 
-					<div className="w-full bg-gray-200 flex flex-col justify center items-center h-full">
+					<div className="w-full flex flex-col justify center items-center h-full">
 						{imgUploaded === false && (
 							<>
-								<div className="w-full h-full flex justify-center items-center flex-col" />
+								{/* <div className="w-full h-full flex justify-center items-center flex-col" /> */}
 								<FontAwesomeIcon
 									className="w-24 h-24"
 									icon={regular('images')}
@@ -119,9 +102,7 @@ const CreatePostModal = (props: Props) => {
 						)}
 
 						<Form
-							onSubmit={(data) =>
-								createMutation.mutate(data as unknown as CreateNewPost)
-							}
+							onSubmit={onSubmit}
 						>
 							<div className="px-8">
 								<input
@@ -133,8 +114,8 @@ const CreatePostModal = (props: Props) => {
 									required
 								/>
 								<button onClick={onResetButtonClicked}>Clear</button>
-								<img ref={img} src={imgSource} className="w-full" />
-								<input ref={picture} value={imgPics} hidden name="picture" />
+								<img ref={img} className="w-full" />
+								<input ref={picture} hidden name="picture" />
 								<br />
 								{imgUploaded === true && (
 									<>
@@ -143,7 +124,6 @@ const CreatePostModal = (props: Props) => {
 											type="text"
 											name="caption"
 											placeholder="Caption"
-											initialValue={caption}
 											required
 											minLength={5}
 										/>
@@ -152,7 +132,6 @@ const CreatePostModal = (props: Props) => {
 										<InputField
 											type="text"
 											name="location"
-											initialValue={location}
 											placeholder="Location"
 											required
 											minLength={5}
@@ -176,10 +155,6 @@ const CreatePostModal = (props: Props) => {
 			</Modal>
 		</div>
 	)
-}
-CreatePostModal.defaultProps = {
-	visible: false,
-	image: '',
 }
 
 export default CreatePostModal
