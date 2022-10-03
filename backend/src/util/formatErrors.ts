@@ -5,6 +5,8 @@ const neatNames = {
 	fullName: 'Full Name',
 	password: 'Password',
 	username: 'Username',
+	bio: 'Biography',
+	phone: 'Phone Number',
 }
 
 const formatErrors = (errors: Result<ValidationError>) => {
