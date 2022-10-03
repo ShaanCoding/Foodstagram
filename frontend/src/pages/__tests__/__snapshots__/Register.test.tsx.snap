@@ -34,36 +34,44 @@ exports[`Register page renders correctly 1`] = `
         onSubmit={[Function]}
       >
         <input
+          autoComplete="foostagram-email"
           className="p-2 w-full rounded-sm mb-2 border hover:border-gray-500 focus-visible:border text-xs bg-white undefined"
           initialValue=""
           name="email"
           onChange={[Function]}
           placeholder="Email address"
+          required={true}
           type="email"
           value=""
         />
         <input
+          autoComplete="false"
           className="p-2 w-full rounded-sm mb-2 border hover:border-gray-500 focus-visible:border text-xs bg-white undefined"
           initialValue=""
           name="fullName"
           onChange={[Function]}
           placeholder="Full Name"
+          required={true}
           value=""
         />
         <input
+          autoComplete="false"
           className="p-2 w-full rounded-sm mb-2 border hover:border-gray-500 focus-visible:border text-xs bg-white undefined"
           initialValue=""
           name="username"
           onChange={[Function]}
           placeholder="Username"
+          required={true}
           value=""
         />
         <input
+          autoComplete="foostagram-password"
           className="p-2 w-full rounded-sm mb-2 border hover:border-gray-500 focus-visible:border text-xs bg-white undefined"
           initialValue=""
           name="password"
           onChange={[Function]}
           placeholder="Password"
+          required={true}
           type="password"
           value=""
         />
