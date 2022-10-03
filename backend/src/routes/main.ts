@@ -23,6 +23,7 @@ import { GetPosts } from './feed'
 import { Follow } from './follow'
 import { Block } from './block'
 import { ProfilePic } from './profilePic'
+import { IsFollowing } from './isfollowing'
 
 const router = Router()
 
@@ -94,5 +95,6 @@ router.post(
 router.get('/feed', AuthenticateUser, GetPosts)
 router.post('/follow', body('account_to_follow'), AuthenticateUser, Follow)
 router.post('/block', body('account_to_block'), AuthenticateUser, Block)
+router.get('/isfollowing/:account_id', AuthenticateUser, IsFollowing)
 
 export default router
