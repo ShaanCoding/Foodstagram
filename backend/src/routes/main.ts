@@ -1,5 +1,5 @@
-import Router from 'express-promise-router'
-import { body, param } from 'express-validator'
+import Router from "express-promise-router";
+import { body, param } from "express-validator";
 
 import { AuthenticateUser } from '../util/auth'
 import { EditProfile } from './editprofile'

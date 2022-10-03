@@ -51,42 +51,41 @@ const Feed = () => {
 										src={like}
 									/>
 
-									<img
-										alt="Save"
-										className="mb-4 h-5 inline-block"
-										src={save}
-									/>
-								</span>
+                  <img
+                    alt="Save"
+                    className="mb-4 h-5 inline-block"
+                  />
+                </span>
 
-								<p className="text-sm text-black-500 font-medium text-left inline-block align-middle mb-4 mr-2">
-									{post.username} says:
-								</p>
-								<p className="text-sm text-black-500 text-left inline-block align-middle mb-4">
-									{post.caption}
-								</p>
+                <p className="text-sm text-black-500 font-medium text-left inline-block align-middle mb-4 mr-2">
+                  {post.username} says:
+                </p>
+                <p className="text-sm text-black-500 text-left inline-block align-middle mb-4">
+                  {post.caption}
+                </p>
 
-								<form className="flex flex-row">
-									<label className="flex-auto block p-1 bg-gray-100 rounded-xl">
-										<input
-											className="pl-2 w-full bg-transparent p-0 text-sm  text-gray-500 focus:outline-none"
-											id="name"
-											type="text"
-											placeholder="Type a comment..."
-										/>
-									</label>
-									<button
-										className="ml-1 bg-insta-green text-white text-sm p-[7px] rounded-md font-medium inline-block h-auto w-1/6"
-										type="submit"
-									>
-										Post
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-				))}
-		</div>
-	)
-}
+                <form className="flex flex-row">
+                  <label className="flex-auto block p-1 bg-gray-100 rounded-xl">
+                    <input
+                      className="pl-2 w-full bg-transparent p-0 text-sm  text-gray-500 focus:outline-none"
+                      id="name"
+                      type="text"
+                      placeholder="Type a comment..."
+                    />
+                  </label>
+                  <button
+                    className="ml-1 bg-insta-green text-white text-sm p-[7px] rounded-md font-medium inline-block h-auto w-1/6"
+                    type="submit"
+                  >
+                    Post
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        ))}
+    </div>
+  );
+};
 
-export default Feed
+export default Feed;
