@@ -23,6 +23,7 @@ import { CreatePost, DeletePost, UpdatePost } from './post'
 import { Profile } from './profile'
 import { Register } from './register'
 import { CreateBusinessPost } from './businessPosts'
+import { GetBusinessPosts } from "./getBusinessPosts";
 
 const router = Router()
 
@@ -114,6 +115,8 @@ router.post(
     body("dateTime").isLength({ min: 5 }),
     CreateBusinessPost
   );
+
+router.get('/viewBusinessPosts', AuthenticateUser, GetBusinessPosts)
   // End of business posts  
 
 export default router

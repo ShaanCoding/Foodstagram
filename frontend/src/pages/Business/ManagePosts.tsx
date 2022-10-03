@@ -1,15 +1,112 @@
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import UseBusinessPostQuery from "../../api/UseBusinessPostQuery";
+import { UseDeletePostMutation } from "../../api/UsePostMutation";
+import useAuth from "../../api/util/useAuth";
 import ManageDraftPostTableRow from "../../components/business/ManageDraftPostTableRow";
 import ManagePublishedPostTableRow from "../../components/business/ManagePublishedPostTableRow";
+import Spinner from "../../components/common/Spinner";
 
 const ManagePosts = () => {
   const [openTab, setOpenTab] = useState("published");
 
+	const [account, isLoading] = useAuth()
+  let viewPostsQuery = UseBusinessPostQuery();
+
+  console.log(viewPostsQuery);
+
+  const [publishedTable, setPublishedTable] = useState<any>();
+  const [scheduleTable, setScheduleTable] = useState<any>();
+  const [draftTable, setDraftTable] = useState<any>();
+
+  let deleteMutation = UseDeletePostMutation();
+
+  let generatePublishedTable = () => {
+    if(viewPostsQuery.isSuccess) {
+      let data = viewPostsQuery.data.data.posts;
+      let generatedTable: any[] = [];
+      data.forEach((element: any) => {
+        if(element.businessState == 1) {
+          // image: string, title: string, datePublished: string, username: string, post_id: number, likes: number, comments: number, views: number
+          generatedTable.push(<ManagePublishedPostTableRow 
+          image={element.post_image}
+          title={element.caption}
+          datePublished={element.updated_at}
+          username={element.username}
+          post_id={element.post_id}
+          likes={100}
+          comments={100}
+          views={100}
+          deletePost={deleteFunction}
+          profilePicture={element.profile_picture_url}
+          />);
+        }
+      })
+
+      setPublishedTable(generatedTable);
+    }
+  };
+
+  let generateScheduledTable = () => {
+    if(viewPostsQuery.isSuccess) {
+      let data = viewPostsQuery.data.data.posts;
+      let generatedTable: any[] = [];
+      data.forEach((element: any) => {
+        if(element.businessState == 2) {
+          generatedTable.push(<ManageDraftPostTableRow
+            image={element.post_image}
+            title={element.caption}
+            dateScheduled={element.businessScheduleTime}
+            username={element.username}
+            post_id={element.post_id}
+            deletePost={deleteFunction}
+            profilePicture={element.profile_picture_url}
+          />);
+        }
+      })
+
+      setScheduleTable(generatedTable);
+  };
+}
+
+  let generateDraftTable = () => {
+    if(viewPostsQuery.isSuccess) {
+      let data = viewPostsQuery.data.data.posts;
+      let generatedTable: any[] = [];
+      data.forEach((element: any) => {
+        if(element.businessState == 3) {
+          // generatedTable.push(<ManageDraftPostTableRow/>);
+        }
+      })
+
+      setDraftTable(generatedTable);
+  };
+}
+
+let deleteFunction = (post_id: number) => {
+  deleteMutation.mutate({post_id: post_id})
+  setPublishedTable(publishedTable.filter((element: any) => element.post_id != post_id));
+  setScheduleTable(scheduleTable.filter((element: any) => element.post_id != post_id));
+  setDraftTable(draftTable.filter((element: any) => element.post_id != post_id));
+}
+
+useEffect(() => {
+  generatePublishedTable();
+  generateScheduledTable();
+  generateDraftTable();
+}, [viewPostsQuery.isFetchedAfterMount]);
+
   return (
     <div className="mx-16">
+      	{viewPostsQuery.isLoading ||
+				(isLoading && (
+					<div className="h-[600px]">
+						<Spinner />
+					</div>
+				))}
+
       <div className="my-3">
         {/* View by Published, Schedule or Draft */}
         <div className="flex items-center justify-start py-4 border-b-[1px] border-light-gray">
@@ -132,23 +229,10 @@ const ManagePosts = () => {
                     />
                   </div>
                 </th>
-                <th className="text-left" colSpan={4}>
-                  <div className="flex items-center justify-start">
-                    <p className="text-sm font-semibold mr-2">Shares</p>
-                    <FontAwesomeIcon
-                      className="text-gray-900"
-                      icon={solid("circle-info")}
-                    />
-                  </div>
-                </th>
               </tr>
             </thead>
             <tbody>
-              <ManagePublishedPostTableRow />
-              <ManagePublishedPostTableRow />
-              <ManagePublishedPostTableRow />
-              <ManagePublishedPostTableRow />
-              <ManagePublishedPostTableRow />
+              {publishedTable}
             </tbody>
           </table>
         )}
@@ -162,7 +246,7 @@ const ManagePosts = () => {
                   <p className="text-sm font-semibold mr-2">Title</p>
                 </th>
                 <th className="text-left" colSpan={4}>
-                  <p className="text-sm font-semibold mr-2">Date updated</p>
+                  <p className="text-sm font-semibold mr-2">Date scheduled</p>
                 </th>
                 <th className="text-left" colSpan={4}>
                   <p className="text-sm font-semibold mr-2">Created by</p>
@@ -170,7 +254,7 @@ const ManagePosts = () => {
               </tr>
             </thead>
             <tbody>
-              <ManageDraftPostTableRow />
+              {scheduleTable}
             </tbody>
           </table>
         )}
@@ -192,7 +276,7 @@ const ManagePosts = () => {
               </tr>
             </thead>
             <tbody>
-              <ManageDraftPostTableRow />
+              {draftTable}
             </tbody>
           </table>
         )}

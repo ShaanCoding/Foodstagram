@@ -7,6 +7,7 @@ import {
   CreateNewBusinessPost,
   UseCreateBusinessPostMutation,
 } from "../../api/UseCreateBusinessPostMutation";
+import useAuth from "../../api/util/useAuth";
 
 const SchedulePosts = () => {
   const [previewImage, setPreviewImage] = useState<string>("");
@@ -15,6 +16,7 @@ const SchedulePosts = () => {
   const [scheduledDate, setScheduledDate] = useState<Date>(new Date());
 
   const createMutation = UseCreateBusinessPostMutation();
+  const [account, isLoading] = useAuth()
 
   const [postDescription, setPostDescription] = useState<string>("");
   const [postLocation, setPostLocation] = useState<string>("");
@@ -210,12 +212,15 @@ const SchedulePosts = () => {
                
                 dbDateString += ` ${scheduledTime}:00`
 
+                console.log(account);
+
                 let mutationData = {
                   picture: responseData,
                   caption: postDescription,
                   location: postLocation,
                   businessState: publishState,
                   dateTime: dbDateString,
+                  account_id: account.account_id,
                 } as CreateNewBusinessPost;
 
                 createMutation.mutate(mutationData);

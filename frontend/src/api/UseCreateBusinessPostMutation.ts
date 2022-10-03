@@ -9,6 +9,7 @@ export interface CreateNewBusinessPost {
   location: string;
   businessState: number;
   dateTime: string;
+  account_id: number;
 }
 
 export function UseCreateBusinessPostMutation() {
