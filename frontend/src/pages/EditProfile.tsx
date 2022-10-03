@@ -77,7 +77,7 @@ const EditProfile = () => {
                                 <Form onSubmit={(data) => profilePicMutation.mutate(data as unknown as ProfilePic)}>
                                     <div className="grid grid-cols-1 text-sm">
                                         <div className=''>
-                                            <input ref={_picture} onChange={onPictureSelected} type="file" accept="image/*" name="_picture" required />
+                                            <input ref={_picture} onChange={onPictureSelected} type="file" accept=".png, .jpg, .jpeg" name="_picture" required />
                                             <button onClick={onResetButtonClicked}>Clear</button>
                                             <img ref={img} className="w-full" />
                                             <input ref={picture} hidden name="picture" />
