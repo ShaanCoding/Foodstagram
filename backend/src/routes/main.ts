@@ -1,5 +1,5 @@
-import Router from 'express-promise-router'
-import { body, param } from 'express-validator'
+import Router from "express-promise-router";
+import { body, param } from "express-validator";
 
 import { AuthenticateUser } from '../util/auth'
 import { Block } from './block'
@@ -38,28 +38,32 @@ router.post(
 	Register
 )
 
-router.get('/feed', AuthenticateUser, GetPosts)
+router.get(
+	'/feed',
+	AuthenticateUser,
+	GetPosts
+)
 
 router.post(
 	'/posts',
+	AuthenticateUser,
 	body('picture').isLength({ min: 5 }),
 	body('caption').isLength({ min: 5 }),
 	body('location').isLength({ min: 5 }),
-	AuthenticateUser,
 	CreatePost
 )
 router.put(
 	'/posts/:post_id',
+	AuthenticateUser,
 	param('post_id').isNumeric(),
 	body('caption').isLength({ min: 5 }),
 	body('location').isLength({ min: 5 }),
-	AuthenticateUser,
 	UpdatePost
 )
 router.delete(
 	'/posts/:post_id',
-	param('post_id').isNumeric(),
 	AuthenticateUser,
+	param('post_id').isNumeric(),
 	DeletePost
 )
 
@@ -75,10 +79,11 @@ router.get('/profilePosts/:profileID', AuthenticateUser, ProfilePosts)
 
 router.post(
 	'/editprofile/:username',
-	body('email').isEmail(),
 	body('fullName').isLength({ min: 5, max: 120 }),
-	body('bio').isLength({ min: 5, max: 200 }),
 	body('username').isLength({ min: 5, max: 80 }),
+	body('bio').isLength({ min: 5, max: 200 }),
+	body('email').isEmail(),
+	body('password').isStrongPassword(),	
 	body('phone').isLength({ min: 2, max: 15 }),
 	AuthenticateUser,
 	EditProfile
