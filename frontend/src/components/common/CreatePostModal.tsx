@@ -25,14 +25,23 @@ interface Props {
 	image?: string
 	caption?: string
 	location?: string
+	visible?: boolean
+
 
 	//openButton: MutableRefObject<any>
 }
 
 const CreatePostModal = (props: Props) => {
-	const { openButton } = props
+	let { openButton, visible, image, caption, location } = props
+	if(visible === undefined ){
+		visible=false
+
+	}
+	const [imgSource, setImgSource] = useState(image)
+	const [imgPics, setImgPics] = useState(image)
+
 	const [imgUploaded, setImageUploaded] = useState(false)
-	const [open, setOpen] = useState(false)
+	const [open, setOpen] = useState(visible)
 	const onOpenModal = () => setOpen(true)
 	const onCloseModal = () => {
 		setOpen(false)
@@ -64,20 +73,25 @@ const CreatePostModal = (props: Props) => {
 			.then((base64string) =>
 				(base64string as string).slice('data:image/png;base64,'.length)
 			)
+
 			.then((base64image) => {
 				setImageUploaded(true)
-				picture.current!.value = base64image
+				//picture.current!.value = base64image
+				setImgPics(base64image)
 				setShowpreview(true)
-				if (img.current)
-					img.current!.src = `data:image/png;base64,${base64image}`
+				setImgSource(`data:image/png;base64,${base64image}`)
+				//if (img.current)
+				//	img.current!.src = `data:image/png;base64,${base64image}`
 			})
 
 	const [showPreview, setShowpreview] = useState(false)
 
 	const onResetButtonClicked = () => {
 		_picture.current!.files = null // clear the file input
-		picture.current!.value = '' // clear the hidden input (base64)
-		img.current!.removeAttribute('src') // clear the picture
+		//picture.current!.value = '' // clear the hidden input (base64)
+		setImgPics("")
+		setImgSource("")
+		//img.current!.removeAttribute('src') // clear the picture
 	}
 
 	return (
@@ -121,8 +135,8 @@ const CreatePostModal = (props: Props) => {
 									required
 								/>
 								<button onClick={onResetButtonClicked}>Clear</button>
-								<img ref={img} className="w-full" />
-								<input ref={picture} hidden name="picture" />
+								<img ref={img} src={imgSource} className="w-full" />
+								<input ref={picture} src={imgPics} hidden name="picture" />
 								<br />
 								{imgUploaded === true && (
 									<>
@@ -131,6 +145,7 @@ const CreatePostModal = (props: Props) => {
 											type="text"
 											name="caption"
 											placeholder="Caption"
+											initialValue={caption}
 											required
 											minLength={5}
 										/>
@@ -139,6 +154,7 @@ const CreatePostModal = (props: Props) => {
 										<InputField
 											type="text"
 											name="location"
+											initialValue={location}
 											placeholder="Location"
 											required
 											minLength={5}
@@ -162,6 +178,10 @@ const CreatePostModal = (props: Props) => {
 			</Modal>
 		</div>
 	)
+}
+CreatePostModal.defaultProps={
+	visible:false
+
 }
 
 export default CreatePostModal

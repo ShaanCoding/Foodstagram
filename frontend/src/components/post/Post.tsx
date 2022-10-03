@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useRef, useState } from 'react'
 
 import { UseDeletePostMutation } from '../../api/UsePostMutation'
 import useAuth from '../../api/util/useAuth'
@@ -8,6 +8,7 @@ import save from '../../images/save.png'
 import trash from '../../images/trash.png'
 import styles from '../../styles/Feed.module.css'
 import { ContextMenu } from '../common/ContextMenu'
+import CreatePostModal from '../common/CreatePostModal'
 
 interface Props {
 	post: Post
@@ -15,7 +16,9 @@ interface Props {
 export const Post = (props: Props) => {
 	const [account, _] = useAuth()
 	const { post } = props
+	const [modalVisible, setModalVisible] = useState(false)
 
+	const editButtonRef = useRef(null)
 	// TODO: fetch comments
 	const comments: [string, string][] = [
 		[post.username, post.caption],
@@ -27,7 +30,10 @@ export const Post = (props: Props) => {
 	const deletePostMutation = UseDeletePostMutation()
 	const deletePost = () => deletePostMutation.mutate({ post_id: post.post_id })
 
-	const editPost = () => {}
+	const editPost = () => {
+		setModalVisible(true)
+
+	}
 	// UseUpdatePostMutation
 
 	return (
@@ -50,7 +56,7 @@ export const Post = (props: Props) => {
 						<span className="grow" />
 						{post.account_id === account.account_id && (
 							<ContextMenu>
-								<button onClick={editPost}>
+								<button onClick={editPost} ref={editButtonRef}>
 									<img src={edit} className="mb-4 h-5 inline-block pr-5" />
 									Edit
 								</button>
@@ -61,7 +67,10 @@ export const Post = (props: Props) => {
 							</ContextMenu>
 						)}
 					</div>
+					{modalVisible && (<CreatePostModal openButton={editButtonRef}  caption={post.caption} location={post.location_name} image={post.post_image}/>
+)}
 
+					
 					<img
 						alt={`Post ${post.post_id}`}
 						className="mb-4 w-full"
