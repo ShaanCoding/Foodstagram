@@ -15,13 +15,17 @@ import InputField from '../form/InputField'
 import SubmitButton from '../form/SubmitButton'
 
 interface Props {
-	openButton: MutableRefObject<any> // TODO: not pass a button to listen for click, but display conditionally where needed
+	// openButton: MutableRefObject<any> // TODO: not pass a button to listen for click, but display conditionally where needed
 
 	post_id?: number; // if post_id is passed, then it is an update, otherwise it is a create
 	image?: string;
 	caption?: string;
 	location?: string;
+
+	//openButton: MutableRefObject<any>
+
 }
+
 
 const CreatePostModal = (props: Props) => {
 	const { openButton } = props;
