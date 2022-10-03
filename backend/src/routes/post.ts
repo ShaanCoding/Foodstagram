@@ -27,7 +27,7 @@ export async function CreatePost(req: Request, res: Response) {
 	})
 	.then(() => getBlobClient().getContainerClient(ENVIRONMENT!).getBlockBlobClient(pictureName)) // get the container
 	.then(blobBlockClient => blobBlockClient.upload(pictureBuffer, pictureBuffer.length)) // upload the file to the container
-	.then(uploadResponse => Query(postQuery, [1, `https://asdbackend.blob.core.windows.net/${ENVIRONMENT}/${pictureName}`, location, lognitude, latitude, caption]))
+	.then(uploadResponse => Query(postQuery, [req.account!.account_id, `https://asdbackend.blob.core.windows.net/${ENVIRONMENT}/${pictureName}`, location, lognitude, latitude, caption]))
 	.then(() => res.status(201).json({ message: 'Succesfully created post!' }))
 	.catch(error => {
 		console.log(error);
