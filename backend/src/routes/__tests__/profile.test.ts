@@ -14,7 +14,6 @@ describe('The Profile Route Handler', function () {
             .get('/profile/admin')
             .set({ Authorization: `Bearer ${authToken}` })
         expect(res.statusCode).toBe(200)
-        console.log(JSON.parse(res.text))
         expect(JSON.parse(res.text).data).toHaveProperty('email')
         expect(JSON.parse(res.text).data.verified).toBe(1)
     })
