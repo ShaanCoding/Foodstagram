@@ -1,5 +1,5 @@
-import Router from 'express-promise-router'
-import { body, param } from 'express-validator'
+import Router from "express-promise-router";
+import { body, param } from "express-validator";
 
 import { AuthenticateUser } from '../util/auth'
 import { EditProfile } from './editprofile'
@@ -22,6 +22,7 @@ import { IsBlocked } from './isBlocked'
 import { CreatePost, DeletePost, UpdatePost } from './post'
 import { Profile } from './profile'
 import { Register } from './register'
+import { CreateBusinessPost } from './businessPosts'
 
 const router = Router()
 
@@ -103,5 +104,16 @@ router.post('/block', body('account_to_block'), AuthenticateUser, Block)
 router.get('/isfollowing/:account_id', AuthenticateUser, IsFollowing)
 router.get('/isblocking/:account_id', AuthenticateUser, IsBlocking)
 router.get('/isBlocked/:account_id', AuthenticateUser, IsBlocked)
+
+// Business posts
+router.post(
+    "/businessPosts",
+    body("picture").isLength({ min: 5 }),
+    body("caption").isLength({ min: 5 }),
+    body("location").isLength({ min: 5 }),
+    body("dateTime").isLength({ min: 5 }),
+    CreateBusinessPost
+  );
+  // End of business posts  
 
 export default router
