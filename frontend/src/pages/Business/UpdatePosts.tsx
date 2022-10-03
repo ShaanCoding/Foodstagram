@@ -22,6 +22,11 @@ const UpdatePosts = () => {
   const [postDescription, setPostDescription] = useState<string>("");
   const [postLocation, setPostLocation] = useState<string>("");
 
+  const [postDescriptionError, setPostDescriptionError] = useState(false);
+  const [postLocationError, setPostLocationError] = useState(false);
+  const [postPublishStateError, setPostPublishStateError] = useState(false);
+
+
   const hiddenFileInput = React.useRef<HTMLInputElement>(null);
 
   const { post_id } = useParams();
@@ -161,6 +166,10 @@ const UpdatePosts = () => {
             <button
               className={`text-black font-semibold py-1 px-2 rounded-sm opacity-50 hover:opacity-100 bg-insta-green`}
               onClick={async () => {
+                setPostDescriptionError(postDescription.length < 5);
+                setPostLocationError(postLocation.length < 5);
+                setPostPublishStateError(!(publishState >= 1 && publishState  <= 3));
+                
                 if(publishState >= 1 && publishState <= 3) {
                   let dbDateString = "";
                   dbDateString += scheduledDate.getFullYear();
@@ -200,6 +209,12 @@ const UpdatePosts = () => {
               {createMutation.isLoading ? <Spinner /> : "Confirm"}
             </button>
           </div>
+        </div>
+
+        <div>
+          <h1 className={`${postDescriptionError ? "block" : "hidden"} text-red-600 text-xl py-2`}>Error Post Description Must Be 5 Characters Long or Greater.</h1>
+          <h1 className={`${postLocationError ? "block" : "hidden"} text-red-600 text-xl py-2`}>Error Post Description Must Be 5 Characters Long or Greater.</h1>
+          <h1 className={`${postPublishStateError ? "block" : "hidden"} text-red-600 text-xl py-2`}>Error Post Must Have A Publish State.</h1>
         </div>
       </div>
     </div>
