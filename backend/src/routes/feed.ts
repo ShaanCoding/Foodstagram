@@ -1,25 +1,45 @@
-import { json, Request, Response } from 'express'
-// import { Query } from '../db'
-// import { validationResult } from 'express-validator'
-// import formatErrors from '../util/formatErrors'
+import { Request, Response, json } from 'express'
+import { validationResult } from 'express-validator'
+
+import { Query } from '../util/db'
+import formatErrors from '../util/formatErrors'
 
 const feedQuery = `
-	SELECT post_id, account_id, location_name, location_lat, location_long, caption, created_at, updated_at FROM posts AS posts_table,
-	SELECT profile_picture_url FROM accounts AS accounts_table
+	SELECT
+		posts.post_id,
+		posts.account_id,
+		posts.post_image,
+		posts.location_name,
+		posts.location_lat,
+		posts.location_long,
+		posts.caption,
+		posts.created_at,
+		posts.updated_at,
+		accounts.profile_picture_url,
+		accounts.username
+	FROM posts
+	INNER JOIN accounts ON posts.account_id = accounts.account_id
+	WHERE posts.account_id IN (
+		SELECT followed_account_id
+		FROM account_followers
+		WHERE account_followers.account_id = ?
+	)
+	ORDER BY created_at DESC
+	LIMIT 10;
 `
 
-async function Feed(req: Request, res: Response) {
-	// const errors = validationResult(req)
-	// if (!errors.isEmpty()) {
-	// 	return res.status(400).json(formatErrors(errors))
-	// }
-
-	// const { email, password } = req.body
-
-	// try {
-	// 	const rows = (await Query(feedQuery, [email, password])) as Account[]
-
-		
+export function Feed(req: Request, res: Response) {
+	Promise
+	.resolve()
+	.then(() => validationResult(req))
+	.then(errors => {
+		if (!errors.isEmpty()) throw formatErrors(errors);
+	})
+	.then(() => req.account!.account_id)
+	.then(accountId => Query(feedQuery, [accountId.toString()]))
+	.then(posts => res.status(200).json(posts))
+	.catch(err => {
+		console.error(err);
+		res.status(500).json({ message: "Failed to retrieve posts" })
+	});
 }
-
-export { Feed }

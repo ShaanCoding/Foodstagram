@@ -17,3 +17,28 @@ export function UseCreatePostMutation() {
 	)
 }
 
+export interface UpdatePost {
+	post_id: number;
+	caption: string;
+	location: string;
+}
+
+export function UseUpdatePostMutation() {
+	return useMutation(
+		['updatepost'],
+		(variables: UpdatePost) => axios.put(`${GetEndpoint('api')}/posts/${variables.post_id}`),
+		{ retry: false }
+	)
+}
+
+export interface DeletePost {
+	post_id: number;
+}
+
+export function UseDeletePostMutation() {
+	return useMutation(
+		['deletepost'],
+		(variables: DeletePost) => axios.delete(`${GetEndpoint('api')}/posts/${variables.post_id}`),
+		{ retry: false }
+	)
+}

@@ -1,21 +1,22 @@
 import formData from "express-form-data"
 import Router from 'express-promise-router'
-import { body, validationResult } from 'express-validator'
+import { body, param, validationResult } from 'express-validator'
 
 import { AuthenticateUser } from '../util/auth'
 import { EditProfile } from './editprofile'
+import { Feed } from "./feed"
+import { FollowerCount } from './followerCount'
+import { FollowingCount } from './followingCount'
 import { Hello } from './hello'
 import { Index } from './index'
 import { Login } from './login'
 import { Me } from './me'
-import { Post } from './post'
+import { CreatePost, DeletePost, UpdatePost } from './post'
+import { PostCount } from './postCount'
 import { Profile } from './profile'
 import { Register } from './register'
-import { GetAllUsers, SearchUsers } from './searchUser'
 import { GetAllPosts, SearchPosts } from './searchPost'
-import { PostCount } from './postCount'
-import { FollowerCount } from './followerCount'
-import { FollowingCount } from './followingCount'
+import { GetAllUsers, SearchUsers } from './searchUser'
 
 const router = Router()
 router.use(formData.format())
@@ -38,12 +39,32 @@ router.post(
 	Register
 )
 
+router.get(
+	'/feed',
+	AuthenticateUser,
+	Feed,
+)
+
 router.post(
 	'/posts',
 	body('picture').isLength({ min: 5 }),
 	body('caption').isLength({ min: 5 }),
 	body('location').isLength({ min: 5 }),
-	Post
+	CreatePost
+)
+router.put(
+	'/posts/:post_id',
+	param('post_id').isNumeric(),
+	body('caption').isLength({ min: 5 }),
+	body('location').isLength({ min: 5 }),
+	AuthenticateUser,
+	UpdatePost,
+)
+router.delete(
+	'/posts/:post_id',
+	param('post_id').isNumeric(),
+	AuthenticateUser,
+	DeletePost,
 )
 
 router.get('/me', AuthenticateUser, Me)
