@@ -1,24 +1,25 @@
 import Router from 'express-promise-router'
-import { body, validationResult } from 'express-validator'
+import { body, param } from 'express-validator'
+
+import { AuthenticateUser } from '../util/auth'
+import { EditProfile } from './editprofile'
+import { FollowerCount } from './followerCount'
+import { FollowingCount } from './followingCount'
 import { Hello } from './hello'
 import { Index } from './index'
 import { Login } from './login'
-import { Post } from './post'
-import { Register } from './register'
-import { Profile } from './profile'
-import { EditProfile } from './editprofile'
-import { AuthenticateUser } from '../util/auth'
 import { Me } from './me'
 import { SearchUsers, SearchPosts } from './search'
 import { PostCount } from './postCount'
-import { FollowerCount } from './followerCount'
-import { FollowingCount } from './followingCount'
 import { ProfilePosts } from './profilePosts'
 import { GetPosts } from './feed'
 import { Follow } from './follow'
 import { Block } from './block'
 import { ProfilePic } from './profilePic'
 import { IsFollowing } from './isfollowing'
+import { CreatePost, DeletePost, UpdatePost } from './post'
+import { Profile } from './profile'
+import { Register } from './register'
 
 const router = Router()
 
@@ -37,12 +38,28 @@ router.post(
 	Register
 )
 
-router.get(
-	'/post',
+router.get('/feed', AuthenticateUser, GetPosts)
+
+router.post(
+	'/posts',
 	body('picture').isLength({ min: 5 }),
 	body('caption').isLength({ min: 5 }),
 	body('location').isLength({ min: 5 }),
-	Post
+	CreatePost
+)
+router.put(
+	'/posts/:post_id',
+	param('post_id').isNumeric(),
+	body('caption').isLength({ min: 5 }),
+	body('location').isLength({ min: 5 }),
+	AuthenticateUser,
+	UpdatePost
+)
+router.delete(
+	'/posts/:post_id',
+	param('post_id').isNumeric(),
+	AuthenticateUser,
+	DeletePost
 )
 
 router.get('/me', AuthenticateUser, Me)
