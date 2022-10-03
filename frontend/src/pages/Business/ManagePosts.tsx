@@ -1,6 +1,7 @@
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import ManageDraftPostTableRow from "../../components/business/ManageDraftPostTableRow";
 import ManagePublishedPostTableRow from "../../components/business/ManagePublishedPostTableRow";
 
@@ -68,15 +69,17 @@ const ManagePosts = () => {
                 icon={solid("search")}
               />
             </div>
-            <div className="flex items-center justify-end relative">
-              <button className="pl-10 pr-2 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100">
-                Create Post
-              </button>
-              <FontAwesomeIcon
-                className="absolute w-5 h-5 left-2 pointer-events-none text-white"
-                icon={solid("table")}
-              />
-            </div>
+            <Link to="/scheduleposts">
+              <div className="flex items-center justify-end relative">
+                <button className="pl-10 pr-2 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100">
+                  Create Post
+                </button>
+                <FontAwesomeIcon
+                  className="absolute w-5 h-5 left-2 pointer-events-none text-white"
+                  icon={solid("table")}
+                />
+              </div>
+            </Link>
           </div>
         </div>
 
@@ -159,59 +162,15 @@ const ManagePosts = () => {
                   <p className="text-sm font-semibold mr-2">Title</p>
                 </th>
                 <th className="text-left" colSpan={4}>
-                  <p className="text-sm font-semibold mr-2">Date published</p>
+                  <p className="text-sm font-semibold mr-2">Date updated</p>
                 </th>
                 <th className="text-left" colSpan={4}>
-                  <div className="flex items-center justify-start">
-                    <p className="text-sm font-semibold mr-2">Reach</p>
-                    <FontAwesomeIcon
-                      className="text-gray-900"
-                      icon={solid("circle-info")}
-                    />
-                  </div>
-                </th>
-                <th className="text-left" colSpan={4}>
-                  <div className="flex items-center justify-start">
-                    <p className="text-sm font-semibold mr-2">Engagements</p>
-                    <FontAwesomeIcon
-                      className="text-gray-900"
-                      icon={solid("circle-info")}
-                    />
-                  </div>
-                </th>
-                <th className="text-left" colSpan={4}>
-                  <div className="flex items-center justify-start">
-                    <p className="text-sm font-semibold mr-2">
-                      Likes and reactions
-                    </p>
-                    <FontAwesomeIcon
-                      className="text-gray-900"
-                      icon={solid("circle-info")}
-                    />
-                  </div>
-                </th>
-                <th className="text-left" colSpan={4}>
-                  <div className="flex items-center justify-start">
-                    <p className="text-sm font-semibold mr-2">Comments</p>
-                    <FontAwesomeIcon
-                      className="text-gray-900"
-                      icon={solid("circle-info")}
-                    />
-                  </div>
-                </th>
-                <th className="text-left" colSpan={4}>
-                  <div className="flex items-center justify-start">
-                    <p className="text-sm font-semibold mr-2">Shares</p>
-                    <FontAwesomeIcon
-                      className="text-gray-900"
-                      icon={solid("circle-info")}
-                    />
-                  </div>
+                  <p className="text-sm font-semibold mr-2">Created by</p>
                 </th>
               </tr>
             </thead>
             <tbody>
-              <ManagePublishedPostTableRow />
+              <ManageDraftPostTableRow />
             </tbody>
           </table>
         )}

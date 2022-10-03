@@ -3,7 +3,7 @@ import { validationResult } from 'express-validator'
 import { OkPacket } from "mysql";
 import { v4 as uuidv4 } from "uuid";
 
-import { Query, pool } from '../util/db'
+import { Query } from '../util/db'
 import formatErrors from '../util/formatErrors'
 import { getBlobClient } from '../util/storage'
 
