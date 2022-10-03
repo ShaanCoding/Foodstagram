@@ -1,7 +1,7 @@
 import React from "react";
 import exampleLogo from "../../images/business/progSocLogo.png";
 
-const ManageScheduledPostTableRow: React.FC<{image: string, title: string, dateScheduled: string, username: string, post_id: number, deletePost: any, profilePicture: string}> = ({image, title, dateScheduled, username, post_id, deletePost, profilePicture}) => {
+const ManageScheduledPostTableRow: React.FC<{image: string, title: string, dateScheduled: string, username: string, post_id: number, deletePost: any, profilePicture: string, updatePost: any}> = ({image, title, dateScheduled, username, post_id, deletePost, profilePicture, updatePost}) => {
   
   let getDate = () => {
     let date = new Date(dateScheduled);
@@ -26,6 +26,12 @@ const ManageScheduledPostTableRow: React.FC<{image: string, title: string, dateS
             </div>
           </div>
           <div className="flex items-center justify-end">
+          <div className="mr-2">
+              <button className="font-semibold py-1 px-2 rounded-sm opacity-50 hover:opacity-100 bg-slate-100  text-sm border-[1px] border-light-gray"
+                onClick={() => {updatePost(post_id)}}>
+                ...
+              </button>
+            </div>
             <div className="mr-2">
               <button className="font-semibold py-1 px-2 rounded-sm opacity-50 hover:opacity-100 bg-slate-100  text-sm border-[1px] border-light-gray"
                 onClick={() => {deletePost(post_id)}}>

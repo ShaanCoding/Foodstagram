@@ -1,7 +1,7 @@
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UseBusinessPostQuery from "../../api/UseBusinessPostQuery";
 import { UseDeletePostMutation } from "../../api/UsePostMutation";
 import useAuth from "../../api/util/useAuth";
@@ -40,6 +40,7 @@ const ManagePosts = () => {
           views={100}
           deletePost={deleteFunction}
           profilePicture={element.profile_picture_url}
+          updatePost={updateFunction}
           />);
         }
       })
@@ -62,6 +63,7 @@ const ManagePosts = () => {
             post_id={element.post_id}
             deletePost={deleteFunction}
             profilePicture={element.profile_picture_url}
+            updatePost={updateFunction}
           />);
         }
       })
@@ -83,7 +85,9 @@ const ManagePosts = () => {
             username={element.username}
             post_id={element.post_id}
             deletePost={deleteFunction}
-            profilePicture={element.profile_picture_url}/>);
+            profilePicture={element.profile_picture_url}
+            updatePost={updateFunction}
+            />);
         }
       })
 
@@ -93,9 +97,13 @@ const ManagePosts = () => {
 
 let deleteFunction = (post_id: number) => {
   deleteMutation.mutate({post_id: post_id})
-  setPublishedTable(publishedTable.filter((element: any) => element.post_id != post_id));
-  setScheduleTable(scheduleTable.filter((element: any) => element.post_id != post_id));
-  setDraftTable(draftTable.filter((element: any) => element.post_id != post_id));
+  window.location.reload();
+}
+
+const navigate = useNavigate();
+
+let updateFunction = (post_id: number) => {
+  navigate(`/updateposts/${post_id}`)
 }
 
 useEffect(() => {
@@ -161,7 +169,7 @@ useEffect(() => {
             <option>Videos</option>
           </select>
           <div className="flex items-center justify-end">
-            <div className="flex justify-end items-center relative mr-2">
+            {/* <div className="flex justify-end items-center relative mr-2">
               <input
                 className="w-full pl-12 pr-2 border-[1px] border-light-gray py-2 rounded-md"
                 type="text"
@@ -171,7 +179,7 @@ useEffect(() => {
                 className="absolute w-5 h-5 left-2 pointer-events-none"
                 icon={solid("search")}
               />
-            </div>
+            </div> */}
             <Link to="/scheduleposts">
               <div className="flex items-center justify-end relative">
                 <button className="pl-10 pr-2 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100">

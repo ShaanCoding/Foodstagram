@@ -1,8 +1,8 @@
 import React from "react";
 import { getDefaultState } from "react-query/types/core/mutation";
 
-const ManagePublishedPostTableRow: React.FC<{image: string, title: string, datePublished: string, username: string, post_id: number, likes: number, comments: number, views: number, deletePost: any, profilePicture: string}>
-= ({image, title, datePublished, username, post_id, likes, comments, views, deletePost, profilePicture}) => {
+const ManagePublishedPostTableRow: React.FC<{image: string, title: string, datePublished: string, username: string, post_id: number, likes: number, comments: number, views: number, deletePost: any, profilePicture: string, updatePost: any}>
+= ({image, title, datePublished, username, post_id, likes, comments, views, deletePost, profilePicture, updatePost}) => {
   
   let getDate = () => {
     let date = new Date(datePublished);
@@ -28,6 +28,12 @@ const ManagePublishedPostTableRow: React.FC<{image: string, title: string, dateP
             </div>
           </div>
           <div className="flex items-center justify-center xl:justify-end my-4 xl:my-0">
+          <div className="mr-2">
+              <button className="font-semibold py-1 px-2 rounded-sm opacity-50 hover:opacity-100 bg-slate-100  text-sm border-[1px] border-light-gray"
+              onClick={() => {updatePost(post_id)}}>
+                ...
+              </button>
+            </div>
             <div className="mr-2">
               <button className="font-semibold py-1 px-2 rounded-sm opacity-50 hover:opacity-100 bg-slate-100  text-sm border-[1px] border-light-gray"
               onClick={() => {deletePost(post_id)}}>

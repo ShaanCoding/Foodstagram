@@ -57,3 +57,43 @@ export async function CreateBusinessPost(req: Request, res: Response) {
       res.status(500).json({ message: "Failed to create post" });
     });
 }
+
+export async function UpdateBusinessPost(req: Request, res: Response) {
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json(formatErrors(errors));
+  }
+
+  const updateBusinessPostQuery = 'UPDATE posts SET caption = ?, location_name = ?, updated_at = NOW(), businessState = ?, businessScheduleTime = ? WHERE post_id = ?;';
+  const updateBusinessPostQueryNoDateTime = 'UPDATE posts SET caption = ?, location_name = ?, updated_at = NOW(), businessState = ? WHERE post_id = ?;';
+
+
+  const post_id = req.params.post_id;
+  const {caption, location, businessState, dateTime } = req.body;
+
+  try {
+    if(dateTime) {
+      await Query(updateBusinessPostQuery, [
+        caption,
+        location,
+        businessState,
+        dateTime,
+        post_id
+      ]);
+    } else {
+      await Query(updateBusinessPostQueryNoDateTime, [
+        caption,
+        location,
+        businessState,
+        post_id
+      ]);
+    }
+
+    return res.status(201).json({message: "Successfully updated post! "});
+
+  } catch(ex) {
+    console.log(ex);
+    res.status(500).json({ message: "Failed to update post" });
+  }
+}

@@ -20,3 +20,21 @@ export function UseCreateBusinessPostMutation() {
     { retry: false }
   );
 }
+
+
+export interface UpdateBusinessPost {
+	post_id: number
+	caption: string
+	location: string
+  businessState: number
+  dateTime?: string
+}
+
+export function UseUpdateBusinessPostMutation() {
+	return useMutation(
+		['updatepost'],
+		(variables: UpdateBusinessPost) =>
+			axios.put(`${GetEndpoint('api')}/businessPosts/${variables.post_id}`, variables),
+		{ retry: false }
+	)
+}
