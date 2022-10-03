@@ -9,7 +9,7 @@ import { Profile } from './profile'
 import { EditProfile } from './editprofile'
 import { AuthenticateUser } from '../util/auth'
 import { Me } from './me'
-import { SearchUsers, SearchPosts, ShowUserSearchResults, ShowPostSearchResults } from './search'
+import { SearchUsers, SearchPosts } from './search'
 import { PostCount } from './postCount'
 import { FollowerCount } from './followerCount'
 import { FollowingCount } from './followingCount'
@@ -67,8 +67,6 @@ router.post(
 //search routes
 router.post('/api/search_user', body('searchStr'), SearchUsers)
 router.post('/api/search_post', body('searchStr'), SearchPosts)
-router.post('/api/search_user_results', body('searchStr'), ShowUserSearchResults)
-router.post('/api/search_post_results', body('searchStr'), ShowPostSearchResults)
 //end search routes
 
 router.get('/feed', AuthenticateUser, GetPosts)

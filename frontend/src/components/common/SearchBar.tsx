@@ -5,8 +5,11 @@ import Form from '../form/Form'
 import UseSearchPostMutation from "../../api/UseSearchPostMutation";
 import UseSearchUserMutation from "../../api/UseSearchUserMutation";
 import UseSearchResultPostMutation from "../../api/UseSearchResultPostMutation";
+import useAuth from "../../api/util/useAuth";
+import { Link } from "react-router-dom";
 
 const SearchBar = () => {
+  const [account, isLoading] = useAuth()
   const [searchString, setSearchString] = useState('');
   const [placeholder, setPlaceholder] = useState('Enter Username')
   const [searchResult, setSearchResult] = useState([])
@@ -24,21 +27,22 @@ const SearchBar = () => {
   }
 
   useEffect(() => {
-    console.log(searchString)
-    if (searchString === "") {
-      setSearchResult([])
-    }
+    // if (searchString === "") {
+    //   setSearchResult([])
+    // }
     if (placeholder === 'Enter Username') {
       searchUserMutation.mutate({
         searchStr: searchString
       })
-      console.log(searchUserMutation.data?.data.data)
+      setSearchResult(searchUserMutation.data?.data.data)
+      console.log(searchResult)
     }
     if (placeholder === 'Enter Location') {
       searchPostMutation.mutate({
         searchStr: searchString
       })
-      console.log(searchPostMutation.data?.data.data)
+      setSearchResult(searchPostMutation.data?.data.data)
+      console.log(searchResult)
     }
   }, [searchString])
 
@@ -61,6 +65,20 @@ const SearchBar = () => {
         className="absolute w-5 h-5 mr-4 pointer-events-none"
         icon={solid("search")}
       />
+      {/* {placeholder === 'User' && (
+        <div>
+          {searchResult.slice(0, 10).map((value:any, key:any) => {
+            return (
+              <p>{value.username}</p>
+              <Link to={`/profile/${value.username}`}>
+                <a href={value.profile_picture_url}/>
+                <p>{value.username} </p>
+              </Link>
+            );
+          })}
+        </div>
+      )} */}
+      
     </form></>
     
   )
