@@ -37,14 +37,12 @@ const Feed = () => {
 									src={post.profile_picture_url}
 								/>
 								<a
-									href="/user/skyemcalpine"
+									href={"/profile/" + post.username}
 									className="font-medium text-md text-black-500 text-left inline-block ml-4 align-middle mb-4"
 								>
 									{post.username}
 								</a>
-								<img alt="Post 1" className="mb-4" src={post.post_image} />
-
-								{/* Add like and maybe comment buttons here. Then add a save button on the right hand side*/}
+								<img alt="Post" className="mb-4" src={post.post_image} />
 								<span className="flex items-stretch">
 									<img
 										alt="Like"

@@ -7,10 +7,16 @@ import UsePostCountQuery from '../api/UsePostCountQuery'
 import UseFollowerCountQuery from '../api/UseFollowerCountQuery'
 import UseFollowingCountQuery from '../api/UseFollowingCountQuery'
 import UseProfilePostsQuery from '../api/UseProfilePostsQuery'
+import UseIsFollowingQuery from '../api/UseIsFollowingQuery'
+import { UseFollowMutation } from '../api/UseFollowMutation'
+import { useQueryClient } from 'react-query'
+import Spinner from '../components/common/Spinner'
+
 
 const Profile = () => {
 	const [account, isLoading] = useAuth()
 	const param = useParams()
+	const queryClient = useQueryClient()
 	console.log(param)
 	if (param.username === undefined) {
 		return <Navigate to="/" />
@@ -20,6 +26,9 @@ const Profile = () => {
 	const followerCountQuery = UseFollowerCountQuery(profileQuery.data?.data.data.account_id)
 	const followingCountQuery = UseFollowingCountQuery(profileQuery.data?.data.data.account_id)
 	const profilePostsQuery = UseProfilePostsQuery(profileQuery.data?.data.data.account_id)
+	const isFollowingQuery = UseIsFollowingQuery(profileQuery.data?.data.data.account_id)
+	const followMutation = UseFollowMutation(queryClient)
+	
 
 	return (
 		<div className="relative max-w-2xl mx-auto my-3">
@@ -67,7 +76,14 @@ const Profile = () => {
 								</button>
 							</Link>
 						)}
-
+						{isFollowingQuery.isLoading === false && account.username !== (param.username as string) && (
+							<button onClick={() => {followMutation.mutate(profileQuery.data?.data.data.account_id)}} className={`${isFollowingQuery.data?.data.isFollowing?"bg-white":"bg-insta-green text-white"} my-5 px-5 py-2 font-semibold text-sm border border-gray-400 rounded`}>
+								{followMutation.isLoading? (
+									<Spinner/>
+								): isFollowingQuery.data?.data.isFollowing?"Unfollow":"Follow"}
+							</button>
+						)}
+						
 						<p className="mt-2 mb-3 text-center">
 							{profileQuery.data?.data.data.bio}
 						</p>
