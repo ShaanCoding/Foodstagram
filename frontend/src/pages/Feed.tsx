@@ -1,15 +1,10 @@
 // import React from "react";
 import styles from '../styles/Feed.module.css'
-import post1 from '../images/post1.jpg'
-import avatar1 from '../images/avatar1.jpg'
-import post2 from '../images/post2.jpg'
-import avatar2 from '../images/avatar2.jpg'
-import post3 from '../images/post3.jpg'
-import avatar3 from '../images/avatar3.jpg'
 import like from '../images/like.png' // use this for like button (or find a new icon, then find the same icon filled in, so when you click like it becomes solid)
 import save from '../images/save.png'
 import useAuth from '../api/util/useAuth'
 import UseFeedQuery from '../api/UseFeedQuery'
+import { Post } from '../components/post/Post'
 
 const Feed = () => {
 	const [account, isLoading] = useAuth()

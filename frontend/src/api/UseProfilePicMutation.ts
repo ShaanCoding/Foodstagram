@@ -6,10 +6,10 @@ export interface ProfilePic {
     image: string;
 }
 
-export function UseProfilePicMutation(profileID: string) {
-    return useMutation(['profilePic', profileID], (variables: ProfilePic) =>
+export function UseProfilePicMutation(username: string) {
+    return useMutation(['profilePic', username], (variables: ProfilePic) =>
         axios
-            .post(`${GetEndpoint('api')}/profilePic/${profileID}`, variables)
+            .post(`${GetEndpoint('api')}/profilePic/${username}`, variables)
             .then((res) => res),
         { retry: false }
     )

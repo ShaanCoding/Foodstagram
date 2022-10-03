@@ -1,12 +1,15 @@
-import express from 'express'
 import http from 'http'
-import router from './routes/main'
-import RunMigrations from './util/migrate'
+
 import chalk from 'chalk'
 import cors from 'cors'
-import { CreateEnvironmentContainers } from './util/storage'
+import * as dotenv from 'dotenv'
+import express from 'express'
 
-require('dotenv').config()
+dotenv.config()
+
+import router from './routes/main'
+import RunMigrations from './util/migrate'
+import { CreateEnvironmentContainers } from './util/storage'
 
 const Run = async () => {
 	await RunMigrations()
@@ -23,7 +26,7 @@ const Run = async () => {
 		})
 	)
 
-	app.use(express.json())
+	app.use(express.json({ limit: '200mb' }))
 
 	app.use('/', router)
 
