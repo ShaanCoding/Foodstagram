@@ -8,6 +8,7 @@ import formatErrors from "../util/formatErrors";
 import { getBlobClient } from "../util/storage";
 
 export async function CreateBusinessPost(req: Request, res: Response) {
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json(formatErrors(errors));
@@ -17,7 +18,7 @@ export async function CreateBusinessPost(req: Request, res: Response) {
     "INSERT INTO `posts` (`account_id`, `post_image`, `location_name`, `location_lat`, `location_long`, `caption`, `businessState`, `businessScheduleTime`, `created_at`, `updated_at`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
 
   const { ENVIRONMENT } = process.env;
-  const { picture, caption, location, businessState, dateTime } = req.body;
+  const { picture, caption, location, businessState, dateTime, account_id } = req.body;
 
   const pictureName = uuidv4();
   const pictureBuffer = Buffer.from(picture, "base64");
@@ -40,7 +41,7 @@ export async function CreateBusinessPost(req: Request, res: Response) {
     ) // upload the file to the container
     .then((uploadResponse) =>
       Query(postQuery, [
-        1,
+        account_id ? account_id : 1,
         `https://asdbackend.blob.core.windows.net/${ENVIRONMENT}/${pictureName}`,
         location,
         lognitude,
