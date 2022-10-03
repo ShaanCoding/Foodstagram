@@ -1,7 +1,8 @@
-import azure = require('@azure/storage-blob')
-import chalk = require('chalk')
+const azure = require('@azure/storage-blob')
+const chalk = require('chalk')
 
-require('dotenv').config()
+const dotenv = require('dotenv')
+dotenv.config()
 
 const { BLOB_CONNECTION_STRING, ENVIRONMENT } = process.env
 

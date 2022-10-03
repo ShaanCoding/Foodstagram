@@ -1,27 +1,19 @@
 import { json, Request, Response } from 'express'
 import { Query } from '../util/db'
-// import { validationResult } from 'express-validator'
-// import formatErrors from '../util/formatErrors'
-// Step 1: get the post IDs and post data based on the following account IDs (ID to reference is hardcoded for now)
-// REPLACE 13 WITH LOGGED IN ACCOUNT ID
 
 const profilePostsQuery = `
-SELECT post_id, A.username, profile_picture_url, location_name, location_lat, location_long, caption, created_at, updated_at, post_image
-FROM posts P LEFT JOIN accounts A ON P.account_id = A.account_id
-WHERE A.account_id = ? ORDER BY created_at
-`
-
-const profilePostsQueryBak = `
-SELECT P.post_id, coalesce (L.post_likes, 0) post_likes, A.username, profile_picture_url, location_name, location_lat, location_long, caption, created_at, updated_at, post_image
-FROM (select post_id, COUNT(post_id) as post_likes from liked_posts) L, posts P
+SELECT P.post_id,COUNT(LP.post_id) as post_likes, A.username, profile_picture_url, location_name, location_lat, location_long, caption, created_at, updated_at, post_image
+FROM posts P
 LEFT JOIN accounts A ON P.account_id = A.account_id
-where L.post_id = P.post_id AND
-A.account_id = ? ORDER BY created_at
+LEFT JOIN liked_posts LP ON P.post_id = LP.post_id
+WHERE A.account_id = ?
+GROUP BY P.post_id
+ORDER BY created_at
 `
 
 async function ProfilePosts(req: Request, res: Response) {
 	const account = req.params.profileID
-	if(account === undefined) {
+	if (account === undefined) {
 		return res.status(500)
 	}
 	else {
@@ -34,9 +26,6 @@ async function ProfilePosts(req: Request, res: Response) {
 			return res.json({ message: 'No posts yet' })
 		}
 	}
-	// const { username, profile_picture_url, location_name, location_lat, location_long, caption, created_at, updated_at, post_image } = req.body
-
-
 }
 
 export { ProfilePosts }

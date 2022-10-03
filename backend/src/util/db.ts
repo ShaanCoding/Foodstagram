@@ -1,6 +1,6 @@
 import mysql from 'mysql2'
-
-require('dotenv').config()
+import dotenv from 'dotenv'
+dotenv.config()
 
 const { DB_USERNAME, DB_PASSWORD, DB_HOST, ENVIRONMENT } = process.env
 
