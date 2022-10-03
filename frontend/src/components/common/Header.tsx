@@ -18,6 +18,8 @@ const Header = ({ headerFocused = 'None' }: iHeaderState) => {
 	const [account, isLoading] = useAuth()
 	const newPostButtonRef = React.useRef(null)
 
+	if (account === null || account.account_id === undefined) return <></>
+
 	return (
 		<div className="bg-white flex items-center justify-between w-full py-4 px-32 border-b-[1px] border-light-gray mb-16">
 			<Link to="/">
@@ -91,7 +93,7 @@ const Header = ({ headerFocused = 'None' }: iHeaderState) => {
 						<img
 							alt="avatar"
 							className="w-8 h-8 rounded-full border-2 border-gray-700"
-							src={userAvatar}
+							src={`${account.profile_picture_url}`}
 						/>
 					</Link>
 				</div>
