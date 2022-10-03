@@ -116,14 +116,15 @@ router.post(
     CreateBusinessPost
   );
 
+  router.put('/businessPosts/:post_id',
+  param('post_id').isNumeric(),
+  body('caption').isLength({ min: 5 }),
+  body('location').isLength({ min: 5 }),
+  body('businessState').isNumeric(),
+  UpdateBusinessPost
+  )
+
 router.get('/viewBusinessPosts', AuthenticateUser, GetBusinessPosts)
-router.put('/businessPosts/:post_id',
-	param('post_id').isNumeric(),
-	body('caption').isLength({ min: 5 }),
-	body('location').isLength({ min: 5 }),
-	body('businessState').isNumeric(),
-	UpdateBusinessPost
-)
 router.get('/viewBusinessPosts/:post_id', GetIndividualBusinessPost)
 
 
