@@ -1,26 +1,20 @@
 import { useState } from 'react'
+
 import styles from '../../styles/Form.module.css'
 
-interface Props {
-	name: string
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 	placeholder: string
-	type?: string
 	initialValue?: string
 }
 
 const InputField = (props: Props) => {
-	const { placeholder, type, name, initialValue } = props
-
-	const [value, setValue] = useState(initialValue)
-
+	const [value, setValue] = useState(props.initialValue)
 	return (
 		<input
+			{...props}
 			className={`p-2 w-full rounded-sm mb-2 border hover:border-gray-500 focus-visible:border text-xs bg-white ${styles.greyBackground}`}
-			placeholder={placeholder}
 			value={value}
-			type={type}
-			name={name}
-			onChange={(event)=>{
+			onChange={(event) => {
 				setValue(event.target.value)
 			}}
 		/>
@@ -28,7 +22,6 @@ const InputField = (props: Props) => {
 }
 
 InputField.defaultProps = {
-	type: 'text',
 	initialValue: '',
 }
 

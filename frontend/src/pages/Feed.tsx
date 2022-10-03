@@ -1,15 +1,10 @@
 // import React from "react";
 import styles from '../styles/Feed.module.css'
-import post1 from '../images/post1.jpg'
-import avatar1 from '../images/avatar1.jpg'
-import post2 from '../images/post2.jpg'
-import avatar2 from '../images/avatar2.jpg'
-import post3 from '../images/post3.jpg'
-import avatar3 from '../images/avatar3.jpg'
 import like from '../images/like.png' // use this for like button (or find a new icon, then find the same icon filled in, so when you click like it becomes solid)
 import save from '../images/save.png'
 import useAuth from '../api/util/useAuth'
 import UseFeedQuery from '../api/UseFeedQuery'
+import { Post } from '../components/post/Post'
 
 const Feed = () => {
 	const [account, isLoading] = useAuth()
@@ -37,14 +32,12 @@ const Feed = () => {
 									src={post.profile_picture_url}
 								/>
 								<a
-									href="/user/skyemcalpine"
+									href={"/profile/" + post.username}
 									className="font-medium text-md text-black-500 text-left inline-block ml-4 align-middle mb-4"
 								>
 									{post.username}
 								</a>
-								<img alt="Post 1" className="mb-4" src={post.post_image} />
-
-								{/* Add like and maybe comment buttons here. Then add a save button on the right hand side*/}
+								<img alt="Post" className="mb-4" src={post.post_image} />
 								<span className="flex items-stretch">
 									<img
 										alt="Like"
@@ -86,7 +79,6 @@ const Feed = () => {
 						</div>
 					</div>
 				))}
-		<p className="text-sm text-black-500 text-left inline-block align-middle mb-4">No posts yet! Try following some users.</p>
 		</div>
 	)
 }

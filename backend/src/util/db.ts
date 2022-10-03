@@ -4,7 +4,7 @@ dotenv.config()
 
 const { DB_USERNAME, DB_PASSWORD, DB_HOST, ENVIRONMENT } = process.env
 
-const dbConfig = {
+export const dbConfig = {
 	host: DB_HOST,
 	user: DB_USERNAME,
 	database: ENVIRONMENT,
@@ -12,7 +12,7 @@ const dbConfig = {
 	multipleStatements: true,
 }
 
-const pool = mysql.createPool({
+export const pool = mysql.createPool({
 	host: DB_HOST,
 	user: DB_USERNAME,
 	database: ENVIRONMENT,
@@ -23,9 +23,8 @@ const pool = mysql.createPool({
 	queueLimit: 0,
 })
 
-const Query = async (sql: string, parameters: string[]) => {
-	const [rows, fields] = await pool.promise().execute(sql, parameters)
-	return rows
-}
-
-export { dbConfig, Query }
+export const Query = (sql: string, parameters: string[]) =>
+	pool
+		.promise()
+		.execute(sql, parameters)
+		.then(([rows, fields]) => rows)
