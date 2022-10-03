@@ -76,10 +76,11 @@ router.get('/profilePosts/:profileID', AuthenticateUser, ProfilePosts)
 
 router.post(
 	'/editprofile/:username',
-	body('email').isEmail(),
 	body('fullName').isLength({ min: 5, max: 120 }),
-	body('bio').isLength({ min: 5, max: 200 }),
 	body('username').isLength({ min: 5, max: 80 }),
+	body('bio').isLength({ min: 5, max: 200 }),
+	body('email').isEmail(),
+	body('password').isStrongPassword(),	
 	body('phone').isLength({ min: 2, max: 15 }),
 	AuthenticateUser,
 	EditProfile
