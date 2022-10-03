@@ -12,27 +12,26 @@ const Profile = () => {
 	const [account, isLoading] = useAuth()
 	const param = useParams()
 	console.log(param)
-	if (param.profileID === undefined) { return (<Navigate to="/" />) }
-	const profileQuery = UseProfileQuery(param.profileID as string)
-	const postCountQuery = UsePostCountQuery(param.profileID)
-	const followerCountQuery = UseFollowerCountQuery(param.profileID)
-	const followingCountQuery = UseFollowingCountQuery(param.profileID)
-	const profilePostsQuery = UseProfilePostsQuery(param.profileID)
+	if (param.username === undefined) {
+		return <Navigate to="/" />
+	}
+	const profileQuery = UseProfileQuery(param.username as string)
+	const postCountQuery = UsePostCountQuery(profileQuery.data?.data.data.account_id)
+	const followerCountQuery = UseFollowerCountQuery(profileQuery.data?.data.data.account_id)
+	const followingCountQuery = UseFollowingCountQuery(profileQuery.data?.data.data.account_id)
+	const profilePostsQuery = UseProfilePostsQuery(profileQuery.data?.data.data.account_id)
 
 	return (
 		<div className="relative max-w-2xl mx-auto my-3">
 			{/* top bar */}
 			{profileQuery.isLoading == false && (
 				<>
-
 					<div className="flex flex-col justify-center items-center my-5">
-						<div
+						<img
+							alt="Profile Picture"
 							className="w-32 h-32 bg-cover bg-center bg-no-repeat rounded-full"
-							style={{
-								backgroundImage:
-									"url('https://source.unsplash.com/8hI_OW99d28')",
-							}}
-						></div>
+							src={profileQuery.data?.data.data.profile_picture_url}
+						/>
 						<span className="mt-3 font-bold">
 							{profileQuery.data?.data.data.name}
 						</span>
@@ -42,20 +41,26 @@ const Profile = () => {
 
 						<div className="grid grid-cols-3 gap-10 text-sm mb-3">
 							<div className="flex flex-col items-center">
-								<span className="font-bold">{postCountQuery.data?.data.data.count}</span>
+								<span className="font-bold">
+									{postCountQuery.data?.data.data.count}
+								</span>
 								<span>Posts</span>
 							</div>
 							<div className="flex flex-col items-center">
-								<span className="font-bold">{followerCountQuery.data?.data.data.followers}</span>
+								<span className="font-bold">
+									{followerCountQuery.data?.data.data.followers}
+								</span>
 								<span>Followers</span>
 							</div>
 							<div className="flex flex-col items-center">
-								<span className="font-bold">{followingCountQuery.data?.data.data.following}</span>
+								<span className="font-bold">
+									{followingCountQuery.data?.data.data.following}
+								</span>
 								<span>Following</span>
 							</div>
 						</div>
 
-						{account.account_id.toString() === param.profileID as string && (
+						{account.username === (param.username as string) && (
 							<Link to="/editprofile">
 								<button className="my-5 px-5 py-2 font-semibold text-sm border border-gray-400 rounded">
 									Edit profile
@@ -70,12 +75,17 @@ const Profile = () => {
 					{/* top bar end */}
 
 					{/* post grid */}
-					<div className="grid grid-cols-3 gap-0.5 mt-2" >
-
-						{profilePostsQuery.isLoading === false && profilePostsQuery.isSuccess && profilePostsQuery.data?.data.posts !== undefined && (
+					<div className="grid grid-cols-3 gap-0.5 mt-2">
+						{profilePostsQuery.isLoading === false &&
+							profilePostsQuery.isSuccess &&
+							profilePostsQuery.data?.data.posts !== undefined &&
 							profilePostsQuery.data?.data.posts.map((post: Post) => (
 								<div className="relative w-full h-full">
-									<img alt="Post" className="mb-4 w-full h-full object-cover aspect-square" src={post.post_image} />
+									<img
+										alt="Post"
+										className="mb-4 w-full h-full object-cover aspect-square"
+										src={post.post_image}
+									/>
 									<div className="absolute bottom-1 left-1 flex gap-1 text-white text-xs items-center">
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
@@ -88,15 +98,17 @@ const Profile = () => {
 											<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
 											<path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
 										</svg>
-										<span className={`${styles.likeCounter}`}>{post.post_likes}</span>
+										<span className={`${styles.likeCounter}`}>
+											{post.post_likes}
+										</span>
 									</div>
 								</div>
-							)))}
+							))}
 					</div>
 					{/* post grid end */}
 				</>
 			)}
-		</div >
+		</div>
 	)
 }
 

@@ -21,6 +21,7 @@ import { FollowingCount } from './followingCount'
 import { ProfilePosts } from './profilePosts'
 import { GetPosts } from './feed'
 import { Follow } from './follow'
+import { ProfilePic } from './profilePic'
 
 const router = Router()
 
@@ -51,12 +52,10 @@ router.get('/me', AuthenticateUser, Me)
 
 router.post('/login', body('email').isEmail(), body('password'), Login)
 
-router.get('/profile/:profileID', Profile)
-
+router.get('/profile/:username', Profile)
 router.get('/postCount/:profileID', PostCount)
 router.get('/followerCount/:profileID', FollowerCount)
 router.get('/followingCount/:profileID', FollowingCount)
-
 router.get('/profilePosts/:profileID', AuthenticateUser, ProfilePosts)
 
 router.post(
@@ -68,6 +67,12 @@ router.post(
 	body('phone').isLength({ min: 2, max: 15 }),
 	AuthenticateUser,
 	EditProfile
+)
+
+router.post(
+	'/profilePic/:profileID',
+	body('picture').isLength({ min: 5 }),
+	ProfilePic
 )
 
 //search routes
