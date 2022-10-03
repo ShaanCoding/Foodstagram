@@ -1,33 +1,3 @@
-<<<<<<< HEAD
-import Router from "express-promise-router";
-import { body, param } from "express-validator";
-
-import { AuthenticateUser } from "../util/auth";
-import { EditProfile } from "./editprofile";
-import { FollowerCount } from "./followerCount";
-import { FollowingCount } from "./followingCount";
-import { Hello } from "./hello";
-import { Index } from "./index";
-import { Login } from "./login";
-import { Me } from "./me";
-import { SearchUsers, SearchPosts } from "./search";
-import { PostCount } from "./postCount";
-import { ProfilePosts } from "./profilePosts";
-import { GetPosts } from "./feed";
-import { Follow } from "./follow";
-import { Block } from "./block";
-import { ProfilePic } from "./profilePic";
-import { IsFollowing } from "./isfollowing";
-import { IsBlocking } from "./isblocking";
-import { CreatePost, DeletePost, UpdatePost } from "./post";
-import { Profile } from "./profile";
-import { Register } from "./register";
-import { IsBlocked } from "./isBlocked";
-
-const router = Router();
-
-router.get("/", Index);
-=======
 import Router from 'express-promise-router'
 import { body, param } from 'express-validator'
 
@@ -52,58 +22,58 @@ import { IsBlocked } from './isBlocked'
 import { CreatePost, DeletePost, UpdatePost } from './post'
 import { Profile } from './profile'
 import { Register } from './register'
+import { CreateBusinessPost } from './businessPosts'
 
 const router = Router()
 
 router.get('/', Index)
->>>>>>> 58a9be543666c6a49005bc8b0ee4fa040f956898
 //router.get('/*', GetAllPosts)
 
-router.get("/hello", Hello);
-router.get("/hello/:name", Hello);
+router.get('/hello', Hello)
+router.get('/hello/:name', Hello)
 
 router.post(
-  "/register",
-  body("email").isEmail(),
-  body("fullName").isLength({ min: 5, max: 120 }),
-  body("username").isLength({ min: 5, max: 80 }),
-  body("password").isStrongPassword(),
-  Register
-);
+	'/register',
+	body('email').isEmail(),
+	body('fullName').isLength({ min: 5, max: 120 }),
+	body('username').isLength({ min: 5, max: 80 }),
+	body('password').isStrongPassword(),
+	Register
+)
 
-router.get("/feed", AuthenticateUser, GetPosts);
+router.get('/feed', AuthenticateUser, GetPosts)
 
 router.post(
-  "/posts",
-  body("picture").isLength({ min: 5 }),
-  body("caption").isLength({ min: 5 }),
-  body("location").isLength({ min: 5 }),
-  CreatePost
-);
+	'/posts',
+	body('picture').isLength({ min: 5 }),
+	body('caption').isLength({ min: 5 }),
+	body('location').isLength({ min: 5 }),
+	CreatePost
+)
 router.put(
-  "/posts/:post_id",
-  param("post_id").isNumeric(),
-  body("caption").isLength({ min: 5 }),
-  body("location").isLength({ min: 5 }),
-  AuthenticateUser,
-  UpdatePost
-);
+	'/posts/:post_id',
+	param('post_id').isNumeric(),
+	body('caption').isLength({ min: 5 }),
+	body('location').isLength({ min: 5 }),
+	AuthenticateUser,
+	UpdatePost
+)
 router.delete(
-  "/posts/:post_id",
-  param("post_id").isNumeric(),
-  AuthenticateUser,
-  DeletePost
-);
+	'/posts/:post_id',
+	param('post_id').isNumeric(),
+	AuthenticateUser,
+	DeletePost
+)
 
-router.get("/me", AuthenticateUser, Me);
+router.get('/me', AuthenticateUser, Me)
 
-router.post("/login", body("email").isEmail(), body("password"), Login);
+router.post('/login', body('email').isEmail(), body('password'), Login)
 
-router.get("/profile/:username", Profile);
-router.get("/postCount/:profileID", PostCount);
-router.get("/followerCount/:profileID", FollowerCount);
-router.get("/followingCount/:profileID", FollowingCount);
-router.get("/profilePosts/:profileID", AuthenticateUser, ProfilePosts);
+router.get('/profile/:username', Profile)
+router.get('/postCount/:profileID', PostCount)
+router.get('/followerCount/:profileID', FollowerCount)
+router.get('/followingCount/:profileID', FollowingCount)
+router.get('/profilePosts/:profileID', AuthenticateUser, ProfilePosts)
 
 router.post(
 	'/editprofile/:username',
@@ -118,14 +88,14 @@ router.post(
 )
 
 router.post(
-  "/profilePic/:username",
-  body("picture").isLength({ min: 5 }),
-  ProfilePic
-);
+	'/profilePic/:username',
+	body('picture').isLength({ min: 5 }),
+	ProfilePic
+)
 
 //search routes
-router.post("/api/search_user", body("searchStr"), SearchUsers);
-router.post("/api/search_post", body("searchStr"), SearchPosts);
+router.post('/api/search_user', body('searchStr'), SearchUsers)
+router.post('/api/search_post', body('searchStr'), SearchPosts)
 //end search routes
 
 router.get('/feed', AuthenticateUser, GetPosts)
@@ -137,14 +107,13 @@ router.get('/isBlocked/:account_id', AuthenticateUser, IsBlocked)
 
 // Business posts
 router.post(
-  "/businessPosts",
-  body("picture").isLength({ min: 5 }),
-  body("caption").isLength({ min: 5 }),
-  body("location").isLength({ min: 5 }),
-  body("dateTime").isLength({ min: 5 }),
-  CreatePost
-);
-// End of business posts
+    "/businessPosts",
+    body("picture").isLength({ min: 5 }),
+    body("caption").isLength({ min: 5 }),
+    body("location").isLength({ min: 5 }),
+    body("dateTime").isLength({ min: 5 }),
+    CreateBusinessPost
+  );
+  // End of business posts  
 
-
-export default router;
+export default router
