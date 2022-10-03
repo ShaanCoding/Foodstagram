@@ -56,7 +56,7 @@ async function SearchPosts(req: Request, res: Response) {
 	const { searchStr } = req.body
 
   const SearchQuery = `
-    select * from posts
+    select location_name from posts
   `
 
 	try {
@@ -66,9 +66,18 @@ async function SearchPosts(req: Request, res: Response) {
 			const fuse = new Fuse(rows, {
 				keys: ['location_name'],
 				minMatchCharLength: -1,
-				threshold: 0.3
+				threshold: 0.5
 			})
 			const result: any[] = fuse.search(searchStr)
+			let filteredResult: any[] = []
+			for (let i = 0; i < result.length; ++i)
+			{
+				filteredResult.forEach(element => {
+					if (element.item.location_name.toLowerCase() === result[i].item.location_name.toLowerCase())
+						filteredResult.push(result[i])
+				});
+			}
+			console.log()
 			return res.status(200).json({
 				message: 'Search Results:',
 				data: result,
@@ -106,7 +115,7 @@ async function SearchUsers(req: Request, res: Response) {
 			const fuse = new Fuse(rows, {
 				keys: ['username'],
 				minMatchCharLength: -1, 
-				threshold: 0.3
+				threshold: 0.5
 			})
 			const result: any[] = fuse.search(searchStr)
 			return res.status(200).json({
