@@ -15,9 +15,9 @@ import SubmitButtonProfilePic from '../components/form/SubmitButtonProfilePic'
 
 const EditProfile = () => {
     const [account, isLoading] = useAuth()
-	const profileQuery = UseProfileQuery(account.username as string)
-    const editProfileMutation = UseEditProfileMutation(account.username as string)
-    const profilePicMutation = UseProfilePicMutation(account.username as string)
+    const profileQuery = UseProfileQuery(account.username as string)
+    const editProfileMutation = UseEditProfileMutation(account.account_id.toString())
+    const profilePicMutation = UseProfilePicMutation(account.account_id.toString())
     const picture = useRef<HTMLInputElement>(null);
     const _picture = useRef<HTMLInputElement>(null);
     const [imgUploaded, setImageUploaded] = useState(false);

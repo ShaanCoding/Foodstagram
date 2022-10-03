@@ -61,7 +61,7 @@ const Profile = () => {
 						</div>
 
 						{account.username === (param.username as string) && (
-							<Link to={`/editprofile`}>
+							<Link to="/editprofile">
 								<button className="my-5 px-5 py-2 font-semibold text-sm border border-gray-400 rounded">
 									Edit profile
 								</button>

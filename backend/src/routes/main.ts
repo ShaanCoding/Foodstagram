@@ -54,7 +54,7 @@ router.get('/followingCount/:profileID', FollowingCount)
 router.get('/profilePosts/:profileID', AuthenticateUser, ProfilePosts)
 
 router.post(
-	'/editprofile/:username',
+	'/editprofile/:profileID',
 	body('email').isEmail(),
 	body('fullName').isLength({ min: 5, max: 120 }),
 	body('bio').isLength({ min: 5, max: 200 }),
@@ -65,7 +65,7 @@ router.post(
 )
 
 router.post(
-	'/profilePic/:username',
+	'/profilePic/:profileID',
 	body('picture').isLength({ min: 5 }),
 	ProfilePic
 )
