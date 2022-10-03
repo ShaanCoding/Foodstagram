@@ -31,7 +31,6 @@ exports[`The Login page renders correctly 1`] = `
         <input
           autoComplete="foostagram-email"
           className="p-2 w-full rounded-sm mb-2 border hover:border-gray-500 focus-visible:border text-xs bg-white undefined"
-          initialValue=""
           name="email"
           onChange={[Function]}
           placeholder="Email address"
@@ -42,7 +41,6 @@ exports[`The Login page renders correctly 1`] = `
         <input
           autoComplete="foostagram-password"
           className="p-2 w-full rounded-sm mb-2 border hover:border-gray-500 focus-visible:border text-xs bg-white undefined"
-          initialValue=""
           name="password"
           onChange={[Function]}
           placeholder="Password"
@@ -56,8 +54,6 @@ exports[`The Login page renders correctly 1`] = `
         <button
           className="w-full bg-insta-green text-white text-sm p-[5px] rounded-md font-medium"
           disabled={false}
-          loading={false}
-          text="Log In"
           type="submit"
         >
           Log In
