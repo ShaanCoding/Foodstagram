@@ -27,8 +27,8 @@ async function Follow(req: Request, res: Response) {
 		return res.status(500)
 	}
 	else {
-		const follow_row = (await Query(checkFollowQuery, [account.account_id.toString()])) as Account[] // need to somehow place the account_to_follow in there as well
-		if (follow_row.length === 0) {
+		const follow_row = (await Query(checkFollowQuery, [account.account_id.toString()])) as Account[] // need to somehow place the account_to_follow's account_id in there as well
+		if (follow_row.length < 1) {
 			// Follow
 		} else {
 			// Unfollow
