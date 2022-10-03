@@ -1,12 +1,22 @@
+import styles from '../styles/Feed.module.css'
+import like from '../images/like.png' // use this for like button (or find a new icon, then find the same icon filled in, so when you click like it becomes solid)
+import save from '../images/save.png'
 import useAuth from '../api/util/useAuth'
 import UseFeedQuery from '../api/UseFeedQuery'
 import { Post } from '../components/post/Post'
+import Spinner from '../components/common/Spinner'
 
 const Feed = () => {
 	const [account, isLoading] = useAuth()
 	const feedQuery = UseFeedQuery()
 	return (
 		<div>
+			{feedQuery.isLoading ||
+				(isLoading && (
+					<div className="h-[600px]">
+						<Spinner />
+					</div>
+				))}
 			{feedQuery.isLoading === false &&
 				feedQuery.isSuccess &&
 				feedQuery.data.data.posts === undefined && (
@@ -28,7 +38,7 @@ const Feed = () => {
 									src={post.profile_picture_url}
 								/>
 								<a
-									href={"/profile/" + post.username}
+									href={'/profile/' + post.username}
 									className="font-medium text-md text-black-500 text-left inline-block ml-4 align-middle mb-4"
 								>
 									{post.username}
