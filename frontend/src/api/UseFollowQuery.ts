@@ -2,10 +2,10 @@ import axios from 'axios'
 import { useMutation, useQuery } from 'react-query'
 import GetEndpoint from './util/GetEndpoint'
 
-export default function ProfileQuery(username: string) {
-	return useQuery(['profile', username], () =>
+export default function UseFollowQuery() {
+	return useQuery(['follow'], () =>
 		axios
-			.get(`${GetEndpoint('api')}/profile/${username}`)
+			.get(`${GetEndpoint('api')}/follow`)
 			.then((res) => res)
 	)
 }
