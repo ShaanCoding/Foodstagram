@@ -8,7 +8,8 @@ import Test from './pages/Test'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import HeaderLayout from './components/header/HeaderLayout'
-import Search from './pages/Search'
+import SearchUser from './pages/SearchUser'
+import SearchPost from './pages/SearchPost'
 import Feed from './pages/Feed'
 import Profile from './pages/Profile'
 import EditProfile from './pages/EditProfile'
@@ -32,7 +33,8 @@ function App() {
 						<Route path="/login" element={<Login />} />
 						<Route path="/register" element={<Register />} />
 						<Route path="/test" element={<Test />} />
-						<Route path="/search/:searchStr" element={<Search />} />
+						<Route path="/search/user/:searchStr" element={<SearchUser />} />
+						<Route path="/search/post/:searchStr" element={<SearchPost />} />
 						<Route path="/feed" element={<Feed />} />
 						<Route path="/profile/:username" element={<Profile />} />
 						<Route path="/editprofile" element={<EditProfile />} />

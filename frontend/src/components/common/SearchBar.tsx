@@ -28,7 +28,14 @@ const SearchBar = () => {
 
   const HandleSubmit = (e: any) => {
     e.preventDefault()
-    navigate('/search/' + searchString)
+    if (placeholder === 'Enter Username')
+      navigate('/search/user/' + searchString)
+    if (placeholder === 'Enter Location')
+      navigate('/search/post/' + searchString)
+  }
+
+  const HandleBlur = (e:any) => {
+    
   }
 
   useEffect(() => {
@@ -68,23 +75,24 @@ const SearchBar = () => {
         <input
           value={searchString}
           onChange={(e) => setSearchString(e.target.value)}
+          onBlur={e => setTimeout((e) => setSearchResult([]), 200)}
+          onFocus={(e) => setSearchString(e.target.value)}
           className="focus:ring-0 focus:outline-none bg-gray-100 text-black text-base p-2 rounded-md w-full"
           type="text"
           placeholder={placeholder}
         />
         <FontAwesomeIcon
-          onClick={(e) => setSearchString('')}
           className="absolute w-5 h-5 mr-4 pointer-events-none"
           icon={solid('search')}
         />
         <div className='absolute top-10 left-1 w-full'>
           <div className='flex-col justify-center relative z-50 hover:bg-grey-100 h-auto w-full'>
 
-          {placeholder === 'Enter Username' && searchResult !== undefined && searchResult.length > 0 &&
-            searchResult.map((element: { item: Account }) => {
-              return (
-                  <ul className="bg-white border border-gray-100 w-full hover:bg-grey-100 align-middle">
-                    <li className='pl-8 pr-2 py-1 border-b-2 border-gray-100 relative cursor-pointer hover:bg-grey-100 hover:text-gray-900'>
+            {placeholder === 'Enter Username' && searchResult !== undefined && searchResult.length > 0 &&
+              searchResult.map((element: { item: Account }) => {
+                return (
+                  <ul className="bg-white border border-gray-100 w-full align-middle">
+                    <li className='bg-white pl-8 pr-2 py-1 border-b-2 border-gray-100 relative cursor-pointer hover:bg-grey-100 hover:text-gray-900'>
                       <Link
                         onClick={(e) => setSelectResult(true)}
                         className='flex-row flex py-2'
@@ -100,43 +108,29 @@ const SearchBar = () => {
                       </Link>
                     </li>
                   </ul>
-              )
-            })
-          }
+                )
+              })
+            }
 
-          {placeholder === 'Enter Location' && searchResult !== undefined && searchResult.length > 0 &&
-            searchResult.map((element: { item: Post }) => {
-              return (
+            {placeholder === 'Enter Location' && searchResult !== undefined && searchResult.length > 0 &&
+              searchResult.map((element: { item: Post }) => {
+                return (
                   <ul className="bg-white border border-gray-100 w-full hover:bg-grey-100 align-middle">
                     <li className='pl-8 pr-2 py-1 border-b-2 border-gray-100 relative cursor-pointer hover:bg-grey-100 hover:text-gray-900'>
-                      <Link 
-                        onClick={(e) => {setSelectResult(true)}}
+                      <Link
+                        onClick={(e) => { setSelectResult(true) }}
                         className='flex-row flex py-2'
-                        to={`/search/${element.item.location_name}`}
+                        to={`/search/post/${element.item.location_name}`}
                       >
                         <p className='px-3'>{element.item.location_name}</p>
                       </Link>
                     </li>
                   </ul>
-              )
-            })
-          }
+                )
+              })
+            }
           </div>
         </div>
-
-        {/* {placeholder === 'User' && (
-        <div>
-          {searchResult.slice(0, 10).map((value:any, key:any) => {
-            return (
-              <p>{value.username}</p>
-              <Link to={`/profile/${value.username}`}>
-                <a href={value.profile_picture_url}/>
-                <p>{value.username} </p>
-              </Link>
-            );
-          })}
-        </div>
-      )} */}
       </form>
     </>
   )

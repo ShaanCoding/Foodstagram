@@ -56,7 +56,7 @@ async function SearchPosts(req: Request, res: Response) {
 	const { searchStr } = req.body
 
   const SearchQuery = `
-    select location_name from posts
+    select * from posts
   `
 
 	try {
