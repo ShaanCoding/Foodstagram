@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { MutableRefObject, useEffect, useRef, useState } from 'react'
 import styles from '../styles/Profile.module.css'
 import { Link } from 'react-router-dom'
 import Form from '../components/form/Form'
@@ -8,10 +8,43 @@ import InputFieldProfile from '../components/form/InputFieldProfile'
 import SubmitButtonProfile from '../components/form/SubmitButtonProfile'
 import useAuth from '../api/util/useAuth'
 
+import { ProfilePic, UseProfilePicMutation } from "../api/UseProfilePicMutation";
+import InputField from '../components/form/InputField'
+import SubmitButton from '../components/form/SubmitButton'
+import SubmitButtonProfilePic from '../components/form/SubmitButtonProfilePic'
+
 const EditProfile = () => {
     const [account, isLoading] = useAuth()
     const profileQuery = UseProfileQuery(account.account_id.toString())
     const editProfileMutation = UseEditProfileMutation(account.account_id.toString())
+
+    const profilePicMutation = UseProfilePicMutation(account.account_id.toString())
+    const picture = useRef<HTMLInputElement>(null);
+    const _picture = useRef<HTMLInputElement>(null);
+    const [imgUploaded, setImageUploaded] = useState(false);
+    const img = useRef<HTMLImageElement>(null);
+    const onPictureSelected = (e: React.ChangeEvent<HTMLInputElement>) =>
+        new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(((e.target as HTMLInputElement).files![0] as unknown as File));
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        })
+            .then(base64string => (base64string as string).slice("data:image/jpeg;base64".length))
+            .then(base64image => {
+                setImageUploaded(true)
+                picture.current!.value = base64image;
+                setShowpreview(true)
+                if (img.current) img.current!.src = `data:image/jpeg;base64${base64image}`;
+            })
+
+    const [showPreview, setShowpreview] = useState(false);
+
+    const onResetButtonClicked = () => {
+        _picture.current!.files = null; // clear the file input
+        picture.current!.value = ""; // clear the hidden input (base64)
+        img.current!.removeAttribute("src"); // clear the picture
+    }
 
     return (
         <div className="relative max-w-2xl mx-auto my-3">
@@ -32,6 +65,38 @@ const EditProfile = () => {
                             </div>
                         )}
 
+                        <div className="grid grid-cols-4 p-3 mb-4">
+                            <div></div>
+                            <div className="place-self-center px-4">
+                                <img
+                                    className="h-20 w-20 object-cover rounded-full place-items-center"
+                                    src={account.profile_picture_url as string}
+                                    alt="Current profile photo"
+                                />
+                            </div>
+                            <div className="block pt-2 place-self-end self-center font-semibold">
+                                <Form onSubmit={(data) => profilePicMutation.mutate(data as unknown as ProfilePic)}>
+                                    <div className="grid grid-cols-1 text-sm">
+                                        <div className=''>
+                                            <input ref={_picture} onChange={onPictureSelected} type="file" accept="image/*" name="_picture" required />
+                                            <button onClick={onResetButtonClicked}>Clear</button>
+                                            <img ref={img} className="w-full" />
+                                            <input ref={picture} hidden name="picture" />
+                                        </div>
+                                        <div className=''>
+                                            {
+                                                imgUploaded === true && (
+                                                    <>
+                                                        <SubmitButtonProfilePic text="Submit" loading={profilePicMutation.isLoading} />
+                                                    </>
+                                                )
+                                            }
+                                        </div>
+                                    </div>
+                                </Form>
+                            </div>
+                        </div>
+
                         <Form
                             onSubmit={(data) => {
                                 editProfileMutation.mutate({
@@ -44,27 +109,6 @@ const EditProfile = () => {
                                 })
                             }}
                         >
-                            <div className="grid grid-cols-5 py-3 mb-5">
-                                <div></div>
-                                <div className="block pt-2 place-self-end self-center font-semibold">
-                                    <p>Profile Picture</p>
-                                </div>
-                                <div className="place-self-end px-4">
-                                    <img
-                                        className="h-20 w-20 object-cover rounded-full place-items-center"
-                                        src={account.profile_picture_url as string}
-                                        alt="Current profile photo"
-                                    />
-                                </div>
-                                <label className="block pt-2 self-center col-span-2">
-                                    <span className="sr-only t-2">Choose profile photo</span>
-                                    <input
-                                        type="file"
-                                        className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-insta-green file:text-white hover:file:bg-green-500"
-                                    />
-                                </label>
-                            </div>
-
                             <label className="relative block p-3 bg-gray-100 rounded-2xl">
                                 <span className="text-md font-semibold text-zinc-900">
                                     Username
