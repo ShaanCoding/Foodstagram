@@ -25,6 +25,7 @@ const Profile = () => {
 		return <Navigate to="/" />
 	}
 	const profileQuery = UseProfileQuery(param.username as string)
+	const profileQueryBlank = UseProfileQuery("DEFAULTDONTDELETE")
 	const postCountQuery = UsePostCountQuery(profileQuery.data?.data.data.account_id)
 	const followerCountQuery = UseFollowerCountQuery(profileQuery.data?.data.data.account_id)
 	const followingCountQuery = UseFollowingCountQuery(profileQuery.data?.data.data.account_id)
@@ -43,8 +44,8 @@ const Profile = () => {
 					<div className="flex flex-col justify-center items-center my-5">
 						<img
 							alt="Profile Picture"
-							className="w-32 h-32 bg-cover bg-center bg-no-repeat rounded-full"
-							src={profileQuery.data?.data.data.profile_picture_url}
+							className={`w-32 h-32 bg-cover bg-center bg-no-repeat rounded-full`}
+							src={`${isBlockedQuery.data?.data.isBlocked ? profileQueryBlank.data?.data.data.profile_picture_url : profileQuery.data?.data.data.profile_picture_url}`}
 						/>
 						<span className="mt-3 font-bold">
 							{profileQuery.data?.data.data.name}
