@@ -19,10 +19,8 @@ const Feed = () => {
 	return (
 		<div>
 			{feedQuery.isLoading === false && feedQuery.isSuccess &&(
-				feedQuery.data?.data.posts.map((post:Post) => (
-
-				
-
+			feedQuery.data?.data.posts.map((post:Post) => (
+					
 			<div className="m-12 w-4/5 h-full ml-auto mr-auto flex max-w-[550px]">
 				<div className={`flex-auto w-14`}>
 					<div className={`py-7 px-8 bg-white border ${styles.greyBorder}`}>
@@ -32,7 +30,7 @@ const Feed = () => {
 							src={post.profile_picture_url}
 						/>
 						<a
-							href="/user/skyemcalpine"
+							href="/user/{post.username}"
 							className="font-medium text-md text-black-500 text-left inline-block ml-4 align-middle mb-4"
 						>
 							{post.username}
@@ -79,6 +77,7 @@ const Feed = () => {
 			</div>
 			))
 			)}
+		<p className="text-sm text-black-500 text-left inline-block align-middle mb-4">No posts yet! Try following some users.</p>
 		</div>
 	)
 }
