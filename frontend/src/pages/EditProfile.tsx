@@ -7,6 +7,7 @@ import UseEditProfileMutation from '../api/UseEditProfileMutation'
 import InputFieldProfile from '../components/form/InputFieldProfile'
 import SubmitButtonProfile from '../components/form/SubmitButtonProfile'
 import useAuth from '../api/util/useAuth'
+import { AxiosError } from 'axios'
 
 import { ProfilePic, UseProfilePicMutation } from "../api/UseProfilePicMutation";
 import InputField from '../components/form/InputField'
@@ -17,6 +18,9 @@ const EditProfile = () => {
     const [account, isLoading] = useAuth()
     const profileQuery = UseProfileQuery(account.username as string)
     const editProfileMutation = UseEditProfileMutation(account.username as string)
+    if (editProfileMutation.isError) {
+        console.log(editProfileMutation.error)
+    }
     const profilePicMutation = UseProfilePicMutation(account.username as string)
     const picture = useRef<HTMLInputElement>(null);
     const _picture = useRef<HTMLInputElement>(null);
@@ -70,7 +74,11 @@ const EditProfile = () => {
 
                         {editProfileMutation.isError && (
                             <div className="my-6 bg-red-300 rounded-lg p-4 text-center">
-                                Please enter valid data
+                                {`Failed to update account. ${editProfileMutation.error instanceof AxiosError &&
+                                    editProfileMutation.error?.response?.status === 400
+                                    ? editProfileMutation.error.response.data.message
+                                    : ''
+                                    }`}
                             </div>
                         )}
 
@@ -102,7 +110,7 @@ const EditProfile = () => {
                                             {
                                                 imgUploaded === true && (
                                                     <>
-                                                        <SubmitButtonProfilePic text="Submit" loading={profilePicMutation.isLoading} />
+                                                        <SubmitButtonProfilePic text="Upload" loading={profilePicMutation.isLoading} />
                                                     </>
                                                 )
                                             }

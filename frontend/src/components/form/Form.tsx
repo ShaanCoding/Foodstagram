@@ -1,6 +1,8 @@
+import React from "react";
+
 interface Props {
-	onSubmit: (formData: { [key: string]: string }) => void
-	children: any
+	onSubmit: <T>(formData: Record<string, string> & T) => void
+	children: React.ReactNode
 }
 
 const Form = (props: Props) => {
@@ -11,13 +13,7 @@ const Form = (props: Props) => {
 		console.log(e.currentTarget)
 		if (e.target !== null) {
 			const formData = new FormData(e.target as HTMLFormElement)
-
-			let jsonData: { [key: string]: string } = {}
-
-			for (let [key, value] of formData.entries()) {
-				jsonData[key] = value.toString()
-			}
-
+			const jsonData = Object.fromEntries([...formData.entries()].map(([key, value]) => [key, value.toString()]));
 			onSubmit(jsonData)
 		}
 	}

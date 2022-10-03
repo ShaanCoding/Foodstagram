@@ -11,6 +11,9 @@ import UseIsFollowingQuery from '../api/UseIsFollowingQuery'
 import { UseFollowMutation } from '../api/UseFollowMutation'
 import { useQueryClient } from 'react-query'
 import Spinner from '../components/common/Spinner'
+import UseIsBlockingQuery from '../api/UseIsBlockingQuery'
+import UseIsBlockedQuery from '../api/UseIsBlockedQuery'
+import { UseBlockMutation } from '../api/UseBlockMutation'
 
 
 const Profile = () => {
@@ -22,13 +25,16 @@ const Profile = () => {
 		return <Navigate to="/" />
 	}
 	const profileQuery = UseProfileQuery(param.username as string)
+	const profileQueryBlank = UseProfileQuery("DEFAULTDONTDELETE")
 	const postCountQuery = UsePostCountQuery(profileQuery.data?.data.data.account_id)
 	const followerCountQuery = UseFollowerCountQuery(profileQuery.data?.data.data.account_id)
 	const followingCountQuery = UseFollowingCountQuery(profileQuery.data?.data.data.account_id)
 	const profilePostsQuery = UseProfilePostsQuery(profileQuery.data?.data.data.account_id)
 	const isFollowingQuery = UseIsFollowingQuery(profileQuery.data?.data.data.account_id)
 	const followMutation = UseFollowMutation(queryClient)
-	
+	const isBlockingQuery = UseIsBlockingQuery(profileQuery.data?.data.data.account_id)
+	const isBlockedQuery = UseIsBlockedQuery(profileQuery.data?.data.data.account_id)
+	const blockMutation = UseBlockMutation(queryClient)
 
 	return (
 		<div className="relative max-w-2xl mx-auto my-3">
@@ -38,8 +44,8 @@ const Profile = () => {
 					<div className="flex flex-col justify-center items-center my-5">
 						<img
 							alt="Profile Picture"
-							className="w-32 h-32 bg-cover bg-center bg-no-repeat rounded-full"
-							src={profileQuery.data?.data.data.profile_picture_url}
+							className={`w-32 h-32 bg-cover bg-center bg-no-repeat rounded-full`}
+							src={`${isBlockedQuery.data?.data.isBlocked ? profileQueryBlank.data?.data.data.profile_picture_url : profileQuery.data?.data.data.profile_picture_url}`}
 						/>
 						<span className="mt-3 font-bold">
 							{profileQuery.data?.data.data.name}
@@ -76,14 +82,26 @@ const Profile = () => {
 								</button>
 							</Link>
 						)}
-						{isFollowingQuery.isLoading === false && account.username !== (param.username as string) && (
-							<button onClick={() => {followMutation.mutate(profileQuery.data?.data.data.account_id)}} className={`${isFollowingQuery.data?.data.isFollowing?"bg-white":"bg-insta-green text-white"} my-5 px-5 py-2 font-semibold text-sm border border-gray-400 rounded`}>
-								{followMutation.isLoading? (
-									<Spinner/>
-								): isFollowingQuery.data?.data.isFollowing?"Unfollow":"Follow"}
-							</button>
-						)}
-						
+
+						<div className='flex flex-row'>
+							{isFollowingQuery.isLoading === false && account.username !== (param.username as string) && (
+								<button onClick={() => { followMutation.mutate(profileQuery.data?.data.data.account_id) }} className={`${isFollowingQuery.data?.data.isFollowing ? "bg-white" : "bg-insta-green text-white"} ${isBlockedQuery.data?.data.isBlocked ? "hidden" : "px-5 mr-4"} my-2 py-2 font-semibold text-sm border border-gray-400 rounded`}>
+									{followMutation.isLoading ? (
+										<Spinner />
+									) : isFollowingQuery.data?.data.isFollowing ? "Unfollow" : "Follow"}
+								</button>
+							)}
+							{isBlockingQuery.isLoading === false && account.username !== (param.username as string) && (
+								<button onClick={() => { blockMutation.mutate(profileQuery.data?.data.data.account_id) }} className={`${isBlockingQuery.data?.data.isBlocking ? "bg-white" : "bg-red-500 text-white"} my-2 px-5 py-2 font-semibold text-sm border border-gray-400 rounded`}>
+									{blockMutation.isLoading ? (
+										<Spinner />
+									) : isBlockingQuery.data?.data.isBlocking ? "Unblock" : "Block"}
+								</button>
+							)}
+						</div>
+					</div>
+					
+					<div className={`${isBlockedQuery.data?.data.isBlocked ? "hidden" : ""} relative max-w-2xl mx-auto my-3`}>
 						<p className="mt-2 mb-3 text-center">
 							{profileQuery.data?.data.data.bio}
 						</p>
@@ -91,7 +109,7 @@ const Profile = () => {
 					{/* top bar end */}
 
 					{/* post grid */}
-					<div className="grid grid-cols-3 gap-0.5 mt-2">
+					<div className={`${isBlockedQuery.data?.data.isBlocked ? "hidden" : ""} grid grid-cols-3 gap-0.5 mt-2`}>
 						{profilePostsQuery.isLoading === false &&
 							profilePostsQuery.isSuccess &&
 							profilePostsQuery.data?.data.posts !== undefined &&

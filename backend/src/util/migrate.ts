@@ -1,12 +1,11 @@
 import path from 'path'
+
+import chalk from 'chalk'
 import dotenv from 'dotenv'
-import { dbConfig } from './db'
 import mysql from 'mysql'
 import { CommandsRunner, MysqlDriver } from 'node-db-migration'
 
-const chalk = require('chalk')
-
-dotenv.config()
+import { dbConfig } from './db'
 
 async function RunMigrations() {
 	let connection = mysql.createConnection(dbConfig)

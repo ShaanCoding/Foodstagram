@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Register page renders correctly 1`] = `
+<div
+  className="m-12 w-4/5 h-full ml-auto mr-auto flex max-w-[750px]"
+>
+  <div
+    className="hidden md:block flex-auto w-32 mr-8 mt-6"
+  >
+    <img
+      alt="Promotional screenshots of the website"
+      height={581}
+      src="/images/login/login-screenshot.png"
+      width={380}
+    />
+  </div>
+  <div
+    className="flex-auto w-14"
+  >
+    <div
+      className="py-12 px-8 bg-white border undefined"
+    >
+      <img
+        alt="Foodstaram Logo"
+        className="h-10 ml-auto mr-auto"
+        src="test-file-stub"
+      />
+      <p
+        className="font-medium text-lg text-gray-500 text-center mt-4 mb-8"
+      >
+        Sign up to see food photos from your friends.
+      </p>
+      <form
+        onSubmit={[Function]}
+      >
+        <input
+          autoComplete="foostagram-email"
+          className="p-2 w-full rounded-sm mb-2 border hover:border-gray-500 focus-visible:border text-xs bg-white undefined"
+          initialValue=""
+          name="email"
+          onChange={[Function]}
+          placeholder="Email address"
+          required={true}
+          type="email"
+          value=""
+        />
+        <input
+          autoComplete="false"
+          className="p-2 w-full rounded-sm mb-2 border hover:border-gray-500 focus-visible:border text-xs bg-white undefined"
+          initialValue=""
+          name="fullName"
+          onChange={[Function]}
+          placeholder="Full Name"
+          required={true}
+          value=""
+        />
+        <input
+          autoComplete="false"
+          className="p-2 w-full rounded-sm mb-2 border hover:border-gray-500 focus-visible:border text-xs bg-white undefined"
+          initialValue=""
+          name="username"
+          onChange={[Function]}
+          placeholder="Username"
+          required={true}
+          value=""
+        />
+        <input
+          autoComplete="foostagram-password"
+          className="p-2 w-full rounded-sm mb-2 border hover:border-gray-500 focus-visible:border text-xs bg-white undefined"
+          initialValue=""
+          name="password"
+          onChange={[Function]}
+          placeholder="Password"
+          required={true}
+          type="password"
+          value=""
+        />
+        <p
+          className="text-xs text-center text-gray-400 mt-2 mb-6"
+        >
+          By signing up, you agree to our
+           
+          <a
+            className="font-medium text-gray-500"
+            href="/"
+          >
+            Terms
+          </a>
+          ,
+           
+          <a
+            className="font-medium text-gray-500"
+            href="/"
+          >
+            Privacy Policy
+          </a>
+           
+          and
+           
+          <a
+            className="font-medium text-gray-500"
+            href="/"
+          >
+            Cookies Policy
+          </a>
+          .
+        </p>
+        <button
+          className="w-full bg-insta-green text-white text-sm p-[5px] rounded-md font-medium"
+          disabled={false}
+          loading={false}
+          text="Sign Up"
+          type="submit"
+        >
+          Sign Up
+        </button>
+      </form>
+    </div>
+    <div
+      className="mt-2 py-4 px-8 bg-white border undefined"
+    >
+      <p
+        className="text-sm text-center"
+      >
+        Have an account?
+         
+        <a
+          className="text-insta-green"
+          href="/login"
+        >
+          Log In
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+`;

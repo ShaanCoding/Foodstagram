@@ -43,12 +43,12 @@ describe('The Login Route Handler', function () {
 	test('Fails with empty details', async () => {
 		const res = await request(app)
 			.post('/login')
-			.send({})
+			.send({ email: '', password: '' })
 			.set('Accept', 'application/json')
 		expect(res.statusCode).toBe(400)
 		expect(JSON.parse(res.text)).toHaveProperty('message')
 		expect(JSON.parse(res.text).message).toBe(
-			'Please enter more appropriate values for the following fields: email,'
+			'Please enter more appropriate values for the following fields: Email Address'
 		)
 	})
 })
