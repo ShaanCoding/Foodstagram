@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import TimePicker, { TimePickerValue } from "react-time-picker";
 import Calendar from "react-calendar";
 import Spinner from "../../components/common/Spinner";
@@ -42,6 +42,13 @@ const SchedulePosts = () => {
       reader.readAsDataURL(blob);
     });
   }
+
+	const navigate = useNavigate()
+
+  useEffect(() => {
+    if(createMutation.isSuccess)
+      navigate('/manageposts')
+  }, [createMutation.isLoading]);
 
   return (
     <div className="mx-16 py-3 border-[1px] stroke-light-gray rounded-2xl">
