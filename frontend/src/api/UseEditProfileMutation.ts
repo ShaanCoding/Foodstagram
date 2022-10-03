@@ -11,10 +11,10 @@ interface MutationVariables {
 	phone: string
 }
 
-export default function UseEditProfileMutation(username: string) {
-	return useMutation(['editprofile', username], (variables: MutationVariables) =>
+export default function UseEditProfileMutation(profileID: string) {
+	return useMutation(['editprofile', profileID], (variables: MutationVariables) =>
 		axios
-			.post(`${GetEndpoint('api')}/editprofile/${username}`, {
+			.post(`${GetEndpoint('api')}/editprofile/${profileID}`, {
 				fullName: variables.fullName,
 				username: variables.username,
 				bio: variables.bio,

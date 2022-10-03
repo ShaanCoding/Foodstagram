@@ -11,7 +11,7 @@ export async function ProfilePic(req: Request, res: Response) {
     const profilePicQuery = `
     UPDATE accounts
     SET profile_picture_url = ?
-    WHERE username = ?
+    WHERE account_id = ?
     `
     const { ENVIRONMENT } = process.env;
     const { picture } = req.body;
@@ -27,7 +27,7 @@ export async function ProfilePic(req: Request, res: Response) {
         })
         .then(() => getBlobClient().getContainerClient(ENVIRONMENT!).getBlockBlobClient(pictureName)) // get the container
         .then(blobBlockClient => blobBlockClient.upload(pictureBuffer, pictureBuffer.length)) // upload the file to the container
-        .then(uploadResponse => Query(profilePicQuery, [`https://asdbackend.blob.core.windows.net/${ENVIRONMENT}/${pictureName}`, req.params.username]))
+        .then(uploadResponse => Query(profilePicQuery, [`https://asdbackend.blob.core.windows.net/${ENVIRONMENT}/${pictureName}`, req.params.profileID]))
         .then(() => res.status(201).json({ message: 'Successfully updated profile picture!' }))
         .catch(error => {
             console.log(error);
