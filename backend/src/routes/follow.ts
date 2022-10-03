@@ -9,6 +9,10 @@ const checkFollowQuery = `
 	SELECT account_id, followed_account_id FROM account_followers WHERE account_id = ? AND followed_account_id = ?
 `
 
+const checkBlockQuery = `
+	SELECT account_id, blocked_account_id FROM account_blocks WHERE account_id = ? AND blocked_account_id = ?
+`
+
 // add new record that has account_id and followed_account_id accordingly
 const followQuery = `
 	INSERT INTO account_followers
