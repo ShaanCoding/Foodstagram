@@ -7,7 +7,7 @@ interface MutationVariables {
 }
 
 export default function UseSearchResultUserMutation() {
-	return useMutation(['search_post'], (variables: MutationVariables) =>
+	return useMutation(['search_user_results'], (variables: MutationVariables) =>
 		axios
 			.post(`${GetEndpoint('api')}/api/search_user_results`, {
 				searchStr: variables.searchStr
