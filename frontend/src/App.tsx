@@ -34,7 +34,7 @@ function App() {
 						<Route path="/test" element={<Test />} />
 						<Route path="/search" element={<Search />} />
 						<Route path="/feed" element={<Feed />} />
-						<Route path="/profile/:profileID" element={<Profile />} />
+						<Route path="/profile/:username" element={<Profile />} />
 						<Route path="/editprofile" element={<EditProfile />} />
 						<Route path="/manageposts" element={<ManagePosts />} />
 						<Route path="/links" element={<Links />} />
