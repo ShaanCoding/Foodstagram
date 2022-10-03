@@ -1,28 +1,31 @@
-import { Fragment } from "react"
+import { Fragment } from 'react'
 
-import { UseDeletePostMutation } from "../../api/UsePostMutation"
-import useAuth from "../../api/util/useAuth"
+import { UseDeletePostMutation } from '../../api/UsePostMutation'
+import useAuth from '../../api/util/useAuth'
 import edit from '../../images/edit-button.png'
 import like from '../../images/like.png' // use this for like button (or find a new icon, then find the same icon filled in, so when you click like it becomes solid)
 import save from '../../images/save.png'
 import trash from '../../images/trash.png'
 import styles from '../../styles/Feed.module.css'
-import { ContextMenu } from "../common/ContextMenu";
+import { ContextMenu } from '../common/ContextMenu'
 
-export const Post: React.FC<PostProps> = (props) => {
-
-	const [account, _] = useAuth();
+interface Props {
+	post: Post
+}
+export const Post = (props: Props) => {
+	const [account, _] = useAuth()
+	const { post } = props
 
 	// TODO: fetch comments
 	const comments: [string, string][] = [
-		[props.username, props.caption],
-		["skyemcalpine", "Making strawberry and vodka jam 🍓"],
-		["kanyewest", "Wow!!!"],
-		["zuck", "Delicious.. I have to try this!"],
-	];
+		[post.username, post.caption],
+		['skyemcalpine', 'Making strawberry and vodka jam 🍓'],
+		['kanyewest', 'Wow!!!'],
+		['zuck', 'Delicious.. I have to try this!'],
+	]
 
-	const deletePostMutation = UseDeletePostMutation();
-	const deletePost = () => deletePostMutation.mutate({ post_id: props.post_id });
+	const deletePostMutation = UseDeletePostMutation()
+	const deletePost = () => deletePostMutation.mutate({ post_id: post.post_id })
 
 	const editPost = () => {}
 	// UseUpdatePostMutation
@@ -35,19 +38,17 @@ export const Post: React.FC<PostProps> = (props) => {
 						<img
 							alt="avatar"
 							className="w-8 h-8 rounded-full border-2 border-gray-700 inline-block align-middle mb-4"
-							src={props.profile_picture_url}
+							src={post.profile_picture_url}
 						/>
 						<a
-							href={`/user/${ props.username }`}
+							href={`/user/${post.username}`}
 							className="font-medium text-md text-black-500 text-left inline-block align-middle mb-4"
 						>
-							{ props.username }
+							{post.username}
 						</a>
-						in { props.location_name }
+						in {post.location_name}
 						<span className="grow" />
-
-						{
-							props.account_id === account.account_id &&
+						{post.account_id === account.account_id && (
 							<ContextMenu>
 								<button onClick={editPost}>
 									<img src={edit} className="mb-4 h-5 inline-block pr-5" />
@@ -58,36 +59,37 @@ export const Post: React.FC<PostProps> = (props) => {
 									Delete
 								</button>
 							</ContextMenu>
-						}
+						)}
 					</div>
 
-					<img alt={`Post ${ props.post_id }`} className="mb-4" src={props.post_image} />
+					<img
+						alt={`Post ${post.post_id}`}
+						className="mb-4 w-full"
+						src={post.post_image}
+					/>
 
 					{/* Add like and maybe comment buttons here. Then add a save button on the right hand side*/}
 					<span className="flex items-stretch">
-						<img
-							alt="Like"
-							className="mb-4 h-5 inline-block pr-5"
-							src={like}
-						/>
+						<img alt="Like" className="mb-4 h-5 inline-block pr-5" src={like} />
 						<img alt="Save" className="mb-4 h-5 inline-block" src={save} />
 					</span>
 
 					<div>
-					{
-						comments
-						.map((comment, index) => (
+						{comments.map((comment, index) => (
 							<Fragment key={index}>
-								<p className="text-sm text-black-500 font-medium text-left inline-block align-middle mb-4 mr-2">{comment[0]}</p>
-								<p className="text-sm text-black-500 text-left inline-block align-middle mb-4">{comment[1]}</p>
-								{
-									index
-									? <br />
-									: <hr className="border-y-1 w-80 mb-4 mx-auto" />
-								}
+								<p className="text-sm text-black-500 font-medium text-left inline-block align-middle mb-4 mr-2">
+									{comment[0]}
+								</p>
+								<p className="text-sm text-black-500 text-left inline-block align-middle mb-4">
+									{comment[1]}
+								</p>
+								{index ? (
+									<br />
+								) : (
+									<hr className="border-y-1 w-80 mb-4 mx-auto" />
+								)}
 							</Fragment>
-						))
-					}
+						))}
 					</div>
 
 					<form className="flex flex-row">
@@ -109,19 +111,5 @@ export const Post: React.FC<PostProps> = (props) => {
 				</div>
 			</div>
 		</div>
-	);
-};
-
-export interface PostProps {
-	post_id: number;
-	account_id: number;
-	post_image: string;
-	location_name: string;
-	location_lat: string;
-	location_long: string;
-	caption: string;
-	created_at: string;
-	updated_at: string;
-	profile_picture_url: string;
-	username: string;
+	)
 }
