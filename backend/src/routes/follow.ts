@@ -36,7 +36,7 @@ async function Follow(req: Request, res: Response) {
 		if (follow_row.length < 1) {
 			await Query(followQuery, [account?.account_id.toString(), account_to_follow.toString()])
 			return res.status(200).json(
-				{message: "Account Followed."} 
+				{message: "Account followed."} 
 			)
 		} else {
 			await Query(unfollowQuery, [account?.account_id.toString(), account_to_follow.toString()])
