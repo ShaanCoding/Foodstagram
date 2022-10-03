@@ -20,6 +20,16 @@ const unblockQuery = `
 	DELETE FROM account_blocks WHERE account_id = ? AND blocked_account_id = ?
 `
 
+// check if the record exists
+const checkFollowQuery = `
+	SELECT account_id, followed_account_id FROM account_followers WHERE account_id = ? AND followed_account_id = ?
+`
+
+// delete record that matches the account_id and followed_account_id
+const unfollowQuery = `
+	DELETE FROM account_followers WHERE account_id = ? AND followed_account_id = ?
+`
+
 async function Block(req: Request, res: Response) {
 	const errors = validationResult(req)
 	if (!errors.isEmpty()) {
@@ -31,16 +41,24 @@ async function Block(req: Request, res: Response) {
 	try {
 		if (follow_row.length < 1) {
 			await Query(blockQuery, [account?.account_id.toString(), account_to_block.toString()])
+			const check_follow_row_1 = (await Query(checkFollowQuery, [account?.account_id.toString(), account_to_block.toString()])) as Account[]
+			// If I'm following blocked account, unfollow them
+			if (check_follow_row_1.length > 0) {
+				await Query(unfollowQuery, [account?.account_id.toString(), account_to_block.toString()])
+			}
+			// If blocked account following me, make them unfollow me
+			const check_follow_row_2 = (await Query(checkFollowQuery, [account_to_block.toString(), account?.account_id.toString()])) as Account[]
+			if (check_follow_row_2.length > 0) {
+				await Query(unfollowQuery, [account_to_block.toString(), account?.account_id.toString()])
+			}
 			return res.status(200).json(
 				{message: "Account blocked."} 
 			)
-			// Follow
 		} else {
 			await Query(unblockQuery, [account?.account_id.toString(), account_to_block.toString()])
 			return res.status(200).json(
 				{message: "Account unblocked."}
 			)
-			// Unblock
 		}
 	}
 	catch {

@@ -1,8 +1,8 @@
 import Spinner from '../common/Spinner'
 
-interface Props {
-	text: string
-	loading?: boolean
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+	text: string;
+	loading?: boolean;
 }
 
 const SubmitButton = (props: Props) => {
@@ -10,6 +10,7 @@ const SubmitButton = (props: Props) => {
 
 	return (
 		<button
+			{ ...props }
 			className="w-full bg-insta-green text-white text-sm p-[5px] rounded-md font-medium"
 			type="submit"
 			disabled={loading}

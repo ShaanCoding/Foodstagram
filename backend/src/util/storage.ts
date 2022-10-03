@@ -6,13 +6,11 @@ dotenv.config()
 
 const { BLOB_CONNECTION_STRING, ENVIRONMENT } = process.env
 
-const getBlobClient = () => {
-	return azure.BlobServiceClient.fromConnectionString(
-		BLOB_CONNECTION_STRING as string
-	)
+export const getBlobClient = () => {
+	return azure.BlobServiceClient.fromConnectionString(BLOB_CONNECTION_STRING!)
 }
 
-async function CreateEnvironmentContainers() {
+export async function CreateEnvironmentContainers() {
 	console.log(
 		chalk.magentaBright(
 			'Connecting to Azure & creating required environment containers.'
@@ -22,12 +20,10 @@ async function CreateEnvironmentContainers() {
 	const client = getBlobClient()
 
 	try {
-		await client.createContainer(ENVIRONMENT as string, { access: 'container' })
+		await client.createContainer(ENVIRONMENT!, { access: 'container' })
 	} catch {
 		console.log(chalk.green('Container already existed with that name.'))
 	}
 
 	console.log(chalk.magentaBright('Finished creating file containers.'))
 }
-
-export { getBlobClient, CreateEnvironmentContainers }
