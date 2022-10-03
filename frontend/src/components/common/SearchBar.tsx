@@ -7,24 +7,24 @@ import useAuth from '../../api/util/useAuth'
 import { Link, useNavigate } from 'react-router-dom'
 
 const SearchBar = () => {
-  const [account, isLoading] = useAuth()
-  const [searchString, setSearchString] = useState('')
-  const [placeholder, setPlaceholder] = useState('Enter Username')
-  const [searchResult, setSearchResult] = useState([])
-  const searchUserMutation = UseSearchUserMutation()
-  const searchPostMutation = UseSearchPostMutation()
-  const [selectResult, setSelectResult] = useState(false)
-  const navigate = useNavigate()
+	const [account, isLoading] = useAuth()
+	const [searchString, setSearchString] = useState('')
+	const [placeholder, setPlaceholder] = useState('Enter Username')
+	const [searchResult, setSearchResult] = useState([])
+	const searchUserMutation = UseSearchUserMutation()
+	const searchPostMutation = UseSearchPostMutation()
+	const [selectResult, setSelectResult] = useState(false)
+	const navigate = useNavigate()
 
-  const HandleSelectTypeChange = (e: any) => {
-    if (e.target.value === 'User') {
-      setPlaceholder('Enter Username')
-      setSearchString('')
-    } else {
-      setPlaceholder('Enter Location')
-      setSearchString('')
-    }
-  }
+	const HandleSelectTypeChange = (e: any) => {
+		if (e.target.value === 'User') {
+			setPlaceholder('Enter Username')
+			setSearchString('')
+		} else {
+			setPlaceholder('Enter Location')
+			setSearchString('')
+		}
+	}
 
   const HandleSubmit = (e: any) => {
     e.preventDefault()
@@ -38,29 +38,29 @@ const SearchBar = () => {
     
   }
 
-  useEffect(() => {
-    if (searchString === "") {
-      setSearchResult([])
-    }
-    if (placeholder === 'Enter Username') {
-      searchUserMutation.mutate({
-        searchStr: searchString,
-      })
-      setSearchResult(searchUserMutation.data?.data.data)
-    }
-    if (placeholder === 'Enter Location') {
-      searchPostMutation.mutate({
-        searchStr: searchString,
-      })
-      setSearchResult(searchPostMutation.data?.data.data)
-    }
-  }, [searchString])
+	useEffect(() => {
+		if (searchString === '') {
+			setSearchResult([])
+		}
+		if (placeholder === 'Enter Username') {
+			searchUserMutation.mutate({
+				searchStr: searchString,
+			})
+			setSearchResult(searchUserMutation.data?.data.data)
+		}
+		if (placeholder === 'Enter Location') {
+			searchPostMutation.mutate({
+				searchStr: searchString,
+			})
+			setSearchResult(searchPostMutation.data?.data.data)
+		}
+	}, [searchString])
 
-  useEffect(() => {
-    setSearchResult([])
-    setSearchString('')
-    setSelectResult(false)
-  }, [selectResult])
+	useEffect(() => {
+		setSearchResult([])
+		setSearchString('')
+		setSelectResult(false)
+	}, [selectResult])
 
   return (
     <>

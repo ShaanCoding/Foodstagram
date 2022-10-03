@@ -5,11 +5,23 @@ import SubmitButton from '../components/form/SubmitButton'
 import UseRegisterMutation from '../api/UseRegisterMutation'
 import Form from '../components/form/Form'
 import { AxiosError } from 'axios'
+import Cookies from 'js-cookie'
+import { useNavigate } from 'react-router-dom'
 
 const Register = () => {
+	const navigate = useNavigate()
 	const registerMutation = UseRegisterMutation()
+
 	if (registerMutation.isError) {
 		console.log(registerMutation.error)
+	}
+
+	if (registerMutation.isSuccess) {
+		const token = registerMutation?.data?.data?.accessToken
+		if (token) {
+			Cookies.set('access_token', token)
+			navigate(`/editprofile`)
+		}
 	}
 	return (
 		<div className="m-12 w-4/5 h-full ml-auto mr-auto flex max-w-[750px]">
@@ -57,13 +69,31 @@ const Register = () => {
 							})
 						}}
 					>
-						<InputField placeholder="Email address" type="email" name="email" />
-						<InputField placeholder="Full Name" name="fullName" />
-						<InputField placeholder="Username" name="username" />
+						<InputField
+							placeholder="Email address"
+							type="email"
+							name="email"
+							autoComplete="foostagram-email"
+							required
+						/>
+						<InputField
+							placeholder="Full Name"
+							name="fullName"
+							autoComplete="false"
+							required
+						/>
+						<InputField
+							placeholder="Username"
+							name="username"
+							autoComplete="false"
+							required
+						/>
 						<InputField
 							placeholder="Password"
 							type="password"
 							name="password"
+							autoComplete="foostagram-password"
+							required
 						/>
 						<p className="text-xs text-center text-gray-400 mt-2 mb-6">
 							By signing up, you agree to our{' '}
@@ -80,7 +110,7 @@ const Register = () => {
 							</a>
 							.
 						</p>
-						<SubmitButton text="Sign Up" />
+						<SubmitButton text="Sign Up" loading={registerMutation.isLoading} />
 					</Form>
 				</div>
 				<div className={`mt-2 py-4 px-8 bg-white border ${styles.greyBorder}`}>
