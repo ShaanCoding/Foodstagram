@@ -22,23 +22,39 @@ const EditProfile = () => {
     const _picture = useRef<HTMLInputElement>(null);
     const [imgUploaded, setImageUploaded] = useState(false);
     const img = useRef<HTMLImageElement>(null);
-    const onPictureSelected = (e: React.ChangeEvent<HTMLInputElement>) =>
-        new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(((e.target as HTMLInputElement).files![0] as unknown as File));
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
-        })
-            .then(base64string => (base64string as string).slice("data:image/jpeg;base64".length))
-            .then(base64image => {
-                setImageUploaded(true)
-                picture.current!.value = base64image;
-                setShowpreview(true)
-                if (img.current) img.current!.src = `data:image/jpeg;base64${base64image}`;
+    const onPictureSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const reader = new FileReader();
+        let filetype = ((e.target as HTMLInputElement).files![0] as unknown as File).name
+        if (filetype.endsWith(".png")) {
+            new Promise((resolve, reject) => {
+                reader.readAsDataURL(((e.target as HTMLInputElement).files![0] as unknown as File));
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
             })
+                .then(base64string => (base64string as string).slice("data:image/png;base64".length))
+                .then(base64image => {
+                    setImageUploaded(true)
+                    picture.current!.value = base64image;
+                    setShowpreview(true)
+                    if (img.current) img.current!.src = `data:image/png;base64${base64image}`;
+                })
+        } else {
+            new Promise((resolve, reject) => {
+                reader.readAsDataURL(((e.target as HTMLInputElement).files![0] as unknown as File));
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            })
+                .then(base64string => (base64string as string).slice("data:image/jpeg;base64".length))
+                .then(base64image => {
+                    setImageUploaded(true)
+                    picture.current!.value = base64image;
+                    setShowpreview(true)
+                    if (img.current) img.current!.src = `data:image/jpeg;base64${base64image}`;
+                })
+        }
+    }
 
     const [showPreview, setShowpreview] = useState(false);
-
     const onResetButtonClicked = () => {
         _picture.current!.files = null; // clear the file input
         picture.current!.value = ""; // clear the hidden input (base64)
@@ -77,7 +93,7 @@ const EditProfile = () => {
                                 <Form onSubmit={(data) => profilePicMutation.mutate(data as unknown as ProfilePic)}>
                                     <div className="grid grid-cols-1 text-sm">
                                         <div className=''>
-                                            <input ref={_picture} onChange={onPictureSelected} type="file" accept="image/*" name="_picture" required />
+                                            <input ref={_picture} onChange={onPictureSelected} type="file" accept=".png, .jpg, .jpeg" name="_picture" required />
                                             <button onClick={onResetButtonClicked}>Clear</button>
                                             <img ref={img} className="w-full" />
                                             <input ref={picture} hidden name="picture" />

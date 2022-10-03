@@ -4,29 +4,35 @@ import { validationResult } from 'express-validator'
 import formatErrors from '../util/formatErrors'
 import { GenerateAccessToken } from '../util/auth'
 
+// check if the record exists
 const checkFollowQuery = `
+	SELECT account_id, followed_account_id FROM account_followers WHERE account_id = ?, followed_account_id = ?
 `
 
+// add new record that has account_id and followed_account_id accordingly
 const followQuery = `
+	INSERT INTO account_followers
+	VALUES (account_id, followed_account_id)
 `
-const deleteQuery = `
+
+// delete record that matches the account_id and followed_account_id
+const unfollowQuery = `
+	DELETE FROM account_followers WHERE account_id = ? AND followed_account_id = ?
 `
 
 async function Follow(req: Request, res: Response) {
-	const errors = validationResult(req)
-	if (!errors.isEmpty()) {
-		return res.status(400).json(formatErrors(errors))
+	const account = req.account
+	const account_to_follow = null // Get account_id of account_to_follow here
+	if(account === undefined) {
+		return res.status(500)
 	}
-
-	const { account_to_follow } = req.body
-
-	try {
-		const rows = (await Query(followQuery, [account_to_follow])) as Account[]
-
-	} catch {
-		return res
-			.status(500)
-			.json({ message: 'Failed to connect to the database' })
+	else {
+		const follow_row = (await Query(checkFollowQuery, [account.account_id.toString()])) as Account[] // need to somehow place the account_to_follow in there as well
+		if (follow_row.length === 0) {
+			// Follow
+		} else {
+			// Unfollow
+		}
 	}
 }
 
