@@ -11,6 +11,8 @@ import UseIsFollowingQuery from '../api/UseIsFollowingQuery'
 import { UseFollowMutation } from '../api/UseFollowMutation'
 import { useQueryClient } from 'react-query'
 import Spinner from '../components/common/Spinner'
+import UseIsBlockingQuery from '../api/UseIsBlockingQuery'
+import { UseBlockMutation } from '../api/UseBlockMutation'
 
 
 const Profile = () => {
@@ -28,6 +30,8 @@ const Profile = () => {
 	const profilePostsQuery = UseProfilePostsQuery(profileQuery.data?.data.data.account_id)
 	const isFollowingQuery = UseIsFollowingQuery(profileQuery.data?.data.data.account_id)
 	const followMutation = UseFollowMutation(queryClient)
+	const isBlockingQuery = UseIsBlockingQuery(profileQuery.data?.data.data.account_id)
+	const blockMutation = UseBlockMutation(queryClient)
 	
 
 	return (
@@ -81,6 +85,13 @@ const Profile = () => {
 								{followMutation.isLoading? (
 									<Spinner/>
 								): isFollowingQuery.data?.data.isFollowing?"Unfollow":"Follow"}
+							</button>
+						)}
+						{isBlockingQuery.isLoading === false && account.username !== (param.username as string) && (
+							<button onClick={() => {blockMutation.mutate(profileQuery.data?.data.data.account_id)}} className={`${isBlockingQuery.data?.data.isBlocking?"bg-white":"bg-red-500 text-white"} my-5 px-5 py-2 font-semibold text-sm border border-gray-400 rounded`}>
+								{blockMutation.isLoading? (
+									<Spinner/>
+								): isBlockingQuery.data?.data.isBlocking?"Unblock":"Block"}
 							</button>
 						)}
 						
