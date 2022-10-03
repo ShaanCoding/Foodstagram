@@ -5,16 +5,17 @@ import SubmitButton from '../components/form/SubmitButton'
 import Form from '../components/form/Form'
 import UseLoginMutation from '../api/UseLoginMutation'
 import Cookies from 'js-cookie'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+	const navigate = useNavigate()
 	const loginMutation = UseLoginMutation()
 
 	if (loginMutation.isSuccess) {
 		const token = loginMutation?.data?.data?.accessToken
 		if (token) {
 			Cookies.set('access_token', token)
-			return <Navigate replace to="/" />
+			navigate('/')
 		}
 	}
 	return (
