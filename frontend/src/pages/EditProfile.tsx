@@ -102,7 +102,7 @@ const EditProfile = () => {
                                             {
                                                 imgUploaded === true && (
                                                     <>
-                                                        <SubmitButtonProfilePic text="Submit" loading={profilePicMutation.isLoading} />
+                                                        <SubmitButtonProfilePic text="Upload" loading={profilePicMutation.isLoading} />
                                                     </>
                                                 )
                                             }
