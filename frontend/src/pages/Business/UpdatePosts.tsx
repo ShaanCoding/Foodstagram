@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import TimePicker, { TimePickerValue } from "react-time-picker";
 import Calendar from "react-calendar";
 import Spinner from "../../components/common/Spinner";
@@ -8,6 +8,7 @@ import {
   UseUpdateBusinessPostMutation,
 } from "../../api/UseCreateBusinessPostMutation";
 import useAuth from "../../api/util/useAuth";
+import UseIndividualBusinessPostQuery from "../../api/UseIndividualBusinessPostQuery";
 
 const UpdatePosts = () => {
   const [previewImage, setPreviewImage] = useState<string>("");
@@ -23,27 +24,21 @@ const UpdatePosts = () => {
 
   const hiddenFileInput = React.useRef<HTMLInputElement>(null);
 
-  const handleClick = (event: any) => {
-    if (hiddenFileInput.current != null) {
-      hiddenFileInput.current.click();
+  const { post_id } = useParams();
+  let postQuery = UseIndividualBusinessPostQuery(post_id ? parseInt(post_id) : 1);
+
+  useEffect(() => {
+    console.log(postQuery);
+    if(postQuery.data) {
+      let data = postQuery.data.data.post[0];
+      setPostDescription(data.caption)
+      setPostLocation(data.location_name);
+      setPreviewImage(data.post_image);
+      setPublishState(data.businessState);
+
     }
-  };
+  }, [postQuery.isLoading]);
 
-  const handleChange = (event: any) => {
-    const fileUploaded = event.target.files[0];
-    // Probs should upload soon
-    console.log(fileUploaded);
-    let previewImage = URL.createObjectURL(fileUploaded);
-    setPreviewImage(previewImage);
-  };
-
-  function blobToBase64(blob: Blob) {
-    return new Promise((resolve, _) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result);
-      reader.readAsDataURL(blob);
-    });
-  }
 
 	const navigate = useNavigate()
 
@@ -57,33 +52,11 @@ const UpdatePosts = () => {
       <div className="my-3">
         {/* Media type */}
         <div className="bg-white p-4 mb-8 border-b-[1px] stroke-light-gray">
-          <h2 className="text-xl py-2">Media</h2>
+          <h2 className="text-xl py-2">Edit Post</h2>
           <p className="text-md py-2">
             Share photos or a video. Foostagram posts can't exceed 10 photos.
           </p>
-          <div
-            className={`flex items-center justify-start ${
-              previewImage !== "" || previewImage !== null ? "block" : "hidden"
-            }`}
-          >
-            <button
-              onClick={handleClick}
-              className={`text-black font-semibold py-1 px-2 rounded-sm mr-2 opacity-50 hover:opacity-100 bg-slate-200`}
-            >
-              Add Photo
-            </button>
-            <input
-              type="file"
-              ref={hiddenFileInput}
-              onChange={handleChange}
-              style={{ display: "none" }}
-            />
-            {/* <button
-              className={`text-black font-semibold py-1 px-2 rounded-sm opacity-50 hover:opacity-100 bg-slate-200`}
-            >
-              Add Video
-            </button> */}
-          </div>
+        
           <div
             className={`flex items-center justify-center ${
               previewImage !== "" || previewImage !== null ? "block" : "block"
@@ -189,13 +162,6 @@ const UpdatePosts = () => {
               className={`text-black font-semibold py-1 px-2 rounded-sm opacity-50 hover:opacity-100 bg-insta-green`}
               onClick={async () => {
                 if(publishState >= 1 && publishState <= 3) {
-                  let data = await (await fetch(previewImage)).blob();
-                  let base64: any = await blobToBase64(data);
-                  let responseData: String = base64.replace(
-                    "data:image/jpeg;base64,",
-                    ""
-                  );
-
                   let dbDateString = "";
                   dbDateString += scheduledDate.getFullYear();
                   dbDateString += "-"

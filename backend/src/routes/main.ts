@@ -23,7 +23,7 @@ import { CreatePost, DeletePost, UpdatePost } from './post'
 import { Profile } from './profile'
 import { Register } from './register'
 import { CreateBusinessPost, UpdateBusinessPost } from './businessPosts'
-import { GetBusinessPosts } from "./getBusinessPosts";
+import { GetBusinessPosts, GetIndividualBusinessPost } from "./getBusinessPosts";
 
 const router = Router()
 
@@ -124,6 +124,8 @@ router.put('/businessPosts/:post_id',
 	body('businessState').isNumeric(),
 	UpdateBusinessPost
 )
+router.get('/viewBusinessPosts/:post_id', GetIndividualBusinessPost)
+
 
 // End of business posts  
 

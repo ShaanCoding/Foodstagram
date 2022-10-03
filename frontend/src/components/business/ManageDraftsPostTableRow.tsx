@@ -1,5 +1,4 @@
 import React from "react";
-import exampleLogo from "../../images/business/progSocLogo.png";
 
 const ManageDraftPostTableRow: React.FC<{image: string, title: string, dateCreated: string, username: string, post_id: number, deletePost: any, profilePicture: string, updatePost: any}> = ({image, title, dateCreated, username, post_id, deletePost, profilePicture, updatePost}) => {
   
@@ -46,7 +45,7 @@ const ManageDraftPostTableRow: React.FC<{image: string, title: string, dateCreat
       </td>
       <td colSpan={4}>
         <div className="flex items-center justify-start">
-          <img className="rounded-full w-4 h-4 mr-2" src={exampleLogo} />
+          <img className="rounded-full w-4 h-4 mr-2" src={profilePicture} />
           <p>Shaan Khan</p>
         </div>
       </td>
