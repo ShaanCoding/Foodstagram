@@ -71,14 +71,26 @@ const SearchBar = () => {
 				{searchResult !== undefined &&
 					searchResult.map((element: { item: Account }) => {
 						return (
-							<>
-								<p>{element.item.username}</p>
-								<Link to={`/profile/${element.item.username}`}>
-									<a href={`${element.item.profile_picture_url}`} />
-								</Link>
-							</>
+							<div className='inline-flex flex-col justify-center relative'>
+                <ul className="bg-white border border-gray-100 w-full mt-2 z-50 hover:bg-grey-100 align-middle">
+                  <li className='pl-8 pr-2 py-1 border-b-2 border-gray-100 relative cursor-pointer hover:bg-grey-100 hover:text-gray-900'>
+                    <Link to={`/profile/${element.item.account_id}`}>
+                      <a href={`${element.item.profile_picture_url}`} />
+                      <img
+                        alt="avatar"
+                        className="w-8 h-8 rounded-full border-2 border-gray-700"
+                        src={`${element.item.profile_picture_url}`}
+						          />
+                      <p>{element.item.username}</p>
+                    </Link>
+                  </li>  
+                </ul>
+              </div>
 						)
-					})}
+					})
+        }
+
+
 				{/* {placeholder === 'User' && (
         <div>
           {searchResult.slice(0, 10).map((value:any, key:any) => {

@@ -26,13 +26,7 @@ const Profile = () => {
 				<>
 
 					<div className="flex flex-col justify-center items-center my-5">
-						<div
-							className="w-32 h-32 bg-cover bg-center bg-no-repeat rounded-full"
-							style={{
-								backgroundImage:
-									"url('https://source.unsplash.com/8hI_OW99d28')",
-							}}
-						></div>
+						<img src={profileQuery.data?.data.data.profile_picture_url} className='w-32 h-32 bg-cover bg-center bg-no-repeat rounded-full'/>
 						<span className="mt-3 font-bold">
 							{profileQuery.data?.data.data.name}
 						</span>
