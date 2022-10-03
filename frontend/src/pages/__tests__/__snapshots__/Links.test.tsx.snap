@@ -78,14 +78,6 @@ exports[`The Links page renders correctly 1`] = `
     </li>
     <li>
       <a
-        href="/updateposts"
-        onClick={[Function]}
-      >
-        Update Posts (Shaan)
-      </a>
-    </li>
-    <li>
-      <a
         href="/search"
         onClick={[Function]}
       >

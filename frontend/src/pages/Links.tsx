@@ -30,9 +30,6 @@ const Links = () => {
 					<Link to="/scheduleposts">Schedule Posts (Shaan)</Link>
 				</li>
 				<li>
-					<Link to="/updateposts">Update Posts (Shaan)</Link>
-				</li>
-				<li>
 					<Link to="/search">Search (Trong)</Link>
 				</li>
 			</ul>
