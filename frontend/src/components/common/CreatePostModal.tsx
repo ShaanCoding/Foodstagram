@@ -27,20 +27,18 @@ interface Props {
 	location?: string
 	visible?: boolean
 
-
 	//openButton: MutableRefObject<any>
 }
 
 const CreatePostModal = (props: Props) => {
 	let { openButton, visible, image, caption, location } = props
-	if(visible === undefined ){
-		visible=false
-
+	if (visible === undefined) {
+		visible = false
 	}
 	const [imgSource, setImgSource] = useState(image)
 	const [imgPics, setImgPics] = useState(image)
 
-	const [imgUploaded, setImageUploaded] = useState(false)
+	const [imgUploaded, setImageUploaded] = useState(image !== '')
 	const [open, setOpen] = useState(visible)
 	const onOpenModal = () => setOpen(true)
 	const onCloseModal = () => {
@@ -89,8 +87,8 @@ const CreatePostModal = (props: Props) => {
 	const onResetButtonClicked = () => {
 		_picture.current!.files = null // clear the file input
 		//picture.current!.value = '' // clear the hidden input (base64)
-		setImgPics("")
-		setImgSource("")
+		setImgPics('')
+		setImgSource('')
 		//img.current!.removeAttribute('src') // clear the picture
 	}
 
@@ -136,7 +134,7 @@ const CreatePostModal = (props: Props) => {
 								/>
 								<button onClick={onResetButtonClicked}>Clear</button>
 								<img ref={img} src={imgSource} className="w-full" />
-								<input ref={picture} src={imgPics} hidden name="picture" />
+								<input ref={picture} value={imgPics} hidden name="picture" />
 								<br />
 								{imgUploaded === true && (
 									<>
@@ -179,9 +177,9 @@ const CreatePostModal = (props: Props) => {
 		</div>
 	)
 }
-CreatePostModal.defaultProps={
-	visible:false
-
+CreatePostModal.defaultProps = {
+	visible: false,
+	image: '',
 }
 
 export default CreatePostModal
