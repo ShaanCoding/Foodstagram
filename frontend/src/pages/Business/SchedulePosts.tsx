@@ -151,7 +151,7 @@ const SchedulePosts = () => {
           <p className="text-md py-2">
             Please enter the time you wish for your post to be released
           </p>
-          <div className="flex items-center justify-between">
+          <div className="">
             <Calendar
               onChange={setScheduledDate}
               value={scheduledDate}
@@ -186,14 +186,29 @@ const SchedulePosts = () => {
                   ""
                 );
 
-                let date = "1998-01-23 12:45:56";
+                let dbDateString = "";
+                dbDateString += scheduledDate.getFullYear();
+                dbDateString += "-"
+
+                if(scheduledDate.getDay() < 10) {
+                  dbDateString += "0";
+                }
+                dbDateString += scheduledDate.getDay();
+                dbDateString += "-";
+
+                if(scheduledDate.getMonth() < 10) {
+                  dbDateString += "0";
+                }
+                dbDateString += scheduledDate.getMonth();
+               
+                dbDateString += ` ${scheduledTime}:00`
 
                 let mutationData = {
                   picture: responseData,
                   caption: postDescription,
                   location: postLocation,
                   businessState: publishState,
-                  dateTime: date,
+                  dateTime: dbDateString,
                 } as CreateNewBusinessPost;
 
                 createMutation.mutate(mutationData);
