@@ -182,13 +182,13 @@ useEffect(() => {
             </div> */}
             <Link to="/scheduleposts">
               <div className="flex items-center justify-end relative">
-                <button className="pl-10 pr-2 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100">
+                <button className="px-10 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100">
                   Create Post
                 </button>
-                <FontAwesomeIcon
+                {/* <FontAwesomeIcon
                   className="absolute w-5 h-5 left-2 pointer-events-none text-white"
                   icon={solid("table")}
-                />
+                /> */}
               </div>
             </Link>
           </div>
@@ -208,19 +208,19 @@ useEffect(() => {
                 <th className="text-left" colSpan={4}>
                   <div className="flex items-center justify-start">
                     <p className="text-sm font-semibold mr-2">Reach</p>
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                       className="text-gray-900"
                       icon={solid("circle-info")}
-                    />
+                    /> */}
                   </div>
                 </th>
                 <th className="text-left" colSpan={4}>
                   <div className="flex items-center justify-start">
                     <p className="text-sm font-semibold mr-2">Engagements</p>
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                       className="text-gray-900"
                       icon={solid("circle-info")}
-                    />
+                    /> */}
                   </div>
                 </th>
                 <th className="text-left" colSpan={4}>
@@ -228,19 +228,19 @@ useEffect(() => {
                     <p className="text-sm font-semibold mr-2">
                       Likes and reactions
                     </p>
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                       className="text-gray-900"
                       icon={solid("circle-info")}
-                    />
+                    /> */}
                   </div>
                 </th>
                 <th className="text-left" colSpan={4}>
                   <div className="flex items-center justify-start">
                     <p className="text-sm font-semibold mr-2">Comments</p>
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                       className="text-gray-900"
                       icon={solid("circle-info")}
-                    />
+                    /> */}
                   </div>
                 </th>
               </tr>
