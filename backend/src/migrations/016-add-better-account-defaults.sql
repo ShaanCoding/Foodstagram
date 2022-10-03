@@ -1,0 +1,1 @@
+ALTER TABLE accounts MODIFY profile_picture_url VARCHAR(120) DEFAULT 'https://i.imgur.com/AtjuEkK.png';

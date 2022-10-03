@@ -1,12 +1,19 @@
 import useAuth from '../api/util/useAuth'
 import UseFeedQuery from '../api/UseFeedQuery'
 import { Post } from '../components/post/Post'
+import Spinner from '../components/common/Spinner'
 
 const Feed = () => {
 	const [account, isLoading] = useAuth()
 	const feedQuery = UseFeedQuery()
 	return (
 		<div>
+			{feedQuery.isLoading ||
+				(isLoading && (
+					<div className="h-[600px]">
+						<Spinner />
+					</div>
+				))}
 			{feedQuery.isLoading === false &&
 				feedQuery.isSuccess &&
 				feedQuery.data.data.posts === undefined && (
