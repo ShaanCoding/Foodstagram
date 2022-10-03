@@ -52,7 +52,7 @@ const EditProfile = () => {
                                 <div className="place-self-end px-4">
                                     <img
                                         className="h-20 w-20 object-cover rounded-full place-items-center"
-                                        src="https://source.unsplash.com/8hI_OW99d28"
+                                        src={account.profile_picture_url as string}
                                         alt="Current profile photo"
                                     />
                                 </div>

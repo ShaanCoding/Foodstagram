@@ -91,7 +91,7 @@ const Header = ({ headerFocused = 'None' }: iHeaderState) => {
 						<img
 							alt="avatar"
 							className="w-8 h-8 rounded-full border-2 border-gray-700"
-							src={userAvatar}
+							src={account.profile_picture_url as string}
 						/>
 					</Link>
 				</div>
