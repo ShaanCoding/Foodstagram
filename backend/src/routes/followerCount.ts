@@ -14,8 +14,6 @@ async function FollowerCount(req: Request, res: Response) {
 		return res.status(400).json(formatErrors(errors))
 	}
 
-	//const { email, password } = req.body
-
 	try {
 		const rows = (await Query(FollowerCountQuery, [req.params.profileID])) as Account[]
 
