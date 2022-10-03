@@ -23,6 +23,7 @@
 		"@types/jsonwebtoken": "^8.5.9",
 		"@types/node": "^18.7.23",
 		"@types/supertest": "^2.0.12",
+		"@types/uuid": "^8.3.4",
 		"babel-plugin-transform-commonjs-es2015-modules": "^4.0.1",
 		"chalk": "4.1.0",
 		"cors": "^2.8.5",
