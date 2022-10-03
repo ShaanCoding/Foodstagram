@@ -17,6 +17,7 @@ import { Follow } from './follow'
 import { Block } from './block'
 import { ProfilePic } from './profilePic'
 import { IsFollowing } from './isfollowing'
+import { IsBlocking } from './isblocking'
 import { CreatePost, DeletePost, UpdatePost } from './post'
 import { Profile } from './profile'
 import { Register } from './register'
@@ -98,5 +99,6 @@ router.get('/feed', AuthenticateUser, GetPosts)
 router.post('/follow', body('account_to_follow'), AuthenticateUser, Follow)
 router.post('/block', body('account_to_block'), AuthenticateUser, Block)
 router.get('/isfollowing/:account_id', AuthenticateUser, IsFollowing)
+router.get('/isblocking/:account_id', AuthenticateUser, IsBlocking)
 
 export default router
