@@ -54,17 +54,26 @@ const Login = () => {
 							})
 						}}
 					>
-						<InputField placeholder="Email address" type="email" name="email" />
+						<InputField
+							placeholder="Email address"
+							type="email"
+							name="email"
+							autoComplete="foostagram-email"
+							required
+						/>
 						<InputField
 							placeholder="Password"
 							type="password"
 							name="password"
+							autoComplete="foostagram-password"
+							required
 						/>
-						<p className="text-xs text-center text-gray-400 mt-2 mb-6">
+						<div className="mb-6" />
+						{/*<p className="text-xs text-center text-gray-400 mt-2 mb-6">
 							<a className="font-medium text-gray-500" href="/">
 								Forgotten your password?
 							</a>
-						</p>
+					</p>*/}
 						<SubmitButton text="Log In" loading={loginMutation.isLoading} />
 					</Form>
 				</div>
