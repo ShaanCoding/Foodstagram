@@ -27,7 +27,7 @@ export async function CreatePost(req: Request, res: Response) {
 	})
 	.then(() => getBlobClient().getContainerClient(ENVIRONMENT!).getBlockBlobClient(pictureName)) // get the container
 	.then(blobBlockClient => blobBlockClient.upload(pictureBuffer, pictureBuffer.length)) // upload the file to the container
-	.then(uploadResponse => Query(postQuery, [1, `https://asdbackend.blob.core.windows.net/${ENVIRONMENT}/${pictureName}`, location, lognitude, latitude, caption]))
+	.then(uploadResponse => Query(postQuery, [req.account!.account_id, `https://asdbackend.blob.core.windows.net/${ENVIRONMENT}/${pictureName}`, location, lognitude, latitude, caption]))
 	.then(() => res.status(201).json({ message: 'Succesfully created post!' }))
 	.catch(error => {
 		console.log(error);
@@ -47,8 +47,12 @@ export function UpdatePost(req: Request, res: Response) {
 	})
 	.then(() => Query(getUserIdQuery, [req.params.post_id]))
 	.then(res => res as { account_id: number }[])
-	.then(([{ account_id }]) => {
-		if(req.account?.account_id && account_id !== req.account?.account_id) throw new Error('You are not authorized to delete this post');
+	.then(arr => {
+		if(!arr.length) throw new Error('Post does not exist');
+		return arr[0];
+	})
+	.then(({ account_id }) => {
+		if(account_id !== req.account?.account_id) throw new Error('You are not authorized to delete this post');
 	})
 	.then(() => Query(updatePostQuery, [req.body.caption, req.body.location, req.params.post_id]))
 	.then(() => res.status(200).json({ message: 'Succesfully updated post!' }))
@@ -70,8 +74,12 @@ export function DeletePost(req: Request, res: Response) {
 	})
 	.then(() => Query(getUserIdQuery, [req.params.post_id]))
 	.then(res => res as { account_id: number }[])
-	.then(([{ account_id }]) => {
-		if(req.account?.account_id && account_id !== req.account?.account_id) throw new Error('You are not authorized to delete this post');
+	.then(arr => {
+		if(!arr.length) throw new Error('Post does not exist');
+		return arr[0];
+	})
+	.then(({ account_id }) => {
+		if(account_id !== req.account?.account_id) throw new Error('You are not authorized to delete this post');
 	})
 	.then(() => Query(deleteQuery, [req.params.post_id]))
 	.then(() => res.status(204).json({ message: 'Succesfully deleted post!' }))

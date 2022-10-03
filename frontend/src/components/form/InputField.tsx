@@ -7,8 +7,8 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 	initialValue?: string
 }
 
-const InputField = (props: Props) => {
-	const [value, setValue] = useState(props.initialValue)
+const InputField = ({ initialValue, ...props }: Props) => {
+	const [value, setValue] = useState(initialValue)
 	return (
 		<input
 			{...props}

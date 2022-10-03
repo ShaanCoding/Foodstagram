@@ -1,19 +1,11 @@
 import 'react-responsive-modal/styles.css'
 
-import {
-	light,
-	regular,
-	solid,
-} from '@fortawesome/fontawesome-svg-core/import.macro'
+import { light, regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { Modal } from 'react-responsive-modal'
 
-import {
-	CreateNewPost,
-	UseCreatePostMutation,
-	UseUpdatePostMutation,
-} from '../../api/UsePostMutation'
+import { CreateNewPost, UseCreatePostMutation, UseUpdatePostMutation } from '../../api/UsePostMutation'
 import Form from '../form/Form'
 import InputField from '../form/InputField'
 import SubmitButton from '../form/SubmitButton'
@@ -25,12 +17,9 @@ interface Props {
 	image?: string
 	caption?: string
 	location?: string
-
-	//openButton: MutableRefObject<any>
 }
 
-const CreatePostModal = (props: Props) => {
-	const { openButton } = props
+const CreatePostModal = ({ openButton }: Props) => {
 	const [imgUploaded, setImageUploaded] = useState(false)
 	const [open, setOpen] = useState(false)
 	const onOpenModal = () => setOpen(true)
@@ -58,7 +47,7 @@ const CreatePostModal = (props: Props) => {
 			reader.readAsDataURL(
 				(e.target as HTMLInputElement).files![0] as unknown as File
 			)
-			reader.onload = () => resolve(reader.result)
+			reader.onloadend = () => resolve(reader.result)
 			reader.onerror = (error) => reject(error)
 		})
 			.then((base64string) =>
@@ -80,6 +69,12 @@ const CreatePostModal = (props: Props) => {
 		img.current!.removeAttribute('src') // clear the picture
 	}
 
+	const onSubmit = (data: Record<string, string>) => {
+		createMutation.mutate(data as unknown as CreateNewPost)
+		setOpen(false)
+		alert('Post created!')
+	}
+
 	return (
 		<div>
 			<Modal
@@ -92,10 +87,10 @@ const CreatePostModal = (props: Props) => {
 				<div className="flex flex-col justify center items-center h-full">
 					<h1 className="mb-3">Create a Post</h1>
 
-					<div className="w-full bg-gray-200 flex flex-col justify center items-center h-full">
+					<div className="w-full flex flex-col justify center items-center h-full">
 						{imgUploaded === false && (
 							<>
-								<div className="w-full h-full flex justify-center items-center flex-col" />
+								{/* <div className="w-full h-full flex justify-center items-center flex-col" /> */}
 								<FontAwesomeIcon
 									className="w-24 h-24"
 									icon={regular('images')}
@@ -107,9 +102,7 @@ const CreatePostModal = (props: Props) => {
 						)}
 
 						<Form
-							onSubmit={(data) =>
-								createMutation.mutate(data as unknown as CreateNewPost)
-							}
+							onSubmit={onSubmit}
 						>
 							<div className="px-8">
 								<input
