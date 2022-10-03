@@ -84,7 +84,6 @@ const Feed = () => {
 						</div>
 					</div>
 				))}
-		<p className="text-sm text-black-500 text-left inline-block align-middle mb-4">No posts yet! Try following some users.</p>
 		</div>
 	)
 }
