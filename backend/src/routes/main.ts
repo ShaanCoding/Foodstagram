@@ -16,8 +16,9 @@ const router = Router()
 
 router.get('/', Index)
 //router.get('/*', GetAllPosts)
-router.get('/*', GetAllUsers)
+router.get('/getAllUsers', GetAllUsers)
 
+router.get('/hello', Hello)
 router.get('/hello/:name', Hello)
 
 router.post(
