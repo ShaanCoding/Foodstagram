@@ -37,6 +37,7 @@ async function EditProfile(req: Request, res: Response) {
 		return res.status(201).json({
 			message: 'Succesfully updated account!',
 		})
+		
 	} catch {
 		return res
 			.status(400)
