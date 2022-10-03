@@ -10,6 +10,7 @@ function useAuth() : [Account, boolean]{
 	} else {
 		if (accountQuery.isError) {
 			navigate('/logout')
+			return [{} as Account, true]
 		}
 		return [accountQuery.data?.data.account as Account, false]
 	}
