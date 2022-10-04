@@ -60,7 +60,7 @@ const Header = ({ headerFocused = 'None' }: iHeaderState) => {
 					<Link to={`/profile/${account.username}`}>
 						<img
 							alt="avatar"
-							className="w-8 h-8 rounded-full border-2 border-gray-700"
+							className="w-8 h-8 rounded-full border-2 border-gray-700 object-cover "
 							src={`${account.profile_picture_url}`}
 						/>
 					</Link>
