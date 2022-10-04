@@ -13,7 +13,7 @@ export function UseCreatePostMutation() {
 	return useMutation(
 		['createpost'],
 		(variables: CreateNewPost) =>
-			axios.post(`${GetEndpoint('api')}/posts`, variables),
+			axios.post<{}>(`${GetEndpoint('api')}/posts`, variables),
 		{ retry: false }
 	)
 }
@@ -28,7 +28,7 @@ export function UseUpdatePostMutation() {
 	return useMutation(
 		['updatepost'],
 		(variables: UpdatePost) =>
-			axios.put(`${GetEndpoint('api')}/posts/${variables.post_id}`),
+			axios.put<{}>(`${GetEndpoint('api')}/posts/${variables.post_id}`),
 		{ retry: false }
 	)
 }
@@ -41,7 +41,7 @@ export function UseDeletePostMutation() {
 	return useMutation(
 		['deletepost'],
 		(variables: DeletePost) =>
-			axios.delete(`${GetEndpoint('api')}/posts/${variables.post_id}`),
+			axios.delete<{}>(`${GetEndpoint('api')}/posts/${variables.post_id}`),
 		{ retry: false }
 	)
 }

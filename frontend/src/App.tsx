@@ -18,6 +18,7 @@ import SchedulePosts from './pages/Business/SchedulePosts'
 import Links from './pages/Links'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import Logout from './pages/Logout'
+import UpdatePosts from './pages/Business/UpdatePosts'
 
 const queryClient = new QueryClient()
 
@@ -42,6 +43,7 @@ function App() {
 						<Route path="/links" element={<Links />} />
 						<Route path="/logout" element={<Logout />} />
 						<Route path="/scheduleposts" element={<SchedulePosts />} />
+						<Route path="/updateposts/:post_id" element={<UpdatePosts />} />
 						<Route index element={<Feed />} />
 					</Routes>
 

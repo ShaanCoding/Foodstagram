@@ -120,7 +120,7 @@ const SearchBar = () => {
                       <Link
                         onClick={(e) => { setSelectResult(true) }}
                         className='flex-row flex py-2'
-                        to={`/search/post/${element.item.location_name}`}
+                        to={`/feed`}
                       >
                         <p className='px-3'>{element.item.location_name}</p>
                       </Link>

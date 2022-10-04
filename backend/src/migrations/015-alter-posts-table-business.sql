@@ -1,5 +1,5 @@
 ALTER TABLE posts
-ADD UNIQUE businessState INT DEFAULT NULL NULL;
+ADD businessState INT DEFAULT NULL;
 
 ALTER TABLE posts
-ADD UNIQUE businessScheduleTime DATETIME NULL;
+ADD businessScheduleTime DATETIME DEFAULT NULL;

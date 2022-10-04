@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The business/managePosts page renders correctly 1`] = `
+<div
+  className="mx-16"
+>
+  <div
+    className="my-3"
+  >
+    <div
+      className="flex items-center justify-start py-4 border-b-[1px] border-light-gray"
+    >
+      <div>
+        <button
+          className="font-semibold py-1 px-2 rounded-sm mx-2 opacity-50 hover:opacity-100 bg-insta-light-blue text-insta-dark-blue hover:bg-insta-light-blue-hover"
+          onClick={[Function]}
+        >
+          Published
+        </button>
+      </div>
+      <div>
+        <button
+          className="font-semibold py-1 px-2 rounded-sm mx-2 opacity-50 hover:opacity-100 bg-slate-100"
+          onClick={[Function]}
+        >
+          Scheduled
+        </button>
+      </div>
+      <div>
+        <button
+          className="font-semibold py-1 px-2 rounded-sm mx-2 opacity-50 hover:opacity-100 bg-slate-100"
+          onClick={[Function]}
+        >
+          Drafts
+        </button>
+      </div>
+    </div>
+    <div
+      className="flex items-center justify-between py-4"
+    >
+      <select>
+        <option>
+          Photos
+        </option>
+        <option>
+          Videos
+        </option>
+      </select>
+      <div
+        className="flex items-center justify-end"
+      >
+        <a
+          href="/scheduleposts"
+          onClick={[Function]}
+        >
+          <div
+            className="flex items-center justify-end relative"
+          >
+            <button
+              className="px-10 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100"
+            >
+              Create Post
+            </button>
+          </div>
+        </a>
+      </div>
+    </div>
+    <table
+      className="table-fixed w-full overflow-hidden"
+    >
+      <thead>
+        <tr>
+          <th
+            colSpan={1}
+          />
+          <th
+            className="text-left"
+            colSpan={8}
+          >
+            <p
+              className="text-sm font-semibold mr-2"
+            >
+              Title
+            </p>
+          </th>
+          <th
+            className="text-left"
+            colSpan={4}
+          >
+            <p
+              className="text-sm font-semibold mr-2"
+            >
+              Date published
+            </p>
+          </th>
+          <th
+            className="text-left"
+            colSpan={4}
+          >
+            <div
+              className="flex items-center justify-start"
+            >
+              <p
+                className="text-sm font-semibold mr-2"
+              >
+                Reach
+              </p>
+            </div>
+          </th>
+          <th
+            className="text-left"
+            colSpan={4}
+          >
+            <div
+              className="flex items-center justify-start"
+            >
+              <p
+                className="text-sm font-semibold mr-2"
+              >
+                Engagements
+              </p>
+            </div>
+          </th>
+          <th
+            className="text-left"
+            colSpan={4}
+          >
+            <div
+              className="flex items-center justify-start"
+            >
+              <p
+                className="text-sm font-semibold mr-2"
+              >
+                Likes and reactions
+              </p>
+            </div>
+          </th>
+          <th
+            className="text-left"
+            colSpan={4}
+          >
+            <div
+              className="flex items-center justify-start"
+            >
+              <p
+                className="text-sm font-semibold mr-2"
+              >
+                Comments
+              </p>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody />
+    </table>
+  </div>
+</div>
+`;
