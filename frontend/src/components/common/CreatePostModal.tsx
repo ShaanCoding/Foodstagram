@@ -1,11 +1,19 @@
 import 'react-responsive-modal/styles.css'
 
-import { light, regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import {
+	light,
+	regular,
+	solid,
+} from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { Modal } from 'react-responsive-modal'
 
-import { CreateNewPost, UseCreatePostMutation, UseUpdatePostMutation } from '../../api/UsePostMutation'
+import {
+	CreateNewPost,
+	UseCreatePostMutation,
+	UseUpdatePostMutation,
+} from '../../api/UsePostMutation'
 import Form from '../form/Form'
 import InputField from '../form/InputField'
 import SubmitButton from '../form/SubmitButton'
@@ -92,7 +100,7 @@ const CreatePostModal = ({ openButton }: Props) => {
 							<>
 								{/* <div className="w-full h-full flex justify-center items-center flex-col" /> */}
 								<FontAwesomeIcon
-									className="w-24 h-24"
+									className="w-24 h-24 mt-32"
 									icon={regular('images')}
 								/>
 								<p className="text-xl font-extralight mt-4 mb-4">
@@ -101,9 +109,7 @@ const CreatePostModal = ({ openButton }: Props) => {
 							</>
 						)}
 
-						<Form
-							onSubmit={onSubmit}
-						>
+						<Form onSubmit={onSubmit}>
 							<div className="px-8">
 								<input
 									ref={_picture}
@@ -141,6 +147,7 @@ const CreatePostModal = ({ openButton }: Props) => {
 											text="Submit"
 											loading={createMutation.isLoading}
 										/>
+										<div className="h-[40px]" />
 									</>
 								)}
 

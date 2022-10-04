@@ -11,17 +11,17 @@ import { ContextMenu } from '../common/ContextMenu'
 
 interface Props {
 	post: {
-		post_id: number;
-		account_id: number;
-		username: string;
-		profile_picture_url: string;
-		location_name: string;
-		location_lat: string;
-		location_long: string;
-		caption: string;
-		created_at: string;
-		updated_at: string;
-		post_image: string;
+		post_id: number
+		account_id: number
+		username: string
+		profile_picture_url: string
+		location_name: string
+		location_lat: string
+		location_long: string
+		caption: string
+		created_at: string
+		updated_at: string
+		post_image: string
 	}
 }
 
@@ -40,7 +40,7 @@ export const Post = (props: Props) => {
 	const deletePostMutation = UseDeletePostMutation()
 	const deletePost = () => {
 		deletePostMutation.mutate({ post_id: post.post_id })
-		alert("Post has been deleted, the page will reload")
+		alert('Post has been deleted, the page will reload')
 		window.location.reload()
 	}
 
@@ -58,7 +58,7 @@ export const Post = (props: Props) => {
 							src={post.profile_picture_url}
 						/>
 						<a
-							href={`/user/${post.username}`}
+							href={`/profile/${post.username}`}
 							className="font-medium text-md text-black-500 text-left inline-block align-middle mb-4"
 						>
 							{post.username}
@@ -73,8 +73,11 @@ export const Post = (props: Props) => {
 										Edit
 									</button>
 								*/}
-								<button onClick={deletePost} className="">
-									<img src={trash} className="mb-4 h-5 inline-block pr-5" />
+								<button
+									onClick={deletePost}
+									className="flex flex-row shadow rounded-md shadow-lg w-fit w-[100px] pt-2 pb-2"
+								>
+									<img src={trash} className="pl-2 h-5 inline-block pr-5" />
 									Delete
 								</button>
 							</ContextMenu>

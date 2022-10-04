@@ -3,7 +3,6 @@ import useAuth from '../api/util/useAuth'
 import Spinner from '../components/common/Spinner'
 import { Post } from '../components/post/Post'
 
-
 const Feed = () => {
 	const [account, isLoading] = useAuth()
 	const feedQuery = UseFeedQuery()
@@ -26,10 +25,9 @@ const Feed = () => {
 			{feedQuery.isLoading === false &&
 				feedQuery.isSuccess &&
 				feedQuery.data.data.posts !== undefined &&
-				feedQuery.data?.data.posts.map((post, index) => <Post key={index} post={post} />)}
-			<p className="text-sm text-black-500 text-left inline-block align-middle mb-4">
-				No posts yet! Try following some users.
-			</p>
+				feedQuery.data?.data.posts.map((post, index) => (
+					<Post key={index} post={post} />
+				))}
 		</div>
 	)
 }
