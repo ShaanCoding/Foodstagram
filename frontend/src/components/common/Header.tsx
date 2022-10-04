@@ -47,6 +47,13 @@ const Header = ({ headerFocused = 'None' }: iHeaderState) => {
 
 				<CreatePostModal openButton={newPostButtonRef} />
 
+				{/* Manage Posts */}
+				<div className="px-4">
+					<Link to="/manageposts">
+						<FontAwesomeIcon className="w-6 h-6" icon={solid('list-check')} />
+					</Link>
+				</div>
+
 				{/* Profile icon */}
 				<div className="px-4">
 					{/* Load up avatar */}
