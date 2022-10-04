@@ -131,7 +131,7 @@ router.post(
   )
 
 router.get('/viewBusinessPosts', AuthenticateUser, GetBusinessPosts)
-router.get('/viewBusinessPosts/:post_id', GetIndividualBusinessPost)
+router.get('/viewBusinessPosts/:post_id', AuthenticateUser, GetIndividualBusinessPost)
 
 
 // End of business posts  
