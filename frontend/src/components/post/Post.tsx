@@ -54,7 +54,7 @@ export const Post = (props: Props) => {
 					<div className="flex flex-row gap-2">
 						<img
 							alt="avatar"
-							className="w-8 h-8 rounded-full border-2 border-gray-700 inline-block align-middle mb-4"
+							className="w-8 h-8 rounded-full border-2 border-gray-700 inline-block align-middle mb-4 object-cover"
 							src={post.profile_picture_url}
 						/>
 						<a
