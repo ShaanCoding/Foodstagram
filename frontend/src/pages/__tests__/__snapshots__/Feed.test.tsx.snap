@@ -1,11 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`The Feed page renders correctly 1`] = `
-<div>
-  <p
-    className="text-sm text-black-500 text-left inline-block align-middle mb-4"
-  >
-    No posts yet! Try following some users.
-  </p>
-</div>
-`;
+exports[`The Feed page renders correctly 1`] = `<div />`;
