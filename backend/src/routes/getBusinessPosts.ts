@@ -56,10 +56,14 @@ async function GetIndividualBusinessPost(req: Request, res: Response) {
 			post_id
 		])) as any;
 
-		return res.status(200).json({
-				post,
-			});
+		if (post.length > 0) {
+			return res.status(200).json({
+					post,
+				});
+		} else {
+			return res.json({ message: 'No posts yet' })
 		}
+	}
 }
 
 export { GetBusinessPosts, GetIndividualBusinessPost }
