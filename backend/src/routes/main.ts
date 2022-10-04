@@ -2,27 +2,29 @@ import Router from "express-promise-router";
 import { body, param } from "express-validator";
 
 import { AuthenticateUser } from '../util/auth'
+import { Block } from './block'
 import { EditProfile } from './editprofile'
+import { GetPosts } from './feed'
+import { Follow } from './follow'
 import { FollowerCount } from './followerCount'
 import { FollowingCount } from './followingCount'
 import { Hello } from './hello'
 import { Index } from './index'
+import { IsFollowing } from './isfollowing'
 import { Login } from './login'
 import { Me } from './me'
 import { SearchUsers, SearchPosts } from './search'
 import { PostCount } from './postCount'
 import { ProfilePosts } from './profilePosts'
-import { GetPosts } from './feed'
-import { Follow } from './follow'
-import { Block } from './block'
 import { ProfilePic } from './profilePic'
-import { IsFollowing } from './isfollowing'
 import { IsBlocking } from './isblocking'
 import { IsBlocked } from './isBlocked'
 import { CreatePost, DeletePost, UpdatePost } from './post'
 import { Profile } from './profile'
 import { Register } from './register'
-import { CreateBusinessPost } from './businessPosts'
+import { CreateBusinessPost, UpdateBusinessPost } from './businessPosts'
+import { GetBusinessPosts, GetIndividualBusinessPost } from "./getBusinessPosts";
+
 
 const router = Router()
 
@@ -41,10 +43,15 @@ router.post(
 	Register
 )
 
-router.get('/feed', AuthenticateUser, GetPosts)
+router.get(
+	'/feed',
+	AuthenticateUser,
+	GetPosts
+)
 
 router.post(
 	'/posts',
+	AuthenticateUser,
 	body('picture').isLength({ min: 5 }),
 	body('caption').isLength({ min: 5 }),
 	body('location').isLength({ min: 5 }),
@@ -52,16 +59,16 @@ router.post(
 )
 router.put(
 	'/posts/:post_id',
+	AuthenticateUser,
 	param('post_id').isNumeric(),
 	body('caption').isLength({ min: 5 }),
 	body('location').isLength({ min: 5 }),
-	AuthenticateUser,
 	UpdatePost
 )
 router.delete(
 	'/posts/:post_id',
-	param('post_id').isNumeric(),
 	AuthenticateUser,
+	param('post_id').isNumeric(),
 	DeletePost
 )
 
@@ -114,6 +121,19 @@ router.post(
     body("dateTime").isLength({ min: 5 }),
     CreateBusinessPost
   );
-  // End of business posts  
+
+  router.put('/businessPosts/:post_id',
+  param('post_id').isNumeric(),
+  body('caption').isLength({ min: 5 }),
+  body('location').isLength({ min: 5 }),
+  body('businessState').isNumeric(),
+  UpdateBusinessPost
+  )
+
+router.get('/viewBusinessPosts', AuthenticateUser, GetBusinessPosts)
+router.get('/viewBusinessPosts/:post_id', AuthenticateUser, GetIndividualBusinessPost)
+
+
+// End of business posts  
 
 export default router

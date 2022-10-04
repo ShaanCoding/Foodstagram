@@ -56,30 +56,30 @@ async function SearchPosts(req: Request, res: Response) {
 	const { searchStr } = req.body
 
   const SearchQuery = `
-    select location_name from posts
+    select * from posts
   `
 
 	try {
 		const rows = (await Query(SearchQuery, [])) as Post[]
+		const fuse = new Fuse(rows, {
+			keys: ['location_name'],
+			minMatchCharLength: -1,
+			threshold: 0.5
+		})
+		const result: any[] = fuse.search(searchStr)
 
-		if (rows.length > 0) {
-			const fuse = new Fuse(rows, {
-				keys: ['location_name'],
-				minMatchCharLength: -1,
-				threshold: 0.5
-			})
-			const result: any[] = fuse.search(searchStr)
-			let filteredResult: any[] = []
-			for (let i = 0; i < result.length; ++i)
-			{
-				filteredResult.forEach(element => {
-					if (element.item.location_name.toLowerCase() === result[i].item.location_name.toLowerCase())
-						filteredResult.push(result[i])
-				});
-			}
-			console.log()
+		if (result.length > 0) {
+			
+			// let filteredResult: any[] = []
+			// for (let i = 0; i < result.length; ++i)
+			// {
+			// 	filteredResult.forEach(element => {
+			// 		if (element.item.location_name.toLowerCase() === result[i].item.location_name.toLowerCase())
+			// 			filteredResult.push(result[i])
+			// 	});
+			// }
 			return res.status(200).json({
-				message: 'Search Results:',
+				message: 'Post / Location matches found!',
 				data: result,
 			})
 		} else {
@@ -110,16 +110,17 @@ async function SearchUsers(req: Request, res: Response) {
 
 	try {
 		const rows = (await Query(SearchQuery, [])) as Account[]
+		const fuse = new Fuse(rows, {
+			keys: ['username'],
+			minMatchCharLength: -1, 
+			threshold: 0.5
+		})
+		const result: any[] = fuse.search(searchStr)
 
-		if (rows.length > 0) {
-			const fuse = new Fuse(rows, {
-				keys: ['username'],
-				minMatchCharLength: -1, 
-				threshold: 0.5
-			})
-			const result: any[] = fuse.search(searchStr)
+		if (result.length > 0) {
+			
 			return res.status(200).json({
-				message: 'Search Results:',
+				message: 'User / Profile matches found!',
 				data: result,
 			})
 		} else {

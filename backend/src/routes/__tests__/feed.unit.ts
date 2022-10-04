@@ -16,7 +16,6 @@ describe('The Feed Route Handler', function () {
 			.set({ Authorization: `Bearer ${authToken}` })
 			.send({ account_id: 2 })
 		expect(JSON.parse(res.text).posts.length).toBeGreaterThan(0)
-		console.log(JSON.parse(res.text).posts)
 		expect(res.statusCode).toBe(200)
 	})
 
@@ -26,7 +25,6 @@ describe('The Feed Route Handler', function () {
 			.get('/feed')
 			.set({ Authorization: `Bearer ${authToken}` })
 			.send({ account_id: 16 })
-		console.log(JSON.parse(res.text).posts)
 		expect(JSON.parse(res.text)).toHaveProperty('message')
 		expect(JSON.parse(res.text).message).toBe(
 			'No posts yet'
@@ -39,7 +37,6 @@ describe('The Feed Route Handler', function () {
 			.get('/feed')
 			.set({ Authorization: `Bearer ${authToken}` })
 			.send({ account_id: 12 })
-		console.log(JSON.parse(res.text).posts)
 		expect(JSON.parse(res.text)).toHaveProperty('message')
 		expect(JSON.parse(res.text).message).toBe(
 			'No posts yet'
