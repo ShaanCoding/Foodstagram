@@ -9,6 +9,10 @@ import {
 } from "../../api/UseCreateBusinessPostMutation";
 import useAuth from "../../api/util/useAuth";
 
+import 'react-calendar/dist/Calendar.css';
+import 'react-time-picker/dist/TimePicker.css';
+import 'react-clock/dist/Clock.css';
+
 const SchedulePosts = () => {
   const [previewImage, setPreviewImage] = useState<string>("");
   const [publishState, setPublishState] = useState<number>(0);
@@ -21,9 +25,11 @@ const SchedulePosts = () => {
   const [postDescription, setPostDescription] = useState<string>("");
   const [postLocation, setPostLocation] = useState<string>("");
 
+  const [imageSelectedError, setImageSelectedError] = useState(false);
   const [postDescriptionError, setPostDescriptionError] = useState(false);
   const [postLocationError, setPostLocationError] = useState(false);
   const [postPublishStateError, setPostPublishStateError] = useState(false);
+  const [timePickerError, setTimePickerError] = useState(false);
 
   const hiddenFileInput = React.useRef<HTMLInputElement>(null);
 
@@ -192,49 +198,70 @@ const SchedulePosts = () => {
             <button
               className={`text-black font-semibold py-1 px-2 rounded-sm opacity-50 hover:opacity-100 bg-insta-green`}
               onClick={async () => {
+                setImageSelectedError(!previewImage);
                 setPostDescriptionError(postDescription.length < 5);
                 setPostLocationError(postLocation.length < 5);
                 setPostPublishStateError(!(publishState >= 1 && publishState  <= 3));
+                setTimePickerError(publishState == 2 && scheduledTime == "");
 
+                // Guard clauses
+                if(!previewImage) {
+                  return;
+                }
 
-                if(publishState >= 1 && publishState <= 3) {
-                  let data = await (await fetch(previewImage)).blob();
-                  let base64: any = await blobToBase64(data);
-                  let responseData: String = base64.replace(
-                    "data:image/jpeg;base64,",
-                    ""
-                  );
+                if(postDescription.length < 5) {
+                  return; 
+                }
 
-                  let dbDateString = "";
-                  dbDateString += scheduledDate.getFullYear();
-                  dbDateString += "-"
+                if(postLocation.length < 5) {
+                  return;
+                }
 
-                  if(scheduledDate.getDay() < 10) {
-                    dbDateString += "0";
-                  }
-                  dbDateString += scheduledDate.getDay();
-                  dbDateString += "-";
+                if(!(publishState >= 1 && publishState  <= 3)) {
+                  return;
+                }
 
-                  if(scheduledDate.getMonth() < 10) {
-                    dbDateString += "0";
-                  }
-                  dbDateString += scheduledDate.getMonth();
-                
-                  dbDateString += ` ${scheduledTime}:00`
+                if(publishState == 2 && scheduledTime == "") {
+                  console.log(scheduledTime);
+                  return;
+                }
 
-                  console.log(account);
+                let data = await (await fetch(previewImage)).blob();
+                let base64: any = await blobToBase64(data);
+                let responseData: String = base64.replace(
+                  "data:image/jpeg;base64,",
+                  ""
+                );
 
-                  let mutationData = {
-                    picture: responseData,
-                    caption: postDescription,
-                    location: postLocation,
-                    businessState: publishState,
-                    dateTime: dbDateString,
-                    account_id: account.account_id,
-                  } as CreateNewBusinessPost;
+                let dbDateString = "";
+                dbDateString += scheduledDate.getFullYear();
+                dbDateString += "-"
 
-                  createMutation.mutate(mutationData);
-              }
+                if(scheduledDate.getDay() < 10) {
+                  dbDateString += "0";
+                }
+                dbDateString += scheduledDate.getDay();
+                dbDateString += "-";
+
+                if(scheduledDate.getMonth() < 10) {
+                  dbDateString += "0";
+                }
+                dbDateString += scheduledDate.getMonth();
+              
+                dbDateString += ` ${scheduledTime}:00`
+
+                console.log(account);
+
+                let mutationData = {
+                  picture: responseData,
+                  caption: postDescription,
+                  location: postLocation,
+                  businessState: publishState,
+                  dateTime: dbDateString,
+                  account_id: account.account_id,
+                } as CreateNewBusinessPost;
+
+                createMutation.mutate(mutationData);
 
               }}
             >
@@ -244,9 +271,11 @@ const SchedulePosts = () => {
         </div>
 
         <div>
+          <h1 className={`${imageSelectedError ? "block" : "hidden"} text-red-600 text-xl py-2`}>Error Post Must Have A Image Selected.</h1>
           <h1 className={`${postDescriptionError ? "block" : "hidden"} text-red-600 text-xl py-2`}>Error Post Description Must Be 5 Characters Long or Greater.</h1>
           <h1 className={`${postLocationError ? "block" : "hidden"} text-red-600 text-xl py-2`}>Error Post Description Must Be 5 Characters Long or Greater.</h1>
           <h1 className={`${postPublishStateError ? "block" : "hidden"} text-red-600 text-xl py-2`}>Error Post Must Have A Publish State.</h1>
+          <h1 className={`${timePickerError ? "block" : "hidden"} text-red-600 text-xl py-2`}>Error Post Must Have A Time Selected.</h1>
         </div>
       </div>
     </div>
