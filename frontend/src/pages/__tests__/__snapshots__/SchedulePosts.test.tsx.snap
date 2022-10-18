@@ -549,7 +549,7 @@ exports[`The business/schedulePosts page renders correctly 1`] = `
                       </abbr>
                     </button>
                     <button
-                      className="react-calendar__tile react-calendar__tile--now react-calendar__tile--active react-calendar__tile--range react-calendar__tile--rangeStart react-calendar__tile--rangeEnd react-calendar__tile--rangeBothEnds react-calendar__month-view__days__day"
+                      className="react-calendar__tile react-calendar__month-view__days__day"
                       onClick={[Function]}
                       onFocus={null}
                       onMouseOver={null}
@@ -615,7 +615,7 @@ exports[`The business/schedulePosts page renders correctly 1`] = `
                       </abbr>
                     </button>
                     <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
+                      className="react-calendar__tile react-calendar__tile--now react-calendar__tile--active react-calendar__tile--range react-calendar__tile--rangeStart react-calendar__tile--rangeEnd react-calendar__tile--rangeBothEnds react-calendar__month-view__days__day"
                       onClick={[Function]}
                       onFocus={null}
                       onMouseOver={null}

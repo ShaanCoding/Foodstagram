@@ -127,6 +127,7 @@ router.post(
   body('caption').isLength({ min: 5 }),
   body('location').isLength({ min: 5 }),
   body('businessState').isNumeric(),
+  AuthenticateUser,
   UpdateBusinessPost
   )
 
