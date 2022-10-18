@@ -44,7 +44,6 @@ const Feed = () => {
 										className="mb-4 h-5 inline-block pr-5"
 										src={like}
 									/>
-
 									<img
 										alt="Save"
 										className="mb-4 h-5 inline-block"
