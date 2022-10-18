@@ -1,14 +1,14 @@
 interface Post {
-	post_id: number
-	account_id: number
-	location_name: string
-	location_lat: string
-	location_long: string
-	caption: string
-	created_at: string
-	updated_at: string
-	profile_picture_url: string
-	username: string
-	post_image: string
-  post_likes: number
+	post_id: Number
+	account_id: Number
+	location_name: String
+	location_lat: String
+	location_long: String
+	caption: String
+	created_at: String
+	updated_at: String
+	profile_picture_url: String
+	username: String
+	post_image: String
+  post_likes: Number
 }
