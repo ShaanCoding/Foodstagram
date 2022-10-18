@@ -1,12 +1,13 @@
-import React from 'react'
+import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+
+import useAuth from '../../api/util/useAuth'
 import Foostaram from '../../images/Foostaram.svg'
 import userAvatar from '../../images/icons/avatar.png'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro'
-import SearchBar from './SearchBar'
 import CreatePostModal from './CreatePostModal'
-import useAuth from '../../api/util/useAuth'
+import SearchBar from './SearchBar'
 
 type headerStates = 'None' | 'Home' | 'CreatePost' | 'Explore' | 'Heart'
 
@@ -16,7 +17,10 @@ interface iHeaderState {
 
 const Header = ({ headerFocused = 'None' }: iHeaderState) => {
 	const [account, isLoading] = useAuth()
-	const newPostButtonRef = React.useRef(null)
+	
+	const [createPostModalOpen, setCreatePostModalOpen] = useState(false)
+	const openCreatePostModalOpen = () => setCreatePostModalOpen(true)
+	const closeCreatePostModalOpen = () => setCreatePostModalOpen(false)
 
 	if (account === null || account.account_id === undefined) return <></>
 
@@ -33,7 +37,7 @@ const Header = ({ headerFocused = 'None' }: iHeaderState) => {
 			<div className="flex items-center justify-center">
 				{/* Create post */}
 				<div className="px-4">
-					<button type="button" ref={newPostButtonRef}>
+					<button type="button" onClick={openCreatePostModalOpen}>
 						<FontAwesomeIcon
 							className="w-6 h-6"
 							icon={
@@ -84,7 +88,7 @@ const Header = ({ headerFocused = 'None' }: iHeaderState) => {
 						/>
 					</Link>
 				</div>
-				<CreatePostModal openButton={newPostButtonRef} />
+				<CreatePostModal open={createPostModalOpen} onClose={closeCreatePostModalOpen} />
 
 				{/* Profile icon */}
 				<div className="px-4">

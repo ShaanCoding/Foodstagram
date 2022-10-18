@@ -1,159 +1,194 @@
 import 'react-responsive-modal/styles.css'
 
-import { light, regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { regular } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { MutableRefObject, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Modal } from 'react-responsive-modal'
 
-import { CreateNewPost, UseCreatePostMutation, UseUpdatePostMutation } from '../../api/UsePostMutation'
-import Form from '../form/Form'
+import { UseCreatePostMutation, UseUpdatePostMutation } from '../../api/UsePostMutation'
 import InputField from '../form/InputField'
 import SubmitButton from '../form/SubmitButton'
 
-interface Props {
-	openButton: MutableRefObject<any> // TODO: not pass a button to listen for click, but display conditionally where needed
+type Props = {
+	open: boolean;
+	onClose: () => void;
+} & (CreatePostProps | UpdatePostProps);
 
-	post_id?: number // if post_id is passed, then it is an update, otherwise it is a create
-	image?: string
-	caption?: string
-	location?: string
+interface CreatePostProps {
+
 }
 
-const CreatePostModal = ({ openButton }: Props) => {
-	const [imgUploaded, setImageUploaded] = useState(false)
-	const [open, setOpen] = useState(false)
-	const onOpenModal = () => setOpen(true)
-	const onCloseModal = () => {
-		setOpen(false)
-		setImageUploaded(false)
-	}
+interface UpdatePostProps {
+	post_id: number; // if post_id is passed, then it is an update, otherwise it is a create
+	caption: string;
+	location_name: string;
+}
 
-	useEffect(() => {
-		if (openButton && openButton.current) {
-			openButton.current.onclick = () => onOpenModal()
-		}
-	}, [openButton])
+const CreatePostModal = ({open, onClose, ...props}: Props) => {
+	const newPost = !("post_id" in props);
 
+	const fileInputRef = useRef<HTMLInputElement>(null);
+	const [imagePreview, setImagePreview] = useState<string[]>([]);
+	const captionInputRef = useRef<HTMLInputElement>(null);
+	const locationInputRef = useRef<HTMLInputElement>(null);
+	
 	const createMutation = UseCreatePostMutation()
 	const updateMutation = UseUpdatePostMutation()
 
-	const picture = useRef<HTMLInputElement>(null)
-	const _picture = useRef<HTMLInputElement>(null)
+	/**
+	 * Send the data
+	 */
+	 const onSubmit = async () => {
+		const caption = captionInputRef.current?.value ?? "";
+		const location = locationInputRef.current?.value ?? "";
 
-	const img = useRef<HTMLImageElement>(null)
-	const onPictureSelected = (e: React.ChangeEvent<HTMLInputElement>) =>
-		new Promise((resolve, reject) => {
-			const reader = new FileReader()
-			reader.readAsDataURL(
-				(e.target as HTMLInputElement).files![0] as unknown as File
-			)
-			reader.onloadend = () => resolve(reader.result)
-			reader.onerror = (error) => reject(error)
-		})
-			.then((base64string) =>
-				(base64string as string).slice('data:image/png;base64,'.length)
-			)
-			.then((base64image) => {
-				setImageUploaded(true)
-				picture.current!.value = base64image
-				setShowpreview(true)
-				if (img.current)
-					img.current!.src = `data:image/png;base64,${base64image}`
+		const imageValid = newPost ? imagePreview.length > 0 : true;
+		const captionValid = captionInputRef.current!.validity.valid;
+		const locationValid = locationInputRef.current!.validity.valid;
+
+		if(!(imageValid && captionValid && locationValid)) return alert("Invalid input");
+
+		newPost
+			? createMutation.mutate({ picture: imagePreview, location, caption }, {
+				onError(error, variables, context) {
+					alert(`Error creating post: ${error}`)
+				},
+				onSuccess(data, variables, context) {
+					alert('Post created!')
+					cleanup()
+					onClose()
+				},
 			})
-
-	const [showPreview, setShowpreview] = useState(false)
-
-	const onResetButtonClicked = () => {
-		_picture.current!.files = null // clear the file input
-		picture.current!.value = '' // clear the hidden input (base64)
-		img.current!.removeAttribute('src') // clear the picture
+			: updateMutation.mutate({ post_id: props.post_id, location, caption }, {
+				onError(error, variables, context) {
+					alert(`Error updating post: ${error}`)
+				},
+				onSuccess(data, variables, context) {
+					alert('Post updated!')
+					cleanup()
+					onClose()
+				},
+			});
 	}
 
-	const onSubmit = (data: Record<string, string>) => {
-		createMutation.mutate(data as unknown as CreateNewPost)
-		setOpen(false)
-		alert('Post created!')
+	/**
+	 * When a picture/pictures is/are selected, convert them to base64 and set them as previews
+	 */
+	const onPictureSelected = (e: React.ChangeEvent<HTMLInputElement>) => Promise
+		.all([...e.target.files!].map(file => toBase64(file)))
+		.then(base64strings => base64strings.map(base64string => base64string.slice('data:image/png;base64,'.length)))
+		.then(base64images => setImagePreview(base64images))
+
+	/**
+	 * Convert a File to base64
+	 */
+	const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
+		const reader = new FileReader()
+		reader.onloadend = () => reader.result ? resolve(reader.result.toString()) : reject()
+		reader.onerror = (error) => reject(error)
+		reader.readAsDataURL(file)
+	});
+
+	/**
+	 * Clear the visible and invisible input field, and the preview
+	 */
+	const cleanup = () => {
+		fileInputRef.current && (fileInputRef.current.value = "");
+		captionInputRef.current && (captionInputRef.current.value = "");
+		locationInputRef.current && (locationInputRef.current.value = "");
+		setImagePreview([]);
 	}
+
+	useEffect(() => {
+		return cleanup;
+	}, [])
+
+	const title = newPost ? "Create a post" : "Edit post";
 
 	return (
-		<div>
-			<Modal
-				classNames={{ modal: 'rounded-md w-4/5 h-4/5' }}
-				open={open}
-				showCloseIcon={false}
-				onClose={onCloseModal}
-				center
-			>
-				<div className="flex flex-col justify center items-center h-full">
-					<h1 className="mb-3">Create a Post</h1>
+		<Modal
+			classNames={{ modal: 'rounded-md w-4/5 h-4/5' }}
+			showCloseIcon={false}
+			onClose={onClose}
+			open={open}
+			center>
+			<div className="flex flex-col justify center items-center h-full">
+				<h1 className="mb-3">{ title }</h1>
 
-					<div className="w-full flex flex-col justify center items-center h-full">
-						{imgUploaded === false && (
+				<div className="w-full flex flex-col justify center items-center h-full">
+					{(!imagePreview.length && newPost) && (
+						<>
+							{/* <div className="w-full h-full flex justify-center items-center flex-col" /> */}
+							<FontAwesomeIcon className="w-24 h-24" icon={regular('images')} />
+							<p className="text-xl font-extralight mt-4 mb-4">Drag photos and videos here</p>
+						</>
+					)}
+
+					<div className="px-8">
+
+						{
+							newPost && (
+								<>
+									{ /* Visible input to select files, holding File obects */ }
+									<input
+										ref={fileInputRef}
+										onChange={onPictureSelected}
+										type="file"
+										accept="image/*"
+										multiple={true}
+										name="_picture"
+										required
+									/>
+			
+									<button onClick={cleanup}>Clear</button>
+			
+									{
+										imagePreview.map((image, index) => <img
+											key={index}
+											src={`data:image/png;base64,${image}`}
+											className="w-full"
+											alt="Post image preview" />)
+									}
+								</>
+							)
+						}
+
+						<br />
+						{(!newPost || imagePreview.length) && (
 							<>
-								{/* <div className="w-full h-full flex justify-center items-center flex-col" /> */}
-								<FontAwesomeIcon
-									className="w-24 h-24"
-									icon={regular('images')}
+								<label>Caption</label>
+								<InputField
+									type="text"
+									name="caption"
+									placeholder="Caption"
+									ref={captionInputRef}
+									initialValue={newPost ? "": props.caption}
+									required
+									minLength={5}
 								/>
-								<p className="text-xl font-extralight mt-4 mb-4">
-									Drag photos and videos here
-								</p>{' '}
+
+								<label>Location Name</label>
+								<InputField
+									type="text"
+									name="location"
+									placeholder="Location"
+									ref={locationInputRef}
+									initialValue={newPost ? "": props.location_name}
+									required
+									minLength={5}
+								/>
+
+								<SubmitButton
+									text="Submit"
+									onClick={onSubmit}
+									loading={createMutation.isLoading}
+								/>
 							</>
 						)}
-
-						<Form
-							onSubmit={onSubmit}
-						>
-							<div className="px-8">
-								<input
-									ref={_picture}
-									onChange={onPictureSelected}
-									type="file"
-									accept="image/*"
-									name="_picture"
-									required
-								/>
-								<button onClick={onResetButtonClicked}>Clear</button>
-								<img ref={img} className="w-full" />
-								<input ref={picture} hidden name="picture" />
-								<br />
-								{imgUploaded === true && (
-									<>
-										<label>Caption</label>
-										<InputField
-											type="text"
-											name="caption"
-											placeholder="Caption"
-											required
-											minLength={5}
-										/>
-
-										<label>Location Name</label>
-										<InputField
-											type="text"
-											name="location"
-											placeholder="Location"
-											required
-											minLength={5}
-										/>
-
-										<SubmitButton
-											text="Submit"
-											loading={createMutation.isLoading}
-										/>
-									</>
-								)}
-
-								{/*
-									<button type="button" className="bg-insta-green px-3 py-1 text-white rounded mt-3">Select from computer</button>
-									<form action="http://localhost:3001/posts" method="POST"></form>
-									*/}
-							</div>
-						</Form>
 					</div>
 				</div>
-			</Modal>
-		</div>
+			</div>
+		</Modal>
 	)
 }
 

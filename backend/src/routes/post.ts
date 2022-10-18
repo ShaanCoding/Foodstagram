@@ -8,13 +8,12 @@ import formatErrors from '../util/formatErrors'
 import { getBlobClient } from '../util/storage'
 
 export async function CreatePost(req: Request, res: Response) {
-	const postQuery = 'INSERT INTO `posts` (`account_id`, `post_image`, `location_name`, `location_lat`, `location_long`, `caption`, `created_at`, `updated_at`) VALUES ( ?, ?, ?, ?, ?, ?, NOW(), NOW() )';
+	const postQuery = 'INSERT INTO posts (account_id, location_name, location_lat, location_long, caption, created_at, updated_at) VALUES ( ?, ?, ?, ?, ?, NOW(), NOW() )';
+	const postImagesQuery = `INSERT INTO post_images (post_id, image_url) VALUES ?`;
 	
 	const { ENVIRONMENT } = process.env;
-	const { picture, caption, location } = req.body;
 	
-	const pictureName = uuidv4();
-	const pictureBuffer = Buffer.from(picture, 'base64');
+	const { picture, caption, location } = req.body;
 
 	const lognitude = 0.1;
 	const latitude = 0.1;
@@ -25,12 +24,30 @@ export async function CreatePost(req: Request, res: Response) {
 	.then((errors) => {
 		if (!errors.isEmpty()) throw formatErrors(errors);
 	})
-	.then(() => getBlobClient().getContainerClient(ENVIRONMENT!).getBlockBlobClient(pictureName)) // get the container
-	.then(blobBlockClient => blobBlockClient.upload(pictureBuffer, pictureBuffer.length)) // upload the file to the container
-	.then(uploadResponse => Query(postQuery, [req.account!.account_id, `https://asdbackend.blob.core.windows.net/${ENVIRONMENT}/${pictureName}`, location, lognitude, latitude, caption]))
-	.then(() => res.status(201).json({ message: 'Succesfully created post!' }))
+	.then(() => Promise.all( // 1. upload the pictures to blob client -> picture urls (used in step 3)
+		picture
+			.map((pic: string) => {
+				const pictureName = uuidv4();
+				const pictureBuffer = Buffer.from(pic, 'base64');
+				return Promise
+				.resolve()
+				.then(() => getBlobClient().getContainerClient(ENVIRONMENT!).getBlockBlobClient(pictureName)) // get the container
+				.then(blobBlockClient => blobBlockClient.upload(pictureBuffer, pictureBuffer.length)) // upload the file to the container
+				.then(_ => `https://asdbackend.blob.core.windows.net/${ENVIRONMENT}/${pictureName}`)
+			})
+		)
+	)
+	.then(pictureUrls => Promise.all([ // 2. insert the post -> post id (step 4) + picture urls
+		pictureUrls,
+		pool.promise().execute(postQuery, [req.account!.account_id, location, lognitude, latitude, caption]).then(([o, _]) =>(o as unknown as OkPacket).insertId)
+	]))
+	.then(([pictureUrls, insertId]) => Promise.all([ // 3. insert the pictures (picture urls + post id) -> post id
+		insertId,
+		pool.promise().query(postImagesQuery, [ pictureUrls.map((url: string) => [insertId, url]) ])
+	]))
+	.then(([inserted_id]) => res.status(201).json({ message: 'Succesfully created post!', inserted_id })) // 4. return the post id
 	.catch(error => {
-		console.log(error);
+		console.error(error);
 		res.status(500).json({ message: 'Failed to create post' })
 	});
 }
@@ -62,6 +79,7 @@ export function UpdatePost(req: Request, res: Response) {
 	});
 }
 
+// TODO delete cascade pictures when we delete a post
 export function DeletePost(req: Request, res: Response) {
 	const getUserIdQuery = 'SELECT account_id FROM posts WHERE post_id = ?;';
 	const deleteQuery = "DELETE FROM posts WHERE post_id = ?;";

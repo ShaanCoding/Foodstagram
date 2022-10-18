@@ -24,5 +24,5 @@ interface Post {
 	caption: string;
 	created_at: string;
 	updated_at: string;
-	post_image: string;
+	post_image: string[];
 }
