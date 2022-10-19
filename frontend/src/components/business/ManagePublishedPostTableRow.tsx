@@ -1,14 +1,15 @@
 import React from "react";
 import { getDefaultState } from "react-query/types/core/mutation";
 
-const ManagePublishedPostTableRow: React.FC<{image: string, title: string, datePublished: string, username: string, post_id: number, likes: number, comments: number, views: number, deletePost: any, profilePicture: string, updatePost: any}>
-= ({image, title, datePublished, username, post_id, likes, comments, views, deletePost, profilePicture, updatePost}) => {
+const ManagePublishedPostTableRow: React.FC<{image: string, title: string, datePublished: string, username: string, post_id: number, likes: number, comments: number, views: number, deletePost: any, profilePicture: string, updatePost: any, category?: string, categoryColor?: string}>
+= ({image, title, datePublished, username, post_id, likes, comments, views, deletePost, profilePicture, updatePost, category, categoryColor}) => {
   
   let getDate = () => {
     let date = new Date(datePublished);
     return `${date.getDay()}/${date.getMonth()} ${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
   }
 
+  console.log("Test " + categoryColor)
 
   return (
     <tr className="">
@@ -65,6 +66,11 @@ const ManagePublishedPostTableRow: React.FC<{image: string, title: string, dateP
         <div>
           <p className="text-sm">{comments}</p>
           <p className="text-xs">Comments</p>
+        </div>
+      </td>
+      <td colSpan={4}>
+        <div>
+          <p className="text-sm px-2 py-1 rounded-full text-center" style={{backgroundColor: categoryColor}}>{category ? category : "--"}</p>
         </div>
       </td>
     </tr>

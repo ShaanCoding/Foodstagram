@@ -8,7 +8,7 @@ import formatErrors from '../util/formatErrors'
 // REPLACE 13 WITH LOGGED IN ACCOUNT ID
 
 const feedQuery = `
-SELECT post_id, A.username, profile_picture_url, location_name, location_lat, location_long, caption, created_at, updated_at, businessState, businessScheduleTime
+SELECT post_id, A.username, profile_picture_url, location_name, location_lat, location_long, caption, created_at, updated_at, businessState, businessScheduleTime, categories
 FROM posts P LEFT JOIN accounts A ON P.account_id = A.account_id
 WHERE A.account_id = ? AND businessState IS NOT NULL ORDER BY created_at DESC;
 `
@@ -47,7 +47,7 @@ async function GetBusinessPosts(req: Request, res: Response) {
 }
 
 const individualPostQuery = `
-SELECT post_id, location_name, caption, businessState, businessScheduleTime, created_at
+SELECT post_id, location_name, caption, businessState, businessScheduleTime, created_at, categories
 FROM posts
 WHERE post_id = ? AND businessState IS NOT NULL ORDER BY created_at DESC;
 `;

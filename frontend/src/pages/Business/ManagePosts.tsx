@@ -22,6 +22,19 @@ const ManagePosts = () => {
 
 	let deleteMutation = UseDeletePostMutation()
 
+	let generateCategoryColor = (str: string) => {
+		var hash = 0;
+		for (var i = 0; i < str.length; i++) {
+		  hash = str.charCodeAt(i) + ((hash << 5) - hash);
+		}
+		var colour = '#';
+		for (var i = 0; i < 3; i++) {
+		  var value = (hash >> (i * 8)) & 0xFF;
+		  colour += ('00' + value.toString(16)).substr(-2);
+		}
+		return colour;
+	};
+
 	let generatePublishedTable = () => {
 		if (viewPostsQuery.isSuccess) {
 			let data = viewPostsQuery.data.data.posts
@@ -31,21 +44,43 @@ const ManagePosts = () => {
 				data.forEach((element: any) => {
 					if (element.businessState == 1) {
 						// image: string, title: string, datePublished: string, username: string, post_id: number, likes: number, comments: number, views: number
-						generatedTable.push(
-							<ManagePublishedPostTableRow
-								image={element.post_image}
-								title={element.caption}
-								datePublished={element.updated_at}
-								username={element.username}
-								post_id={element.post_id}
-								likes={element.post_likes}
-								comments={element.commentsCount}
-								views={100}
-								deletePost={deleteFunction}
-								profilePicture={element.profile_picture_url}
-								updatePost={updateFunction}
-							/>
-						)
+						
+						if(element.categories) {
+							console.log(generateCategoryColor(element.categories))
+							generatedTable.push(
+								<ManagePublishedPostTableRow
+									image={element.post_image}
+									title={element.caption}
+									datePublished={element.updated_at}
+									username={element.username}
+									post_id={element.post_id}
+									likes={element.post_likes}
+									comments={element.commentsCount}
+									views={100}
+									deletePost={deleteFunction}
+									profilePicture={element.profile_picture_url}
+									updatePost={updateFunction}
+									category={element.categories}
+									categoryColor={generateCategoryColor(element.categories)}
+								/>
+							)
+						} else {
+							generatedTable.push(
+								<ManagePublishedPostTableRow
+									image={element.post_image}
+									title={element.caption}
+									datePublished={element.updated_at}
+									username={element.username}
+									post_id={element.post_id}
+									likes={element.post_likes}
+									comments={element.commentsCount}
+									views={100}
+									deletePost={deleteFunction}
+									profilePicture={element.profile_picture_url}
+									updatePost={updateFunction}
+								/>
+							)
+						}
 					}
 				})
 			}
@@ -61,18 +96,36 @@ const ManagePosts = () => {
 			if (data !== undefined) {
 				data.forEach((element: any) => {
 					if (element.businessState == 2) {
-						generatedTable.push(
-							<ManageScheduledPostTableRow
-								image={element.post_image}
-								title={element.caption}
-								dateScheduled={element.businessScheduleTime}
-								username={element.username}
-								post_id={element.post_id}
-								deletePost={deleteFunction}
-								profilePicture={element.profile_picture_url}
-								updatePost={updateFunction}
-							/>
-						)
+						
+						if(element.categories) {
+							generatedTable.push(
+								<ManageScheduledPostTableRow
+									image={element.post_image}
+									title={element.caption}
+									dateScheduled={element.businessScheduleTime}
+									username={element.username}
+									post_id={element.post_id}
+									deletePost={deleteFunction}
+									profilePicture={element.profile_picture_url}
+									updatePost={updateFunction}
+									category={element.categories}
+									categoryColor={generateCategoryColor(element.categories)}
+								/>
+							)
+						} else {
+							generatedTable.push(
+								<ManageScheduledPostTableRow
+									image={element.post_image}
+									title={element.caption}
+									dateScheduled={element.businessScheduleTime}
+									username={element.username}
+									post_id={element.post_id}
+									deletePost={deleteFunction}
+									profilePicture={element.profile_picture_url}
+									updatePost={updateFunction}
+								/>
+							)
+						}
 					}
 				})
 			}
@@ -88,18 +141,36 @@ const ManagePosts = () => {
 			if (data !== undefined) {
 				data.forEach((element: any) => {
 					if (element.businessState == 3) {
-						generatedTable.push(
-							<ManageDraftPostTableRow
-								image={element.post_image}
-								title={element.caption}
-								dateCreated={element.created_at}
-								username={element.username}
-								post_id={element.post_id}
-								deletePost={deleteFunction}
-								profilePicture={element.profile_picture_url}
-								updatePost={updateFunction}
-							/>
-						)
+						
+						if(element.categories) {
+							generatedTable.push(
+								<ManageDraftPostTableRow
+									image={element.post_image}
+									title={element.caption}
+									dateCreated={element.created_at}
+									username={element.username}
+									post_id={element.post_id}
+									deletePost={deleteFunction}
+									profilePicture={element.profile_picture_url}
+									updatePost={updateFunction}
+									category={element.categories}
+									categoryColor={generateCategoryColor(element.categories)}
+								/>
+							)
+						} else {
+							generatedTable.push(
+								<ManageDraftPostTableRow
+									image={element.post_image}
+									title={element.caption}
+									dateCreated={element.created_at}
+									username={element.username}
+									post_id={element.post_id}
+									deletePost={deleteFunction}
+									profilePicture={element.profile_picture_url}
+									updatePost={updateFunction}
+								/>
+							)
+						}
 					}
 				})
 			}
@@ -256,6 +327,11 @@ const ManagePosts = () => {
                     /> */}
 									</div>
 								</th>
+								<th className="text-center" colSpan={4}>
+									<div className="flex items-center justify-center">
+										<p className="text-sm font-semibold mr-2">Categories</p>
+									</div>
+								</th>
 							</tr>
 						</thead>
 						<tbody>{publishedTable}</tbody>
@@ -276,6 +352,11 @@ const ManagePosts = () => {
 								<th className="text-left" colSpan={4}>
 									<p className="text-sm font-semibold mr-2">Created by</p>
 								</th>
+								<th className="text-center" colSpan={4}>
+									<div className="flex items-center justify-center">
+										<p className="text-sm font-semibold mr-2">Categories</p>
+									</div>
+								</th>
 							</tr>
 						</thead>
 						<tbody>{scheduleTable}</tbody>
@@ -295,6 +376,11 @@ const ManagePosts = () => {
 								</th>
 								<th className="text-left" colSpan={4}>
 									<p className="text-sm font-semibold mr-2">Created by</p>
+								</th>
+								<th className="text-center" colSpan={4}>
+									<div className="flex items-center justify-center">
+										<p className="text-sm font-semibold mr-2">Categories</p>
+									</div>
 								</th>
 							</tr>
 						</thead>
