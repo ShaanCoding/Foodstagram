@@ -45,46 +45,14 @@ const Header = ({ headerFocused = 'None' }: iHeaderState) => {
 					</button>
 				</div>
 
-				{/* Explore */}
-				<div className="px-4">
-					<Link to="/explore">
-						<FontAwesomeIcon
-							className="w-6 h-6"
-							icon={
-								headerFocused == 'Explore'
-									? solid('compass')
-									: regular('compass')
-							}
-						/>
-					</Link>
-				</div>
-
-				{/* Explore */}
-				<div className="px-4">
-					<Link to="/explore">
-						<FontAwesomeIcon
-							className="w-6 h-6"
-							icon={
-								headerFocused == 'Explore'
-									? solid('compass')
-									: regular('compass')
-							}
-						/>
-					</Link>
-				</div>
-
-				{/* Heart modal */}
-				<div className="px-4">
-					<Link to="/favorite">
-						<FontAwesomeIcon
-							className="w-6 h-6"
-							icon={
-								headerFocused === 'Heart' ? solid('heart') : regular('heart')
-							}
-						/>
-					</Link>
-				</div>
 				<CreatePostModal openButton={newPostButtonRef} />
+
+				{/* Manage Posts */}
+				<div className="px-4">
+					<Link to="/manageposts">
+						<FontAwesomeIcon className="w-6 h-6" icon={solid('list-check')} />
+					</Link>
+				</div>
 
 				{/* Profile icon */}
 				<div className="px-4">
@@ -92,8 +60,18 @@ const Header = ({ headerFocused = 'None' }: iHeaderState) => {
 					<Link to={`/profile/${account.username}`}>
 						<img
 							alt="avatar"
-							className="w-8 h-8 rounded-full border-2 border-gray-700"
+							className="w-8 h-8 rounded-full border-2 border-gray-700 object-cover "
 							src={`${account.profile_picture_url}`}
+						/>
+					</Link>
+				</div>
+
+				{/* Logout modal */}
+				<div className="px-4">
+					<Link to="/logout">
+						<FontAwesomeIcon
+							className="w-6 h-6"
+							icon={solid('right-from-bracket')}
 						/>
 					</Link>
 				</div>

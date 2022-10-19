@@ -29,38 +29,31 @@ exports[`The Login page renders correctly 1`] = `
         onSubmit={[Function]}
       >
         <input
+          autoComplete="foostagram-email"
           className="p-2 w-full rounded-sm mb-2 border hover:border-gray-500 focus-visible:border text-xs bg-white undefined"
-          initialValue=""
           name="email"
           onChange={[Function]}
           placeholder="Email address"
+          required={true}
           type="email"
           value=""
         />
         <input
+          autoComplete="foostagram-password"
           className="p-2 w-full rounded-sm mb-2 border hover:border-gray-500 focus-visible:border text-xs bg-white undefined"
-          initialValue=""
           name="password"
           onChange={[Function]}
           placeholder="Password"
+          required={true}
           type="password"
           value=""
         />
-        <p
-          className="text-xs text-center text-gray-400 mt-2 mb-6"
-        >
-          <a
-            className="font-medium text-gray-500"
-            href="/"
-          >
-            Forgotten your password?
-          </a>
-        </p>
+        <div
+          className="mb-6"
+        />
         <button
           className="w-full bg-insta-green text-white text-sm p-[5px] rounded-md font-medium"
           disabled={false}
-          loading={false}
-          text="Log In"
           type="submit"
         >
           Log In

@@ -1,26 +1,30 @@
-import Router from 'express-promise-router'
-import { body, param } from 'express-validator'
+import Router from "express-promise-router";
+import { body, param } from "express-validator";
 
 import { AuthenticateUser } from '../util/auth'
+import { Block } from './block'
 import { EditProfile } from './editprofile'
+import { GetPosts } from './feed'
+import { Follow } from './follow'
 import { FollowerCount } from './followerCount'
 import { FollowingCount } from './followingCount'
 import { Hello } from './hello'
 import { Index } from './index'
+import { IsFollowing } from './isfollowing'
 import { Login } from './login'
 import { Me } from './me'
 import { SearchUsers, SearchPosts } from './search'
 import { PostCount } from './postCount'
 import { ProfilePosts } from './profilePosts'
-import { GetPosts } from './feed'
-import { Follow } from './follow'
-import { Block } from './block'
 import { ProfilePic } from './profilePic'
-import { IsFollowing } from './isfollowing'
 import { IsBlocking } from './isblocking'
+import { IsBlocked } from './isBlocked'
 import { CreatePost, DeletePost, UpdatePost } from './post'
 import { Profile } from './profile'
 import { Register } from './register'
+import { CreateBusinessPost, UpdateBusinessPost } from './businessPosts'
+import { GetBusinessPosts, GetIndividualBusinessPost } from "./getBusinessPosts";
+
 
 const router = Router()
 
@@ -39,10 +43,15 @@ router.post(
 	Register
 )
 
-router.get('/feed', AuthenticateUser, GetPosts)
+router.get(
+	'/feed',
+	AuthenticateUser,
+	GetPosts
+)
 
 router.post(
 	'/posts',
+	AuthenticateUser,
 	body('picture').isLength({ min: 5 }),
 	body('caption').isLength({ min: 5 }),
 	body('location').isLength({ min: 5 }),
@@ -50,16 +59,16 @@ router.post(
 )
 router.put(
 	'/posts/:post_id',
+	AuthenticateUser,
 	param('post_id').isNumeric(),
 	body('caption').isLength({ min: 5 }),
 	body('location').isLength({ min: 5 }),
-	AuthenticateUser,
 	UpdatePost
 )
 router.delete(
 	'/posts/:post_id',
-	param('post_id').isNumeric(),
 	AuthenticateUser,
+	param('post_id').isNumeric(),
 	DeletePost
 )
 
@@ -75,10 +84,11 @@ router.get('/profilePosts/:profileID', AuthenticateUser, ProfilePosts)
 
 router.post(
 	'/editprofile/:username',
-	body('email').isEmail(),
 	body('fullName').isLength({ min: 5, max: 120 }),
-	body('bio').isLength({ min: 5, max: 200 }),
 	body('username').isLength({ min: 5, max: 80 }),
+	body('bio').isLength({ min: 5, max: 200 }),
+	body('email').isEmail(),
+	body('password').isStrongPassword(),	
 	body('phone').isLength({ min: 2, max: 15 }),
 	AuthenticateUser,
 	EditProfile
@@ -100,5 +110,30 @@ router.post('/follow', body('account_to_follow'), AuthenticateUser, Follow)
 router.post('/block', body('account_to_block'), AuthenticateUser, Block)
 router.get('/isfollowing/:account_id', AuthenticateUser, IsFollowing)
 router.get('/isblocking/:account_id', AuthenticateUser, IsBlocking)
+router.get('/isBlocked/:account_id', AuthenticateUser, IsBlocked)
+
+// Business posts
+router.post(
+    "/businessPosts",
+    body("picture").isLength({ min: 5 }),
+    body("caption").isLength({ min: 5 }),
+    body("location").isLength({ min: 5 }),
+    body("dateTime").isLength({ min: 5 }),
+    CreateBusinessPost
+  );
+
+  router.put('/businessPosts/:post_id',
+  param('post_id').isNumeric(),
+  body('caption').isLength({ min: 5 }),
+  body('location').isLength({ min: 5 }),
+  body('businessState').isNumeric(),
+  UpdateBusinessPost
+  )
+
+router.get('/viewBusinessPosts', AuthenticateUser, GetBusinessPosts)
+router.get('/viewBusinessPosts/:post_id', AuthenticateUser, GetIndividualBusinessPost)
+
+
+// End of business posts  
 
 export default router

@@ -1,9 +1,6 @@
-// import React from "react";
-import styles from '../styles/Feed.module.css'
-import like from '../images/like.png' // use this for like button (or find a new icon, then find the same icon filled in, so when you click like it becomes solid)
-import save from '../images/save.png'
-import useAuth from '../api/util/useAuth'
 import UseFeedQuery from '../api/UseFeedQuery'
+import useAuth from '../api/util/useAuth'
+import Spinner from '../components/common/Spinner'
 import { Post } from '../components/post/Post'
 
 const Feed = () => {
@@ -11,6 +8,12 @@ const Feed = () => {
 	const feedQuery = UseFeedQuery()
 	return (
 		<div>
+			{feedQuery.isLoading ||
+				(isLoading && (
+					<div className="h-[600px]">
+						<Spinner />
+					</div>
+				))}
 			{feedQuery.isLoading === false &&
 				feedQuery.isSuccess &&
 				feedQuery.data.data.posts === undefined && (
@@ -22,7 +25,8 @@ const Feed = () => {
 			{feedQuery.isLoading === false &&
 				feedQuery.isSuccess &&
 				feedQuery.data.data.posts !== undefined &&
-				feedQuery.data?.data.posts.map((post: Post) => (
+				feedQuery.data?.data.posts.map((post, index) => (
+					<Post key={index} post={post} />
 					<div className="m-12 w-4/5 h-full ml-auto mr-auto flex max-w-[550px]">
 						<div className={`flex-auto w-14`}>
 							<div className={`py-7 px-8 bg-white border ${styles.greyBorder}`}>
@@ -77,6 +81,8 @@ const Feed = () => {
 							</div>
 						</div>
 					</div>
+				feedQuery.data?.data.posts.map((post, index) => (
+					<Post key={index} post={post} />
 				))}
 		</div>
 	)

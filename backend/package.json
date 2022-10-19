@@ -10,7 +10,8 @@
 		"start": "ts-node src/app.ts",
 		"dev": "nodemon src/app.ts",
 		"fake-rest": "json-server --watch db.json --port 3004",
-		"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+		"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+		"_test": "yarn dlx jest"
 	},
 	"dependencies": {
 		"@azure/storage-blob": "^12.11.0",
@@ -22,6 +23,7 @@
 		"@types/jest": "^29.1.1",
 		"@types/jsonwebtoken": "^8.5.9",
 		"@types/node": "^18.7.23",
+		"@types/node-cron": "^3.0.4",
 		"@types/supertest": "^2.0.12",
 		"@types/uuid": "^8.3.4",
 		"babel-plugin-transform-commonjs-es2015-modules": "^4.0.1",
@@ -36,6 +38,7 @@
 		"jsonwebtoken": "^8.5.1",
 		"mysql": "^2.18.1",
 		"mysql2": "^2.3.3",
+		"node-cron": "^3.0.2",
 		"node-db-migration": "^1.4.0",
 		"nodemon": "^2.0.20",
 		"react-query": "^3.39.2",
