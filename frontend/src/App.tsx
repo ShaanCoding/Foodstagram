@@ -36,7 +36,7 @@ function App() {
 						<Route path="/test" element={<Test />} />
 						<Route path="/search/user/:searchStr" element={<SearchUser />} />
 						<Route path="/search/post/:searchStr" element={<SearchPost />} />
-						<Route path="/feed" element={<Feed />} />
+						{/* <Route path="/feed" element={<Feed />} /> */}
 						<Route path="/profile/:username" element={<Profile />} />
 						<Route path="/editprofile" element={<EditProfile />} />
 						<Route path="/manageposts" element={<ManagePosts />} />
@@ -44,7 +44,7 @@ function App() {
 						<Route path="/logout" element={<Logout />} />
 						<Route path="/scheduleposts" element={<SchedulePosts />} />
 						<Route path="/updateposts/:post_id" element={<UpdatePosts />} />
-						<Route index element={<Feed />} />
+						{/* <Route index element={<Feed />} /> */}
 					</Routes>
 
 					<Footer />

@@ -10,5 +10,6 @@ interface Post {
 	profile_picture_url: String
 	username: String
 	post_image: String
-  post_likes: Number
+  	post_likes: Number
+	commentsCount?: Number
 }
