@@ -38,8 +38,8 @@ const ManagePosts = () => {
 								datePublished={element.updated_at}
 								username={element.username}
 								post_id={element.post_id}
-								likes={100}
-								comments={100}
+								likes={element.post_likes}
+								comments={element.commentsCount}
 								views={100}
 								deletePost={deleteFunction}
 								profilePicture={element.profile_picture_url}

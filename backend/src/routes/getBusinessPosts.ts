@@ -14,6 +14,8 @@ WHERE A.account_id = ? AND businessState IS NOT NULL ORDER BY created_at DESC;
 `
 
 const postImageQuery = `SELECT (image_url) FROM post_images WHERE post_id = ?;`;
+const numberOfCommentsOnPostQuery = `SELECT COUNT(*) FROM comments WHERE post_id = ?;`
+const numberOfLikesQuery = `SELECT COUNT(*) FROM liked_posts WHERE post_id = ?;`
 
 async function GetBusinessPosts(req: Request, res: Response) {
 	const account = req.account
@@ -27,6 +29,10 @@ async function GetBusinessPosts(req: Request, res: Response) {
 		for(let i = 0; i < posts.length; i++) {
 			const postImages = (await Query(postImageQuery, [posts[i].post_id.toString()])) as any;
 			posts[i].post_image = postImages[0].image_url;
+			const numberOfComments = (await Query(numberOfCommentsOnPostQuery, [posts[i].post_id.toString()])) as any;
+			posts[i].commentsCount = numberOfComments[0]['COUNT(*)'];
+			const numberOfLikes = (await Query(numberOfLikesQuery, [posts[i].post_id.toString()])) as any;
+			posts[i].post_likes = numberOfLikes[0]['COUNT(*)'];
 		}
 
 		if (posts.length > 0) {
