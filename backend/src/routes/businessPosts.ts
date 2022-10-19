@@ -65,12 +65,12 @@ export async function UpdateBusinessPost(req: Request, res: Response) {
   // const updateBusinessPostQuery = "(`account_id`, `location_name`, `location_lat`, `location_long`, `caption`, `businessState`, `businessScheduleTime`, `created_at`, `updated_at`) VALUES ();";
 
   // caption = ?, location_name = ?, updated_at = NOW(), businessState = ?, businessScheduleTime = ? WHERE post_id = ?
-  const updateBusinessPostQuery = 'UPDATE `posts` SET `caption` = ?, `location_name` = ?, `updated_at` = NOW(), `businessState` = ?, `businessScheduleTime` = ? WHERE `post_id` = ?';
-  const updateBusinessPostQueryNoDateTime = 'UPDATE `posts` SET `caption` = ?, `location_name` = ?, `updated_at` = NOW(), `businessState` = ? WHERE `post_id` = ?';
+  const updateBusinessPostQuery = 'UPDATE `posts` SET `caption` = ?, `location_name` = ?, `updated_at` = NOW(), `businessState` = ?, `businessScheduleTime` = ?, `categories` = ? WHERE `post_id` = ?';
+  const updateBusinessPostQueryNoDateTime = 'UPDATE `posts` SET `caption` = ?, `location_name` = ?, `updated_at` = NOW(), `businessState` = ?, `categories` = ? WHERE `post_id` = ?';
 
 
   const post_id = req.params.post_id;
-  const { caption, location, businessState, dateTime } = req.body;
+  const { caption, location, businessState, dateTime, categories } = req.body;
 
   try {
     if(dateTime) {
@@ -79,6 +79,7 @@ export async function UpdateBusinessPost(req: Request, res: Response) {
         location,
         businessState,
         dateTime,
+        categories,
         post_id
       ]);
     } else {
@@ -86,6 +87,7 @@ export async function UpdateBusinessPost(req: Request, res: Response) {
         caption,
         location,
         businessState,
+        categories,
         post_id
       ]);
       console.log(update);

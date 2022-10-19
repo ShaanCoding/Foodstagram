@@ -222,10 +222,11 @@ const SchedulePosts = () => {
           </div>
         </div>
 
+        {/* Catergories */}
         <div className="bg-white p-4 mb-8 border-b-[1px] stroke-light-gray">
           <h2 className="text-xl">Categories (Optional)</h2>
           <div>
-            <textarea value={categories} onChange={(e) => setCategories(e.target.value)} className="w-full border-[1px] stroke-light-gray" placeholder="Enter category here (optional)..." />
+            <textarea value={categories} onChange={(e) => setCategories(e.target.value)} className="my-4 w-full border-[1px] stroke-light-gray" placeholder="Enter category here (optional)..." />
           </div>
         </div>
 
@@ -304,7 +305,7 @@ const SchedulePosts = () => {
           </div>
         </div>
 
-        <div>
+        <div className="px-4">
           <h1 className={`${imageSelectedError ? "block" : "hidden"} text-red-600 text-xl py-2`}>Error Post Must Have A Image Selected.</h1>
           <h1 className={`${postDescriptionError ? "block" : "hidden"} text-red-600 text-xl py-2`}>Error Post Description Must Be 5 Characters Long or Greater.</h1>
           <h1 className={`${postLocationError ? "block" : "hidden"} text-red-600 text-xl py-2`}>Error Post Description Must Be 5 Characters Long or Greater.</h1>

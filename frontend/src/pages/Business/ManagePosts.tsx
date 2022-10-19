@@ -327,8 +327,8 @@ const ManagePosts = () => {
                     /> */}
 									</div>
 								</th>
-								<th className="text-left" colSpan={4}>
-									<div className="flex items-center justify-start">
+								<th className="text-center" colSpan={4}>
+									<div className="flex items-center justify-center">
 										<p className="text-sm font-semibold mr-2">Categories</p>
 									</div>
 								</th>
@@ -352,8 +352,8 @@ const ManagePosts = () => {
 								<th className="text-left" colSpan={4}>
 									<p className="text-sm font-semibold mr-2">Created by</p>
 								</th>
-								<th className="text-left" colSpan={4}>
-									<div className="flex items-center justify-start">
+								<th className="text-center" colSpan={4}>
+									<div className="flex items-center justify-center">
 										<p className="text-sm font-semibold mr-2">Categories</p>
 									</div>
 								</th>
@@ -377,8 +377,8 @@ const ManagePosts = () => {
 								<th className="text-left" colSpan={4}>
 									<p className="text-sm font-semibold mr-2">Created by</p>
 								</th>
-								<th className="text-left" colSpan={4}>
-									<div className="flex items-center justify-start">
+								<th className="text-center" colSpan={4}>
+									<div className="flex items-center justify-center">
 										<p className="text-sm font-semibold mr-2">Categories</p>
 									</div>
 								</th>

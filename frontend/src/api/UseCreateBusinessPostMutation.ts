@@ -29,6 +29,7 @@ export interface UpdateBusinessPost {
 	location: string
   businessState: number
   dateTime?: string
+  categories?: string
 }
 
 export function UseUpdateBusinessPostMutation() {

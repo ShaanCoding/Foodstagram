@@ -47,7 +47,7 @@ async function GetBusinessPosts(req: Request, res: Response) {
 }
 
 const individualPostQuery = `
-SELECT post_id, location_name, caption, businessState, businessScheduleTime, created_at
+SELECT post_id, location_name, caption, businessState, businessScheduleTime, created_at, categories
 FROM posts
 WHERE post_id = ? AND businessState IS NOT NULL ORDER BY created_at DESC;
 `;

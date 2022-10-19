@@ -15,6 +15,7 @@ const UpdatePosts = () => {
   const [publishState, setPublishState] = useState<number>(0);
   const [scheduledTime, setScheduledTime] = useState<TimePickerValue>("");
   const [scheduledDate, setScheduledDate] = useState<Date>(new Date());
+  const [categories, setCategories] = useState<string>("");
 
   const createMutation = UseUpdateBusinessPostMutation();
   const [account, isLoading] = useAuth()
@@ -40,6 +41,7 @@ const UpdatePosts = () => {
       setPostLocation(data.location_name);
       setPreviewImage(data.post_image);
       setPublishState(data.businessState);
+      setCategories(data.categories);
 
     }
   }, [postQuery.isLoading]);
@@ -152,6 +154,14 @@ const UpdatePosts = () => {
           </div>
         </div>
 
+          {/* Catergories */}
+          <div className="bg-white p-4 mb-8 border-b-[1px] stroke-light-gray">
+            <h2 className="text-xl">Categories (Optional)</h2>
+            <div>
+              <textarea value={categories} onChange={(e) => setCategories(e.target.value)} className="my-4 w-full border-[1px] stroke-light-gray" placeholder="Enter category here (optional)..." />
+            </div>
+          </div>
+
         <div className="flex items-center justify-end bg-white p-4 mb-8 border-b-[1px] stroke-light-gray">
           <div>
             <Link to="/manageposts">
@@ -194,7 +204,8 @@ const UpdatePosts = () => {
                     caption: postDescription,
                     location: postLocation,
                     businessState: publishState,
-                    post_id: post_id as any 
+                    post_id: post_id as any,
+                    categories: categories 
                   } as UpdateBusinessPost;
 
                   if(publishState == 2) {
