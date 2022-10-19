@@ -10,6 +10,7 @@ export interface CreateNewBusinessPost {
   businessState: number;
   dateTime: string;
   account_id: number;
+  categories: string;
 }
 
 export function UseCreateBusinessPostMutation() {

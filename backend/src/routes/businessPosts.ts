@@ -14,12 +14,12 @@ export async function CreateBusinessPost(req: Request, res: Response) {
   }
 
   const postQuery =
-    "INSERT INTO `posts` (`account_id`, `location_name`, `location_lat`, `location_long`, `caption`, `businessState`, `businessScheduleTime`, `created_at`, `updated_at`) VALUES ( ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+    "INSERT INTO `posts` (`account_id`, `location_name`, `location_lat`, `location_long`, `caption`, `businessState`, `businessScheduleTime`, `created_at`, `updated_at`, `categories`) VALUES ( ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)";
 
   const imageQuery = `INSERT INTO post_images (post_id, image_url) VALUES (?, ?)`;
 
   const { ENVIRONMENT } = process.env;
-  const { picture, caption, location, businessState, dateTime, account_id } = req.body;
+  const { picture, caption, location, businessState, dateTime, account_id, categories } = req.body;
 
   const pictureName = uuidv4();
   const pictureBuffer = Buffer.from(picture, "base64");
@@ -40,6 +40,7 @@ export async function CreateBusinessPost(req: Request, res: Response) {
       caption,
       businessState,
       dateTime,
+      categories
     ]) as any;
 
     console.log(post.insertId);
@@ -81,10 +82,6 @@ export async function UpdateBusinessPost(req: Request, res: Response) {
         post_id
       ]);
     } else {
-      console.log("Caption: " + caption);
-      console.log("Location: " + location);
-      console.log("BusinessState: " + businessState);
-      console.log("PostID: " + post_id);
       let update = await Query(updateBusinessPostQueryNoDateTime, [
         caption,
         location,
