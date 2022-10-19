@@ -10,8 +10,21 @@ import styles from '../../styles/Feed.module.css'
 import { ContextMenu } from '../common/ContextMenu'
 
 interface Props {
-	post: Post
+	post: {
+		post_id: number
+		account_id: number
+		username: string
+		profile_picture_url: string
+		location_name: string
+		location_lat: string
+		location_long: string
+		caption: string
+		created_at: string
+		updated_at: string
+		post_image: string
+	}
 }
+
 export const Post = (props: Props) => {
 	const [account, _] = useAuth()
 	const { post } = props
@@ -25,7 +38,11 @@ export const Post = (props: Props) => {
 	]
 
 	const deletePostMutation = UseDeletePostMutation()
-	const deletePost = () => deletePostMutation.mutate({ post_id: post.post_id })
+	const deletePost = () => {
+		deletePostMutation.mutate({ post_id: post.post_id })
+		alert('Post has been deleted, the page will reload')
+		window.location.reload()
+	}
 
 	const editPost = () => {}
 	// UseUpdatePostMutation
@@ -37,11 +54,11 @@ export const Post = (props: Props) => {
 					<div className="flex flex-row gap-2">
 						<img
 							alt="avatar"
-							className="w-8 h-8 rounded-full border-2 border-gray-700 inline-block align-middle mb-4"
+							className="w-8 h-8 rounded-full border-2 border-gray-700 inline-block align-middle mb-4 object-cover"
 							src={post.profile_picture_url}
 						/>
 						<a
-							href={`/user/${post.username}`}
+							href={`/profile/${post.username}`}
 							className="font-medium text-md text-black-500 text-left inline-block align-middle mb-4"
 						>
 							{post.username}
@@ -50,12 +67,17 @@ export const Post = (props: Props) => {
 						<span className="grow" />
 						{post.account_id === account.account_id && (
 							<ContextMenu>
-								<button onClick={editPost}>
-									<img src={edit} className="mb-4 h-5 inline-block pr-5" />
-									Edit
-								</button>
-								<button onClick={deletePost}>
-									<img src={trash} className="mb-4 h-5 inline-block pr-5" />
+								{/*
+									<button onClick={editPost}>
+										<img src={edit} className="mb-4 h-5 inline-block pr-5" />
+										Edit
+									</button>
+								*/}
+								<button
+									onClick={deletePost}
+									className="flex flex-row shadow rounded-md shadow-lg w-fit w-[100px] pt-2 pb-2"
+								>
+									<img src={trash} className="pl-2 h-5 inline-block pr-5" />
 									Delete
 								</button>
 							</ContextMenu>

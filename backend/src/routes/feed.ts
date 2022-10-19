@@ -6,7 +6,7 @@ import { Query } from '../util/db'
 // REPLACE 13 WITH LOGGED IN ACCOUNT ID
 
 const feedQuery = `
-SELECT post_id, A.username, profile_picture_url, location_name, location_lat, location_long, caption, created_at, updated_at, post_image
+SELECT post_id, A.account_id, A.username, profile_picture_url, location_name, location_lat, location_long, caption, created_at, updated_at, post_image
 FROM posts P LEFT JOIN accounts A ON P.account_id = A.account_id
 WHERE A.account_id IN (SELECT followed_account_id FROM account_followers WHERE account_id = ?) ORDER BY created_at DESC
 `

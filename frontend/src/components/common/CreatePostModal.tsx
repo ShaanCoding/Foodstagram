@@ -25,12 +25,9 @@ interface Props {
 	image?: string
 	caption?: string
 	location?: string
-
-	//openButton: MutableRefObject<any>
 }
 
-const CreatePostModal = (props: Props) => {
-	const { openButton } = props
+const CreatePostModal = ({ openButton }: Props) => {
 	const [imgUploaded, setImageUploaded] = useState(false)
 	const [open, setOpen] = useState(false)
 	const onOpenModal = () => setOpen(true)
@@ -58,7 +55,7 @@ const CreatePostModal = (props: Props) => {
 			reader.readAsDataURL(
 				(e.target as HTMLInputElement).files![0] as unknown as File
 			)
-			reader.onload = () => resolve(reader.result)
+			reader.onloadend = () => resolve(reader.result)
 			reader.onerror = (error) => reject(error)
 		})
 			.then((base64string) =>
@@ -80,6 +77,12 @@ const CreatePostModal = (props: Props) => {
 		img.current!.removeAttribute('src') // clear the picture
 	}
 
+	const onSubmit = (data: Record<string, string>) => {
+		createMutation.mutate(data as unknown as CreateNewPost)
+		setOpen(false)
+		alert('Post created!')
+	}
+
 	return (
 		<div>
 			<Modal
@@ -92,12 +95,12 @@ const CreatePostModal = (props: Props) => {
 				<div className="flex flex-col justify center items-center h-full">
 					<h1 className="mb-3">Create a Post</h1>
 
-					<div className="w-full bg-gray-200 flex flex-col justify center items-center h-full">
+					<div className="w-full flex flex-col justify center items-center h-full">
 						{imgUploaded === false && (
 							<>
-								<div className="w-full h-full flex justify-center items-center flex-col" />
+								{/* <div className="w-full h-full flex justify-center items-center flex-col" /> */}
 								<FontAwesomeIcon
-									className="w-24 h-24"
+									className="w-24 h-24 mt-32"
 									icon={regular('images')}
 								/>
 								<p className="text-xl font-extralight mt-4 mb-4">
@@ -106,11 +109,7 @@ const CreatePostModal = (props: Props) => {
 							</>
 						)}
 
-						<Form
-							onSubmit={(data) =>
-								createMutation.mutate(data as unknown as CreateNewPost)
-							}
-						>
+						<Form onSubmit={onSubmit}>
 							<div className="px-8">
 								<input
 									ref={_picture}
@@ -148,6 +147,7 @@ const CreatePostModal = (props: Props) => {
 											text="Submit"
 											loading={createMutation.isLoading}
 										/>
+										<div className="h-[40px]" />
 									</>
 								)}
 
