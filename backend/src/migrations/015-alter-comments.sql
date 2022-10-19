@@ -1,2 +1,0 @@
-ALTER TABLE comments
-ADD VARCHAR(300)
