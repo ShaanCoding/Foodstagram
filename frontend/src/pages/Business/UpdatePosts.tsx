@@ -194,7 +194,7 @@ const UpdatePosts = () => {
                     caption: postDescription,
                     location: postLocation,
                     businessState: publishState,
-                    post_id: 92
+                    post_id: post_id as any 
                   } as UpdateBusinessPost;
 
                   if(publishState == 2) {

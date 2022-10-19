@@ -8,13 +8,12 @@ import formatErrors from '../util/formatErrors'
 // REPLACE 13 WITH LOGGED IN ACCOUNT ID
 
 const feedQuery = `
-SELECT post_id, A.username, profile_picture_url, location_name, location_lat, location_long, caption, created_at, updated_at, post_image, businessState, businessScheduleTime
+SELECT post_id, A.username, profile_picture_url, location_name, location_lat, location_long, caption, created_at, updated_at, businessState, businessScheduleTime
 FROM posts P LEFT JOIN accounts A ON P.account_id = A.account_id
 WHERE A.account_id = ? AND businessState IS NOT NULL ORDER BY created_at DESC;
 `
-// const feedQuery = `SELECT post_id, A.username, profile_picture_url, location_name, location_lat, location_long, caption, created_at, updated_at, post_image
-// FROM posts P LEFT JOIN accounts A ON P.account_id = A.account_id
-// WHERE A.account_id IN (SELECT followed_account_id FROM account_followers WHERE account_id = ? and businessState is NOT NULL) ORDER BY created_at DESC`
+
+const postImageQuery = `SELECT (image_url) FROM post_images WHERE post_id = ?;`;
 
 async function GetBusinessPosts(req: Request, res: Response) {
 	const account = req.account
@@ -23,7 +22,13 @@ async function GetBusinessPosts(req: Request, res: Response) {
 	} else {
 		const posts = (await Query(feedQuery, [
 			account.account_id.toString(),
-		])) as Post[]
+		])) as Post[];
+
+		for(let i = 0; i < posts.length; i++) {
+			const postImages = (await Query(postImageQuery, [posts[i].post_id.toString()])) as any;
+			posts[i].post_image = postImages[0].image_url;
+		}
+
 		if (posts.length > 0) {
 			return res.status(200).json({
 				posts,
@@ -36,7 +41,7 @@ async function GetBusinessPosts(req: Request, res: Response) {
 }
 
 const individualPostQuery = `
-SELECT post_id, location_name, caption, post_image, businessState, businessScheduleTime, created_at
+SELECT post_id, location_name, caption, businessState, businessScheduleTime, created_at
 FROM posts
 WHERE post_id = ? AND businessState IS NOT NULL ORDER BY created_at DESC;
 `;
@@ -55,6 +60,10 @@ async function GetIndividualBusinessPost(req: Request, res: Response) {
 		const post = (await Query(individualPostQuery, [
 			post_id
 		])) as any;
+
+
+		const postImages = (await Query(postImageQuery, [post_id])) as any;
+		post[0].post_image = postImages[0].image_url;
 
 		if (post.length > 0) {
 			return res.status(200).json({
