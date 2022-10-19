@@ -57,6 +57,43 @@ const SchedulePosts = () => {
 
 	const navigate = useNavigate()
 
+  function formatDate(date: any) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
+
+  function formatDateFull(date: any) {
+    var d = new Date(date),
+        minutes = '' + d.getMinutes(),
+        hours = '' + d.getHours(),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    if(minutes.length < 2)
+      minutes = '0' + minutes;
+    
+    if(hours.length < 2)
+      hours = '0' + hours;
+      
+
+    return [year, month, day].join('-') + " " + hours + ":" + minutes + ":00";
+}
+
   useEffect(() => {
     if(createMutation.isSuccess)
       navigate('/manageposts')
@@ -233,24 +270,12 @@ const SchedulePosts = () => {
                   ""
                 );
 
-                let dbDateString = "";
-                dbDateString += scheduledDate.getFullYear();
-                dbDateString += "-"
+                // Scheduled date + scheduled time - 11 hours
+                let scheduledDateTime = `${formatDate(scheduledDate)} ${scheduledTime}:00`;
+                let scheduledDateTimeUTC = new Date(scheduledDateTime);
+                scheduledDateTimeUTC.setHours(scheduledDateTimeUTC.getHours() - 11);
+                let dbDateString = `${formatDateFull(scheduledDateTimeUTC)}`;
 
-                if(scheduledDate.getDay() < 10) {
-                  dbDateString += "0";
-                }
-                dbDateString += scheduledDate.getDay();
-                dbDateString += "-";
-
-                if(scheduledDate.getMonth() < 10) {
-                  dbDateString += "0";
-                }
-                dbDateString += scheduledDate.getMonth();
-              
-                dbDateString += ` ${scheduledTime}:00`
-
-                console.log(account);
 
                 let mutationData = {
                   picture: responseData,
