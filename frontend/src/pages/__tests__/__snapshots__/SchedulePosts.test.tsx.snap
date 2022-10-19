@@ -615,7 +615,7 @@ exports[`The business/schedulePosts page renders correctly 1`] = `
                       </abbr>
                     </button>
                     <button
-                      className="react-calendar__tile react-calendar__tile--now react-calendar__tile--active react-calendar__tile--range react-calendar__tile--rangeStart react-calendar__tile--rangeEnd react-calendar__tile--rangeBothEnds react-calendar__month-view__days__day"
+                      className="react-calendar__tile react-calendar__month-view__days__day"
                       onClick={[Function]}
                       onFocus={null}
                       onMouseOver={null}
@@ -879,7 +879,7 @@ exports[`The business/schedulePosts page renders correctly 1`] = `
                       </abbr>
                     </button>
                     <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
+                      className="react-calendar__tile react-calendar__tile--now react-calendar__tile--active react-calendar__tile--range react-calendar__tile--rangeStart react-calendar__tile--rangeEnd react-calendar__tile--rangeBothEnds react-calendar__month-view__days__day"
                       onClick={[Function]}
                       onFocus={null}
                       onMouseOver={null}
@@ -1491,6 +1491,11 @@ exports[`The business/schedulePosts page renders correctly 1`] = `
       <h1
         className="hidden text-red-600 text-xl py-2"
       >
+        Error Post Must Have A Image Selected.
+      </h1>
+      <h1
+        className="hidden text-red-600 text-xl py-2"
+      >
         Error Post Description Must Be 5 Characters Long or Greater.
       </h1>
       <h1
@@ -1502,6 +1507,11 @@ exports[`The business/schedulePosts page renders correctly 1`] = `
         className="hidden text-red-600 text-xl py-2"
       >
         Error Post Must Have A Publish State.
+      </h1>
+      <h1
+        className="hidden text-red-600 text-xl py-2"
+      >
+        Error Post Must Have A Time Selected.
       </h1>
     </div>
   </div>
