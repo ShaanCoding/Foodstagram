@@ -44,6 +44,8 @@ const ManagePosts = () => {
 		if (viewPostsQuery.isSuccess) {
 			let data = viewPostsQuery.data.data.posts
 
+			data = data.sort((a: any, b: any) => b.views - a.views);
+
 			let generatedTable: any[] = []
 			if (data !== undefined) {
 				data.forEach((element: any) => {
@@ -61,7 +63,7 @@ const ManagePosts = () => {
 									post_id={element.post_id}
 									likes={element.post_likes}
 									comments={element.commentsCount}
-									views={100}
+									views={element.views}
 									deletePost={deleteFunction}
 									profilePicture={element.profile_picture_url}
 									updatePost={updateFunction}
@@ -80,7 +82,7 @@ const ManagePosts = () => {
 									post_id={element.post_id}
 									likes={element.post_likes}
 									comments={element.commentsCount}
-									views={100}
+									views={element.views}
 									deletePost={deleteFunction}
 									profilePicture={element.profile_picture_url}
 									updatePost={updateFunction}

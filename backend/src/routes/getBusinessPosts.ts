@@ -8,7 +8,7 @@ import formatErrors from '../util/formatErrors'
 // REPLACE 13 WITH LOGGED IN ACCOUNT ID
 
 const feedQuery = `
-SELECT post_id, A.username, profile_picture_url, location_name, location_lat, location_long, caption, created_at, updated_at, businessState, businessScheduleTime, categories
+SELECT post_id, A.username, profile_picture_url, location_name, location_lat, location_long, caption, created_at, updated_at, businessState, businessScheduleTime, categories, views 
 FROM posts P LEFT JOIN accounts A ON P.account_id = A.account_id
 WHERE A.account_id = ? AND businessState IS NOT NULL ORDER BY created_at DESC;
 `
