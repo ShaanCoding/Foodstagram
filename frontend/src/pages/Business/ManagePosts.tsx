@@ -20,6 +20,9 @@ const ManagePosts = () => {
 	const [scheduleTable, setScheduleTable] = useState<any>()
 	const [draftTable, setDraftTable] = useState<any>()
 
+	const [listOfCategories, setListOfCategories] = useState<any>()
+	const [categories, setCategories] = useState<any>("Nothing");
+
 	let deleteMutation = UseDeletePostMutation()
 
 	let generateCategoryColor = (str: string) => {
@@ -42,7 +45,7 @@ const ManagePosts = () => {
 			let generatedTable: any[] = []
 			if (data !== undefined) {
 				data.forEach((element: any) => {
-					if (element.businessState == 1) {
+					if (element.businessState == 1 && (element.categories == categories || categories == "Nothing")) {
 						// image: string, title: string, datePublished: string, username: string, post_id: number, likes: number, comments: number, views: number
 						
 						if(element.categories) {
@@ -62,6 +65,7 @@ const ManagePosts = () => {
 									updatePost={updateFunction}
 									category={element.categories}
 									categoryColor={generateCategoryColor(element.categories)}
+									key={element.post_id}
 								/>
 							)
 						} else {
@@ -78,6 +82,7 @@ const ManagePosts = () => {
 									deletePost={deleteFunction}
 									profilePicture={element.profile_picture_url}
 									updatePost={updateFunction}
+									key={element.post_id}
 								/>
 							)
 						}
@@ -95,7 +100,7 @@ const ManagePosts = () => {
 			let generatedTable: any[] = []
 			if (data !== undefined) {
 				data.forEach((element: any) => {
-					if (element.businessState == 2) {
+					if (element.businessState == 2 && (element.categories == categories || categories == "Nothing")) {
 						
 						if(element.categories) {
 							generatedTable.push(
@@ -110,6 +115,7 @@ const ManagePosts = () => {
 									updatePost={updateFunction}
 									category={element.categories}
 									categoryColor={generateCategoryColor(element.categories)}
+									key={element.post_id}
 								/>
 							)
 						} else {
@@ -123,6 +129,7 @@ const ManagePosts = () => {
 									deletePost={deleteFunction}
 									profilePicture={element.profile_picture_url}
 									updatePost={updateFunction}
+									key={element.post_id}
 								/>
 							)
 						}
@@ -140,7 +147,7 @@ const ManagePosts = () => {
 			let generatedTable: any[] = []
 			if (data !== undefined) {
 				data.forEach((element: any) => {
-					if (element.businessState == 3) {
+					if (element.businessState == 3 && (element.categories == categories || categories == "Nothing")) {
 						
 						if(element.categories) {
 							generatedTable.push(
@@ -155,6 +162,7 @@ const ManagePosts = () => {
 									updatePost={updateFunction}
 									category={element.categories}
 									categoryColor={generateCategoryColor(element.categories)}
+									key={element.post_id}
 								/>
 							)
 						} else {
@@ -168,6 +176,7 @@ const ManagePosts = () => {
 									deletePost={deleteFunction}
 									profilePicture={element.profile_picture_url}
 									updatePost={updateFunction}
+									key={element.post_id}
 								/>
 							)
 						}
@@ -194,7 +203,14 @@ const ManagePosts = () => {
 		generatePublishedTable()
 		generateScheduledTable()
 		generateDraftTable()
-	}, [viewPostsQuery.isFetchedAfterMount])
+
+		// Get list of categories and store in state unique
+		if (viewPostsQuery.isSuccess) {
+			let data = viewPostsQuery.data.data.posts
+			let uniques = [...new Set(data.map((element: any) => element.categories))].filter((element: any) => element !== null);
+			setListOfCategories(uniques);
+		}
+	}, [viewPostsQuery.isFetchedAfterMount, categories])
 
 	return (
 		<div className="mx-16">
@@ -248,10 +264,15 @@ const ManagePosts = () => {
 
 				{/* Show Posts Search Bar */}
 				<div className="flex items-center justify-between py-4">
-					<select>
-						<option>Photos</option>
-						<option>Videos</option>
-					</select>
+					<div className='flex items-center justify-start'>
+						<p className="text-sm font-semibold mr-4">Filter by category:</p>
+						<select onChange={(e) => {setCategories(e.target.value)}}>
+							{listOfCategories?.map((element: any) => {
+								return <option>{element}</option>
+							})}
+							<option>Nothing</option>
+						</select>
+					</div>
 					<div className="flex items-center justify-end">
 						{/* <div className="flex justify-end items-center relative mr-2">
               <input
