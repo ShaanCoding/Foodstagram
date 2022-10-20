@@ -70,6 +70,14 @@ const UpdatePosts = () => {
       setPreviewImage(data.post_image);
       setPublishState(data.businessState);
       setCategories(data.categories);
+
+      let date = new Date("2022-10-20T01:48:00.000Z");
+      date.setHours(date.getHours() + 11);
+
+      setScheduledDate(date);
+      setScheduledTime(
+        date.getHours().toString() + ":" + date.getMinutes().toString()
+      );
     }
   }, [postQuery.isLoading]);
 
