@@ -23,6 +23,8 @@ const ManagePosts = () => {
 	const [listOfCategories, setListOfCategories] = useState<any>()
 	const [categories, setCategories] = useState<any>("Nothing");
 
+	const [searchBar, setSearchBar] = useState<any>("")
+
 	let deleteMutation = UseDeletePostMutation()
 
 	let generateCategoryColor = (str: string) => {
@@ -45,7 +47,8 @@ const ManagePosts = () => {
 			let generatedTable: any[] = []
 			if (data !== undefined) {
 				data.forEach((element: any) => {
-					if (element.businessState == 1 && (element.categories == categories || categories == "Nothing")) {
+					let searchBarFilter = (element.caption.toLowerCase().includes(searchBar.toLowerCase()) || searchBar == "");
+					if (element.businessState == 1 && (element.categories == categories || categories == "Nothing") && searchBarFilter) {
 						// image: string, title: string, datePublished: string, username: string, post_id: number, likes: number, comments: number, views: number
 						
 						if(element.categories) {
@@ -100,7 +103,8 @@ const ManagePosts = () => {
 			let generatedTable: any[] = []
 			if (data !== undefined) {
 				data.forEach((element: any) => {
-					if (element.businessState == 2 && (element.categories == categories || categories == "Nothing")) {
+					let searchBarFilter = (element.caption.toLowerCase().includes(searchBar.toLowerCase()) || searchBar == "");
+					if (element.businessState == 2 && (element.categories == categories || categories == "Nothing") && searchBarFilter) {
 						
 						if(element.categories) {
 							generatedTable.push(
@@ -147,7 +151,8 @@ const ManagePosts = () => {
 			let generatedTable: any[] = []
 			if (data !== undefined) {
 				data.forEach((element: any) => {
-					if (element.businessState == 3 && (element.categories == categories || categories == "Nothing")) {
+					let searchBarFilter = (element.caption.toLowerCase().includes(searchBar.toLowerCase()) || searchBar == "");
+					if (element.businessState == 3 && (element.categories == categories || categories == "Nothing") && searchBarFilter) {
 						
 						if(element.categories) {
 							generatedTable.push(
@@ -210,7 +215,7 @@ const ManagePosts = () => {
 			let uniques = [...new Set(data.map((element: any) => element.categories))].filter((element: any) => element !== null);
 			setListOfCategories(uniques);
 		}
-	}, [viewPostsQuery.isFetchedAfterMount, categories])
+	}, [viewPostsQuery.isFetchedAfterMount, categories, searchBar])
 
 	return (
 		<div className="mx-16">
@@ -274,28 +279,30 @@ const ManagePosts = () => {
 						</select>
 					</div>
 					<div className="flex items-center justify-end">
-						{/* <div className="flex justify-end items-center relative mr-2">
-              <input
-                className="w-full pl-12 pr-2 border-[1px] border-light-gray py-2 rounded-md"
-                type="text"
-                placeholder="Search Artwork / Creators Name"
-              />
-              <FontAwesomeIcon
-                className="absolute w-5 h-5 left-2 pointer-events-none"
-                icon={solid("search")}
-              />
-            </div> */}
-						<Link to="/scheduleposts">
-							<div className="flex items-center justify-end relative">
-								<button className="px-10 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100">
-									Create Post
-								</button>
-								{/* <FontAwesomeIcon
-                  className="absolute w-5 h-5 left-2 pointer-events-none text-white"
-                  icon={solid("table")}
-                /> */}
-							</div>
-						</Link>
+					<div className="flex justify-start items-center relative mr-2">
+						<input
+							className="w-full pl-12 pr-2 border-[1px] border-light-gray py-2 rounded-md"
+							type="text"
+							placeholder="Search Artwork / Creators Name"
+							value={searchBar}
+							onChange={(e) => setSearchBar(e.target.value)}
+						/>
+						<FontAwesomeIcon
+							className="absolute w-5 h-5 left-2 pointer-events-none"
+							icon={solid("search")}
+						/>
+					</div>
+					<Link to="/scheduleposts">
+						<div className="flex items-center justify-end relative">
+							<button className="px-10 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100">
+								Create Post
+							</button>
+							{/* <FontAwesomeIcon
+				className="absolute w-5 h-5 left-2 pointer-events-none text-white"
+				icon={solid("table")}
+			/> */}
+						</div>
+					</Link>
 					</div>
 				</div>
 
