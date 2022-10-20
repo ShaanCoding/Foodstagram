@@ -24,6 +24,7 @@ import { Profile } from './profile'
 import { Register } from './register'
 import { CreateBusinessPost, UpdateBusinessPost } from './businessPosts'
 import { GetBusinessPosts, GetIndividualBusinessPost } from "./getBusinessPosts";
+import { GetCategories } from "./categories";
 
 
 const router = Router()
@@ -120,6 +121,7 @@ router.post(
     body("location").isLength({ min: 5 }),
     body("dateTime").isLength({ min: 5 }),
 	body("categories").isLength({ max: 300 }),
+	AuthenticateUser,
     CreateBusinessPost
   );
 
@@ -134,6 +136,8 @@ router.post(
 
 router.get('/viewBusinessPosts', AuthenticateUser, GetBusinessPosts)
 router.get('/viewBusinessPosts/:post_id', AuthenticateUser, GetIndividualBusinessPost)
+
+router.get('/categories', AuthenticateUser, GetCategories);
 
 
 // End of business posts  

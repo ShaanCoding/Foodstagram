@@ -211,7 +211,7 @@ const ManagePosts = () => {
 		// Get list of categories and store in state unique
 		if (viewPostsQuery.isSuccess) {
 			let data = viewPostsQuery.data.data.posts
-			let uniques = [...new Set(data.map((element: any) => element.categories))].filter((element: any) => element !== null);
+			let uniques = [...new Set(data?.map((element: any) => element.categories))].filter((element: any) => element !== null);
 			setListOfCategories(uniques);
 		}
 	}, [viewPostsQuery.isFetchedAfterMount, categories, searchBar])
