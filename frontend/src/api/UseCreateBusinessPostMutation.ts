@@ -22,21 +22,23 @@ export function UseCreateBusinessPostMutation() {
   );
 }
 
-
 export interface UpdateBusinessPost {
-	post_id: number
-	caption: string
-	location: string
-  businessState: number
-  dateTime?: string
-  categories?: string
+  post_id: number;
+  caption: string;
+  location: string;
+  businessState: number;
+  dateTime?: string;
+  categories?: string;
 }
 
 export function UseUpdateBusinessPostMutation() {
-	return useMutation(
-		['updatepost'],
-		(variables: UpdateBusinessPost) =>
-			axios.put(`${GetEndpoint('api')}/businessPosts/${variables.post_id}`, variables),
-		{ retry: false }
-	)
+  return useMutation(
+    ["updatepost"],
+    (variables: UpdateBusinessPost) =>
+      axios.put(
+        `${GetEndpoint("api")}/businessPosts/${variables.post_id}`,
+        variables
+      ),
+    { retry: false }
+  );
 }
