@@ -1,434 +1,445 @@
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import UseBusinessPostQuery from '../../api/UseBusinessPostQuery'
-import { UseDeletePostMutation } from '../../api/UsePostMutation'
-import useAuth from '../../api/util/useAuth'
-import ManagePublishedPostTableRow from '../../components/business/ManagePublishedPostTableRow'
-import Spinner from '../../components/common/Spinner'
-import ManageScheduledPostTableRow from '../../components/business/ManageScheduledPostTableRow'
-import ManageDraftPostTableRow from '../../components/business/ManageDraftsPostTableRow'
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import UseBusinessPostQuery from "../../api/UseBusinessPostQuery";
+import { UseDeletePostMutation } from "../../api/UsePostMutation";
+import useAuth from "../../api/util/useAuth";
+import ManagePublishedPostTableRow from "../../components/business/ManagePublishedPostTableRow";
+import Spinner from "../../components/common/Spinner";
+import ManageScheduledPostTableRow from "../../components/business/ManageScheduledPostTableRow";
+import ManageDraftPostTableRow from "../../components/business/ManageDraftsPostTableRow";
 
 const ManagePosts = () => {
-	const [openTab, setOpenTab] = useState('published')
+  const [openTab, setOpenTab] = useState("published");
 
-	const [account, isLoading] = useAuth()
-	let viewPostsQuery = UseBusinessPostQuery()
+  const [account, isLoading] = useAuth();
+  let viewPostsQuery = UseBusinessPostQuery();
 
-	const [publishedTable, setPublishedTable] = useState<any>()
-	const [scheduleTable, setScheduleTable] = useState<any>()
-	const [draftTable, setDraftTable] = useState<any>()
+  const [publishedTable, setPublishedTable] = useState<any>();
+  const [scheduleTable, setScheduleTable] = useState<any>();
+  const [draftTable, setDraftTable] = useState<any>();
 
-	const [listOfCategories, setListOfCategories] = useState<any>()
-	const [categories, setCategories] = useState<any>("Nothing");
+  const [listOfCategories, setListOfCategories] = useState<any>();
+  const [categories, setCategories] = useState<any>("Nothing");
 
-	const [searchBar, setSearchBar] = useState<any>("");
+  const [searchBar, setSearchBar] = useState<any>("");
 
-	let deleteMutation = UseDeletePostMutation();
+  let deleteMutation = UseDeletePostMutation();
 
-	let generateCategoryColor = (str: string) => {
-		var hash = 0;
-		for (var i = 0; i < str.length; i++) {
-		  hash = str.charCodeAt(i) + ((hash << 5) - hash);
-		}
-		var colour = '#';
-		for (var i = 0; i < 3; i++) {
-		  var value = (hash >> (i * 8)) & 0xFF;
-		  colour += ('00' + value.toString(16)).substr(-2);
-		}
-		return colour;
-	};
+  let generateCategoryColor = (str: string) => {
+    var hash = 0;
+    for (var i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    var colour = "#";
+    for (var i = 0; i < 3; i++) {
+      var value = (hash >> (i * 8)) & 0xff;
+      colour += ("00" + value.toString(16)).substr(-2);
+    }
+    return colour;
+  };
 
-	let generatePublishedTable = () => {
-		if (viewPostsQuery.isSuccess) {
-			let data = viewPostsQuery.data.data.posts
+  let generatePublishedTable = () => {
+    if (viewPostsQuery.isSuccess) {
+      let data = viewPostsQuery.data.data.posts;
 
-			data = data.sort((a: any, b: any) => b.views - a.views);
+      data = data.sort((a: any, b: any) => b.views - a.views);
 
-			let generatedTable: any[] = []
-			if (data !== undefined) {
-				data.forEach((element: any) => {
-					let searchBarFilter = (element.caption.toLowerCase().includes(searchBar.toLowerCase()) || searchBar == "");
-					if (element.businessState == 1 && (element.categories == categories || categories == "Nothing") && searchBarFilter) {
-						// image: string, title: string, datePublished: string, username: string, post_id: number, likes: number, comments: number, views: number
-						
-						if(element.categories) {
-							generatedTable.push(
-								<ManagePublishedPostTableRow
-									image={element.post_image}
-									title={element.caption}
-									datePublished={element.updated_at}
-									username={element.username}
-									post_id={element.post_id}
-									likes={element.post_likes}
-									comments={element.commentsCount}
-									views={element.views}
-									deletePost={deleteFunction}
-									profilePicture={element.profile_picture_url}
-									updatePost={updateFunction}
-									category={element.categories}
-									categoryColor={generateCategoryColor(element.categories)}
-									key={element.post_id}
-								/>
-							)
-						} else {
-							generatedTable.push(
-								<ManagePublishedPostTableRow
-									image={element.post_image}
-									title={element.caption}
-									datePublished={element.updated_at}
-									username={element.username}
-									post_id={element.post_id}
-									likes={element.post_likes}
-									comments={element.commentsCount}
-									views={element.views}
-									deletePost={deleteFunction}
-									profilePicture={element.profile_picture_url}
-									updatePost={updateFunction}
-									key={element.post_id}
-								/>
-							)
-						}
-					}
-				})
-			}
+      let generatedTable: any[] = [];
+      if (data !== undefined) {
+        data.forEach((element: any) => {
+          let searchBarFilter =
+            element.caption.toLowerCase().includes(searchBar.toLowerCase()) ||
+            searchBar == "";
+          if (
+            element.businessState == 1 &&
+            (element.categories == categories || categories == "Nothing") &&
+            searchBarFilter
+          ) {
+            // image: string, title: string, datePublished: string, username: string, post_id: number, likes: number, comments: number, views: number
 
-			setPublishedTable(generatedTable)
-		}
-	}
+            if (element.categories) {
+              generatedTable.push(
+                <ManagePublishedPostTableRow
+                  image={element.post_image}
+                  title={element.caption}
+                  datePublished={element.updated_at}
+                  username={element.username}
+                  post_id={element.post_id}
+                  likes={element.post_likes}
+                  comments={element.commentsCount}
+                  views={element.views}
+                  deletePost={deleteFunction}
+                  profilePicture={element.profile_picture_url}
+                  updatePost={updateFunction}
+                  category={element.categories}
+                  categoryColor={generateCategoryColor(element.categories)}
+                  key={element.post_id}
+                />
+              );
+            } else {
+              generatedTable.push(
+                <ManagePublishedPostTableRow
+                  image={element.post_image}
+                  title={element.caption}
+                  datePublished={element.updated_at}
+                  username={element.username}
+                  post_id={element.post_id}
+                  likes={element.post_likes}
+                  comments={element.commentsCount}
+                  views={element.views}
+                  deletePost={deleteFunction}
+                  profilePicture={element.profile_picture_url}
+                  updatePost={updateFunction}
+                  key={element.post_id}
+                />
+              );
+            }
+          }
+        });
+      }
 
-	let generateScheduledTable = () => {
-		if (viewPostsQuery.isSuccess) {
-			let data = viewPostsQuery.data.data.posts
-			let generatedTable: any[] = []
-			if (data !== undefined) {
-				data.forEach((element: any) => {
-					let searchBarFilter = (element.caption.toLowerCase().includes(searchBar.toLowerCase()) || searchBar == "");
-					if (element.businessState == 2 && (element.categories == categories || categories == "Nothing") && searchBarFilter) {
-						
-						if(element.categories) {
-							generatedTable.push(
-								<ManageScheduledPostTableRow
-									image={element.post_image}
-									title={element.caption}
-									dateScheduled={element.businessScheduleTime}
-									username={element.username}
-									post_id={element.post_id}
-									deletePost={deleteFunction}
-									profilePicture={element.profile_picture_url}
-									updatePost={updateFunction}
-									category={element.categories}
-									categoryColor={generateCategoryColor(element.categories)}
-									key={element.post_id}
-								/>
-							)
-						} else {
-							generatedTable.push(
-								<ManageScheduledPostTableRow
-									image={element.post_image}
-									title={element.caption}
-									dateScheduled={element.businessScheduleTime}
-									username={element.username}
-									post_id={element.post_id}
-									deletePost={deleteFunction}
-									profilePicture={element.profile_picture_url}
-									updatePost={updateFunction}
-									key={element.post_id}
-								/>
-							)
-						}
-					}
-				})
-			}
+      setPublishedTable(generatedTable);
+    }
+  };
 
-			setScheduleTable(generatedTable)
-		}
-	}
+  let generateScheduledTable = () => {
+    if (viewPostsQuery.isSuccess) {
+      let data = viewPostsQuery.data.data.posts;
+      let generatedTable: any[] = [];
+      if (data !== undefined) {
+        data.forEach((element: any) => {
+          let searchBarFilter =
+            element.caption.toLowerCase().includes(searchBar.toLowerCase()) ||
+            searchBar == "";
+          if (
+            element.businessState == 2 &&
+            (element.categories == categories || categories == "Nothing") &&
+            searchBarFilter
+          ) {
+            if (element.categories) {
+              generatedTable.push(
+                <ManageScheduledPostTableRow
+                  image={element.post_image}
+                  title={element.caption}
+                  dateScheduled={element.businessScheduleTime}
+                  username={element.username}
+                  post_id={element.post_id}
+                  deletePost={deleteFunction}
+                  profilePicture={element.profile_picture_url}
+                  updatePost={updateFunction}
+                  category={element.categories}
+                  categoryColor={generateCategoryColor(element.categories)}
+                  key={element.post_id}
+                />
+              );
+            } else {
+              generatedTable.push(
+                <ManageScheduledPostTableRow
+                  image={element.post_image}
+                  title={element.caption}
+                  dateScheduled={element.businessScheduleTime}
+                  username={element.username}
+                  post_id={element.post_id}
+                  deletePost={deleteFunction}
+                  profilePicture={element.profile_picture_url}
+                  updatePost={updateFunction}
+                  key={element.post_id}
+                />
+              );
+            }
+          }
+        });
+      }
 
-	let generateDraftTable = () => {
-		if (viewPostsQuery.isSuccess) {
-			let data = viewPostsQuery.data.data.posts
-			let generatedTable: any[] = []
-			if (data !== undefined) {
-				data.forEach((element: any) => {
-					let searchBarFilter = (element.caption.toLowerCase().includes(searchBar.toLowerCase()) || searchBar == "");
-					if (element.businessState == 3 && (element.categories == categories || categories == "Nothing") && searchBarFilter) {
-						
-						if(element.categories) {
-							generatedTable.push(
-								<ManageDraftPostTableRow
-									image={element.post_image}
-									title={element.caption}
-									dateCreated={element.created_at}
-									username={element.username}
-									post_id={element.post_id}
-									deletePost={deleteFunction}
-									profilePicture={element.profile_picture_url}
-									updatePost={updateFunction}
-									category={element.categories}
-									categoryColor={generateCategoryColor(element.categories)}
-									key={element.post_id}
-								/>
-							)
-						} else {
-							generatedTable.push(
-								<ManageDraftPostTableRow
-									image={element.post_image}
-									title={element.caption}
-									dateCreated={element.created_at}
-									username={element.username}
-									post_id={element.post_id}
-									deletePost={deleteFunction}
-									profilePicture={element.profile_picture_url}
-									updatePost={updateFunction}
-									key={element.post_id}
-								/>
-							)
-						}
-					}
-				})
-			}
+      setScheduleTable(generatedTable);
+    }
+  };
 
-			setDraftTable(generatedTable)
-		}
-	}
+  let generateDraftTable = () => {
+    if (viewPostsQuery.isSuccess) {
+      let data = viewPostsQuery.data.data.posts;
+      let generatedTable: any[] = [];
+      if (data !== undefined) {
+        data.forEach((element: any) => {
+          let searchBarFilter =
+            element.caption.toLowerCase().includes(searchBar.toLowerCase()) ||
+            searchBar == "";
+          if (
+            element.businessState == 3 &&
+            (element.categories == categories || categories == "Nothing") &&
+            searchBarFilter
+          ) {
+            if (element.categories) {
+              generatedTable.push(
+                <ManageDraftPostTableRow
+                  image={element.post_image}
+                  title={element.caption}
+                  dateCreated={element.created_at}
+                  username={element.username}
+                  post_id={element.post_id}
+                  deletePost={deleteFunction}
+                  profilePicture={element.profile_picture_url}
+                  updatePost={updateFunction}
+                  category={element.categories}
+                  categoryColor={generateCategoryColor(element.categories)}
+                  key={element.post_id}
+                />
+              );
+            } else {
+              generatedTable.push(
+                <ManageDraftPostTableRow
+                  image={element.post_image}
+                  title={element.caption}
+                  dateCreated={element.created_at}
+                  username={element.username}
+                  post_id={element.post_id}
+                  deletePost={deleteFunction}
+                  profilePicture={element.profile_picture_url}
+                  updatePost={updateFunction}
+                  key={element.post_id}
+                />
+              );
+            }
+          }
+        });
+      }
 
-	let deleteFunction = (post_id: number) => {
-		deleteMutation.mutate({ post_id: post_id })
-		window.location.reload()
-	}
+      setDraftTable(generatedTable);
+    }
+  };
 
-	const navigate = useNavigate()
+  let deleteFunction = (post_id: number) => {
+    deleteMutation.mutate({ post_id: post_id });
+    window.location.reload();
+  };
 
-	let updateFunction = (post_id: number) => {
-		navigate(`/updateposts/${post_id}`)
-	}
+  const navigate = useNavigate();
 
-	useEffect(() => {
-		generatePublishedTable()
-		generateScheduledTable()
-		generateDraftTable()
+  let updateFunction = (post_id: number) => {
+    navigate(`/updateposts/${post_id}`);
+  };
 
-		// Get list of categories and store in state unique
-		if (viewPostsQuery.isSuccess) {
-			let data = viewPostsQuery.data.data.posts
-			let uniques = [...new Set(data?.map((element: any) => element.categories))].filter((element: any) => element !== null);
-			setListOfCategories(uniques);
-		}
-	}, [viewPostsQuery.isFetchedAfterMount, categories, searchBar])
+  useEffect(() => {
+    generatePublishedTable();
+    generateScheduledTable();
+    generateDraftTable();
 
-	return (
-		<div className="mx-16">
-			{viewPostsQuery.isLoading ||
-				(isLoading && (
-					<div className="h-[600px]">
-						<Spinner />
-					</div>
-				))}
+    // Get list of categories and store in state unique
+    if (viewPostsQuery.isSuccess) {
+      let data = viewPostsQuery.data.data.posts;
+      let uniques = [
+        ...new Set(data?.map((element: any) => element.categories)),
+      ].filter((element: any) => element !== null);
+      setListOfCategories(uniques);
+    }
+  }, [viewPostsQuery.isFetchedAfterMount, categories, searchBar]);
 
-			<div className="my-3">
-				{/* View by Published, Schedule or Draft */}
-				<div className="flex items-center justify-start py-4 border-b-[1px] border-light-gray">
-					<div>
-						<button
-							className={`font-semibold py-1 px-2 rounded-sm mx-2 opacity-50 hover:opacity-100 ${
-								openTab == 'published'
-									? 'bg-insta-light-blue text-insta-dark-blue hover:bg-insta-light-blue-hover'
-									: 'bg-slate-100'
-							}`}
-							onClick={() => setOpenTab('published')}
-						>
-							Published
-						</button>
-					</div>
-					<div>
-						<button
-							className={`font-semibold py-1 px-2 rounded-sm mx-2 opacity-50 hover:opacity-100 ${
-								openTab == 'scheduled'
-									? 'bg-insta-light-blue text-insta-dark-blue hover:bg-insta-light-blue-hover'
-									: 'bg-slate-100'
-							}`}
-							onClick={() => setOpenTab('scheduled')}
-						>
-							Scheduled
-						</button>
-					</div>
-					<div>
-						<button
-							className={`font-semibold py-1 px-2 rounded-sm mx-2 opacity-50 hover:opacity-100 ${
-								openTab == 'drafts'
-									? 'bg-insta-light-blue text-insta-dark-blue hover:bg-insta-light-blue-hover'
-									: 'bg-slate-100'
-							}`}
-							onClick={() => setOpenTab('drafts')}
-						>
-							Drafts
-						</button>
-					</div>
-				</div>
+  return (
+    <div className="mx-16">
+      {viewPostsQuery.isLoading ||
+        (isLoading && (
+          <div className="h-[600px]">
+            <Spinner />
+          </div>
+        ))}
 
-				{/* Show Posts Search Bar */}
-				<div className="flex items-center justify-start py-4 w-full">
-					<div className="flex items-center justify-start w-2/3">
-						<div className='flex items-center justify-start w-1/3'>
-							<p className="text-sm font-semibold mr-4">Filter by category:</p>
-							<select onChange={(e) => {setCategories(e.target.value)}}>
-								{listOfCategories?.map((element: any) => {
-									if(element != "") return <option>{element}</option>
-								})}
-								<option>Nothing</option>
-							</select>
-						</div>
-						<div className="flex justify-start items-center relative mr-2 w-2/3">
-							<input
-								className="w-full pl-12 pr-2 border-[1px] border-light-gray py-2 rounded-md"
-								type="text"
-								placeholder="Search Artwork / Creators Name"
-								value={searchBar}
-								onChange={(e) => setSearchBar(e.target.value)}
-							/>
-							<FontAwesomeIcon
-								className="absolute w-5 h-5 left-2 pointer-events-none"
-								icon={solid("search")}
-							/>
-						</div>
-					</div>
-					<div className="flex justify-end items-center w-1/3">
-						<div className="flex items-center justify-end relative mr-2">
-							<button className="pl-10 pr-4 bg-red-500 rounded-[5px] text-white p-2 opacity-90 hover:opacity-100"
-							onClick={() => console.log("Meme")}>
-								Delete
-							</button>
-							<FontAwesomeIcon
-								className="absolute w-5 h-5 left-2 pointer-events-none text-white"
-								icon={solid("trash")}
-							/>
-						</div>
-						<Link to="/scheduleposts">
-							<div className="flex items-center justify-end relative">
-								<button className="pl-10 pr-4 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100">
-									Create Post
-								</button>
-								<FontAwesomeIcon
-									className="absolute w-5 h-5 left-2 pointer-events-none text-white"
-									icon={solid("table")}
-								/>
-							</div>
-						</Link>
-					</div>
-					
-				</div>
+      <div className="my-3">
+        {/* View by Published, Schedule or Draft */}
+        <div className="flex items-center justify-start py-4 border-b-[1px] border-light-gray">
+          <div>
+            <button
+              className={`font-semibold py-1 px-2 rounded-sm mx-2 opacity-50 hover:opacity-100 ${
+                openTab == "published"
+                  ? "bg-insta-light-blue text-insta-dark-blue hover:bg-insta-light-blue-hover"
+                  : "bg-slate-100"
+              }`}
+              onClick={() => setOpenTab("published")}
+            >
+              Published
+            </button>
+          </div>
+          <div>
+            <button
+              className={`font-semibold py-1 px-2 rounded-sm mx-2 opacity-50 hover:opacity-100 ${
+                openTab == "scheduled"
+                  ? "bg-insta-light-blue text-insta-dark-blue hover:bg-insta-light-blue-hover"
+                  : "bg-slate-100"
+              }`}
+              onClick={() => setOpenTab("scheduled")}
+            >
+              Scheduled
+            </button>
+          </div>
+          <div>
+            <button
+              className={`font-semibold py-1 px-2 rounded-sm mx-2 opacity-50 hover:opacity-100 ${
+                openTab == "drafts"
+                  ? "bg-insta-light-blue text-insta-dark-blue hover:bg-insta-light-blue-hover"
+                  : "bg-slate-100"
+              }`}
+              onClick={() => setOpenTab("drafts")}
+            >
+              Drafts
+            </button>
+          </div>
+        </div>
 
-				{openTab == 'published' && (
-					<table className="table-fixed w-full overflow-hidden">
-						<thead>
-							<tr>
-								<th className="text-left" colSpan={8}>
-									<p className="text-sm font-semibold mr-2">Title</p>
-								</th>
-								<th className="text-left" colSpan={8}>
-									<p className="text-sm font-semibold mr-2">Date published</p>
-								</th>
-								<th className="text-left" colSpan={4}>
-									<div className="flex items-center justify-start">
-										<p className="text-sm font-semibold mr-2">Reach</p>
-										{/* <FontAwesomeIcon
+        {/* Show Posts Search Bar */}
+        <div className="flex items-center justify-start py-4 w-full">
+          <div className="flex items-center justify-start w-2/3">
+            <div className="flex items-center justify-start w-1/3">
+              <p className="text-sm font-semibold mr-4">Filter by category:</p>
+              <select
+                onChange={(e) => {
+                  setCategories(e.target.value);
+                }}
+              >
+                {listOfCategories?.map((element: any) => {
+                  if (element != "") return <option>{element}</option>;
+                })}
+                <option>Nothing</option>
+              </select>
+            </div>
+            <div className="flex justify-start items-center relative mr-2 w-2/3">
+              <input
+                className="w-full pl-12 pr-2 border-[1px] border-light-gray py-2 rounded-md"
+                type="text"
+                placeholder="Search Artwork / Creators Name"
+                value={searchBar}
+                onChange={(e) => setSearchBar(e.target.value)}
+              />
+              <FontAwesomeIcon
+                className="absolute w-5 h-5 left-2 pointer-events-none"
+                icon={solid("search")}
+              />
+            </div>
+          </div>
+          <div className="flex justify-end items-center w-1/3">
+            <Link to="/scheduleposts">
+              <div className="flex items-center justify-end relative">
+                <button className="pl-10 pr-4 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100">
+                  Create Post
+                </button>
+                <FontAwesomeIcon
+                  className="absolute w-5 h-5 left-2 pointer-events-none text-white"
+                  icon={solid("table")}
+                />
+              </div>
+            </Link>
+          </div>
+        </div>
+
+        {openTab == "published" && (
+          <table className="table-fixed w-full overflow-hidden">
+            <thead>
+              <tr>
+                <th className="text-left" colSpan={8}>
+                  <p className="text-sm font-semibold mr-2">Title</p>
+                </th>
+                <th className="text-left" colSpan={8}>
+                  <p className="text-sm font-semibold mr-2">Date published</p>
+                </th>
+                <th className="text-left" colSpan={4}>
+                  <div className="flex items-center justify-start">
+                    <p className="text-sm font-semibold mr-2">Reach</p>
+                    {/* <FontAwesomeIcon
                       className="text-gray-900"
                       icon={solid("circle-info")}
                     /> */}
-									</div>
-								</th>
-								<th className="text-left" colSpan={4}>
-									<div className="flex items-center justify-start">
-										<p className="text-sm font-semibold mr-2">Engagements</p>
-										{/* <FontAwesomeIcon
+                  </div>
+                </th>
+                <th className="text-left" colSpan={4}>
+                  <div className="flex items-center justify-start">
+                    <p className="text-sm font-semibold mr-2">Engagements</p>
+                    {/* <FontAwesomeIcon
                       className="text-gray-900"
                       icon={solid("circle-info")}
                     /> */}
-									</div>
-								</th>
-								<th className="text-left" colSpan={4}>
-									<div className="flex items-center justify-start">
-										<p className="text-sm font-semibold mr-2">
-											Likes and reactions
-										</p>
-										{/* <FontAwesomeIcon
+                  </div>
+                </th>
+                <th className="text-left" colSpan={4}>
+                  <div className="flex items-center justify-start">
+                    <p className="text-sm font-semibold mr-2">
+                      Likes and reactions
+                    </p>
+                    {/* <FontAwesomeIcon
                       className="text-gray-900"
                       icon={solid("circle-info")}
                     /> */}
-									</div>
-								</th>
-								<th className="text-left" colSpan={4}>
-									<div className="flex items-center justify-start">
-										<p className="text-sm font-semibold mr-2">Comments</p>
-										{/* <FontAwesomeIcon
+                  </div>
+                </th>
+                <th className="text-left" colSpan={4}>
+                  <div className="flex items-center justify-start">
+                    <p className="text-sm font-semibold mr-2">Comments</p>
+                    {/* <FontAwesomeIcon
                       className="text-gray-900"
                       icon={solid("circle-info")}
                     /> */}
-									</div>
-								</th>
-								<th className="text-center" colSpan={4}>
-									<div className="flex items-center justify-center">
-										<p className="text-sm font-semibold mr-2">Categories</p>
-									</div>
-								</th>
-							</tr>
-						</thead>
-						<tbody>{publishedTable}</tbody>
-					</table>
-				)}
+                  </div>
+                </th>
+                <th className="text-center" colSpan={4}>
+                  <div className="flex items-center justify-center">
+                    <p className="text-sm font-semibold mr-2">Categories</p>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>{publishedTable}</tbody>
+          </table>
+        )}
 
-				{openTab == 'scheduled' && (
-					<table className="table-fixed w-full overflow-hidden">
-						<thead>
-							<tr>
-								<th className="text-left" colSpan={8}>
-									<p className="text-sm font-semibold mr-2">Title</p>
-								</th>
-								<th className="text-left" colSpan={8}>
-									<p className="text-sm font-semibold mr-2">Date scheduled</p>
-								</th>
-								<th className="text-left" colSpan={4}>
-									<p className="text-sm font-semibold mr-2">Created by</p>
-								</th>
-								<th className="text-center" colSpan={4}>
-									<div className="flex items-center justify-center">
-										<p className="text-sm font-semibold mr-2">Categories</p>
-									</div>
-								</th>
-							</tr>
-						</thead>
-						<tbody>{scheduleTable}</tbody>
-					</table>
-				)}
+        {openTab == "scheduled" && (
+          <table className="table-fixed w-full overflow-hidden">
+            <thead>
+              <tr>
+                <th className="text-left" colSpan={8}>
+                  <p className="text-sm font-semibold mr-2">Title</p>
+                </th>
+                <th className="text-left" colSpan={8}>
+                  <p className="text-sm font-semibold mr-2">Date scheduled</p>
+                </th>
+                <th className="text-left" colSpan={4}>
+                  <p className="text-sm font-semibold mr-2">Created by</p>
+                </th>
+                <th className="text-center" colSpan={4}>
+                  <div className="flex items-center justify-center">
+                    <p className="text-sm font-semibold mr-2">Categories</p>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>{scheduleTable}</tbody>
+          </table>
+        )}
 
-				{openTab == 'drafts' && (
-					<table className="table-fixed w-full overflow-hidden">
-						<thead>
-							<tr>
-								<th className="text-left" colSpan={8}>
-									<p className="text-sm font-semibold mr-2">Title</p>
-								</th>
-								<th className="text-left" colSpan={8}>
-									<p className="text-sm font-semibold mr-2">Date created</p>
-								</th>
-								<th className="text-left" colSpan={4}>
-									<p className="text-sm font-semibold mr-2">Created by</p>
-								</th>
-								<th className="text-center" colSpan={4}>
-									<div className="flex items-center justify-center">
-										<p className="text-sm font-semibold mr-2">Categories</p>
-									</div>
-								</th>
-							</tr>
-						</thead>
-						<tbody>{draftTable}</tbody>
-					</table>
-				)}
-			</div>
-		</div>
-	)
-}
+        {openTab == "drafts" && (
+          <table className="table-fixed w-full overflow-hidden">
+            <thead>
+              <tr>
+                <th className="text-left" colSpan={8}>
+                  <p className="text-sm font-semibold mr-2">Title</p>
+                </th>
+                <th className="text-left" colSpan={8}>
+                  <p className="text-sm font-semibold mr-2">Date created</p>
+                </th>
+                <th className="text-left" colSpan={4}>
+                  <p className="text-sm font-semibold mr-2">Created by</p>
+                </th>
+                <th className="text-center" colSpan={4}>
+                  <div className="flex items-center justify-center">
+                    <p className="text-sm font-semibold mr-2">Categories</p>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>{draftTable}</tbody>
+          </table>
+        )}
+      </div>
+    </div>
+  );
+};
 
-export default ManagePosts
+export default ManagePosts;
