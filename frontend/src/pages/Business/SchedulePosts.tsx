@@ -344,7 +344,13 @@ const SchedulePosts = () => {
                   scheduledDateTimeUTC.setHours(
                     scheduledDateTimeUTC.getHours() - 11
                   );
-                  let dbDateString = `${formatDateFull(scheduledDateTimeUTC)}`;
+                  let dbDateString: string | null = `${formatDateFull(
+                    scheduledDateTimeUTC
+                  )}`;
+
+                  if (publishState != 2) {
+                    dbDateString = null;
+                  }
 
                   let mutationData = {
                     picture: responseData,
