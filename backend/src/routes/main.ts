@@ -52,7 +52,8 @@ router.get(
 router.post(
 	'/posts',
 	AuthenticateUser,
-	body('picture').isLength({ min: 5 }),
+	body('picture').isArray({ min: 1, max: 4 }),
+	body('picture.*').isLength({ min: 5 }),
 	body('caption').isLength({ min: 5 }),
 	body('location').isLength({ min: 5 }),
 	CreatePost

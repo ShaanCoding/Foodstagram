@@ -4,9 +4,9 @@ import { useMutation, useQuery } from 'react-query'
 import GetEndpoint from './util/GetEndpoint'
 
 export interface CreateNewPost {
-	image: string
-	caption: string
-	location: string
+	picture: string[];
+	caption: string;
+	location: string;
 }
 
 export function UseCreatePostMutation() {
@@ -19,22 +19,22 @@ export function UseCreatePostMutation() {
 }
 
 export interface UpdatePost {
-	post_id: number
-	caption: string
-	location: string
+	post_id: number;
+	caption: string;
+	location: string;
 }
 
 export function UseUpdatePostMutation() {
 	return useMutation(
 		['updatepost'],
 		(variables: UpdatePost) =>
-			axios.put<{}>(`${GetEndpoint('api')}/posts/${variables.post_id}`),
+			axios.put<{}>(`${GetEndpoint('api')}/posts/${variables.post_id}`, variables),
 		{ retry: false }
 	)
 }
 
 export interface DeletePost {
-	post_id: number
+	post_id: number;
 }
 
 export function UseDeletePostMutation() {
