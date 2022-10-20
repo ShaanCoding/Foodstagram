@@ -1,6 +1,6 @@
 import React from "react";
 
-const ManageDraftPostTableRow: React.FC<{image: string, title: string, dateCreated: string, username: string, post_id: number, deletePost: any, profilePicture: string, updatePost: any}> = ({image, title, dateCreated, username, post_id, deletePost, profilePicture, updatePost}) => {
+const ManageDraftPostTableRow: React.FC<{image: string, title: string, dateCreated: string, username: string, post_id: number, deletePost: any, profilePicture: string, updatePost: any, category?: string, categoryColor?: string}> = ({image, title, dateCreated, username, post_id, deletePost, profilePicture, updatePost, category, categoryColor}) => {
   
   let getDate = () => {
     let date = new Date(dateCreated);
@@ -18,10 +18,6 @@ const ManageDraftPostTableRow: React.FC<{image: string, title: string, dateCreat
             <img className="rounded-sm w-12 h-12 mr-4" src={image} />
             <div>
               <div className="">{title}</div>
-              <div className="flex items-center justify-start">
-                <img className="rounded-full w-4 h-4 mr-2" src={profilePicture} />
-                <p>{username}</p>
-              </div>
             </div>
           </div>
           <div className="flex items-center justify-end">
@@ -46,7 +42,12 @@ const ManageDraftPostTableRow: React.FC<{image: string, title: string, dateCreat
       <td colSpan={4}>
         <div className="flex items-center justify-start">
           <img className="rounded-full w-4 h-4 mr-2" src={profilePicture} />
-          <p>Shaan Khan</p>
+          <p>{username}</p>
+        </div>
+      </td>
+      <td colSpan={4}>
+        <div>
+          <p className="text-sm px-2 py-1 rounded-full text-center" style={{backgroundColor: categoryColor}}>{category ? category : "--"}</p>
         </div>
       </td>
     </tr>
