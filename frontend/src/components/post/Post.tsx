@@ -23,7 +23,7 @@ interface Props {
 		caption: string;
 		created_at: string;
 		updated_at: string;
-		post_image: string[];
+		image_url: string[];
 	}
 }
 
@@ -76,19 +76,19 @@ export const Post = (props: Props) => {
 						<span className="grow" />
 						{post.account_id === account.account_id && (
 							<ContextMenu>
-								<button onClick={openEditPostModalOpen} className="flex flex-row shadow rounded-md shadow-lg w-fit w-[100px] pt-2 pb-2">
-									<img src={edit} className="mb-4 h-5 inline-block pr-5" />
-									Edit
+								<button onClick={openEditPostModalOpen} className="inline-flex flex-row w-fit p-2">
+									<img src={edit} className="pl-2 h-5 inline-block pr-5" />
+									<span>Edit</span>
 								</button>
-								<button onClick={deletePost} className="flex flex-row shadow rounded-md shadow-lg w-fit w-[100px] pt-2 pb-2">
+								<button onClick={deletePost} className="inline-flex flex-row w-fit p-2">
 									<img src={trash} className="pl-2 h-5 inline-block pr-5" />
-									Delete
+									<span>Delete</span>
 								</button>
 							</ContextMenu>
 						)}
 					</div>
 
-					<Carousel pictures={post.post_image} />
+					<Carousel pictures={post.image_url} />
 					<br />
 
 					{/* Add like and maybe comment buttons here. Then add a save button on the right hand side*/}

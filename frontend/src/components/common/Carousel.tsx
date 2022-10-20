@@ -1,6 +1,9 @@
 import classnames from "classnames";
 import { useEffect, useRef, useState } from "react";
 
+import NextIcon from "../../images/next.png";
+import PreviousIcon from "../../images/previous.png";
+
 interface CarouselProps {
 	pictures: string[];
 }
@@ -21,19 +24,19 @@ const Carousel = ({ pictures }: CarouselProps) => {
 		});
 	}, [index]);
 
-	const buttonCSS = "absolute bottom-2/4 bg-white rounded-full w-5 h-5 text-center align-middle leading-4 font-bold hidden group-hover:block";
+	const buttonCSS = "absolute bottom-2/4 w-5 h-5 hidden opacity-75 cursor-pointer group-hover:block";
 
 	return (
 		<div className="flex flex-row relative w-full group">
-			{ pictures.length > 1 && <button onClick={previousPicture} className={classnames(buttonCSS, "left-2")} disabled={index === 0}>&lt;</button> }
-			<div className="flex overflow-auto snap-x snap-mandatory h-80" ref={container}>
+			{ pictures.length > 1 && <img src={PreviousIcon} onClick={previousPicture} alt="Previous" className={classnames(buttonCSS, "left-2")} /> }
+			<div className="flex snap-x snap-mandatory h-80" ref={container}>
 				{
-					pictures.map((picture, index) => (
-						<img src={picture} key={index} alt={`Picture # ${index}`} className="h-full aspect-auto" loading="lazy" />
+					pictures.map((picture, i) => (
+						<img src={picture} key={i} alt={`Picture # ${i}`} width={i === index ? "auto" : "0px"}  className="h-full" loading="lazy" />
 					))
 				}
 			</div>
-			{ pictures.length > 1 && <button onClick={nextPicture} className={classnames(buttonCSS, "right-2")} disabled={index === pictures.length - 1}>&gt;</button> }
+			{ pictures.length > 1 && <img src={NextIcon} onClick={nextPicture} alt="Next" className={classnames(buttonCSS, "right-2")} /> }
 		</div>
 	);
 }

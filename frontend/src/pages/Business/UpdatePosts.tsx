@@ -1,14 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
+import Calendar from "react-calendar";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import TimePicker, { TimePickerValue } from "react-time-picker";
-import Calendar from "react-calendar";
-import Spinner from "../../components/common/Spinner";
+
 import {
   UpdateBusinessPost,
   UseUpdateBusinessPostMutation,
 } from "../../api/UseCreateBusinessPostMutation";
-import useAuth from "../../api/util/useAuth";
 import UseIndividualBusinessPostQuery from "../../api/UseIndividualBusinessPostQuery";
+import useAuth from "../../api/util/useAuth";
+import Spinner from "../../components/common/Spinner";
 
 const UpdatePosts = () => {
   const [previewImage, setPreviewImage] = useState<string>("");
@@ -38,7 +39,7 @@ const UpdatePosts = () => {
       let data = postQuery.data.data.post[0];
       setPostDescription(data.caption)
       setPostLocation(data.location_name);
-      setPreviewImage(data.post_image);
+      setPreviewImage(data.image_url[0]);
       setPublishState(data.businessState);
 
     }

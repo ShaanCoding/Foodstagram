@@ -2,13 +2,14 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+
 import UseBusinessPostQuery from '../../api/UseBusinessPostQuery'
 import { UseDeletePostMutation } from '../../api/UsePostMutation'
 import useAuth from '../../api/util/useAuth'
-import ManagePublishedPostTableRow from '../../components/business/ManagePublishedPostTableRow'
-import Spinner from '../../components/common/Spinner'
-import ManageScheduledPostTableRow from '../../components/business/ManageScheduledPostTableRow'
 import ManageDraftPostTableRow from '../../components/business/ManageDraftsPostTableRow'
+import ManagePublishedPostTableRow from '../../components/business/ManagePublishedPostTableRow'
+import ManageScheduledPostTableRow from '../../components/business/ManageScheduledPostTableRow'
+import Spinner from '../../components/common/Spinner'
 
 const ManagePosts = () => {
 	const [openTab, setOpenTab] = useState('published')
@@ -33,7 +34,7 @@ const ManagePosts = () => {
 						// image: string, title: string, datePublished: string, username: string, post_id: number, likes: number, comments: number, views: number
 						generatedTable.push(
 							<ManagePublishedPostTableRow
-								image={element.post_image}
+								image={element.image_url[0]}
 								title={element.caption}
 								datePublished={element.updated_at}
 								username={element.username}
@@ -63,7 +64,7 @@ const ManagePosts = () => {
 					if (element.businessState == 2) {
 						generatedTable.push(
 							<ManageScheduledPostTableRow
-								image={element.post_image}
+								image={element.image_url[0]}
 								title={element.caption}
 								dateScheduled={element.businessScheduleTime}
 								username={element.username}
@@ -90,7 +91,7 @@ const ManagePosts = () => {
 					if (element.businessState == 3) {
 						generatedTable.push(
 							<ManageDraftPostTableRow
-								image={element.post_image}
+								image={element.image_url[0]}
 								title={element.caption}
 								dateCreated={element.created_at}
 								username={element.username}

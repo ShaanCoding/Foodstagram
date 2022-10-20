@@ -1,9 +1,11 @@
+START TRANSACTION;
+
 -- create the post_images table to hold the image urls
 CREATE TABLE if NOT EXISTS post_images (
 	image_id INT NOT NULL auto_increment,
 	post_id INT NOT NULL,
 	image_url VARCHAR(200) NOT NULL,
-	PRIMARY Key (image_id),
+	PRIMARY Key (image_id)
 );
 
 -- create the on delete cascade trigger
@@ -21,3 +23,5 @@ FROM posts;
 -- remove the image_url column from the posts table
 ALTER TABLE posts
 DROP COLUMN post_image;
+
+COMMIT;

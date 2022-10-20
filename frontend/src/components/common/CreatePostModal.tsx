@@ -8,6 +8,7 @@ import { Modal } from 'react-responsive-modal'
 import { UseCreatePostMutation, UseUpdatePostMutation } from '../../api/UsePostMutation'
 import InputField from '../form/InputField'
 import SubmitButton from '../form/SubmitButton'
+import Carousel from './Carousel'
 
 type Props = {
 	open: boolean;
@@ -142,18 +143,14 @@ const CreatePostModal = ({open, onClose, ...props}: Props) => {
 									<button onClick={cleanup}>Clear</button>
 			
 									{
-										imagePreview.map((image, index) => <img
-											key={index}
-											src={`data:image/png;base64,${image}`}
-											className="w-full"
-											alt="Post image preview" />)
+										<Carousel pictures={imagePreview.map(img => `data:image/png;base64,${img}`)} />
 									}
 								</>
 							)
 						}
 
 						<br />
-						{(!newPost || imagePreview.length) && (
+						{(!newPost || !!imagePreview.length) && (
 							<>
 								<label>Caption</label>
 								<InputField

@@ -19,7 +19,7 @@ SELECT
 	P.caption AS caption,
 	P.created_at AS created_at,
 	P.updated_at AS updated_at,
-	PI.image_url AS post_image
+	PI.image_url AS image_url
 FROM posts P
 LEFT JOIN accounts A ON P.account_id = A.account_id
 JOIN post_images PI ON PI.post_id = P.post_id
@@ -43,29 +43,36 @@ interface FeedQueryRow {
 	caption: string;
 	created_at: string;
 	updated_at: string;
-	post_image: string;
+	image_url: string;
+}
+interface Post {
+	post_id: number;
+	account_id: number;
+	location_name: string;
+	location_lat: number;
+	location_long: number;
+	caption: string;
+	created_at: string;
+	updated_at: string;
+	profile_picture_url: string;
+	username: string;
+	image_url: string[];
+	post_likes: number; // TODO: get that from the database
 }
 
-async function GetPosts(req: Request, res: Response): Promise<Response<{ posts: Post[] } | { message: string }>> {
+export async function GetPosts(req: Request, res: Response): Promise<Response<{ posts: Post[] } | { message: string }>> {
 	const account = req.account;
-	if (account === undefined) return res.status(500);
+	if (!account) return res.status(500);
 
 	const posts = (await Query(feedQuery, [ account.account_id.toString() ])) as FeedQueryRow[];
-	if (posts.length > 0) {
+	if(!posts.length) return res.json({ message: 'No posts yet' }); // TODO: returning empty array is always better than a different type
 
-		const map = new Map<number, Post>();
+	const map = new Map<number, Post>();
+	posts.forEach((post) => {
+		if(!map.has(post.post_id)) return map.set(post.post_id, { ...post, image_url: [ post.image_url ], post_likes: 0 });
+		map.get(post.post_id)!.image_url.push(post.image_url);
+	});
 
-		posts.forEach((post) => {
-			if(!map.has(post.post_id)) return map.set(post.post_id, { ...post, post_image: [ post.post_image ], post_likes: 0, location_lat: "", location_long: ""}); // TODO
-			map.get(post.post_id)!.post_image.push(post.post_image);
-		});
-
-		return res.status(200).json({ posts: [...map.values()] });
-	} else {
-		return res.json({ message: 'No posts yet' }); // TODO: returning empty array is always better than a different type
-	}
-
-	// const { username, profile_picture_url, location_name, location_lat, location_long, caption, created_at, updated_at, post_image } = req.body
+	return res.status(200).json({ posts: [...map.values()] });
 }
 
-export { GetPosts }

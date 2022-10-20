@@ -49,18 +49,14 @@ import formatErrors from '../util/formatErrors'
 //search suggestion - location
 async function SearchPosts(req: Request, res: Response) {
 	const errors = validationResult(req)
-	if (!errors.isEmpty()) {
-		return res.status(400).json(formatErrors(errors))
-	}
+	if (!errors.isEmpty()) return res.status(400).json(formatErrors(errors))
 
-	const { searchStr } = req.body
+	const { searchStr } = req.body;
 
-  const SearchQuery = `
-    select * from posts
-  `
+  	const SearchQuery = `select * from posts`
 
 	try {
-		const rows = (await Query(SearchQuery, [])) as Post[]  // TODO: don't use a shared type, make a new one (that's right)
+		const rows = (await Query(SearchQuery, [])) as any /*as Post[]*/  // TODO: don't use a shared type, make a new one (that's right)
 		const fuse = new Fuse(rows, {
 			keys: ['location_name'],
 			minMatchCharLength: -1,
