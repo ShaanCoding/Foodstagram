@@ -310,10 +310,6 @@ const ManagePosts = () => {
                 value={searchBar}
                 onChange={(e) => setSearchBar(e.target.value)}
               />
-              <FontAwesomeIcon
-                className="absolute w-5 h-5 left-2 pointer-events-none"
-                icon={solid("search")}
-              />
             </div>
           </div>
           <div className="flex justify-end items-center w-1/3">
@@ -322,10 +318,6 @@ const ManagePosts = () => {
                 <button className="pl-10 pr-4 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100">
                   Create Post
                 </button>
-                <FontAwesomeIcon
-                  className="absolute w-5 h-5 left-2 pointer-events-none text-white"
-                  icon={solid("table")}
-                />
               </div>
             </Link>
           </div>
@@ -344,19 +336,11 @@ const ManagePosts = () => {
                 <th className="text-left" colSpan={4}>
                   <div className="flex items-center justify-start">
                     <p className="text-sm font-semibold mr-2">Reach</p>
-                    {/* <FontAwesomeIcon
-                      className="text-gray-900"
-                      icon={solid("circle-info")}
-                    /> */}
                   </div>
                 </th>
                 <th className="text-left" colSpan={4}>
                   <div className="flex items-center justify-start">
                     <p className="text-sm font-semibold mr-2">Engagements</p>
-                    {/* <FontAwesomeIcon
-                      className="text-gray-900"
-                      icon={solid("circle-info")}
-                    /> */}
                   </div>
                 </th>
                 <th className="text-left" colSpan={4}>
@@ -364,19 +348,11 @@ const ManagePosts = () => {
                     <p className="text-sm font-semibold mr-2">
                       Likes and reactions
                     </p>
-                    {/* <FontAwesomeIcon
-                      className="text-gray-900"
-                      icon={solid("circle-info")}
-                    /> */}
                   </div>
                 </th>
                 <th className="text-left" colSpan={4}>
                   <div className="flex items-center justify-start">
                     <p className="text-sm font-semibold mr-2">Comments</p>
-                    {/* <FontAwesomeIcon
-                      className="text-gray-900"
-                      icon={solid("circle-info")}
-                    /> */}
                   </div>
                 </th>
                 <th className="text-center" colSpan={4}>
