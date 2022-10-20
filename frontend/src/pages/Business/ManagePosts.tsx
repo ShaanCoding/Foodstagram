@@ -44,7 +44,7 @@ const ManagePosts = () => {
     if (viewPostsQuery.isSuccess) {
       let data = viewPostsQuery.data.data.posts;
 
-      data = data.sort((a: any, b: any) => b.views - a.views);
+      data = data?.sort((a: any, b: any) => b.views - a.views);
 
       let generatedTable: any[] = [];
       if (data !== undefined) {

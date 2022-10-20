@@ -13,6 +13,8 @@ import "react-calendar/dist/Calendar.css";
 import "react-time-picker/dist/TimePicker.css";
 import "react-clock/dist/Clock.css";
 import UseCategoriesQuery from "../../api/UseCategoriesQuery";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 const SchedulePosts = () => {
   const [previewImage, setPreviewImage] = useState<string>("");
@@ -146,11 +148,19 @@ const SchedulePosts = () => {
               onChange={handleChange}
               style={{ display: "none" }}
             />
-            {/* <button
-              className={`text-black font-semibold py-1 px-2 rounded-sm opacity-50 hover:opacity-100 bg-slate-200`}
-            >
-              Add Video
-            </button> */}
+
+            <div className="flex items-center justify-end relative">
+              <button
+                className="text-black font-semibold py-1 pl-10 pr-4 rounded-sm mr-2 opacity-50 hover:opacity-100 bg-slate-200"
+                onClick={() => setPreviewImage("")}
+              >
+                Delete Post
+              </button>
+              <FontAwesomeIcon
+                className="absolute w-5 h-5 left-2 pointer-events-none text-slate-500"
+                icon={solid("trash")}
+              />
+            </div>
           </div>
           <div
             className={`flex items-center justify-center ${
@@ -322,10 +332,9 @@ const SchedulePosts = () => {
 
                   let data = await (await fetch(previewImage)).blob();
                   let base64: any = await blobToBase64(data);
-                  let responseData: String = base64.replace(
-                    "data:image/jpeg;base64,",
-                    ""
-                  );
+                  let responseData: String = base64
+                    .replace("data:image/jpeg;base64,", "")
+                    .replace("data:image/png;base64,", "");
 
                   // Scheduled date + scheduled time - 11 hours
                   let scheduledDateTime = `${formatDate(
