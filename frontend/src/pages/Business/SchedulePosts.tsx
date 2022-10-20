@@ -31,6 +31,7 @@ const SchedulePosts = () => {
   const [postLocationError, setPostLocationError] = useState(false);
   const [postPublishStateError, setPostPublishStateError] = useState(false);
   const [timePickerError, setTimePickerError] = useState(false);
+  const [categoriesError, setCategoriesError] = useState(false);
 
   const hiddenFileInput = React.useRef<HTMLInputElement>(null);
 
@@ -249,6 +250,7 @@ const SchedulePosts = () => {
                 setPostLocationError(postLocation.length < 5);
                 setPostPublishStateError(!(publishState >= 1 && publishState  <= 3));
                 setTimePickerError(publishState == 2 && scheduledTime == "");
+                setCategoriesError(categories.length > 300);
 
                 // Guard clauses
                 if(!previewImage) {
@@ -268,7 +270,10 @@ const SchedulePosts = () => {
                 }
 
                 if(publishState == 2 && scheduledTime == "") {
-                  console.log(scheduledTime);
+                  return;
+                }
+
+                if(categories.length > 300) {
                   return;
                 }
 
@@ -311,6 +316,7 @@ const SchedulePosts = () => {
           <h1 className={`${postLocationError ? "block" : "hidden"} text-red-600 text-xl py-2`}>Error Post Description Must Be 5 Characters Long or Greater.</h1>
           <h1 className={`${postPublishStateError ? "block" : "hidden"} text-red-600 text-xl py-2`}>Error Post Must Have A Publish State.</h1>
           <h1 className={`${timePickerError ? "block" : "hidden"} text-red-600 text-xl py-2`}>Error Post Must Have A Time Selected.</h1>
+          <h1 className={`${categoriesError ? "block" : "hidden"} text-red-600 text-xl py-2`}>Error Post Must Have A Category Description Less Than 300 Characters Long.</h1>
         </div>
       </div>
     </div>

@@ -20,6 +20,11 @@ const ManagePosts = () => {
 	const [scheduleTable, setScheduleTable] = useState<any>()
 	const [draftTable, setDraftTable] = useState<any>()
 
+	const [listOfCategories, setListOfCategories] = useState<any>()
+	const [categories, setCategories] = useState<any>("Nothing");
+
+	const [searchBar, setSearchBar] = useState<any>("")
+
 	let deleteMutation = UseDeletePostMutation()
 
 	let generateCategoryColor = (str: string) => {
@@ -42,7 +47,8 @@ const ManagePosts = () => {
 			let generatedTable: any[] = []
 			if (data !== undefined) {
 				data.forEach((element: any) => {
-					if (element.businessState == 1) {
+					let searchBarFilter = (element.caption.toLowerCase().includes(searchBar.toLowerCase()) || searchBar == "");
+					if (element.businessState == 1 && (element.categories == categories || categories == "Nothing") && searchBarFilter) {
 						// image: string, title: string, datePublished: string, username: string, post_id: number, likes: number, comments: number, views: number
 						
 						if(element.categories) {
@@ -62,6 +68,7 @@ const ManagePosts = () => {
 									updatePost={updateFunction}
 									category={element.categories}
 									categoryColor={generateCategoryColor(element.categories)}
+									key={element.post_id}
 								/>
 							)
 						} else {
@@ -78,6 +85,7 @@ const ManagePosts = () => {
 									deletePost={deleteFunction}
 									profilePicture={element.profile_picture_url}
 									updatePost={updateFunction}
+									key={element.post_id}
 								/>
 							)
 						}
@@ -95,7 +103,8 @@ const ManagePosts = () => {
 			let generatedTable: any[] = []
 			if (data !== undefined) {
 				data.forEach((element: any) => {
-					if (element.businessState == 2) {
+					let searchBarFilter = (element.caption.toLowerCase().includes(searchBar.toLowerCase()) || searchBar == "");
+					if (element.businessState == 2 && (element.categories == categories || categories == "Nothing") && searchBarFilter) {
 						
 						if(element.categories) {
 							generatedTable.push(
@@ -110,6 +119,7 @@ const ManagePosts = () => {
 									updatePost={updateFunction}
 									category={element.categories}
 									categoryColor={generateCategoryColor(element.categories)}
+									key={element.post_id}
 								/>
 							)
 						} else {
@@ -123,6 +133,7 @@ const ManagePosts = () => {
 									deletePost={deleteFunction}
 									profilePicture={element.profile_picture_url}
 									updatePost={updateFunction}
+									key={element.post_id}
 								/>
 							)
 						}
@@ -140,7 +151,8 @@ const ManagePosts = () => {
 			let generatedTable: any[] = []
 			if (data !== undefined) {
 				data.forEach((element: any) => {
-					if (element.businessState == 3) {
+					let searchBarFilter = (element.caption.toLowerCase().includes(searchBar.toLowerCase()) || searchBar == "");
+					if (element.businessState == 3 && (element.categories == categories || categories == "Nothing") && searchBarFilter) {
 						
 						if(element.categories) {
 							generatedTable.push(
@@ -155,6 +167,7 @@ const ManagePosts = () => {
 									updatePost={updateFunction}
 									category={element.categories}
 									categoryColor={generateCategoryColor(element.categories)}
+									key={element.post_id}
 								/>
 							)
 						} else {
@@ -168,6 +181,7 @@ const ManagePosts = () => {
 									deletePost={deleteFunction}
 									profilePicture={element.profile_picture_url}
 									updatePost={updateFunction}
+									key={element.post_id}
 								/>
 							)
 						}
@@ -194,7 +208,14 @@ const ManagePosts = () => {
 		generatePublishedTable()
 		generateScheduledTable()
 		generateDraftTable()
-	}, [viewPostsQuery.isFetchedAfterMount])
+
+		// Get list of categories and store in state unique
+		if (viewPostsQuery.isSuccess) {
+			let data = viewPostsQuery.data.data.posts
+			let uniques = [...new Set(data.map((element: any) => element.categories))].filter((element: any) => element !== null);
+			setListOfCategories(uniques);
+		}
+	}, [viewPostsQuery.isFetchedAfterMount, categories, searchBar])
 
 	return (
 		<div className="mx-16">
@@ -248,33 +269,40 @@ const ManagePosts = () => {
 
 				{/* Show Posts Search Bar */}
 				<div className="flex items-center justify-between py-4">
-					<select>
-						<option>Photos</option>
-						<option>Videos</option>
-					</select>
+					<div className='flex items-center justify-start'>
+						<p className="text-sm font-semibold mr-4">Filter by category:</p>
+						<select onChange={(e) => {setCategories(e.target.value)}}>
+							{listOfCategories?.map((element: any) => {
+								return <option>{element}</option>
+							})}
+							<option>Nothing</option>
+						</select>
+					</div>
 					<div className="flex items-center justify-end">
-						{/* <div className="flex justify-end items-center relative mr-2">
-              <input
-                className="w-full pl-12 pr-2 border-[1px] border-light-gray py-2 rounded-md"
-                type="text"
-                placeholder="Search Artwork / Creators Name"
-              />
-              <FontAwesomeIcon
-                className="absolute w-5 h-5 left-2 pointer-events-none"
-                icon={solid("search")}
-              />
-            </div> */}
-						<Link to="/scheduleposts">
-							<div className="flex items-center justify-end relative">
-								<button className="px-10 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100">
-									Create Post
-								</button>
-								{/* <FontAwesomeIcon
-                  className="absolute w-5 h-5 left-2 pointer-events-none text-white"
-                  icon={solid("table")}
-                /> */}
-							</div>
-						</Link>
+					<div className="flex justify-start items-center relative mr-2">
+						<input
+							className="w-full pl-12 pr-2 border-[1px] border-light-gray py-2 rounded-md"
+							type="text"
+							placeholder="Search Artwork / Creators Name"
+							value={searchBar}
+							onChange={(e) => setSearchBar(e.target.value)}
+						/>
+						<FontAwesomeIcon
+							className="absolute w-5 h-5 left-2 pointer-events-none"
+							icon={solid("search")}
+						/>
+					</div>
+					<Link to="/scheduleposts">
+						<div className="flex items-center justify-end relative">
+							<button className="px-10 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100">
+								Create Post
+							</button>
+							{/* <FontAwesomeIcon
+				className="absolute w-5 h-5 left-2 pointer-events-none text-white"
+				icon={solid("table")}
+			/> */}
+						</div>
+					</Link>
 					</div>
 				</div>
 
