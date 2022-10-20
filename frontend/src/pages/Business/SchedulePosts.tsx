@@ -12,6 +12,7 @@ import useAuth from "../../api/util/useAuth";
 import 'react-calendar/dist/Calendar.css';
 import 'react-time-picker/dist/TimePicker.css';
 import 'react-clock/dist/Clock.css';
+import UseCategoriesQuery from "../../api/UseCategoriesQuery";
 
 const SchedulePosts = () => {
   const [previewImage, setPreviewImage] = useState<string>("");
@@ -33,7 +34,31 @@ const SchedulePosts = () => {
   const [timePickerError, setTimePickerError] = useState(false);
   const [categoriesError, setCategoriesError] = useState(false);
 
+  const [categoriesSuggestedList, setCategoresSuggestedList] = useState<String[]>([]);
+
   const hiddenFileInput = React.useRef<HTMLInputElement>(null);
+
+  const categoriesQuery = UseCategoriesQuery();
+
+  let generateCategoryColor = (str: string) => {
+		var hash = 0;
+		for (var i = 0; i < str.length; i++) {
+		  hash = str.charCodeAt(i) + ((hash << 5) - hash);
+		}
+		var colour = '#';
+		for (var i = 0; i < 3; i++) {
+		  var value = (hash >> (i * 8)) & 0xFF;
+		  colour += ('00' + value.toString(16)).substr(-2);
+		}
+		return colour;
+	};
+
+  useEffect(() => {
+    if(categoriesQuery.isSuccess) {
+      let data = categoriesQuery.data.data.categories;
+      setCategoresSuggestedList(data);
+    }
+  }, [categoriesQuery.isFetchedAfterMount]);
 
   const handleClick = (event: any) => {
     if (hiddenFileInput.current != null) {
@@ -228,6 +253,13 @@ const SchedulePosts = () => {
           <h2 className="text-xl">Categories (Optional)</h2>
           <div>
             <textarea value={categories} onChange={(e) => setCategories(e.target.value)} className="my-4 w-full border-[1px] stroke-light-gray" placeholder="Enter category here (optional)..." />
+          </div>
+          <h2 className="text-xl">Suggested Tags (Click to select)</h2>
+          <div className="flex items-center justify-start">
+            {categoriesSuggestedList?.map(item => {
+              return <button className="m-2 px-2 py-1 rounded-full hover:opacity-80" style={{backgroundColor: generateCategoryColor(item as any)}}
+              onClick={() => setCategories(item as any)}>{item}</button>
+            })}
           </div>
         </div>
 
