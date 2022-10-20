@@ -119,7 +119,7 @@ router.post(
     body("caption").isLength({ min: 5 }),
     body("location").isLength({ min: 5 }),
     body("dateTime").isLength({ min: 5 }),
-	body("categories").isLength({ min: 300 }),
+	body("categories").isLength({ max: 300 }),
     CreateBusinessPost
   );
 

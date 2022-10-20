@@ -302,7 +302,6 @@ const SchedulePosts = () => {
                 } as CreateNewBusinessPost;
 
                 createMutation.mutate(mutationData);
-
               }}
             >
               {createMutation.isLoading ? <Spinner /> : "Confirm"}

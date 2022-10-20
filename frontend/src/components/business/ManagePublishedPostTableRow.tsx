@@ -6,16 +6,12 @@ const ManagePublishedPostTableRow: React.FC<{image: string, title: string, dateP
   
   let getDate = () => {
     let date = new Date(datePublished);
-    return `${date.getDay()}/${date.getMonth()} ${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+    date.setHours(date.getHours() + 11);
+    return `${date}`
   }
-
-  console.log("Test " + categoryColor)
 
   return (
     <tr className="">
-      <td colSpan={1}>
-        <input type="checkbox"></input>
-      </td>
       <td colSpan={8}>
         <div className="block xl:flex items-center justify-between">
           <div className="flex items-center justify-start">
@@ -44,7 +40,7 @@ const ManagePublishedPostTableRow: React.FC<{image: string, title: string, dateP
           </div>
         </div>
       </td>
-      <td colSpan={4}>
+      <td colSpan={8}>
         <p className="text-sm">{getDate()}</p>
       </td>
       <td colSpan={4}>

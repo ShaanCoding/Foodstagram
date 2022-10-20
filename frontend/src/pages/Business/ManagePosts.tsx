@@ -23,9 +23,9 @@ const ManagePosts = () => {
 	const [listOfCategories, setListOfCategories] = useState<any>()
 	const [categories, setCategories] = useState<any>("Nothing");
 
-	const [searchBar, setSearchBar] = useState<any>("")
+	const [searchBar, setSearchBar] = useState<any>("");
 
-	let deleteMutation = UseDeletePostMutation()
+	let deleteMutation = UseDeletePostMutation();
 
 	let generateCategoryColor = (str: string) => {
 		var hash = 0;
@@ -52,7 +52,6 @@ const ManagePosts = () => {
 						// image: string, title: string, datePublished: string, username: string, post_id: number, likes: number, comments: number, views: number
 						
 						if(element.categories) {
-							console.log(generateCategoryColor(element.categories))
 							generatedTable.push(
 								<ManagePublishedPostTableRow
 									image={element.post_image}
@@ -268,53 +267,65 @@ const ManagePosts = () => {
 				</div>
 
 				{/* Show Posts Search Bar */}
-				<div className="flex items-center justify-between py-4">
-					<div className='flex items-center justify-start'>
-						<p className="text-sm font-semibold mr-4">Filter by category:</p>
-						<select onChange={(e) => {setCategories(e.target.value)}}>
-							{listOfCategories?.map((element: any) => {
-								return <option>{element}</option>
-							})}
-							<option>Nothing</option>
-						</select>
-					</div>
-					<div className="flex items-center justify-end">
-					<div className="flex justify-start items-center relative mr-2">
-						<input
-							className="w-full pl-12 pr-2 border-[1px] border-light-gray py-2 rounded-md"
-							type="text"
-							placeholder="Search Artwork / Creators Name"
-							value={searchBar}
-							onChange={(e) => setSearchBar(e.target.value)}
-						/>
-						<FontAwesomeIcon
-							className="absolute w-5 h-5 left-2 pointer-events-none"
-							icon={solid("search")}
-						/>
-					</div>
-					<Link to="/scheduleposts">
-						<div className="flex items-center justify-end relative">
-							<button className="px-10 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100">
-								Create Post
-							</button>
-							{/* <FontAwesomeIcon
-				className="absolute w-5 h-5 left-2 pointer-events-none text-white"
-				icon={solid("table")}
-			/> */}
+				<div className="flex items-center justify-start py-4 w-full">
+					<div className="flex items-center justify-start w-2/3">
+						<div className='flex items-center justify-start w-1/3'>
+							<p className="text-sm font-semibold mr-4">Filter by category:</p>
+							<select onChange={(e) => {setCategories(e.target.value)}}>
+								{listOfCategories?.map((element: any) => {
+									if(element != "") return <option>{element}</option>
+								})}
+								<option>Nothing</option>
+							</select>
 						</div>
-					</Link>
+						<div className="flex justify-start items-center relative mr-2 w-2/3">
+							<input
+								className="w-full pl-12 pr-2 border-[1px] border-light-gray py-2 rounded-md"
+								type="text"
+								placeholder="Search Artwork / Creators Name"
+								value={searchBar}
+								onChange={(e) => setSearchBar(e.target.value)}
+							/>
+							<FontAwesomeIcon
+								className="absolute w-5 h-5 left-2 pointer-events-none"
+								icon={solid("search")}
+							/>
+						</div>
 					</div>
+					<div className="flex justify-end items-center w-1/3">
+						<div className="flex items-center justify-end relative mr-2">
+							<button className="pl-10 pr-4 bg-red-500 rounded-[5px] text-white p-2 opacity-90 hover:opacity-100"
+							onClick={() => console.log("Meme")}>
+								Delete
+							</button>
+							<FontAwesomeIcon
+								className="absolute w-5 h-5 left-2 pointer-events-none text-white"
+								icon={solid("trash")}
+							/>
+						</div>
+						<Link to="/scheduleposts">
+							<div className="flex items-center justify-end relative">
+								<button className="pl-10 pr-4 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100">
+									Create Post
+								</button>
+								<FontAwesomeIcon
+									className="absolute w-5 h-5 left-2 pointer-events-none text-white"
+									icon={solid("table")}
+								/>
+							</div>
+						</Link>
+					</div>
+					
 				</div>
 
 				{openTab == 'published' && (
 					<table className="table-fixed w-full overflow-hidden">
 						<thead>
 							<tr>
-								<th colSpan={1}></th>
 								<th className="text-left" colSpan={8}>
 									<p className="text-sm font-semibold mr-2">Title</p>
 								</th>
-								<th className="text-left" colSpan={4}>
+								<th className="text-left" colSpan={8}>
 									<p className="text-sm font-semibold mr-2">Date published</p>
 								</th>
 								<th className="text-left" colSpan={4}>
@@ -370,11 +381,10 @@ const ManagePosts = () => {
 					<table className="table-fixed w-full overflow-hidden">
 						<thead>
 							<tr>
-								<th colSpan={1}></th>
 								<th className="text-left" colSpan={8}>
 									<p className="text-sm font-semibold mr-2">Title</p>
 								</th>
-								<th className="text-left" colSpan={4}>
+								<th className="text-left" colSpan={8}>
 									<p className="text-sm font-semibold mr-2">Date scheduled</p>
 								</th>
 								<th className="text-left" colSpan={4}>
@@ -395,11 +405,10 @@ const ManagePosts = () => {
 					<table className="table-fixed w-full overflow-hidden">
 						<thead>
 							<tr>
-								<th colSpan={1}></th>
 								<th className="text-left" colSpan={8}>
 									<p className="text-sm font-semibold mr-2">Title</p>
 								</th>
-								<th className="text-left" colSpan={4}>
+								<th className="text-left" colSpan={8}>
 									<p className="text-sm font-semibold mr-2">Date created</p>
 								</th>
 								<th className="text-left" colSpan={4}>

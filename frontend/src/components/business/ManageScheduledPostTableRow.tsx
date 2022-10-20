@@ -4,14 +4,12 @@ const ManageScheduledPostTableRow: React.FC<{image: string, title: string, dateS
   
   let getDate = () => {
     let date = new Date(dateScheduled);
-    return `${date.getDay()}/${date.getMonth()} ${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+    date.setHours(date.getHours() + 11);
+    return `${date}`
   }
   
   return (
     <tr className="">
-      <td colSpan={1}>
-        <input type="checkbox"></input>
-      </td>
       <td colSpan={8}>
         <div className="flex items-center justify-between">
           <div className="flex items-center justify-start">
@@ -36,7 +34,7 @@ const ManageScheduledPostTableRow: React.FC<{image: string, title: string, dateS
           </div>
         </div>
       </td>
-      <td colSpan={4}>
+      <td colSpan={8}>
         <p className="text-sm">{getDate()}</p>
       </td>
       <td colSpan={4}>
