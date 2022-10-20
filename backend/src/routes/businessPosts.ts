@@ -14,12 +14,20 @@ export async function CreateBusinessPost(req: Request, res: Response) {
   }
 
   const postQuery =
-    "INSERT INTO `posts` (`account_id`, `location_name`, `location_lat`, `location_long`, `caption`, `businessState`, `businessScheduleTime`, `created_at`, `updated_at`) VALUES ( ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+    "INSERT INTO `posts` (`account_id`, `location_name`, `location_lat`, `location_long`, `caption`, `businessState`, `businessScheduleTime`, `created_at`, `updated_at`, `categories`) VALUES ( ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)";
 
   const imageQuery = `INSERT INTO post_images (post_id, image_url) VALUES (?, ?)`;
 
   const { ENVIRONMENT } = process.env;
-  const { picture, caption, location, businessState, dateTime, account_id } = req.body;
+  const {
+    picture,
+    caption,
+    location,
+    businessState,
+    dateTime,
+    account_id,
+    categories,
+  } = req.body;
 
   const pictureName = uuidv4();
   const pictureBuffer = Buffer.from(picture, "base64");
@@ -28,11 +36,14 @@ export async function CreateBusinessPost(req: Request, res: Response) {
   const latitude = 0.1;
 
   validationResult(req).throw();
-  
-  try {
-    getBlobClient().getContainerClient(ENVIRONMENT!).getBlockBlobClient(pictureName).upload(pictureBuffer, pictureBuffer.length);
 
-    let post = await Query(postQuery, [
+  try {
+    getBlobClient()
+      .getContainerClient(ENVIRONMENT!)
+      .getBlockBlobClient(pictureName)
+      .upload(pictureBuffer, pictureBuffer.length);
+
+    let post = (await Query(postQuery, [
       account_id ? account_id : 1,
       location,
       lognitude,
@@ -40,17 +51,18 @@ export async function CreateBusinessPost(req: Request, res: Response) {
       caption,
       businessState,
       dateTime,
-    ]) as any;
+      categories,
+    ])) as any;
 
     console.log(post.insertId);
 
-    
-   await Query(imageQuery, [
-    post.insertId,
-    `https://asdbackend.blob.core.windows.net/${ENVIRONMENT}/${pictureName}`]);
+    await Query(imageQuery, [
+      post.insertId,
+      `https://asdbackend.blob.core.windows.net/${ENVIRONMENT}/${pictureName}`,
+    ]);
 
-    return res.status(201).json({ message: "Succesfully created post!" })
-  } catch(ex) {
+    return res.status(201).json({ message: "Succesfully created post!" });
+  } catch (ex) {
     return res.status(500).json({ message: "Failed to create post" });
   }
 }
@@ -64,39 +76,37 @@ export async function UpdateBusinessPost(req: Request, res: Response) {
   // const updateBusinessPostQuery = "(`account_id`, `location_name`, `location_lat`, `location_long`, `caption`, `businessState`, `businessScheduleTime`, `created_at`, `updated_at`) VALUES ();";
 
   // caption = ?, location_name = ?, updated_at = NOW(), businessState = ?, businessScheduleTime = ? WHERE post_id = ?
-  const updateBusinessPostQuery = 'UPDATE `posts` SET `caption` = ?, `location_name` = ?, `updated_at` = NOW(), `businessState` = ?, `businessScheduleTime` = ? WHERE `post_id` = ?';
-  const updateBusinessPostQueryNoDateTime = 'UPDATE `posts` SET `caption` = ?, `location_name` = ?, `updated_at` = NOW(), `businessState` = ? WHERE `post_id` = ?';
-
+  const updateBusinessPostQuery =
+    "UPDATE `posts` SET `caption` = ?, `location_name` = ?, `updated_at` = NOW(), `businessState` = ?, `businessScheduleTime` = ?, `categories` = ? WHERE `post_id` = ?";
+  const updateBusinessPostQueryNoDateTime =
+    "UPDATE `posts` SET `caption` = ?, `location_name` = ?, `updated_at` = NOW(), `businessState` = ?, `categories` = ? WHERE `post_id` = ?";
 
   const post_id = req.params.post_id;
-  const { caption, location, businessState, dateTime } = req.body;
+  const { caption, location, businessState, dateTime, categories } = req.body;
 
   try {
-    if(dateTime) {
+    if (dateTime) {
       await Query(updateBusinessPostQuery, [
         caption,
         location,
         businessState,
         dateTime,
-        post_id
+        categories,
+        post_id,
       ]);
     } else {
-      console.log("Caption: " + caption);
-      console.log("Location: " + location);
-      console.log("BusinessState: " + businessState);
-      console.log("PostID: " + post_id);
       let update = await Query(updateBusinessPostQueryNoDateTime, [
         caption,
         location,
         businessState,
-        post_id
+        categories,
+        post_id,
       ]);
       console.log(update);
     }
 
-    return res.status(201).json({message: "Successfully updated post! "});
-
-  } catch(ex) {
+    return res.status(201).json({ message: "Successfully updated post! " });
+  } catch (ex) {
     console.log(ex);
     res.status(500).json({ message: "Failed to update post" });
   }

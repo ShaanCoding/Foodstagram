@@ -37,6 +37,7 @@ const Carousel = ({ pictures }: CarouselProps) => {
 				}
 			</div>
 			{ pictures.length > 1 && <img src={NextIcon} onClick={nextPicture} alt="Next" className={classnames(buttonCSS, "right-2")} /> }
+			<span className="absolute right-0 bottom-0 text-white bg-black/50 p-1 text-xs" >{index + 1} / {pictures.length}</span>
 		</div>
 	);
 }
