@@ -1,0 +1,2 @@
+ALTER TABLE posts
+ADD views INT DEFAULT 0;
