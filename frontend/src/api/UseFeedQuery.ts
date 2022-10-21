@@ -5,11 +5,11 @@ import GetEndpoint from './util/GetEndpoint'
 
 export default function UseFeedQuery() {
 	return useQuery(['feed'], () =>
-		axios.get<RootObject>(`${GetEndpoint('api')}/feed`).then((res) => res)
+		axios.get<Feed>(`${GetEndpoint('api')}/feed`).then((res) => res)
 	)
 }
 
-interface RootObject {
+interface Feed {
 	posts: Post[];
 }
 
@@ -24,5 +24,5 @@ interface Post {
 	caption: string;
 	created_at: string;
 	updated_at: string;
-	post_image: string;
+	image_url: string[];
 }
