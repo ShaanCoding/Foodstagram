@@ -42,7 +42,7 @@ async function PasswordReset(req: Request, res: Response) {
 			},
 		}
 
-		const response = emailClient.send(emailMessage)
+		const response = await emailClient.send(emailMessage)
 		return res.status(201).json({
 			message: 'Succesfully reset password!',
 		})
