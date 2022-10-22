@@ -24,6 +24,8 @@ const unlikeQuery = `
 	DELETE FROM liked_posts WHERE account_id = ? AND post_id = ?
 `
 
+
+
 async function Like(req: Request, res: Response) {
 	const errors = validationResult(req)
 	if (!errors.isEmpty()) {
