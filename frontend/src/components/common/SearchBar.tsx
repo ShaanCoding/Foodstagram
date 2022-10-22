@@ -30,8 +30,10 @@ const SearchBar = () => {
     e.preventDefault()
     if (placeholder === 'Enter Username')
       navigate('/search/user/' + searchString)
+      setSearchResult([])
     if (placeholder === 'Enter Location')
       navigate('/search/post/' + searchString)
+      setSearchResult([])
   }
 
   const HandleBlur = (e:any) => {
@@ -87,43 +89,48 @@ const SearchBar = () => {
         />
         <div className='absolute top-10 left-1 w-full'>
           <div className='flex-col justify-center relative z-50 hover:bg-grey-100 h-auto w-full'>
-
-            {placeholder === 'Enter Username' && searchResult !== undefined && searchResult.length > 0 &&
+            {//search usernames
+              placeholder === 'Enter Username' && searchResult !== undefined && searchResult.length > 0 &&
               searchResult.map((element: { item: Account }) => {
                 return (
                   <ul className="bg-white border border-gray-100 w-full align-middle">
                     <li className='bg-white pl-8 pr-2 py-1 border-b-2 border-gray-100 relative cursor-pointer hover:bg-grey-100 hover:text-gray-900'>
-                      <Link
-                        onClick={(e) => setSelectResult(true)}
-                        className='flex-row flex py-2'
-                        to={`/profile/${element.item.username}`}
-                      >
-                        <img
-                          alt="avatar"
-                          className="w-8 h-8 rounded-full border-2 border-gray-700"
-                          src={`${element.item.profile_picture_url}`}
-                        />
-                        <p className='px-3'>{element.item.name}</p>
-                        <p className='text-stone-500 text-right'>@{element.item.username}</p>
-                      </Link>
+                      <div key={element.item.account_id}>
+                        <Link
+                          onClick={(e) => setSelectResult(true)}
+                          className='flex-row flex py-2'
+                          to={`/profile/${element.item.username}`}
+                        >
+                          <img
+                            alt="avatar"
+                            className="w-8 h-8 rounded-full border-2 border-gray-700"
+                            src={`${element.item.profile_picture_url}`}
+                          />
+                          <p className='px-3'>{element.item.name}</p>
+                          <p className='text-stone-500 text-right'>@{element.item.username}</p>
+                        </Link>
+                      </div>
                     </li>
                   </ul>
                 )
               })
             }
 
-            {placeholder === 'Enter Location' && searchResult !== undefined && searchResult.length > 0 &&
+            {//search posts
+            placeholder === 'Enter Location' && searchResult !== undefined && searchResult.length > 0 &&
               searchResult.map((element: { item: Post }) => {
                 return (
                   <ul className="bg-white border border-gray-100 w-full hover:bg-grey-100 align-middle">
                     <li className='pl-8 pr-2 py-1 border-b-2 border-gray-100 relative cursor-pointer hover:bg-grey-100 hover:text-gray-900'>
-                      <Link
-                        onClick={(e) => { setSelectResult(true) }}
-                        className='flex-row flex py-2'
-                        to={`/feed`}
-                      >
-                        <p className='px-3'>{element.item.location_name}</p>
-                      </Link>
+                      <div key={element.item.location_name}>
+                        <Link
+                          onClick={(e) => { setSelectResult(true) }}
+                          className='flex-row flex py-2'
+                          to={`/search/post/${element.item.location_name}`}
+                        >
+                          <p className='px-3'>{element.item.location_name}</p>
+                        </Link>
+                      </div> 
                     </li>
                   </ul>
                 )
