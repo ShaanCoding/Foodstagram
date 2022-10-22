@@ -4,7 +4,6 @@ import { UseDeletePostMutation } from '../../api/UsePostMutation'
 import useAuth from '../../api/util/useAuth'
 import edit from '../../images/edit-button.png'
 import like from '../../images/like.png' // use this for like button (or find a new icon, then find the same icon filled in, so when you click like it becomes solid)
-import save from '../../images/save.png'
 import trash from '../../images/trash.png'
 import styles from '../../styles/Feed.module.css'
 import Carousel from '../common/Carousel'
@@ -91,10 +90,8 @@ export const Post = (props: Props) => {
 					<Carousel pictures={post.image_url} />
 					<br />
 
-					{/* Add like and maybe comment buttons here. Then add a save button on the right hand side*/}
 					<span className="flex items-stretch">
 						<img alt="Like" className="mb-4 h-5 inline-block pr-5" src={like} />
-						<img alt="Save" className="mb-4 h-5 inline-block" src={save} />
 					</span>
 
 					<div>
