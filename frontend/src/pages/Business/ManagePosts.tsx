@@ -64,7 +64,7 @@ const ManagePosts = () => {
             if (element.categories) {
               generatedTable.push(
                 <ManagePublishedPostTableRow
-                  image={element.post_image}
+                  image={element?.image_url[0]}
                   title={element.caption}
                   datePublished={element.updated_at}
                   username={element.username}
@@ -83,7 +83,7 @@ const ManagePosts = () => {
             } else {
               generatedTable.push(
                 <ManagePublishedPostTableRow
-                  image={element.post_image}
+                  image={element?.image_url[0]}
                   title={element.caption}
                   datePublished={element.updated_at}
                   username={element.username}
@@ -123,7 +123,7 @@ const ManagePosts = () => {
             if (element.categories) {
               generatedTable.push(
                 <ManageScheduledPostTableRow
-                  image={element.post_image}
+                  image={element?.image_url[0]}
                   title={element.caption}
                   dateScheduled={element.businessScheduleTime}
                   username={element.username}
@@ -139,7 +139,7 @@ const ManagePosts = () => {
             } else {
               generatedTable.push(
                 <ManageScheduledPostTableRow
-                  image={element.post_image}
+                  image={element?.image_url[0]}
                   title={element.caption}
                   dateScheduled={element.businessScheduleTime}
                   username={element.username}
@@ -176,7 +176,7 @@ const ManagePosts = () => {
             if (element.categories) {
               generatedTable.push(
                 <ManageDraftPostTableRow
-                  image={element.post_image}
+                  image={element?.image_url[0]}
                   title={element.caption}
                   dateCreated={element.created_at}
                   username={element.username}
@@ -192,7 +192,7 @@ const ManagePosts = () => {
             } else {
               generatedTable.push(
                 <ManageDraftPostTableRow
-                  image={element.post_image}
+                  image={element?.image_url[0]}
                   title={element.caption}
                   dateCreated={element.created_at}
                   username={element.username}
