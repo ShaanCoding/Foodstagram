@@ -1,13 +1,10 @@
-const azure = require('@azure/storage-blob')
-const chalk = require('chalk')
-
-const dotenv = require('dotenv')
-dotenv.config()
+import { BlobServiceClient } from '@azure/storage-blob'
+import chalk from 'chalk'
 
 const { BLOB_CONNECTION_STRING, ENVIRONMENT } = process.env
 
 export const getBlobClient = () => {
-	return azure.BlobServiceClient.fromConnectionString(BLOB_CONNECTION_STRING!)
+	return BlobServiceClient.fromConnectionString(BLOB_CONNECTION_STRING!)
 }
 
 export async function CreateEnvironmentContainers() {

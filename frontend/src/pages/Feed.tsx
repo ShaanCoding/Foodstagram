@@ -22,12 +22,15 @@ const Feed = () => {
 						people!
 					</h1>
 				)}
-			{feedQuery.isLoading === false &&
+
+			{
+				!feedQuery.isLoading &&
 				feedQuery.isSuccess &&
 				feedQuery.data.data.posts !== undefined &&
 				feedQuery.data?.data.posts.map((post, index) => (
 					<Post key={index} post={post} />
-				))}
+				))
+			}
 		</div>
 	)
 }

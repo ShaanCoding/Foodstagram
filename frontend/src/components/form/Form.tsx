@@ -10,7 +10,6 @@ const Form = (props: Props) => {
 
 	const FormSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
-		console.log(e.currentTarget)
 		if (e.target !== null) {
 			const formData = new FormData(e.target as HTMLFormElement)
 			const jsonData = Object.fromEntries([...formData.entries()].map(([key, value]) => [key, value.toString()]));

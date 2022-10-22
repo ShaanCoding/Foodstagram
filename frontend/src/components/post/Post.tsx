@@ -1,27 +1,29 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 
 import { UseDeletePostMutation } from '../../api/UsePostMutation'
 import useAuth from '../../api/util/useAuth'
 import edit from '../../images/edit-button.png'
 import like from '../../images/like.png' // use this for like button (or find a new icon, then find the same icon filled in, so when you click like it becomes solid)
-import save from '../../images/save.png'
 import trash from '../../images/trash.png'
 import styles from '../../styles/Feed.module.css'
+import Carousel from '../common/Carousel'
 import { ContextMenu } from '../common/ContextMenu'
+import CreatePostModal from '../common/CreatePostModal'
 
 interface Props {
 	post: {
-		post_id: number
-		account_id: number
-		username: string
-		profile_picture_url: string
-		location_name: string
-		location_lat: string
-		location_long: string
-		caption: string
-		created_at: string
-		updated_at: string
-		post_image: string
+		post_id: number;
+		account_id: number;
+		username: string;
+		profile_picture_url: string;
+		location_name: string;
+		location_lat: string;
+		location_long: string;
+		caption: string;
+		created_at: string;
+		updated_at: string;
+		image_url: string[];
+		post_likes: number;
 	}
 }
 
@@ -44,10 +46,17 @@ export const Post = (props: Props) => {
 		window.location.reload()
 	}
 
-	const editPost = () => {}
-	// UseUpdatePostMutation
+	const [editPostModalOpen, setEditPostModalOpen] = useState(false)
+	const openEditPostModalOpen = () => setEditPostModalOpen(true)
+	const closeEditPostModalOpen = () => setEditPostModalOpen(false)
 
 	return (
+		<>
+		{
+			editPostModalOpen && <CreatePostModal open={editPostModalOpen} onClose={closeEditPostModalOpen} { ...post } />
+			
+		}
+
 		<div className="m-12 w-4/5 h-full ml-auto mr-auto flex max-w-[550px]">
 			<div className={`flex-auto w-14`}>
 				<div className={`py-7 px-8 bg-white border ${styles.greyBorder}`}>
@@ -67,33 +76,24 @@ export const Post = (props: Props) => {
 						<span className="grow" />
 						{post.account_id === account.account_id && (
 							<ContextMenu>
-								{/*
-									<button onClick={editPost}>
-										<img src={edit} className="mb-4 h-5 inline-block pr-5" />
-										Edit
-									</button>
-								*/}
-								<button
-									onClick={deletePost}
-									className="flex flex-row shadow rounded-md shadow-lg w-fit w-[100px] pt-2 pb-2"
-								>
+								<button onClick={openEditPostModalOpen} className="inline-flex flex-row w-fit p-2">
+									<img src={edit} className="pl-2 h-5 inline-block pr-5" />
+									<span>Edit</span>
+								</button>
+								<button onClick={deletePost} className="inline-flex flex-row w-fit p-2">
 									<img src={trash} className="pl-2 h-5 inline-block pr-5" />
-									Delete
+									<span>Delete</span>
 								</button>
 							</ContextMenu>
 						)}
 					</div>
 
-					<img
-						alt={`Post ${post.post_id}`}
-						className="mb-4 w-full"
-						src={post.post_image}
-					/>
+					<Carousel pictures={post.image_url} />
+					<br />
 
-					{/* Add like and maybe comment buttons here. Then add a save button on the right hand side*/}
 					<span className="flex items-stretch">
 						<img alt="Like" className="mb-4 h-5 inline-block pr-5" src={like} />
-						<img alt="Save" className="mb-4 h-5 inline-block" src={save} />
+						<span>{post.post_likes} likes</span>
 					</span>
 
 					<div>
@@ -133,5 +133,6 @@ export const Post = (props: Props) => {
 				</div>
 			</div>
 		</div>
+		</>
 	)
 }

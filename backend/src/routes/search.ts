@@ -1,9 +1,9 @@
-import { json, Request, Response } from 'express'
-import { Query } from '../util/db'
+import { Request, Response, json } from 'express'
 import { validationResult } from 'express-validator'
-import formatErrors from '../util/formatErrors'
 import Fuse from 'fuse.js'
 
+import { Query } from '../util/db'
+import formatErrors from '../util/formatErrors'
 
 //partial search with full text string: https://stackoverflow.com/questions/37711370/mysql-how-to-get-search-results-with-accurate-relevance
 
@@ -49,18 +49,14 @@ import Fuse from 'fuse.js'
 //search suggestion - location
 async function SearchPosts(req: Request, res: Response) {
 	const errors = validationResult(req)
-	if (!errors.isEmpty()) {
-		return res.status(400).json(formatErrors(errors))
-	}
+	if (!errors.isEmpty()) return res.status(400).json(formatErrors(errors))
 
-	const { searchStr } = req.body
+	const { searchStr } = req.body;
 
-  const SearchQuery = `
-    select * from posts
-  `
+  	const SearchQuery = `select * from posts`
 
 	try {
-		const rows = (await Query(SearchQuery, [])) as Post[]
+		const rows = (await Query(SearchQuery, [])) as any /*as Post[]*/  // TODO: don't use a shared type, make a new one (that's right)
 		const fuse = new Fuse(rows, {
 			keys: ['location_name'],
 			minMatchCharLength: -1,
