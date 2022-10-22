@@ -23,6 +23,7 @@ interface Props {
 		created_at: string;
 		updated_at: string;
 		image_url: string[];
+		post_likes: number;
 	}
 }
 
@@ -92,6 +93,7 @@ export const Post = (props: Props) => {
 
 					<span className="flex items-stretch">
 						<img alt="Like" className="mb-4 h-5 inline-block pr-5" src={like} />
+						<span>{post.post_likes} likes</span>
 					</span>
 
 					<div>
