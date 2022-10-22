@@ -2,27 +2,28 @@ import { Request, Response } from 'express'
 import { EmailClient, EmailMessage } from "@azure/communication-email";
 import { Query } from '../util/db'
 
+const passwordResetQuery = `
+UPDATE accounts
+SET
+	password_hash = ?
+WHERE
+	username = ?
+`
+
+const ProfileQuery = `
+select * from accounts where username = ?
+`
+
+
 const connectionString = process.env['EMAIL_CONNECTION_STRING'];
 const emailClient = new EmailClient(connectionString as string);
 
-export async function PasswordReset(req: Request, res: Response) {
+async function PasswordReset(req: Request, res: Response) {
 	try {
 		let passwordGen = (Math.random() + 1).toString(36).substring(2);
 		const newPassword = passwordGen
 
-		const passwordResetQuery = `
-	UPDATE accounts
-	SET
-		password_hash = ?
-	WHERE
-		username = ?
-	`
-
 		Query(passwordResetQuery, [newPassword, req.body.username])
-
-		const ProfileQuery = `
-	select * from accounts where username = ?
-	`
 
 		const rows = (await Query(ProfileQuery, [req.body.username])) as Account[]
 
@@ -51,3 +52,5 @@ export async function PasswordReset(req: Request, res: Response) {
 			.json({ message: 'Invalid username' })
 	}
 }
+
+export { PasswordReset }
