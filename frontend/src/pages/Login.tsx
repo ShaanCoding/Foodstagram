@@ -79,6 +79,12 @@ const Login = () => {
 				</div>
 				<div className={`mt-2 py-4 px-8 bg-white border ${styles.greyBorder}`}>
 					<p className="text-sm text-center">
+						Forgot your password?{' '}
+						<a className="text-insta-green" href="/passwordreset">
+							Reset
+						</a>
+					</p>
+					<p className="text-sm text-center">
 						Don't have an account?{' '}
 						<a className="text-insta-green" href="/register">
 							Sign Up
