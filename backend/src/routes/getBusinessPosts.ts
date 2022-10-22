@@ -9,7 +9,7 @@ import formatErrors from "../util/formatErrors";
 // Step 1: get the post IDs and post data based on the following account IDs (ID to reference is hardcoded for now)
 // REPLACE 13 WITH LOGGED IN ACCOUNT ID
 
-const feedQuery = `
+let feedQuery = `
 SELECT
 	P.post_id,
 	A.username as username,
@@ -23,18 +23,31 @@ SELECT
 	updated_at,
 	businessState,
 	businessScheduleTime,
-	COUNT(C.comment_id) as commentsCount,
-	COUNT(LP.account_id) as post_likes
+	categories,
+	commentsCount,
+	post_likes
 FROM posts P
 LEFT JOIN accounts A ON P.account_id = A.account_id
 LEFT JOIN post_images PI ON P.post_id = PI.post_id
-LEFT JOIN comments C ON P.post_id = C.post_id
-LEFT JOIN liked_posts LP ON P.post_id = LP.post_id
+LEFT JOIN (
+	SELECT
+		C.post_id,
+		COUNT(C.comment_id) as commentsCount
+	FROM comments C
+	GROUP BY (C.post_id)
+) C ON P.post_id = C.post_id
+LEFT JOIN (
+	SELECT
+		LP.post_id,
+		COUNT(LP.account_id) as post_likes
+	FROM liked_posts LP
+	GROUP BY (LP.post_id)
+) LP ON P.post_id = LP.post_id
 WHERE A.account_id = ?
 AND businessState IS NOT NULL
-GROUP BY (C.post_id)
 ORDER BY created_at DESC;
 `;
+
 interface BusinessPostsRow {
   post_id: number;
   username: string;
@@ -62,11 +75,23 @@ export async function GetBusinessPosts(req: Request, res: Response) {
   const posts = (await Query(feedQuery, [
     account.account_id.toString(),
   ])) as BusinessPostsRow[];
+
   if (!posts.length) return res.json([]);
+
+  // If commentsCount is null, set it to 0 or if post_likes is null, set it to 0
+  const postsWithCommentsCount = posts.map((post) => {
+    if (post.commentsCount === null) {
+      post.commentsCount = 0;
+    }
+    if (post.post_likes === null) {
+      post.post_likes = 0;
+    }
+    return post;
+  });
 
   // group rows by post_id and merge the image_url together
   const map = new Map<number, BusinessPost>();
-  posts.forEach((post) => {
+  postsWithCommentsCount.forEach((post) => {
     if (!map.has(post.post_id))
       return map.set(post.post_id, { ...post, image_url: [post.image_url] });
     map.get(post.post_id)!.image_url.push(post.image_url);
