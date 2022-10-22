@@ -79,7 +79,13 @@ export async function UpdateBusinessPost(req: Request, res: Response) {
     "UPDATE `posts` SET `caption` = ?, `location_name` = ?, `updated_at` = NOW(), `businessState` = ?, `categories` = ? WHERE `post_id` = ?";
 
   const post_id = req.params.post_id;
-  const { caption, location, businessState, dateTime, categories } = req.body;
+  const {
+    caption,
+    location,
+    businessState,
+    dateTime = null,
+    categories = null,
+  } = req.body;
 
   try {
     if (dateTime) {
