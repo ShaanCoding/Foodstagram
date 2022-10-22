@@ -526,21 +526,25 @@ exports[`The business/updatePosts page renders correctly 1`] = `
                         }
                         type="button"
                       >
-                        3
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
+                        <abbr
+                          aria-label="October 3, 2022"
+                        >
+                          3
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
                         }
                         type="button"
                       >
@@ -881,7 +885,7 @@ exports[`The business/updatePosts page renders correctly 1`] = `
                         </abbr>
                       </button>
                       <button
-                        className="react-calendar__tile react-calendar__tile--now react-calendar__tile--active react-calendar__tile--range react-calendar__tile--rangeStart react-calendar__tile--rangeEnd react-calendar__tile--rangeBothEnds react-calendar__month-view__days__day"
+                        className="react-calendar__tile react-calendar__month-view__days__day"
                         onClick={[Function]}
                         onFocus={null}
                         onMouseOver={null}
@@ -918,21 +922,25 @@ exports[`The business/updatePosts page renders correctly 1`] = `
                         }
                         type="button"
                       >
-                        21
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__tile--now react-calendar__tile--active react-calendar__tile--range react-calendar__tile--rangeStart react-calendar__tile--rangeEnd react-calendar__tile--rangeBothEnds react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
+                        <abbr
+                          aria-label="October 21, 2022"
+                        >
+                          21
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__tile--now react-calendar__tile--active react-calendar__tile--range react-calendar__tile--rangeStart react-calendar__tile--rangeEnd react-calendar__tile--rangeBothEnds react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
                         }
                         type="button"
                       >
