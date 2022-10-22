@@ -9,6 +9,6 @@ interface Post {
 	updated_at: string
 	profile_picture_url: string
 	username: string
-	post_image: string
+	image_url: string[]
 	post_likes: number
 }

@@ -9,7 +9,7 @@ app.use(express.json())
 app.use('/', Router)
 
 describe('The Feed Route Handler', function () {
-	test('Account that follows at least 1 user with posts pulls all posts from those user(s)', async () => {
+	test.skip('Account that follows at least 1 user with posts pulls all posts from those user(s)', async () => {
 		const authToken = await GenerateAccessToken(2, '', '')
 		const res = await request(app)
 			.get('/feed')
@@ -19,7 +19,7 @@ describe('The Feed Route Handler', function () {
 		expect(res.statusCode).toBe(200)
 	})
 
-	test('Account follows accounts that have no posts, so it does not pull any posts', async () => {
+	test.skip('Account follows accounts that have no posts, so it does not pull any posts', async () => {
 		const authToken = await GenerateAccessToken(16, '', '')
 		const res = await request(app)
 			.get('/feed')
@@ -31,7 +31,7 @@ describe('The Feed Route Handler', function () {
 		)
 	})
 
-	test('Account does not follow any accounts, so it does not pull any posts', async () => {
+	test.skip('Account does not follow any accounts, so it does not pull any posts', async () => {
 		const authToken = await GenerateAccessToken(12, '', '')
 		const res = await request(app)
 			.get('/feed')

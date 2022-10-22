@@ -5,10 +5,10 @@ exports[`The business/updatePosts page renders correctly 1`] = `
   className="mx-16 py-3 border-[1px] stroke-light-gray rounded-2xl"
 >
   <div
-    className="my-3"
+    className="my-3 flex items-start justify-center"
   >
     <div
-      className="bg-white p-4 mb-8 border-b-[1px] stroke-light-gray"
+      className="bg-white p-4 mb-8 border-b-[1px] stroke-light-gray w-1/2"
     >
       <h2
         className="text-xl py-2"
@@ -30,1460 +30,1489 @@ exports[`The business/updatePosts page renders correctly 1`] = `
       </div>
     </div>
     <div
-      className="bg-white p-4 mb-8 border-b-[1px] stroke-light-gray"
+      className="w-1/2"
     >
-      <h2
-        className="text-xl py-2"
-      >
-        Post details
-      </h2>
-      <p
-        className="text-md py-2"
-      >
-        Write a post description for what will be displayed.
-      </p>
-      <textarea
-        className="w-full border-[1px] stroke-light-gray"
-        onChange={[Function]}
-        rows={8}
-        value=""
-      />
-      <p
-        className="text-md py-2"
-      >
-        Location
-      </p>
-      <textarea
-        className="w-full border-[1px] stroke-light-gray"
-        onChange={[Function]}
-        value=""
-      />
-    </div>
-    <div
-      className="flex items-center justify-between bg-white p-4 mb-8 border-b-[1px] stroke-light-gray"
-    >
-      <h2
-        className="text-xl"
-      >
-        Media
-      </h2>
       <div
-        className="flex items-center justify-center"
+        className="bg-white p-4 mb-8 border-b-[1px] stroke-light-gray"
       >
-        <div>
-          <button
-            className="text-black font-semibold py-1 px-2 rounded-sm mr-2 opacity-50 hover:opacity-100 bg-slate-200"
-            onClick={[Function]}
-          >
-            Publish now
-          </button>
-        </div>
-        <div>
-          <button
-            className="text-black font-semibold py-1 px-2 rounded-sm mr-2 opacity-50 hover:opacity-100 bg-slate-200"
-            onClick={[Function]}
-          >
-            Schedule
-          </button>
-        </div>
-        <div>
-          <button
-            className="text-black font-semibold py-1 px-2 rounded-sm mr-2 opacity-50 hover:opacity-100 bg-slate-200"
-            onClick={[Function]}
-          >
-            Save as draft
-          </button>
-        </div>
-      </div>
-    </div>
-    <div
-      className="bg-white p-4 mb-8 border-b-[1px] stroke-light-gray hidden"
-    >
-      <h2
-        className="text-xl"
-      >
-        Scheduled Release Date
-      </h2>
-      <p
-        className="text-md py-2"
-      >
-        Please enter the time you wish for your post to be released
-      </p>
-      <div
-        className=""
-      >
-        <div
-          className="react-calendar bg-gray-50 p-4 w-2/3 m-4"
+        <h2
+          className="text-xl py-2"
         >
-          <div
-            className="react-calendar__navigation"
-          >
+          Post details
+        </h2>
+        <p
+          className="text-md py-2"
+        >
+          Write a post description for what will be displayed.
+        </p>
+        <textarea
+          className="w-full border-[1px] stroke-light-gray"
+          onChange={[Function]}
+          rows={8}
+          value=""
+        />
+        <p
+          className="text-md py-2"
+        >
+          Location
+        </p>
+        <textarea
+          className="w-full border-[1px] stroke-light-gray"
+          onChange={[Function]}
+          value=""
+        />
+      </div>
+      <div
+        className="flex items-center justify-between bg-white p-4 mb-8 border-b-[1px] stroke-light-gray"
+      >
+        <h2
+          className="text-xl"
+        >
+          Media
+        </h2>
+        <div
+          className="flex items-center justify-center"
+        >
+          <div>
             <button
-              aria-label=""
-              className="react-calendar__navigation__arrow react-calendar__navigation__prev2-button"
-              disabled={false}
+              className="text-black font-semibold py-1 px-2 rounded-sm mr-2 opacity-50 hover:opacity-100 bg-slate-200"
               onClick={[Function]}
-              type="button"
             >
-              «
-            </button>
-            <button
-              aria-label=""
-              className="react-calendar__navigation__arrow react-calendar__navigation__prev-button"
-              disabled={false}
-              onClick={[Function]}
-              type="button"
-            >
-              ‹
-            </button>
-            <button
-              aria-label=""
-              className="react-calendar__navigation__label"
-              disabled={false}
-              onClick={[Function]}
-              style={
-                {
-                  "flexGrow": 1,
-                }
-              }
-              type="button"
-            >
-              <span
-                className="react-calendar__navigation__label__labelText react-calendar__navigation__label__labelText--from"
-              >
-                October 2022
-              </span>
-            </button>
-            <button
-              aria-label=""
-              className="react-calendar__navigation__arrow react-calendar__navigation__next-button"
-              disabled={false}
-              onClick={[Function]}
-              type="button"
-            >
-              ›
-            </button>
-            <button
-              aria-label=""
-              className="react-calendar__navigation__arrow react-calendar__navigation__next2-button"
-              disabled={false}
-              onClick={[Function]}
-              type="button"
-            >
-              »
+              Publish now
             </button>
           </div>
+          <div>
+            <button
+              className="text-black font-semibold py-1 px-2 rounded-sm mr-2 opacity-50 hover:opacity-100 bg-slate-200"
+              onClick={[Function]}
+            >
+              Schedule
+            </button>
+          </div>
+          <div>
+            <button
+              className="text-black font-semibold py-1 px-2 rounded-sm mr-2 opacity-50 hover:opacity-100 bg-slate-200"
+              onClick={[Function]}
+            >
+              Save as draft
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        className="bg-white p-4 mb-8 border-b-[1px] stroke-light-gray hidden"
+      >
+        <h2
+          className="text-xl"
+        >
+          Scheduled Release Date
+        </h2>
+        <p
+          className="text-md py-2"
+        >
+          Please enter the time you wish for your post to be released
+        </p>
+        <div
+          className=""
+        >
           <div
-            className="react-calendar__viewContainer"
-            onBlur={null}
-            onMouseLeave={null}
+            className="react-calendar bg-gray-50 p-4 w-2/3 m-4"
           >
             <div
-              className="react-calendar__month-view "
+              className="react-calendar__navigation"
             >
-              <div
+              <button
+                aria-label=""
+                className="react-calendar__navigation__arrow react-calendar__navigation__prev2-button"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                «
+              </button>
+              <button
+                aria-label=""
+                className="react-calendar__navigation__arrow react-calendar__navigation__prev-button"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                ‹
+              </button>
+              <button
+                aria-label=""
+                className="react-calendar__navigation__label"
+                disabled={false}
+                onClick={[Function]}
                 style={
                   {
-                    "alignItems": "flex-end",
-                    "display": "flex",
+                    "flexGrow": 1,
                   }
                 }
+                type="button"
+              >
+                <span
+                  className="react-calendar__navigation__label__labelText react-calendar__navigation__label__labelText--from"
+                >
+                  October 2022
+                </span>
+              </button>
+              <button
+                aria-label=""
+                className="react-calendar__navigation__arrow react-calendar__navigation__next-button"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                ›
+              </button>
+              <button
+                aria-label=""
+                className="react-calendar__navigation__arrow react-calendar__navigation__next2-button"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                »
+              </button>
+            </div>
+            <div
+              className="react-calendar__viewContainer"
+              onBlur={null}
+              onMouseLeave={null}
+            >
+              <div
+                className="react-calendar__month-view "
               >
                 <div
                   style={
                     {
-                      "flexGrow": 1,
-                      "width": "100%",
+                      "alignItems": "flex-end",
+                      "display": "flex",
                     }
                   }
                 >
                   <div
-                    className="react-calendar__month-view__weekdays"
-                    onFocus={null}
-                    onMouseOver={null}
                     style={
                       {
-                        "display": "flex",
-                        "flexDirection": undefined,
-                        "flexWrap": "no-wrap",
+                        "flexGrow": 1,
+                        "width": "100%",
                       }
                     }
                   >
                     <div
-                      className="react-calendar__month-view__weekdays__weekday"
+                      className="react-calendar__month-view__weekdays"
+                      onFocus={null}
+                      onMouseOver={null}
                       style={
                         {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
+                          "display": "flex",
+                          "flexDirection": undefined,
+                          "flexWrap": "no-wrap",
                         }
                       }
                     >
-                      <abbr
-                        aria-label="Monday"
-                        title="Monday"
+                      <div
+                        className="react-calendar__month-view__weekdays__weekday"
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
                       >
-                        Mon
-                      </abbr>
+                        <abbr
+                          aria-label="Monday"
+                          title="Monday"
+                        >
+                          Mon
+                        </abbr>
+                      </div>
+                      <div
+                        className="react-calendar__month-view__weekdays__weekday"
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                      >
+                        <abbr
+                          aria-label="Tuesday"
+                          title="Tuesday"
+                        >
+                          Tue
+                        </abbr>
+                      </div>
+                      <div
+                        className="react-calendar__month-view__weekdays__weekday"
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                      >
+                        <abbr
+                          aria-label="Wednesday"
+                          title="Wednesday"
+                        >
+                          Wed
+                        </abbr>
+                      </div>
+                      <div
+                        className="react-calendar__month-view__weekdays__weekday"
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                      >
+                        <abbr
+                          aria-label="Thursday"
+                          title="Thursday"
+                        >
+                          Thu
+                        </abbr>
+                      </div>
+                      <div
+                        className="react-calendar__month-view__weekdays__weekday"
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                      >
+                        <abbr
+                          aria-label="Friday"
+                          title="Friday"
+                        >
+                          Fri
+                        </abbr>
+                      </div>
+                      <div
+                        className="react-calendar__month-view__weekdays__weekday react-calendar__month-view__weekdays__weekday--weekend"
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                      >
+                        <abbr
+                          aria-label="Saturday"
+                          title="Saturday"
+                        >
+                          Sat
+                        </abbr>
+                      </div>
+                      <div
+                        className="react-calendar__month-view__weekdays__weekday react-calendar__month-view__weekdays__weekday--weekend"
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                      >
+                        <abbr
+                          aria-label="Sunday"
+                          title="Sunday"
+                        >
+                          Sun
+                        </abbr>
+                      </div>
                     </div>
                     <div
-                      className="react-calendar__month-view__weekdays__weekday"
+                      className="react-calendar__month-view__days"
                       style={
                         {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
+                          "display": "flex",
+                          "flexDirection": undefined,
+                          "flexWrap": "wrap",
                         }
                       }
                     >
-                      <abbr
-                        aria-label="Tuesday"
-                        title="Tuesday"
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
                       >
-                        Tue
-                      </abbr>
+                        <abbr
+                          aria-label="September 26, 2022"
+                        >
+                          26
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="September 27, 2022"
+                        >
+                          27
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="September 28, 2022"
+                        >
+                          28
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="September 29, 2022"
+                        >
+                          29
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="September 30, 2022"
+                        >
+                          30
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 1, 2022"
+                        >
+                          1
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 2, 2022"
+                        >
+                          2
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 3, 2022"
+                        >
+                          3
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 4, 2022"
+                        >
+                          4
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 5, 2022"
+                        >
+                          5
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 6, 2022"
+                        >
+                          6
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 7, 2022"
+                        >
+                          7
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 8, 2022"
+                        >
+                          8
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 9, 2022"
+                        >
+                          9
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 10, 2022"
+                        >
+                          10
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 11, 2022"
+                        >
+                          11
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 12, 2022"
+                        >
+                          12
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 13, 2022"
+                        >
+                          13
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 14, 2022"
+                        >
+                          14
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 15, 2022"
+                        >
+                          15
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 16, 2022"
+                        >
+                          16
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 17, 2022"
+                        >
+                          17
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 18, 2022"
+                        >
+                          18
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 19, 2022"
+                        >
+                          19
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__tile--now react-calendar__tile--active react-calendar__tile--range react-calendar__tile--rangeStart react-calendar__tile--rangeEnd react-calendar__tile--rangeBothEnds react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 20, 2022"
+                        >
+                          20
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 21, 2022"
+                        >
+                          21
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 22, 2022"
+                        >
+                          22
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 23, 2022"
+                        >
+                          23
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 24, 2022"
+                        >
+                          24
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 25, 2022"
+                        >
+                          25
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 26, 2022"
+                        >
+                          26
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 27, 2022"
+                        >
+                          27
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 28, 2022"
+                        >
+                          28
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 29, 2022"
+                        >
+                          29
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 30, 2022"
+                        >
+                          30
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="October 31, 2022"
+                        >
+                          31
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="November 1, 2022"
+                        >
+                          1
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="November 2, 2022"
+                        >
+                          2
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="November 3, 2022"
+                        >
+                          3
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="November 4, 2022"
+                        >
+                          4
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend react-calendar__month-view__days__day--neighboringMonth"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="November 5, 2022"
+                        >
+                          5
+                        </abbr>
+                      </button>
+                      <button
+                        className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend react-calendar__month-view__days__day--neighboringMonth"
+                        onClick={[Function]}
+                        onFocus={null}
+                        onMouseOver={null}
+                        style={
+                          {
+                            "flexBasis": "14.285714285714286%",
+                            "flexGrow": 0,
+                            "flexShrink": 0,
+                            "marginLeft": null,
+                            "overflow": "hidden",
+                          }
+                        }
+                        type="button"
+                      >
+                        <abbr
+                          aria-label="November 6, 2022"
+                        >
+                          6
+                        </abbr>
+                      </button>
                     </div>
-                    <div
-                      className="react-calendar__month-view__weekdays__weekday"
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                    >
-                      <abbr
-                        aria-label="Wednesday"
-                        title="Wednesday"
-                      >
-                        Wed
-                      </abbr>
-                    </div>
-                    <div
-                      className="react-calendar__month-view__weekdays__weekday"
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                    >
-                      <abbr
-                        aria-label="Thursday"
-                        title="Thursday"
-                      >
-                        Thu
-                      </abbr>
-                    </div>
-                    <div
-                      className="react-calendar__month-view__weekdays__weekday"
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                    >
-                      <abbr
-                        aria-label="Friday"
-                        title="Friday"
-                      >
-                        Fri
-                      </abbr>
-                    </div>
-                    <div
-                      className="react-calendar__month-view__weekdays__weekday react-calendar__month-view__weekdays__weekday--weekend"
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                    >
-                      <abbr
-                        aria-label="Saturday"
-                        title="Saturday"
-                      >
-                        Sat
-                      </abbr>
-                    </div>
-                    <div
-                      className="react-calendar__month-view__weekdays__weekday react-calendar__month-view__weekdays__weekday--weekend"
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                    >
-                      <abbr
-                        aria-label="Sunday"
-                        title="Sunday"
-                      >
-                        Sun
-                      </abbr>
-                    </div>
-                  </div>
-                  <div
-                    className="react-calendar__month-view__days"
-                    style={
-                      {
-                        "display": "flex",
-                        "flexDirection": undefined,
-                        "flexWrap": "wrap",
-                      }
-                    }
-                  >
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="September 26, 2022"
-                      >
-                        26
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="September 27, 2022"
-                      >
-                        27
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="September 28, 2022"
-                      >
-                        28
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="September 29, 2022"
-                      >
-                        29
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="September 30, 2022"
-                      >
-                        30
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 1, 2022"
-                      >
-                        1
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 2, 2022"
-                      >
-                        2
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 3, 2022"
-                      >
-                        3
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__tile--now react-calendar__tile--active react-calendar__tile--range react-calendar__tile--rangeStart react-calendar__tile--rangeEnd react-calendar__tile--rangeBothEnds react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 4, 2022"
-                      >
-                        4
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 5, 2022"
-                      >
-                        5
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 6, 2022"
-                      >
-                        6
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 7, 2022"
-                      >
-                        7
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 8, 2022"
-                      >
-                        8
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 9, 2022"
-                      >
-                        9
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 10, 2022"
-                      >
-                        10
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 11, 2022"
-                      >
-                        11
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 12, 2022"
-                      >
-                        12
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 13, 2022"
-                      >
-                        13
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 14, 2022"
-                      >
-                        14
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 15, 2022"
-                      >
-                        15
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 16, 2022"
-                      >
-                        16
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 17, 2022"
-                      >
-                        17
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 18, 2022"
-                      >
-                        18
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 19, 2022"
-                      >
-                        19
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 20, 2022"
-                      >
-                        20
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 21, 2022"
-                      >
-                        21
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 22, 2022"
-                      >
-                        22
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 23, 2022"
-                      >
-                        23
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 24, 2022"
-                      >
-                        24
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 25, 2022"
-                      >
-                        25
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 26, 2022"
-                      >
-                        26
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 27, 2022"
-                      >
-                        27
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 28, 2022"
-                      >
-                        28
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 29, 2022"
-                      >
-                        29
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 30, 2022"
-                      >
-                        30
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="October 31, 2022"
-                      >
-                        31
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="November 1, 2022"
-                      >
-                        1
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="November 2, 2022"
-                      >
-                        2
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="November 3, 2022"
-                      >
-                        3
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="November 4, 2022"
-                      >
-                        4
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend react-calendar__month-view__days__day--neighboringMonth"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="November 5, 2022"
-                      >
-                        5
-                      </abbr>
-                    </button>
-                    <button
-                      className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend react-calendar__month-view__days__day--neighboringMonth"
-                      onClick={[Function]}
-                      onFocus={null}
-                      onMouseOver={null}
-                      style={
-                        {
-                          "flexBasis": "14.285714285714286%",
-                          "flexGrow": 0,
-                          "flexShrink": 0,
-                          "marginLeft": null,
-                          "overflow": "hidden",
-                        }
-                      }
-                      type="button"
-                    >
-                      <abbr
-                        aria-label="November 6, 2022"
-                      >
-                        6
-                      </abbr>
-                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="react-time-picker react-time-picker--closed react-time-picker--enabled w-1/3 m-4"
-          onFocus={[Function]}
-        >
           <div
-            className="react-time-picker__wrapper"
+            className="react-time-picker react-time-picker--closed react-time-picker--enabled w-1/3 m-4"
+            onFocus={[Function]}
           >
             <div
-              className="react-time-picker__inputGroup"
-              onClick={[Function]}
+              className="react-time-picker__wrapper"
             >
-              <input
-                max={null}
-                min={null}
-                name="time"
-                onChange={[Function]}
-                onFocus={[Function]}
-                step={60}
-                style={
-                  {
-                    "position": "absolute",
-                    "visibility": "hidden",
-                    "zIndex": "-999",
+              <div
+                className="react-time-picker__inputGroup"
+                onClick={[Function]}
+              >
+                <input
+                  max={null}
+                  min={null}
+                  name="time"
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  step={60}
+                  style={
+                    {
+                      "position": "absolute",
+                      "visibility": "hidden",
+                      "zIndex": "-999",
+                    }
                   }
-                }
-                type="time"
-                value=""
-              />
-              <input
-                autoComplete="off"
-                className="react-time-picker__inputGroup__input react-time-picker__inputGroup__hour"
-                data-input="true"
-                inputMode="numeric"
-                max={12}
-                min={1}
-                name="hour12"
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onKeyPress={[Function]}
-                onKeyUp={[Function]}
-                placeholder="--"
-                required={null}
-                type="number"
-                value=""
-              />
-              <span
-                className="react-time-picker__inputGroup__divider"
-              >
-                :
-              </span>
-              <input
-                autoComplete="off"
-                autoFocus={false}
-                className="react-time-picker__inputGroup__input react-time-picker__inputGroup__minute"
-                data-input="true"
-                inputMode="numeric"
-                max={59}
-                min={0}
-                name="minute"
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onKeyPress={[Function]}
-                onKeyUp={[Function]}
-                placeholder="--"
-                required={null}
-                type="number"
-                value=""
-              />
-              <span
-                className="react-time-picker__inputGroup__divider"
-              >
-                 
-              </span>
-              <select
-                className="react-time-picker__inputGroup__input react-time-picker__inputGroup__amPm"
-                data-input="true"
-                data-select="true"
-                name="amPm"
-                onChange={[Function]}
-                onKeyDown={[Function]}
-                required={null}
-                value=""
-              >
-                <option
+                  type="time"
+                  value=""
+                />
+                <input
+                  autoComplete="off"
+                  className="react-time-picker__inputGroup__input react-time-picker__inputGroup__hour"
+                  data-input="true"
+                  inputMode="numeric"
+                  max={12}
+                  min={1}
+                  name="hour12"
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyPress={[Function]}
+                  onKeyUp={[Function]}
+                  placeholder="--"
+                  required={null}
+                  type="number"
+                  value=""
+                />
+                <span
+                  className="react-time-picker__inputGroup__divider"
+                >
+                  :
+                </span>
+                <input
+                  autoComplete="off"
+                  autoFocus={false}
+                  className="react-time-picker__inputGroup__input react-time-picker__inputGroup__minute"
+                  data-input="true"
+                  inputMode="numeric"
+                  max={59}
+                  min={0}
+                  name="minute"
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyPress={[Function]}
+                  onKeyUp={[Function]}
+                  placeholder="--"
+                  required={null}
+                  type="number"
+                  value=""
+                />
+                <span
+                  className="react-time-picker__inputGroup__divider"
+                >
+                   
+                </span>
+                <select
+                  className="react-time-picker__inputGroup__input react-time-picker__inputGroup__amPm"
+                  data-input="true"
+                  data-select="true"
+                  name="amPm"
+                  onChange={[Function]}
+                  onKeyDown={[Function]}
+                  required={null}
                   value=""
                 >
-                  --
-                </option>
-                <option
-                  value="am"
+                  <option
+                    value=""
+                  >
+                    --
+                  </option>
+                  <option
+                    value="am"
+                  >
+                    AM
+                  </option>
+                  <option
+                    value="pm"
+                  >
+                    PM
+                  </option>
+                </select>
+              </div>
+              <button
+                className="react-time-picker__clear-button react-time-picker__button"
+                onClick={[Function]}
+                onFocus={[Function]}
+                type="button"
+              >
+                <svg
+                  className="react-time-picker__clear-button__icon react-time-picker__button__icon"
+                  height={19}
+                  stroke="black"
+                  strokeWidth={2}
+                  viewBox="0 0 19 19"
+                  width={19}
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  AM
-                </option>
-                <option
-                  value="pm"
+                  <line
+                    x1="4"
+                    x2="15"
+                    y1="4"
+                    y2="15"
+                  />
+                  <line
+                    x1="15"
+                    x2="4"
+                    y1="4"
+                    y2="15"
+                  />
+                </svg>
+              </button>
+              <button
+                className="react-time-picker__clock-button react-time-picker__button"
+                onClick={[Function]}
+                onFocus={[Function]}
+                type="button"
+              >
+                <svg
+                  className="react-time-picker__clock-button__icon react-time-picker__button__icon"
+                  fill="none"
+                  height={19}
+                  stroke="black"
+                  strokeWidth={2}
+                  viewBox="0 0 19 19"
+                  width={19}
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  PM
-                </option>
-              </select>
+                  <circle
+                    cx="9.5"
+                    cy="9.5"
+                    r="7.5"
+                  />
+                  <path
+                    d="M9.5 4.5 v5 h4"
+                  />
+                </svg>
+              </button>
             </div>
-            <button
-              className="react-time-picker__clear-button react-time-picker__button"
-              onClick={[Function]}
-              onFocus={[Function]}
-              type="button"
-            >
-              <svg
-                className="react-time-picker__clear-button__icon react-time-picker__button__icon"
-                height={19}
-                stroke="black"
-                strokeWidth={2}
-                viewBox="0 0 19 19"
-                width={19}
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <line
-                  x1="4"
-                  x2="15"
-                  y1="4"
-                  y2="15"
-                />
-                <line
-                  x1="15"
-                  x2="4"
-                  y1="4"
-                  y2="15"
-                />
-              </svg>
-            </button>
-            <button
-              className="react-time-picker__clock-button react-time-picker__button"
-              onClick={[Function]}
-              onFocus={[Function]}
-              type="button"
-            >
-              <svg
-                className="react-time-picker__clock-button__icon react-time-picker__button__icon"
-                fill="none"
-                height={19}
-                stroke="black"
-                strokeWidth={2}
-                viewBox="0 0 19 19"
-                width={19}
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="9.5"
-                  cy="9.5"
-                  r="7.5"
-                />
-                <path
-                  d="M9.5 4.5 v5 h4"
-                />
-              </svg>
-            </button>
           </div>
         </div>
       </div>
-    </div>
-    <div
-      className="flex items-center justify-end bg-white p-4 mb-8 border-b-[1px] stroke-light-gray"
-    >
-      <div>
-        <a
-          href="/manageposts"
-          onClick={[Function]}
+      <div
+        className="bg-white p-4 mb-8 border-b-[1px] stroke-light-gray"
+      >
+        <h2
+          className="text-xl"
         >
-          <button
-            className="text-black font-semibold py-1 px-2 rounded-sm mr-2 opacity-50 hover:opacity-100 bg-slate-200"
+          Categories (Optional)
+        </h2>
+        <div>
+          <textarea
+            className="my-4 w-full border-[1px] stroke-light-gray"
+            onChange={[Function]}
+            placeholder="Enter category here (optional)..."
+            value=""
+          />
+        </div>
+        <h2
+          className="text-xl"
+        >
+          Suggested Tags (Click to select)
+        </h2>
+        <div
+          className="flex items-center justify-start"
+        />
+      </div>
+      <div
+        className="flex items-center justify-end bg-white p-4 mb-8 border-b-[1px] stroke-light-gray"
+      >
+        <div>
+          <a
+            href="/manageposts"
+            onClick={[Function]}
           >
-            Cancel
+            <button
+              className="text-black font-semibold py-1 px-2 rounded-sm mr-2 opacity-50 hover:opacity-100 bg-slate-200"
+            >
+              Cancel
+            </button>
+          </a>
+        </div>
+        <div>
+          <button
+            className="text-black font-semibold py-1 px-2 rounded-sm opacity-50 hover:opacity-100 bg-insta-green"
+            onClick={[Function]}
+          >
+            Confirm
           </button>
-        </a>
+        </div>
       </div>
       <div>
-        <button
-          className="text-black font-semibold py-1 px-2 rounded-sm opacity-50 hover:opacity-100 bg-insta-green"
-          onClick={[Function]}
+        <h1
+          className="hidden text-red-600 text-xl py-2"
         >
-          Confirm
-        </button>
+          Error Post Description Must Be 5 Characters Long or Greater.
+        </h1>
+        <h1
+          className="hidden text-red-600 text-xl py-2"
+        >
+          Error Post Description Must Be 5 Characters Long or Greater.
+        </h1>
+        <h1
+          className="hidden text-red-600 text-xl py-2"
+        >
+          Error Post Must Have A Publish State.
+        </h1>
       </div>
-    </div>
-    <div>
-      <h1
-        className="hidden text-red-600 text-xl py-2"
-      >
-        Error Post Description Must Be 5 Characters Long or Greater.
-      </h1>
-      <h1
-        className="hidden text-red-600 text-xl py-2"
-      >
-        Error Post Description Must Be 5 Characters Long or Greater.
-      </h1>
-      <h1
-        className="hidden text-red-600 text-xl py-2"
-      >
-        Error Post Must Have A Publish State.
-      </h1>
     </div>
   </div>
 </div>

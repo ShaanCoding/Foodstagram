@@ -28,7 +28,7 @@ export function ContextMenu({ children }: ContextMenuProps) {
 			<button ref={openButton} onClick={toggle}>
 				<img src={dots} alt="Menu" className="mb-4 h-5 inline-block pr-5" />
 			</button>
-			<ul ref={menu} className={classnames({ "hidden": !isOpen }, "flex flex-col list-none absolute bg-white w-fit left-5 top-0")}>
+			<ul ref={menu} className={classnames({ "hidden": !isOpen }, "flex flex-col list-none absolute z-10 rounded-md shadow-lg bg-white w-max left-5 top-0")}>
 				{children}
 			</ul>
 		</div>

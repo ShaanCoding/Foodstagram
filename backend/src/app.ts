@@ -10,10 +10,14 @@ dotenv.config()
 import router from './routes/main'
 import RunMigrations from './util/migrate'
 import { CreateEnvironmentContainers } from './util/storage'
+const scheduledFunctions = require('./cronJobs/main');
 
 const Run = async () => {
 	await RunMigrations()
 	await CreateEnvironmentContainers()
+
+	// Cron Job
+	scheduledFunctions.initScheduledJobs();
 
 	const app = express()
 
