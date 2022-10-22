@@ -1,24 +1,26 @@
-import React from 'react'
 import './api/middleware/auth'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Header from './components/common/Header'
+
+import React from 'react'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+
 import Footer from './components/common/Footer'
-import Home from './pages/Home'
-import Test from './pages/Test'
-import Register from './pages/Register'
-import Login from './pages/Login'
+import Header from './components/common/Header'
 import HeaderLayout from './components/header/HeaderLayout'
-import SearchUser from './pages/SearchUser'
-import SearchPost from './pages/SearchPost'
-import Feed from './pages/Feed'
-import Profile from './pages/Profile'
-import EditProfile from './pages/EditProfile'
 import ManagePosts from './pages/Business/ManagePosts'
 import SchedulePosts from './pages/Business/SchedulePosts'
-import Links from './pages/Links'
-import { QueryClient, QueryClientProvider } from 'react-query'
-import Logout from './pages/Logout'
 import UpdatePosts from './pages/Business/UpdatePosts'
+import EditProfile from './pages/EditProfile'
+import Feed from './pages/Feed'
+import Home from './pages/Home'
+import Links from './pages/Links'
+import Login from './pages/Login'
+import Logout from './pages/Logout'
+import Profile from './pages/Profile'
+import Register from './pages/Register'
+import SearchPost from './pages/SearchPost'
+import SearchUser from './pages/SearchUser'
+import Test from './pages/Test'
 
 const queryClient = new QueryClient()
 
@@ -45,6 +47,7 @@ function App() {
 						<Route path="/scheduleposts" element={<SchedulePosts />} />
 						<Route path="/updateposts/:post_id" element={<UpdatePosts />} />
 						<Route index element={<Feed />} />
+						{/* */}
 					</Routes>
 
 					<Footer />

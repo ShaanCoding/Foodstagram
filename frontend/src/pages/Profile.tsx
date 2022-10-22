@@ -1,20 +1,20 @@
 import React from 'react'
-import styles from '../styles/Profile.module.css'
+import { useQueryClient } from 'react-query'
 import { Link, Navigate, useParams } from 'react-router-dom'
-import UseProfileQuery from '../api/UseProfileQuery'
-import useAuth from '../api/util/useAuth'
-import UsePostCountQuery from '../api/UsePostCountQuery'
+
+import { UseBlockMutation } from '../api/UseBlockMutation'
 import UseFollowerCountQuery from '../api/UseFollowerCountQuery'
 import UseFollowingCountQuery from '../api/UseFollowingCountQuery'
-import UseProfilePostsQuery from '../api/UseProfilePostsQuery'
-import UseIsFollowingQuery from '../api/UseIsFollowingQuery'
 import { UseFollowMutation } from '../api/UseFollowMutation'
-import { useQueryClient } from 'react-query'
-import Spinner from '../components/common/Spinner'
-import UseIsBlockingQuery from '../api/UseIsBlockingQuery'
 import UseIsBlockedQuery from '../api/UseIsBlockedQuery'
-import { UseBlockMutation } from '../api/UseBlockMutation'
-
+import UseIsBlockingQuery from '../api/UseIsBlockingQuery'
+import UseIsFollowingQuery from '../api/UseIsFollowingQuery'
+import UsePostCountQuery from '../api/UsePostCountQuery'
+import UseProfilePostsQuery from '../api/UseProfilePostsQuery'
+import UseProfileQuery from '../api/UseProfileQuery'
+import useAuth from '../api/util/useAuth'
+import Spinner from '../components/common/Spinner'
+import styles from '../styles/Profile.module.css'
 
 const Profile = () => {
 	const [account, isLoading] = useAuth()
@@ -112,13 +112,12 @@ const Profile = () => {
 					<div className={`${isBlockedQuery.data?.data.isBlocked ? "hidden" : ""} grid grid-cols-3 gap-0.5 mt-2`}>
 						{profilePostsQuery.isLoading === false &&
 							profilePostsQuery.isSuccess &&
-							profilePostsQuery.data?.data.posts !== undefined &&
-							profilePostsQuery.data?.data.posts.map((post: Post) => (
+							profilePostsQuery.data?.data.posts?.map((post: Post) => (
 								<div className="relative w-full h-full">
 									<img
 										alt="Post"
 										className="mb-4 w-full h-full object-cover aspect-square"
-										src={post.post_image}
+										src={post.image_url[0]}
 									/>
 									<div className="absolute bottom-1 left-1 flex gap-1 text-white text-xs items-center">
 										<svg

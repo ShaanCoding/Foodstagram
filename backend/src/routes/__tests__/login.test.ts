@@ -1,5 +1,6 @@
-const request = require('supertest')
 import express from 'express'
+import request  from 'supertest'
+
 import Router from '../main'
 
 const app = express()
