@@ -73,9 +73,6 @@ export async function UpdateBusinessPost(req: Request, res: Response) {
     return res.status(400).json(formatErrors(errors));
   }
 
-  // const updateBusinessPostQuery = "(`account_id`, `location_name`, `location_lat`, `location_long`, `caption`, `businessState`, `businessScheduleTime`, `created_at`, `updated_at`) VALUES ();";
-
-  // caption = ?, location_name = ?, updated_at = NOW(), businessState = ?, businessScheduleTime = ? WHERE post_id = ?
   const updateBusinessPostQuery =
     "UPDATE `posts` SET `caption` = ?, `location_name` = ?, `updated_at` = NOW(), `businessState` = ?, `businessScheduleTime` = ?, `categories` = ? WHERE `post_id` = ?";
   const updateBusinessPostQueryNoDateTime =
