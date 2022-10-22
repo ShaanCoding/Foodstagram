@@ -10,19 +10,5 @@ export default function UseFeedQuery() {
 }
 
 interface Feed {
-	posts: Post[];
-}
-
-interface Post {
-	post_id: number;
-	account_id: number;
-	username: string;
-	profile_picture_url: string;
-	location_name: string;
-	location_lat: string;
-	location_long: string;
-	caption: string;
-	created_at: string;
-	updated_at: string;
-	image_url: string[];
+	posts: Post[]
 }
