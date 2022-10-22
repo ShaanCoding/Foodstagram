@@ -1,8 +1,8 @@
-import { Request, Response, json } from 'express'
-import { validationResult } from 'express-validator'
+import { Request, Response, json } from "express";
+import { validationResult } from "express-validator";
 
-import { Query } from '../util/db'
-import formatErrors from '../util/formatErrors'
+import { Query } from "../util/db";
+import formatErrors from "../util/formatErrors";
 
 // import { validationResult } from 'express-validator'
 // import formatErrors from '../util/formatErrors'
@@ -34,84 +34,94 @@ WHERE A.account_id = ?
 AND businessState IS NOT NULL
 GROUP BY (C.post_id)
 ORDER BY created_at DESC;
-`
+`;
 interface BusinessPostsRow {
-	post_id: number;
-	username: string;
-	profile_picture_url: string;
-	image_url: string;
-	location_name: string;
-	location_lat: number;
-	location_long: number;
-	caption: string;
-	created_at: Date;
-	updated_at: Date;
-	businessState: number;
-	businessScheduleTime: Date;
-	commentsCount: number;
-	post_likes: number;
+  post_id: number;
+  username: string;
+  profile_picture_url: string;
+  image_url: string;
+  location_name: string;
+  location_lat: number;
+  location_long: number;
+  caption: string;
+  created_at: Date;
+  updated_at: Date;
+  businessState: number;
+  businessScheduleTime: Date;
+  commentsCount: number;
+  post_likes: number;
 }
-type BusinessPost = Omit<BusinessPostsRow, "image_url"> & { image_url: string[] };
+type BusinessPost = Omit<BusinessPostsRow, "image_url"> & {
+  image_url: string[];
+};
 
 export async function GetBusinessPosts(req: Request, res: Response) {
-	const { account } = req;
-	if (account === undefined) return res.status(500);
-		
-	const posts = (await Query(feedQuery, [account.account_id.toString()])) as BusinessPostsRow[];
-	if (!posts.length) return res.json({ message: 'No posts yet' }); // Don't do that, return an empty array instead and the client will figure it it there were no results
+  const { account } = req;
+  if (account === undefined) return res.status(500);
 
-	// group rows by post_id and merge the image_url together
-	const map = new Map<number, BusinessPost>();
-	posts.forEach((post) => {
-		if(!map.has(post.post_id)) return map.set(post.post_id, { ...post, image_url: [ post.image_url ]});
-		map.get(post.post_id)!.image_url.push(post.image_url);
-	});
+  const posts = (await Query(feedQuery, [
+    account.account_id.toString(),
+  ])) as BusinessPostsRow[];
+  if (!posts.length) return res.json([]);
 
-	return res.status(200).json({ posts: [...map.values()] });
+  // group rows by post_id and merge the image_url together
+  const map = new Map<number, BusinessPost>();
+  posts.forEach((post) => {
+    if (!map.has(post.post_id))
+      return map.set(post.post_id, { ...post, image_url: [post.image_url] });
+    map.get(post.post_id)!.image_url.push(post.image_url);
+  });
+
+  return res.status(200).json({ posts: [...map.values()] });
 }
 
 const individualPostQuery = `
 SELECT
-	post_id,
+	P.post_id,
 	location_name,
 	image_url,
 	caption,
 	businessState,
 	businessScheduleTime,
 	created_at
-FROM posts
+FROM posts P
 LEFT JOIN post_images PI ON P.post_id = PI.post_id
-WHERE post_id = ?
+WHERE P.post_id = ?
 AND businessState IS NOT NULL
 ORDER BY created_at DESC;
 `;
 interface IndividualPostQueryRow {
-	post_id: number;
-	location_name: string;
-	image_url: string;
-	caption: string;
-	businessState: number;
-	businessScheduleTime: Date;
-	created_at: Date;
+  post_id: number;
+  location_name: string;
+  image_url: string;
+  caption: string;
+  businessState: number;
+  businessScheduleTime: Date;
+  created_at: Date;
 }
-type IndividualBusinessPost = Omit<IndividualPostQueryRow, "image_url"> & { image_url: string[] };
+type IndividualBusinessPost = Omit<IndividualPostQueryRow, "image_url"> & {
+  image_url: string[];
+};
 
 export async function GetIndividualBusinessPost(req: Request, res: Response) {
-	const errors = validationResult(req);
-	if (!errors.isEmpty()) return res.status(400).json(formatErrors(errors));
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return res.status(400).json(formatErrors(errors));
 
-	const { post_id } = req.params;
-	if(post_id === undefined) return res.status(500)
-		
-	const posts = (await Query(individualPostQuery, [post_id])) as IndividualPostQueryRow[];
-	if (!posts.length) return res.json({ message: 'No posts yet' }); // Don't do that, return an empty array instead and the client will figure it it there were no results
+  const { post_id } = req.params;
+  if (post_id === undefined) return res.status(500);
 
-	// group rows by post_id and merge the image_url together
-	const map = new Map<number, IndividualBusinessPost>();
-	posts.forEach((post) => {
-		if(!map.has(post.post_id)) return map.set(post.post_id, { ...post, image_url: [ post.image_url ]});
-		map.get(post.post_id)!.image_url.push(post.image_url);
-	});
+  const posts = (await Query(individualPostQuery, [
+    post_id,
+  ])) as IndividualPostQueryRow[];
+  if (!posts.length) return res.json([]);
 
-	return res.status(200).json({ post: [...map] });
+  // group rows by post_id and merge the image_url together
+  const map = new Map<number, IndividualBusinessPost>();
+  posts.forEach((post) => {
+    if (!map.has(post.post_id))
+      return map.set(post.post_id, { ...post, image_url: [post.image_url] });
+    map.get(post.post_id)!.image_url.push(post.image_url);
+  });
+
+  return res.status(200).json({ post: [...map.values()] });
 }
