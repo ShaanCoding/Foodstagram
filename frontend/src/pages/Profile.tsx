@@ -44,7 +44,7 @@ const Profile = () => {
 					<div className="flex flex-col justify-center items-center my-5">
 						<img
 							alt="Profile Picture"
-							className={`w-32 h-32 bg-cover bg-center bg-no-repeat rounded-full`}
+							className={`w-32 h-32 bg-cover bg-center bg-no-repeat rounded-full object-cover`}
 							src={`${isBlockedQuery.data?.data.isBlocked ? profileQueryBlank.data?.data.data.profile_picture_url : profileQuery.data?.data.data.profile_picture_url}`}
 						/>
 						<span className="mt-3 font-bold">

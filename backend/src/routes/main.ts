@@ -4,6 +4,7 @@ import { body, param } from "express-validator";
 import { AuthenticateUser } from "../util/auth";
 import { Block } from "./block";
 import { EditProfile } from "./editprofile";
+import { DeleteProfile } from "./deleteprofile";
 import { GetPosts } from "./feed";
 import { Follow } from "./follow";
 import { FollowerCount } from "./followerCount";
@@ -28,6 +29,7 @@ import {
   GetIndividualBusinessPost,
 } from "./getBusinessPosts";
 import { GetCategories } from "./categories";
+import { PasswordReset } from "./passwordReset";
 
 const router = Router();
 
@@ -49,13 +51,13 @@ router.post(
 router.get("/feed", AuthenticateUser, GetPosts);
 
 router.post(
-	'/posts',
-	AuthenticateUser,
-	body('picture').isArray({ min: 1, max: 4 }),
-	body('picture.*').isLength({ min: 5 }),
-	body('caption').isLength({ min: 5 }),
-	body('location').isLength({ min: 5 }),
-	CreatePost
+  '/posts',
+  AuthenticateUser,
+  body('picture').isArray({ min: 1, max: 4 }),
+  body('picture.*').isLength({ min: 5 }),
+  body('caption').isLength({ min: 5 }),
+  body('location').isLength({ min: 5 }),
+  CreatePost
 )
 router.put(
   "/posts/:post_id",
@@ -95,10 +97,21 @@ router.post(
 );
 
 router.post(
+  "/deleteprofile",
+  body("username"),
+  body("password"),
+  DeleteProfile
+);
+
+router.post(
   "/profilePic/:username",
   body("picture").isLength({ min: 5 }),
   ProfilePic
 );
+
+router.post("/passwordreset", PasswordReset);
+
+router.post("/login", body("email").isEmail(), body("password"), Login);
 
 //search routes
 router.post("/api/search_user", body("searchStr"), SearchUsers);
