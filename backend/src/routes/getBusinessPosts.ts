@@ -108,7 +108,8 @@ SELECT
 	caption,
 	businessState,
 	businessScheduleTime,
-	created_at
+	created_at,
+  categories
 FROM posts P
 LEFT JOIN post_images PI ON P.post_id = PI.post_id
 WHERE P.post_id = ?
@@ -143,8 +144,13 @@ export async function GetIndividualBusinessPost(req: Request, res: Response) {
   // group rows by post_id and merge the image_url together
   const map = new Map<number, IndividualBusinessPost>();
   posts.forEach((post) => {
-    if (!map.has(post.post_id))
+    if (!map.has(post.post_id)) {
+      post.businessScheduleTime = new Date(post.businessScheduleTime);
+      post.businessScheduleTime.setHours(
+        post.businessScheduleTime.getHours() + 11
+      );
       return map.set(post.post_id, { ...post, image_url: [post.image_url] });
+    }
     map.get(post.post_id)!.image_url.push(post.image_url);
   });
 
