@@ -92,7 +92,7 @@ async function SearchUsers(req: Request, res: Response) {
 	//partial search with full text string: https://stackoverflow.com/questions/37711370/mysql-how-to-get-search-results-with-accurate-relevance
 
   const SearchQuery = `
-    select * from accounts
+    select account_id, name, username, bio, verified, profile_picture_url from accounts
   `
 
 	try {

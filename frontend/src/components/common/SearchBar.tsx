@@ -8,12 +8,13 @@ import { Link, useNavigate } from 'react-router-dom'
 
 const SearchBar = () => {
 	const [account, isLoading] = useAuth()
-	const [searchString, setSearchString] = useState('')
+	const [searchString, setSearchString] = useState("")
 	const [placeholder, setPlaceholder] = useState('Enter Username')
-	const [searchResult, setSearchResult] = useState([])
+	// const [searchResult, setSearchResult] = useState([])
 	const searchUserMutation = UseSearchUserMutation()
 	const searchPostMutation = UseSearchPostMutation()
 	const [selectResult, setSelectResult] = useState(false)
+  const [searchDropdown, setSearchDropdown] = useState(false)
 	const navigate = useNavigate()
 
 	const HandleSelectTypeChange = (e: any) => {
@@ -30,39 +31,42 @@ const SearchBar = () => {
     e.preventDefault()
     if (placeholder === 'Enter Username')
       navigate('/search/user/' + searchString)
-      setSearchResult([])
+      //setSearchResult([])
     if (placeholder === 'Enter Location')
       navigate('/search/post/' + searchString)
-      setSearchResult([])
+      //setSearchResult([])
   }
 
-  const HandleBlur = (e:any) => {
-    
-  }
-
-	useEffect(() => {
-		if (searchString === '') {
-			setSearchResult([])
-		}
-		if (placeholder === 'Enter Username') {
+  useEffect(() => {
+    if (placeholder === 'Enter Username') {
 			searchUserMutation.mutate({
 				searchStr: searchString,
 			})
-			setSearchResult(searchUserMutation.data?.data.data)
+			//setSearchResult(searchUserMutation.data?.data.data)
 		}
 		if (placeholder === 'Enter Location') {
 			searchPostMutation.mutate({
 				searchStr: searchString,
 			})
-			setSearchResult(searchPostMutation.data?.data.data)
+			//setSearchResult(searchPostMutation.data?.data.data)
 		}
-	}, [searchString])
+  }, [searchString])
 
 	useEffect(() => {
-		setSearchResult([])
+		//setSearchResult([])
 		setSearchString('')
 		setSelectResult(false)
 	}, [selectResult])
+
+  let searchResult = []
+
+  if (placeholder === 'Enter Username') {
+    searchResult = searchUserMutation.data?.data.data
+  }
+  else {
+    searchResult = searchPostMutation.data?.data.data
+  }
+
 
   return (
     <>
@@ -77,8 +81,8 @@ const SearchBar = () => {
         <input
           value={searchString}
           onChange={(e) => setSearchString(e.target.value)}
-          onBlur={e => setTimeout((e) => setSearchResult([]), 200)}
-          onFocus={(e) => setSearchString(e.target.value)}
+          onBlur={e => setTimeout((e) => setSearchDropdown(false), 200)}
+          onFocus={e => setSearchDropdown(true)}
           className="focus:ring-0 focus:outline-none bg-gray-100 text-black text-base p-2 rounded-md w-full"
           type="text"
           placeholder={placeholder}
@@ -90,7 +94,7 @@ const SearchBar = () => {
         <div className='absolute top-10 left-1 w-full'>
           <div className='flex-col justify-center relative z-50 hover:bg-grey-100 h-auto w-full'>
             {//search usernames
-              placeholder === 'Enter Username' && searchResult !== undefined && searchResult.length > 0 &&
+              placeholder === 'Enter Username' && searchResult !== undefined && searchResult.length > 0 && searchString.length > 0 && searchDropdown &&
               searchResult.map((element: { item: Account }) => {
                 return (
                   <ul className="bg-white border border-gray-100 w-full align-middle">
@@ -117,11 +121,11 @@ const SearchBar = () => {
             }
 
             {//search posts
-            placeholder === 'Enter Location' && searchResult !== undefined && searchResult.length > 0 &&
+            placeholder === 'Enter Location' && searchResult !== undefined && searchResult.length > 0 && searchString.length > 0 && searchDropdown &&
               searchResult.map((element: { item: Post }) => {
                 return (
                   <ul className="bg-white border border-gray-100 w-full hover:bg-grey-100 align-middle">
-                    <li className='pl-8 pr-2 py-1 border-b-2 border-gray-100 relative cursor-pointer hover:bg-grey-100 hover:text-gray-900'>
+                    <li className='bg-white pl-8 pr-2 py-1 border-b-2 border-gray-100 relative cursor-pointer hover:bg-grey-100 hover:text-gray-900'>
                       <div key={element.item.location_name}>
                         <Link
                           onClick={(e) => { setSelectResult(true) }}
