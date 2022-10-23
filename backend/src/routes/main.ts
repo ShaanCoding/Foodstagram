@@ -28,6 +28,7 @@ import { CreateBusinessPost, UpdateBusinessPost } from './businessPosts'
 import { GetBusinessPosts, GetIndividualBusinessPost } from './getBusinessPosts'
 import { GetCategories } from './categories'
 import { PasswordReset } from './passwordReset'
+import { GetPost } from './getPost'
 
 const router = Router()
 
@@ -84,6 +85,8 @@ router.post(
 router.post('/account/has2fa', body('email'), Has2FA)
 
 router.post('/login', body('email').isEmail(), body('password'), Login)
+
+router.get('/post/:postID', GetPost)
 
 router.get('/profile/:username', Profile)
 router.get('/postCount/:profileID', PostCount)
