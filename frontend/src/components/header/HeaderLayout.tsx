@@ -5,7 +5,7 @@ interface Props {
 	children: ReactNode
 }
 
-const headerlessRoutes = ['/login', '/register']
+const headerlessRoutes = ['/login', '/register', '/passwordreset']
 
 const HeaderLayout = (props: Props) => {
 	const { children } = props

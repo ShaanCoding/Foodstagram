@@ -36,6 +36,7 @@ jobs:
           echo "DB_USERNAME='${{ secrets.DB_USERNAME }}'" >> .env
           echo "BLOB_CONNECTION_STRING='${{ secrets.BLOB_CONNECTION_STRING }}'" >> .env
           echo "JWT_SECRET='${{ secrets.JWT_SECRET }}'" >> .env
+          echo "EMAIL_CONNECTION_STRING='${{ secrets.EMAIL_CONNECTION_STRING }}'" >> .env
           cd ..
 
       - name: "Run backend unit tests"
