@@ -29,12 +29,12 @@ const SearchBar = () => {
 
   const HandleSubmit = (e: any) => {
     e.preventDefault()
-    if (placeholder === 'Enter Username')
-      navigate('/search/user/' + searchString)
-      //setSearchResult([])
-    if (placeholder === 'Enter Location')
-      navigate('/search/post/' + searchString)
-      //setSearchResult([])
+    if (searchString.length > 0) {
+      if (placeholder === 'Enter Username')
+        navigate('/search/user/' + searchString)
+      if (placeholder === 'Enter Location')
+        navigate('/search/post/' + searchString)
+    }
   }
 
   useEffect(() => {
@@ -42,18 +42,15 @@ const SearchBar = () => {
 			searchUserMutation.mutate({
 				searchStr: searchString,
 			})
-			//setSearchResult(searchUserMutation.data?.data.data)
 		}
 		if (placeholder === 'Enter Location') {
 			searchPostMutation.mutate({
 				searchStr: searchString,
 			})
-			//setSearchResult(searchPostMutation.data?.data.data)
 		}
   }, [searchString])
 
 	useEffect(() => {
-		//setSearchResult([])
 		setSearchString('')
 		setSelectResult(false)
 	}, [selectResult])
@@ -121,7 +118,7 @@ const SearchBar = () => {
             }
 
             {//search posts
-            placeholder === 'Enter Location' && searchResult !== undefined && searchResult.length > 0 && searchString.length > 0 && searchDropdown &&
+              placeholder === 'Enter Location' && searchResult !== undefined && searchResult.length > 0 && searchString.length > 0 && searchDropdown &&
               searchResult.map((element: { item: Post }) => {
                 return (
                   <ul className="bg-white border border-gray-100 w-full hover:bg-grey-100 align-middle">
