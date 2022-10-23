@@ -13,7 +13,7 @@ WHERE
 `
 
 const ProfileQuery = `
-select * from accounts where username = ?
+select * from accounts where email = ?
 `
 
 const connectionString = process.env['EMAIL_CONNECTION_STRING'];
@@ -21,32 +21,38 @@ const emailClient = new EmailClient(connectionString as string);
 
 async function PasswordReset(req: Request, res: Response) {
 	try {
-		let passwordGen = (Math.random() + 1).toString(36).substring(2);
-		const newPassword = passwordGen
+		const rows = (await Query(ProfileQuery, [req.body.email])) as Account[]
 
-		Query(passwordResetQuery, [newPassword, req.body.email, req.body.username])
+		if (req.body.username === rows[0].username) {
+			let passwordGen = (Math.random() + 1).toString(36).substring(2);
+			const newPassword = passwordGen
 
-		const rows = (await Query(ProfileQuery, [req.body.username])) as Account[]
+			Query(passwordResetQuery, [newPassword, req.body.email, req.body.username])
 
-		const emailMessage: EmailMessage = {
-			sender: "DoNotReply@0b9a5130-62f2-442c-a8d0-8f50178920ed.azurecomm.net",
-			content: {
-				subject: `[` + req.body.username + `] Password reset`,
-				plainText: `Hi ` + req.body.username + `!\n\nYour Foostaram account password has been reset to ` + newPassword + `.\n\nPlease log in and change it immediately to ensure the security of your account.`
-			},
-			recipients: {
-				to: [
-					{
-						email: rows[0].email,
-					},
-				],
-			},
+			const emailMessage: EmailMessage = {
+				sender: "DoNotReply@0b9a5130-62f2-442c-a8d0-8f50178920ed.azurecomm.net",
+				content: {
+					subject: `[` + req.body.username + `] Password reset`,
+					plainText: `Hi ` + req.body.username + `!\n\nYour Foostaram account password has been reset to ` + newPassword + `.\n\nPlease log in and change it immediately to ensure the security of your account.`
+				},
+				recipients: {
+					to: [
+						{
+							email: rows[0].email,
+						},
+					],
+				},
+			}
+
+			const response = await emailClient.send(emailMessage)
+			return res.status(201).json({
+				message: 'Succesfully reset password!',
+			})
+		} else {
+			return res
+				.status(400)
+				.json({ message: 'Invalid credentials' })
 		}
-
-		const response = await emailClient.send(emailMessage)
-		return res.status(201).json({
-			message: 'Succesfully reset password!',
-		})
 	} catch {
 		return res
 			.status(400)
