@@ -68,11 +68,9 @@ export const Post = (props: Props) => {
 								{post.username}
 							</a>
 							in {post.location_name}
-
 							{post.updated_at !== null && (
 								<time className="pl-20">{post.created_at}</time>
 							)}
-							
 							<span className="grow" />
 							{post.account_id === account.account_id && (
 								<ContextMenu>
@@ -98,15 +96,12 @@ export const Post = (props: Props) => {
 						<br />
 
 						<span className="flex items-center mb-2">
-							<button 
+							<button
 							// onClick={likePost}
 							>
-								<img
-								alt="Like"
-								className="h-5 inline-block pr-2"
-								src={like}
-							/></button>
-							
+								<img alt="Like" className="h-5 inline-block pr-2" src={like} />
+							</button>
+
 							<span className="">{post.post_likes} likes</span>
 						</span>
 
