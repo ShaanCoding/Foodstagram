@@ -28,6 +28,9 @@ const Login = () => {
 		}
 	}
 
+	const awaitingEmailVerification =
+		loginMutation?.data?.data?.awaitingEmailVerification
+
 	return (
 		<div className="m-12 w-4/5 h-full ml-auto mr-auto flex max-w-[750px]">
 			<div className="hidden md:block flex-auto w-32 mr-8">
@@ -56,7 +59,9 @@ const Login = () => {
 
 					{loginMutation.isSuccess && (
 						<div className="my-8 bg-green-300 rounded-lg p-4 text-center">
-							{`Welcome ${loginMutation?.data?.data?.data?.name}! You've logged in succesfully!`}
+							{awaitingEmailVerification
+								? 'Your account is not verified. Please check your email!'
+								: `Welcome ${loginMutation?.data?.data?.data?.name}! You've logged in succesfully!`}
 						</div>
 					)}
 					<Form

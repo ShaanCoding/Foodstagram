@@ -3,6 +3,7 @@ import { Query } from '../util/db'
 import { validationResult } from 'express-validator'
 import formatErrors from '../util/formatErrors'
 import { GenerateAccessToken } from '../util/auth'
+import sendEmailVerificationCode from '../util/verificationCode'
 
 const registerQuery = `
 	INSERT INTO
@@ -14,7 +15,7 @@ const registerQuery = `
 			verified
 		)
 	VALUES
-		(?, ?, ?, ?, 1)
+		(?, ?, ?, ?, 0)
 `
 
 const accountDetailsQuery = `SELECT * FROM accounts WHERE email = ?`
@@ -39,21 +40,16 @@ async function Register(req: Request, res: Response) {
 		const accounts = (await Query(accountDetailsQuery, [email])) as Account[]
 
 		if (accounts.length > 0) {
-			const accessToken = GenerateAccessToken(
-				accounts[0].account_id,
-				accounts[0].username,
-				accounts[0].email
-			)
+			await sendEmailVerificationCode(accounts[0])
 
 			return res.status(201).json({
-				message: 'Succesfully created account!',
-				accessToken,
+				message: 'Successfully created account!',
 			})
 		}
-	} catch {
+	} catch (e) {
 		return res
 			.status(500)
-			.json({ message: 'An error occured trying to create your account' })
+			.json({ message: 'An error occured trying to create your account', e })
 	}
 }
 

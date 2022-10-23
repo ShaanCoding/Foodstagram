@@ -26,10 +26,10 @@ describe('The Login Route Handler', function () {
 			.post('/login')
 			.send({ email: 'testUnverified@uts.com', password: 'testPassword' })
 			.set('Accept', 'application/json')
-		expect(res.statusCode).toBe(401)
+		expect(res.statusCode).toBe(200)
 		expect(JSON.parse(res.text)).toHaveProperty('message')
 		expect(JSON.parse(res.text).message).toBe(
-			'Invalid credentials, please try again'
+			'Account is awaiting email verification!'
 		)
 	})
 

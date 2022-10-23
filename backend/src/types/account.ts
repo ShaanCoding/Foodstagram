@@ -5,7 +5,7 @@ interface Account {
 	bio: string
 	password_hash: string
 	email: string
-	verified: boolean
+	verified: number
 	profile_picture_url: string | null
 	'2fa': string | null
 	using_2fa: number

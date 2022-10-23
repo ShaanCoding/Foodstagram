@@ -27,6 +27,6 @@ describe('The Register Route Handler', function () {
 			.set('Accept', 'application/json')
 		expect(res.statusCode).toBe(201)
 		expect(JSON.parse(res.text)).toHaveProperty('message')
-		expect(JSON.parse(res.text).message).toBe('Succesfully created account!')
+		expect(JSON.parse(res.text).message).toBe('Successfully created account!')
 	})
 })
