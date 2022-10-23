@@ -304,9 +304,9 @@ const ManagePosts = () => {
             </div>
             <div className="flex justify-start items-center relative mr-2 w-2/3">
               <input
-                className="w-full pl-12 pr-2 border-[1px] border-light-gray py-2 rounded-md"
+                className="w-full px-4 border-[1px] border-light-gray py-2 rounded-md"
                 type="text"
-                placeholder="Search Artwork / Creators Name"
+                placeholder="Search for post"
                 value={searchBar}
                 onChange={(e) => setSearchBar(e.target.value)}
               />
@@ -315,7 +315,7 @@ const ManagePosts = () => {
           <div className="flex justify-end items-center w-1/3">
             <Link to="/scheduleposts">
               <div className="flex items-center justify-end relative">
-                <button className="pl-10 pr-4 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100">
+                <button className="px-4 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100">
                   Create Post
                 </button>
               </div>
