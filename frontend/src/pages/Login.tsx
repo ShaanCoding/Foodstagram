@@ -29,7 +29,7 @@ const Login = () => {
 				/>
 			</div>
 			<div className={`flex flex-col justify-center flex-auto w-14`}>
-				<div className={`py-12 px-8 bg-white border ${styles.greyBorder}`}>
+				<div className={`pt-12 pb-6 px-8 bg-white border ${styles.greyBorder}`}>
 					<img
 						alt="Foodstaram Logo"
 						className="h-10 ml-auto mr-auto mb-8"
@@ -76,14 +76,13 @@ const Login = () => {
 					</p>*/}
 						<SubmitButton text="Log In" loading={loginMutation.isLoading} />
 					</Form>
-				</div>
-				<div className={`mt-2 py-4 px-8 bg-white border ${styles.greyBorder}`}>
-					<p className="text-sm text-center">
-						Forgot your password?{' '}
+					<p className="text-sm text-center pt-3">
 						<a className="text-insta-green" href="/passwordreset">
-							Reset
+							Forgot password?
 						</a>
 					</p>
+				</div>
+				<div className={`mt-2 py-4 px-8 bg-white border ${styles.greyBorder}`}>
 					<p className="text-sm text-center">
 						Don't have an account?{' '}
 						<a className="text-insta-green" href="/register">

@@ -28,7 +28,7 @@ const PasswordReset = () => {
                     />
                     {passwordResetMutation.isError && (
                         <div className="my-8 bg-red-300 rounded-lg p-4 text-center">
-                            Invalid username, please try again
+                            Invalid credentials, please try again
                         </div>
                     )}
 
@@ -40,10 +40,18 @@ const PasswordReset = () => {
                     <Form
                         onSubmit={(data) => {
                             passwordResetMutation.mutate({
+                                email: data['email'],
                                 username: data['username'],
                             })
                         }}
                     >
+                        <InputField
+                            placeholder="Email address"
+                            type="email"
+                            name="email"
+                            autoComplete="foostagram-email"
+                            required
+                        />
                         <InputField
                             placeholder="Username"
                             name="username"
@@ -52,7 +60,7 @@ const PasswordReset = () => {
                         />
                         <div className="mb-6" />
 
-                        <SubmitButton text="Log In" loading={passwordResetMutation.isLoading} />
+                        <SubmitButton text="Reset Password" loading={passwordResetMutation.isLoading} />
                     </Form>
                 </div>
                 <div className={`mt-2 py-4 px-8 bg-white border ${styles.greyBorder}`}>

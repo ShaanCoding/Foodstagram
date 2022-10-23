@@ -7,13 +7,14 @@ UPDATE accounts
 SET
 	password_hash = ?
 WHERE
-	username = ?
+	email = ?	
+	AND
+	username = ?	
 `
 
 const ProfileQuery = `
 select * from accounts where username = ?
 `
-
 
 const connectionString = process.env['EMAIL_CONNECTION_STRING'];
 const emailClient = new EmailClient(connectionString as string);
@@ -23,7 +24,7 @@ async function PasswordReset(req: Request, res: Response) {
 		let passwordGen = (Math.random() + 1).toString(36).substring(2);
 		const newPassword = passwordGen
 
-		Query(passwordResetQuery, [newPassword, req.body.username])
+		Query(passwordResetQuery, [newPassword, req.body.email, req.body.username])
 
 		const rows = (await Query(ProfileQuery, [req.body.username])) as Account[]
 
@@ -49,7 +50,7 @@ async function PasswordReset(req: Request, res: Response) {
 	} catch {
 		return res
 			.status(400)
-			.json({ message: 'Invalid username' })
+			.json({ message: 'Invalid credentials' })
 	}
 }
 
