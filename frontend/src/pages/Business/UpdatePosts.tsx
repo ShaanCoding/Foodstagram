@@ -79,12 +79,17 @@ const SchedulePosts = () => {
       setPublishState(data.businessState);
       setCategories(data.categories);
 
-      let date = new Date(data.businessScheduleTime);
+      if (data.businessScheduledTime) {
+        let date = new Date(data.businessScheduleTime);
 
-      setScheduledDate(date);
-      setScheduledTime(
-        date.getHours().toString() + ":" + date.getMinutes().toString()
-      );
+        setScheduledDate(date);
+        setScheduledTime(
+          date.getHours().toString() + ":" + date.getMinutes().toString()
+        );
+      } else {
+        setScheduledDate(new Date());
+        setScheduledTime("");
+      }
     }
   }, [postQuery.isFetchedAfterMount]);
 

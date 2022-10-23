@@ -69,6 +69,13 @@ type BusinessPost = Omit<BusinessPostsRow, "image_url"> & {
 };
 
 export async function GetBusinessPosts(req: Request, res: Response) {
+  // Validates body of request to make sure it is following validation rules
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json(formatErrors(errors));
+  }
+
+  // Gets the account ID from the request body
   const { account } = req;
   if (account === undefined) return res.status(500);
 
@@ -112,7 +119,9 @@ SELECT
   categories
 FROM posts P
 LEFT JOIN post_images PI ON P.post_id = PI.post_id
-WHERE P.post_id = ?
+LEFT JOIN accounts A ON P.account_id = A.account_id
+WHERE A.account_id = ?
+AND P.post_id = ?
 AND businessState IS NOT NULL
 ORDER BY created_at DESC;
 `;
@@ -130,13 +139,22 @@ type IndividualBusinessPost = Omit<IndividualPostQueryRow, "image_url"> & {
 };
 
 export async function GetIndividualBusinessPost(req: Request, res: Response) {
+  // Validates body of request to make sure it is following validation rules
   const errors = validationResult(req);
-  if (!errors.isEmpty()) return res.status(400).json(formatErrors(errors));
+  if (!errors.isEmpty()) {
+    return res.status(400).json(formatErrors(errors));
+  }
 
+  // Gets the account ID from the request body
+  const { account } = req;
+  if (account === undefined) return res.status(500);
+
+  // If no post_id is provided, return an error
   const { post_id } = req.params;
   if (post_id === undefined) return res.status(500);
 
   const posts = (await Query(individualPostQuery, [
+    account.account_id.toString(),
     post_id,
   ])) as IndividualPostQueryRow[];
   if (!posts.length) return res.json([]);
