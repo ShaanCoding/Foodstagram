@@ -78,27 +78,10 @@ export async function UpdateBusinessPost(req: Request, res: Response) {
   const { account } = req;
   if (account === undefined) return res.status(500);
 
-  const updateBusinessPostQuery = `UPDATE posts SET 
-    caption = ?,
-    location_name = ?,
-    updated_at = NOW(),
-    businessState = ?,
-    businessScheduleTime = ?,
-    categories = ? 
-    FROM posts P
-    LEFT JOIN accounts A ON P.account_id = A.account_id
-    WHERE A.account_id = ? AND P.post_id = ?
-    `;
-  const updateBusinessPostQueryNoDateTime = `UPDATE posts SET 
-  caption = ?,
-  location_name = ?,
-  updated_at = NOW(),
-  businessState = ?,
-  categories = ? 
-  FROM posts P
-  LEFT JOIN accounts A ON P.account_id = A.account_id
-  WHERE A.account_id = ? AND P.post_id = ?
-  `;
+  const updateBusinessPostQuery =
+    "UPDATE `posts` SET `caption` = ?, `location_name` = ?, `updated_at` = NOW(), `businessState` = ?, `businessScheduleTime` = ?, `categories` = ? WHERE `post_id` = ?";
+  const updateBusinessPostQueryNoDateTime =
+    "UPDATE `posts` SET `caption` = ?, `location_name` = ?, `updated_at` = NOW(), `businessState` = ?, `categories` = ? WHERE `post_id` = ?";
 
   const post_id = req.params.post_id;
 
@@ -114,7 +97,6 @@ export async function UpdateBusinessPost(req: Request, res: Response) {
     // If it's a scheduled post we need to update the date time
     if (dateTime) {
       await Query(updateBusinessPostQuery, [
-        account.account_id,
         caption,
         location,
         businessState,
@@ -125,7 +107,6 @@ export async function UpdateBusinessPost(req: Request, res: Response) {
       // If it's not a scheduled post we don't need to update the date time
     } else {
       await Query(updateBusinessPostQueryNoDateTime, [
-        account.account_id,
         caption,
         location,
         businessState,
