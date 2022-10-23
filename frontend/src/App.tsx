@@ -21,6 +21,7 @@ import Register from './pages/Register'
 import SearchPost from './pages/SearchPost'
 import SearchUser from './pages/SearchUser'
 import Test from './pages/Test'
+import PasswordReset from './pages/PasswordReset'
 
 const queryClient = new QueryClient()
 
@@ -46,6 +47,7 @@ function App() {
 						<Route path="/logout" element={<Logout />} />
 						<Route path="/scheduleposts" element={<SchedulePosts />} />
 						<Route path="/updateposts/:post_id" element={<UpdatePosts />} />
+						<Route path="/passwordreset" element={<PasswordReset />} />
 						<Route index element={<Feed />} />
 						{/* */}
 					</Routes>
