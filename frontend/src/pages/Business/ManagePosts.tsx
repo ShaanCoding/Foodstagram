@@ -212,7 +212,7 @@ const ManagePosts = () => {
 
   let deleteFunction = (post_id: number) => {
     deleteMutation.mutate({ post_id: post_id });
-    window.location.reload();
+    viewPostsQuery.refetch();
   };
 
   const navigate = useNavigate();
@@ -234,7 +234,13 @@ const ManagePosts = () => {
       ].filter((element: any) => element !== null);
       setListOfCategories(uniques);
     }
-  }, [viewPostsQuery.isFetchedAfterMount, categories, searchBar]);
+  }, [
+    viewPostsQuery.isFetchedAfterMount,
+    viewPostsQuery.data,
+    deleteMutation.isSuccess,
+    categories,
+    searchBar,
+  ]);
 
   return (
     <div className="mx-16">
