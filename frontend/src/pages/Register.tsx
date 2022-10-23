@@ -5,24 +5,14 @@ import SubmitButton from '../components/form/SubmitButton'
 import UseRegisterMutation from '../api/UseRegisterMutation'
 import Form from '../components/form/Form'
 import { AxiosError } from 'axios'
-import Cookies from 'js-cookie'
-import { useNavigate } from 'react-router-dom'
 
 const Register = () => {
-	const navigate = useNavigate()
 	const registerMutation = UseRegisterMutation()
 
 	if (registerMutation.isError) {
 		console.log(registerMutation.error)
 	}
 
-	if (registerMutation.isSuccess) {
-		const token = registerMutation?.data?.data?.accessToken
-		if (token) {
-			Cookies.set('access_token', token)
-			navigate(`/editprofile`)
-		}
-	}
 	return (
 		<div className="m-12 w-4/5 h-full ml-auto mr-auto flex max-w-[750px]">
 			<div className="hidden md:block flex-auto w-32 mr-8 mt-6">
@@ -56,7 +46,7 @@ const Register = () => {
 
 					{registerMutation.isSuccess && (
 						<div className="my-8 bg-green-300 rounded-lg p-4 text-center">
-							{`Welcome, you've succesfully created an account!`}
+							{`Welcome, you've succesfully created an account. Please check your email for a verification code!`}
 						</div>
 					)}
 					<Form

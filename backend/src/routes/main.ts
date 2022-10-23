@@ -29,6 +29,7 @@ import { GetBusinessPosts, GetIndividualBusinessPost } from './getBusinessPosts'
 import { GetCategories } from './categories'
 import { PasswordReset } from './passwordReset'
 import { GetPost } from './getPost'
+import { ValidateEmail } from './validateEmail'
 
 const router = Router()
 
@@ -83,6 +84,7 @@ router.post(
 	Enable2FA
 )
 router.post('/account/has2fa', body('email'), Has2FA)
+router.post('/email/confirm', body('code'), ValidateEmail)
 
 router.post('/login', body('email').isEmail(), body('password'), Login)
 
@@ -121,7 +123,7 @@ router.post('/login', body('email').isEmail(), body('password'), Login)
 //search routes
 router.post('/api/search_user', body('searchStr'), SearchUsers)
 router.post('/api/search_post', body('searchStr'), SearchPosts)
-router.post("/api/search_post_results", body("searchStr"), SearchPostResults)
+router.post('/api/search_post_results', body('searchStr'), SearchPostResults)
 //end search routes
 
 router.get('/feed', AuthenticateUser, GetPosts)
