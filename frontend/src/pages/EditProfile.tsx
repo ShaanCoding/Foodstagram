@@ -8,12 +8,13 @@ import InputFieldProfile from '../components/form/InputFieldProfile'
 import SubmitButtonProfile from '../components/form/SubmitButtonProfile'
 import useAuth from '../api/util/useAuth'
 import { AxiosError } from 'axios'
-
 import { ProfilePic, UseProfilePicMutation } from '../api/UseProfilePicMutation'
 import InputField from '../components/form/InputField'
 import SubmitButton from '../components/form/SubmitButton'
 import SubmitButtonProfilePic from '../components/form/SubmitButtonProfilePic'
 import { useQueryClient } from 'react-query'
+import UseDeleteProfileMutation from '../api/UseDeleteProfileMutation'
+import DeleteProfileButton from '../components/form/DeleteProfileButton'
 
 const EditProfile = () => {
 	const [account, isLoading] = useAuth()
@@ -22,6 +23,10 @@ const EditProfile = () => {
 	const editProfileMutation = UseEditProfileMutation(account.username as string)
 	if (editProfileMutation.isError) {
 		console.log(editProfileMutation.error)
+	}
+	const deleteProfileMutation = UseDeleteProfileMutation()
+	if (deleteProfileMutation.isError) {
+		console.log(deleteProfileMutation.error)
 	}
 	const profilePicMutation = UseProfilePicMutation(
 		queryClient,
@@ -90,12 +95,11 @@ const EditProfile = () => {
 
 						{editProfileMutation.isError && (
 							<div className="my-6 bg-red-300 rounded-lg p-4 text-center">
-								{`Failed to update account. ${
-									editProfileMutation.error instanceof AxiosError &&
+								{`Failed to update account. ${editProfileMutation.error instanceof AxiosError &&
 									editProfileMutation.error?.response?.status === 400
-										? editProfileMutation.error.response.data.message
-										: ''
-								}`}
+									? editProfileMutation.error.response.data.message
+									: ''
+									}`}
 							</div>
 						)}
 
@@ -231,15 +235,58 @@ const EditProfile = () => {
 								/>
 							</label>
 
-							<div className="flex space-x-4 justify-center">
+							<div className="flex space-x-4 justify-center my-5">
 								<SubmitButtonProfile text="Save" />
 								<Link to={`/profile/${account.username}`}>
-									<button className="my-5 px-5 py-2 font-semibold text-sm border border-gray-400 rounded">
+									<button className="px-5 py-2 font-semibold text-sm border border-gray-400 rounded">
 										Back to profile
 									</button>
 								</Link>
 							</div>
 						</Form>
+
+						<div className='border-solid border-2 border-red-500 p-5 rounded-2xl mt-5 '>
+							<h2 className="text-2xl font-semibold text-center">Delete account</h2>
+
+							{deleteProfileMutation.isError && (
+								<div className="my-6 bg-red-300 rounded-lg p-4 text-center">
+									{`Incorrect password ${editProfileMutation.error instanceof AxiosError &&
+										editProfileMutation.error?.response?.status === 400
+										? editProfileMutation.error.response.data.message
+										: ''
+										}`}
+								</div>
+							)}
+
+							{deleteProfileMutation.isSuccess && (
+								<div className="my-6 bg-green-300 rounded-lg p-4 text-center">
+									Account deleted, you'll be redirected shortly
+								</div>
+							)}
+
+							<Form
+								onSubmit={(data) => {
+									deleteProfileMutation.mutate({
+										username: account.username,
+										password: data['password'],
+									})
+								}}
+							>
+								<label className="relative block p-3 bg-gray-100 rounded-2xl mt-5">
+									<span className="text-md font-semibold text-zinc-900">
+										Current password
+									</span>
+									<InputFieldProfile
+										placeholder="Password"
+										type="password"
+										name="password"
+									/>
+								</label>
+								<div className="flex space-x-4 justify-center mt-5">
+									<DeleteProfileButton text="Delete account" />
+								</div>
+							</Form>
+						</div>
 					</div>
 				</>
 			)}
