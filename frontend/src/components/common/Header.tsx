@@ -17,7 +17,7 @@ interface iHeaderState {
 
 const Header = ({ headerFocused = 'None' }: iHeaderState) => {
 	const [account, isLoading] = useAuth()
-	
+
 	const [createPostModalOpen, setCreatePostModalOpen] = useState(false)
 	const openCreatePostModalOpen = () => setCreatePostModalOpen(true)
 	const closeCreatePostModalOpen = () => setCreatePostModalOpen(false)
@@ -49,46 +49,10 @@ const Header = ({ headerFocused = 'None' }: iHeaderState) => {
 					</button>
 				</div>
 
-				{/* Explore */}
-				<div className="px-4">
-					<Link to="/explore">
-						<FontAwesomeIcon
-							className="w-6 h-6"
-							icon={
-								headerFocused == 'Explore'
-									? solid('compass')
-									: regular('compass')
-							}
-						/>
-					</Link>
-				</div>
-
-				{/* Explore */}
-				<div className="px-4">
-					<Link to="/explore">
-						<FontAwesomeIcon
-							className="w-6 h-6"
-							icon={
-								headerFocused == 'Explore'
-									? solid('compass')
-									: regular('compass')
-							}
-						/>
-					</Link>
-				</div>
-
-				{/* Heart modal */}
-				<div className="px-4">
-					<Link to="/favorite">
-						<FontAwesomeIcon
-							className="w-6 h-6"
-							icon={
-								headerFocused === 'Heart' ? solid('heart') : regular('heart')
-							}
-						/>
-					</Link>
-				</div>
-				<CreatePostModal open={createPostModalOpen} onClose={closeCreatePostModalOpen} />
+				<CreatePostModal
+					open={createPostModalOpen}
+					onClose={closeCreatePostModalOpen}
+				/>
 
 				{/* Manage Posts */}
 				<div className="px-4">

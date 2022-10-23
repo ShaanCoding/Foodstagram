@@ -32,6 +32,11 @@ export const Post = (props: Props) => {
 		alert('Post has been deleted, the page will reload')
 		window.location.reload()
 	}
+	// const likePostMutation = UseLikePostMutation()
+	// const likePost = () => {
+	// 	likePostMutation.mutate({ post_id: post.post_id })
+
+	// }
 
 	const [editPostModalOpen, setEditPostModalOpen] = useState(false)
 	const openEditPostModalOpen = () => setEditPostModalOpen(true)
@@ -63,6 +68,9 @@ export const Post = (props: Props) => {
 								{post.username}
 							</a>
 							in {post.location_name}
+							{post.updated_at !== null && (
+								<time className="pl-20">{post.created_at}</time>
+							)}
 							<span className="grow" />
 							{post.account_id === account.account_id && (
 								<ContextMenu>
@@ -87,13 +95,14 @@ export const Post = (props: Props) => {
 						<Carousel pictures={post.image_url} />
 						<br />
 
-						<span className="flex items-stretch">
-							<img
-								alt="Like"
-								className="mb-4 h-5 inline-block pr-5"
-								src={like}
-							/>
-							<span>{post.post_likes} likes</span>
+						<span className="flex items-center mb-2">
+							<button
+							// onClick={likePost}
+							>
+								<img alt="Like" className="h-5 inline-block pr-2" src={like} />
+							</button>
+
+							<span className="">{post.post_likes} likes</span>
 						</span>
 
 						<div>

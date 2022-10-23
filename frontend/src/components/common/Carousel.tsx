@@ -1,45 +1,67 @@
-import classnames from "classnames";
-import { useEffect, useRef, useState } from "react";
+import classnames from 'classnames'
+import { useEffect, useRef, useState } from 'react'
 
-import NextIcon from "../../images/next.png";
-import PreviousIcon from "../../images/previous.png";
+import NextIcon from '../../images/next.png'
+import PreviousIcon from '../../images/previous.png'
 
 interface CarouselProps {
-	pictures: string[];
+	pictures: string[]
 }
 
 const Carousel = ({ pictures }: CarouselProps) => {
+	const [index, setIndex] = useState(0)
 
-	const [index, setIndex] = useState(0);
+	const previousPicture = () => setIndex((index) => Math.max(0, index - 1))
+	const nextPicture = () =>
+		setIndex((index) => Math.min(pictures.length - 1, index + 1))
 
-	const previousPicture = () => setIndex(index => Math.max(0, index - 1));
-	const nextPicture = () => setIndex(index => Math.min(pictures.length - 1, index + 1));
-
-	const container = useRef<HTMLDivElement>(null);
+	const container = useRef<HTMLDivElement>(null)
 
 	useEffect(() => {
 		container.current?.scrollTo({
 			left: container.current?.clientWidth * index,
-			behavior: "smooth"
-		});
-	}, [index]);
+			behavior: 'smooth',
+		})
+	}, [index])
 
-	const buttonCSS = "absolute bottom-2/4 w-5 h-5 hidden opacity-75 cursor-pointer group-hover:block";
+	const buttonCSS =
+		'absolute bottom-2/4 w-5 h-5 hidden opacity-75 cursor-pointer group-hover:block'
 
 	return (
 		<div className="flex flex-row relative w-full group">
-			{ pictures.length > 1 && <img src={PreviousIcon} onClick={previousPicture} alt="Previous" className={classnames(buttonCSS, "left-2")} /> }
+			{pictures.length > 1 && (
+				<img
+					src={PreviousIcon}
+					onClick={previousPicture}
+					alt="Previous"
+					className={classnames(buttonCSS, 'left-2')}
+				/>
+			)}
 			<div className="flex snap-x snap-mandatory h-80" ref={container}>
-				{
-					pictures.map((picture, i) => (
-						<img src={picture} key={i} alt={`Picture # ${i}`} width={i === index ? "auto" : "0px"}  className="h-full" loading="lazy" />
-					))
-				}
+				{pictures.map((picture, i) => (
+					<img
+						src={picture}
+						key={i}
+						alt={`Picture # ${i}`}
+						width={i === index ? 'auto' : '0px'}
+						className="h-full object-cover"
+						loading="lazy"
+					/>
+				))}
 			</div>
-			{ pictures.length > 1 && <img src={NextIcon} onClick={nextPicture} alt="Next" className={classnames(buttonCSS, "right-2")} /> }
-			<span className="absolute right-0 bottom-0 text-white bg-black/50 p-1 text-xs" >{index + 1} / {pictures.length}</span>
+			{pictures.length > 1 && (
+				<img
+					src={NextIcon}
+					onClick={nextPicture}
+					alt="Next"
+					className={classnames(buttonCSS, 'right-2')}
+				/>
+			)}
+			<span className="absolute right-0 bottom-0 text-white bg-black/50 p-1 text-xs">
+				{index + 1} / {pictures.length}
+			</span>
 		</div>
-	);
+	)
 }
 
-export default Carousel;
+export default Carousel

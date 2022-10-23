@@ -10,8 +10,6 @@ import ManageScheduledPostTableRow from "../../components/business/ManageSchedul
 import ManagePublishedPostTableRow from "../../components/business/ManagePublishedPostTableRow";
 import Spinner from "../../components/common/Spinner";
 
-
-
 const ManagePosts = () => {
   const [openTab, setOpenTab] = useState("published");
 
@@ -64,7 +62,7 @@ const ManagePosts = () => {
             if (element.categories) {
               generatedTable.push(
                 <ManagePublishedPostTableRow
-                  image={element.post_image}
+                  image={element?.image_url[0]}
                   title={element.caption}
                   datePublished={element.updated_at}
                   username={element.username}
@@ -83,7 +81,7 @@ const ManagePosts = () => {
             } else {
               generatedTable.push(
                 <ManagePublishedPostTableRow
-                  image={element.post_image}
+                  image={element?.image_url[0]}
                   title={element.caption}
                   datePublished={element.updated_at}
                   username={element.username}
@@ -123,7 +121,7 @@ const ManagePosts = () => {
             if (element.categories) {
               generatedTable.push(
                 <ManageScheduledPostTableRow
-                  image={element.post_image}
+                  image={element?.image_url[0]}
                   title={element.caption}
                   dateScheduled={element.businessScheduleTime}
                   username={element.username}
@@ -139,7 +137,7 @@ const ManagePosts = () => {
             } else {
               generatedTable.push(
                 <ManageScheduledPostTableRow
-                  image={element.post_image}
+                  image={element?.image_url[0]}
                   title={element.caption}
                   dateScheduled={element.businessScheduleTime}
                   username={element.username}
@@ -176,7 +174,7 @@ const ManagePosts = () => {
             if (element.categories) {
               generatedTable.push(
                 <ManageDraftPostTableRow
-                  image={element.post_image}
+                  image={element?.image_url[0]}
                   title={element.caption}
                   dateCreated={element.created_at}
                   username={element.username}
@@ -192,7 +190,7 @@ const ManagePosts = () => {
             } else {
               generatedTable.push(
                 <ManageDraftPostTableRow
-                  image={element.post_image}
+                  image={element?.image_url[0]}
                   title={element.caption}
                   dateCreated={element.created_at}
                   username={element.username}
@@ -214,7 +212,7 @@ const ManagePosts = () => {
 
   let deleteFunction = (post_id: number) => {
     deleteMutation.mutate({ post_id: post_id });
-    window.location.reload();
+    viewPostsQuery.refetch();
   };
 
   const navigate = useNavigate();
@@ -236,7 +234,13 @@ const ManagePosts = () => {
       ].filter((element: any) => element !== null);
       setListOfCategories(uniques);
     }
-  }, [viewPostsQuery.isFetchedAfterMount, categories, searchBar]);
+  }, [
+    viewPostsQuery.isFetchedAfterMount,
+    viewPostsQuery.data,
+    deleteMutation.isSuccess,
+    categories,
+    searchBar,
+  ]);
 
   return (
     <div className="mx-16">
@@ -306,9 +310,9 @@ const ManagePosts = () => {
             </div>
             <div className="flex justify-start items-center relative mr-2 w-2/3">
               <input
-                className="w-full pl-12 pr-2 border-[1px] border-light-gray py-2 rounded-md"
+                className="w-full px-4 border-[1px] border-light-gray py-2 rounded-md"
                 type="text"
-                placeholder="Search Artwork / Creators Name"
+                placeholder="Search for post"
                 value={searchBar}
                 onChange={(e) => setSearchBar(e.target.value)}
               />
@@ -317,7 +321,7 @@ const ManagePosts = () => {
           <div className="flex justify-end items-center w-1/3">
             <Link to="/scheduleposts">
               <div className="flex items-center justify-end relative">
-                <button className="pl-10 pr-4 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100">
+                <button className="px-4 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100">
                   Create Post
                 </button>
               </div>

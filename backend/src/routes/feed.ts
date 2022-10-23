@@ -27,6 +27,7 @@ WHERE A.account_id IN (
 	SELECT followed_account_id
 	FROM account_followers
 	WHERE account_id = ?
+	AND P.businessState IS NULL OR P.businessState = 1
 )
 ORDER BY created_at DESC
 LIMIT 20;

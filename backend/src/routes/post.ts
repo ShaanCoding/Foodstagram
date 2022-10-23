@@ -80,29 +80,31 @@ export function UpdatePost(req: Request, res: Response) {
 }
 
 // TODO delete cascade pictures when we delete a post
-export function DeletePost(req: Request, res: Response) {
+export async function DeletePost(req: Request, res: Response) {
 	const getUserIdQuery = 'SELECT account_id FROM posts WHERE post_id = ?;';
+	const deleteLikedPostQuery = 'DELETE FROM liked_posts WHERE post_id = ?;';
 	const deleteQuery = "DELETE FROM posts WHERE post_id = ?;";
 
-	Promise
-	.resolve()
-	.then(() => validationResult(req))
-	.then((errors) => {
-		if (!errors.isEmpty()) throw formatErrors(errors);
-	})
-	.then(() => Query(getUserIdQuery, [req.params.post_id]))
-	.then(res => res as { account_id: number }[])
-	.then(arr => {
-		if(!arr.length) throw new Error('Post does not exist');
-		return arr[0];
-	})
-	.then(({ account_id }) => {
-		if(account_id !== req.account?.account_id) throw new Error('You are not authorized to delete this post');
-	})
-	.then(() => Query(deleteQuery, [req.params.post_id]))
-	.then(() => res.status(204).json({ message: 'Succesfully deleted post!' }))
-	.catch(error => {
-		console.error(error);
-		res.status(500).json({ message: 'Failed to delete post' })
-	});
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) return res.status(400).json(formatErrors(errors));
+	
+	try {
+		let data = await Query(getUserIdQuery, [req.params.post_id]) as { account_id: number }[];
+		
+		if(data[0].account_id !== req.account?.account_id) {
+			return res.status(400).json({ message: 'You are not authorized to delete this post' });
+		}
+	
+		if(!data.length) {
+			return res.status(400).json({ message: 'Post does not exist' });
+		}
+	
+		await Query(deleteLikedPostQuery, [req.params.post_id]) ;
+		await Query(deleteQuery, [req.params.post_id]) ;
+	
+		res.status(204).json({ message: 'Succesfully deleted post!' });
+	} catch(ex) {
+		console.error(ex);
+		res.status(500).json({ message: 'Failed to delete post' });
+	}
 }

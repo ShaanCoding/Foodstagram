@@ -53,7 +53,7 @@ async function SearchPosts(req: Request, res: Response) {
 
 	const { searchStr } = req.body;
 
-  	const SearchQuery = `select * from posts`
+  	const SearchQuery = `SELECT * from posts WHERE businessState IS NULL OR businessState = 1`
 
 	try {
 		const rows = (await Query(SearchQuery, [])) as any /*as Post[]*/  // TODO: don't use a shared type, make a new one (that's right)
