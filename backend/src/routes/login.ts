@@ -4,9 +4,10 @@ import { validationResult } from 'express-validator'
 import formatErrors from '../util/formatErrors'
 import { GenerateAccessToken } from '../util/auth'
 import { authenticator } from 'otplib'
+import sendEmailVerificationCode from '../util/verificationCode'
 
 const loginQuery = `
-	SELECT account_id, name, COALESCE(2fa, '') 2fa, using_2fa, COALESCE(bio, '') bio, email FROM accounts WHERE email = ? AND password_hash = ? AND verified = 1
+	SELECT account_id, username, email, COALESCE(2fa, '') 2fa, using_2fa, verified, COALESCE(bio, '') bio, email FROM accounts WHERE email = ? AND password_hash = ?
 `
 
 async function Login(req: Request, res: Response) {
@@ -33,6 +34,14 @@ async function Login(req: Request, res: Response) {
 						message: 'Invalid one time password, please try again',
 					})
 				}
+			}
+
+			if (rows[0].verified === 0) {
+				await sendEmailVerificationCode(rows[0])
+				return res.status(200).json({
+					message: 'Account is awaiting email verification!',
+					awaitingEmailVerification: true,
+				})
 			}
 
 			const accessToken = GenerateAccessToken(
