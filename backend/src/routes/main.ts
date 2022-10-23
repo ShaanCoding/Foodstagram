@@ -4,6 +4,7 @@ import { body, param } from "express-validator";
 import { AuthenticateUser } from "../util/auth";
 import { Block } from "./block";
 import { EditProfile } from "./editprofile";
+import { DeleteProfile } from "./deleteprofile";
 import { GetPosts } from "./feed";
 import { Follow } from "./follow";
 import { FollowerCount } from "./followerCount";
@@ -93,6 +94,13 @@ router.post(
   body("phone").isLength({ min: 2, max: 15 }),
   AuthenticateUser,
   EditProfile
+);
+
+router.post(
+  "/deleteprofile",
+  body("username"),
+  body("password"),
+  DeleteProfile
 );
 
 router.post(
