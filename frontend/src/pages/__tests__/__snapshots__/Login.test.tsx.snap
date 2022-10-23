@@ -18,7 +18,7 @@ exports[`The Login page renders correctly 1`] = `
     className="flex flex-col justify-center flex-auto w-14"
   >
     <div
-      className="py-12 px-8 bg-white border undefined"
+      className="pt-12 pb-6 px-8 bg-white border undefined"
     >
       <img
         alt="Foodstaram Logo"
@@ -48,6 +48,15 @@ exports[`The Login page renders correctly 1`] = `
           type="password"
           value=""
         />
+        <input
+          autoComplete="foostagram-otp"
+          className="p-2 w-full rounded-sm mb-2 border hover:border-gray-500 focus-visible:border text-xs bg-white undefined"
+          name="otp"
+          onChange={[Function]}
+          placeholder="2FA Token"
+          type="hidden"
+          value=""
+        />
         <div
           className="mb-6"
         />
@@ -59,6 +68,16 @@ exports[`The Login page renders correctly 1`] = `
           Log In
         </button>
       </form>
+      <p
+        className="text-sm text-center pt-3"
+      >
+        <a
+          className="text-insta-green"
+          href="/passwordreset"
+        >
+          Forgot password?
+        </a>
+      </p>
     </div>
     <div
       className="mt-2 py-4 px-8 bg-white border undefined"

@@ -61,9 +61,9 @@ exports[`The business/managePosts page renders correctly 1`] = `
           className="flex justify-start items-center relative mr-2 w-2/3"
         >
           <input
-            className="w-full pl-12 pr-2 border-[1px] border-light-gray py-2 rounded-md"
+            className="w-full px-4 border-[1px] border-light-gray py-2 rounded-md"
             onChange={[Function]}
-            placeholder="Search Artwork / Creators Name"
+            placeholder="Search for post"
             type="text"
             value=""
           />
@@ -80,7 +80,7 @@ exports[`The business/managePosts page renders correctly 1`] = `
             className="flex items-center justify-end relative"
           >
             <button
-              className="pl-10 pr-4 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100"
+              className="px-4 bg-insta-green rounded-[5px] text-white p-2 opacity-90 hover:opacity-100"
             >
               Create Post
             </button>

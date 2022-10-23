@@ -3,18 +3,16 @@ import { useMutation } from 'react-query'
 import GetEndpoint from './util/GetEndpoint'
 
 interface MutationVariables {
-	email: string
+	username: string
 	password: string
-	otp: string
 }
 
-export default function UseLoginMutation() {
-	return useMutation(['login'], (variables: MutationVariables) =>
+export default function UseDeleteProfileMutation() {
+	return useMutation(['deleteprofile'], (variables: MutationVariables) =>
 		axios
-			.post(`${GetEndpoint('api')}/login`, {
-				email: variables.email,
+			.post(`${GetEndpoint('api')}/deleteprofile/`, {
+				username: variables.username,
 				password: variables.password,
-				otp: variables.otp,
 			})
 			.then((res) => res)
 	)

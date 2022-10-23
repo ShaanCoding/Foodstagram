@@ -22,6 +22,7 @@ RUN --mount=type=secret,id=DB_HOST \
 	--mount=type=secret,id=DB_USERNAME \
 	--mount=type=secret,id=BLOB_CONNECTION_STRING \
 	--mount=type=secret,id=JWT_SECRET \
+	--mount=type=secret,id=EMAIL_CONNECTION_STRING \
 	cd /run/secrets && \
 	for f in *; do (echo ${f}= | tr -d '\n'; cat ${f}; echo) >> .env; done && \
 	cd ../../app && \
