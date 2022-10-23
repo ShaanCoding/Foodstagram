@@ -10,8 +10,6 @@ import ManageScheduledPostTableRow from "../../components/business/ManageSchedul
 import ManagePublishedPostTableRow from "../../components/business/ManagePublishedPostTableRow";
 import Spinner from "../../components/common/Spinner";
 
-
-
 const ManagePosts = () => {
   const [openTab, setOpenTab] = useState("published");
 

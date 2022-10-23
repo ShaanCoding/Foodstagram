@@ -354,7 +354,6 @@ const SchedulePosts = () => {
                     location: postLocation,
                     businessState: publishState,
                     dateTime: dbDateString,
-                    account_id: account.account_id,
                     categories: categories,
                   } as CreateNewBusinessPost;
 

@@ -14,21 +14,18 @@ export async function CreateBusinessPost(req: Request, res: Response) {
     return res.status(400).json(formatErrors(errors));
   }
 
+  // Gets the account ID from the request body
+  const { account } = req;
+  if (account === undefined) return res.status(500);
+
   const postQuery =
     "INSERT INTO `posts` (`account_id`, `location_name`, `location_lat`, `location_long`, `caption`, `businessState`, `businessScheduleTime`, `created_at`, `updated_at`, `categories`) VALUES ( ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)";
   const imageQuery = `INSERT INTO post_images (post_id, image_url) VALUES (?, ?)`;
 
   const { ENVIRONMENT } = process.env;
   // Get the data from the request body
-  const {
-    picture,
-    caption,
-    location,
-    businessState,
-    dateTime,
-    account_id,
-    categories,
-  } = req.body;
+  const { picture, caption, location, businessState, dateTime, categories } =
+    req.body;
 
   // uuidv4() generates a random string for the blob name
   const pictureName = uuidv4();
@@ -46,7 +43,7 @@ export async function CreateBusinessPost(req: Request, res: Response) {
 
     // Create the post in the database
     let post = (await Query(postQuery, [
-      account_id ? account_id : 1,
+      account.account_id,
       location,
       lognitude,
       latitude,
@@ -71,16 +68,37 @@ export async function CreateBusinessPost(req: Request, res: Response) {
 }
 
 export async function UpdateBusinessPost(req: Request, res: Response) {
-  // Validates request checking that the request body follows correct validation rules
+  // Validates body of request to make sure it is following validation rules
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json(formatErrors(errors));
   }
 
-  const updateBusinessPostQuery =
-    "UPDATE `posts` SET `caption` = ?, `location_name` = ?, `updated_at` = NOW(), `businessState` = ?, `businessScheduleTime` = ?, `categories` = ? WHERE `post_id` = ?";
-  const updateBusinessPostQueryNoDateTime =
-    "UPDATE `posts` SET `caption` = ?, `location_name` = ?, `updated_at` = NOW(), `businessState` = ?, `categories` = ? WHERE `post_id` = ?";
+  // Gets the account ID from the request body
+  const { account } = req;
+  if (account === undefined) return res.status(500);
+
+  const updateBusinessPostQuery = `UPDATE posts SET 
+    caption = ?,
+    location_name = ?,
+    updated_at = NOW(),
+    businessState = ?,
+    businessScheduleTime = ?,
+    categories = ? 
+    FROM posts P
+    LEFT JOIN accounts A ON P.account_id = A.account_id
+    WHERE A.account_id = ? AND P.post_id = ?
+    `;
+  const updateBusinessPostQueryNoDateTime = `UPDATE posts SET 
+  caption = ?,
+  location_name = ?,
+  updated_at = NOW(),
+  businessState = ?,
+  categories = ? 
+  FROM posts P
+  LEFT JOIN accounts A ON P.account_id = A.account_id
+  WHERE A.account_id = ? AND P.post_id = ?
+  `;
 
   const post_id = req.params.post_id;
 
@@ -96,6 +114,7 @@ export async function UpdateBusinessPost(req: Request, res: Response) {
     // If it's a scheduled post we need to update the date time
     if (dateTime) {
       await Query(updateBusinessPostQuery, [
+        account.account_id,
         caption,
         location,
         businessState,
@@ -106,6 +125,7 @@ export async function UpdateBusinessPost(req: Request, res: Response) {
       // If it's not a scheduled post we don't need to update the date time
     } else {
       await Query(updateBusinessPostQueryNoDateTime, [
+        account.account_id,
         caption,
         location,
         businessState,
