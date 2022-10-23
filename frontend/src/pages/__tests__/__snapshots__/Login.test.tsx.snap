@@ -18,7 +18,7 @@ exports[`The Login page renders correctly 1`] = `
     className="flex flex-col justify-center flex-auto w-14"
   >
     <div
-      className="py-12 px-8 bg-white border undefined"
+      className="pt-12 pb-6 px-8 bg-white border undefined"
     >
       <img
         alt="Foodstaram Logo"
@@ -59,22 +59,20 @@ exports[`The Login page renders correctly 1`] = `
           Log In
         </button>
       </form>
-    </div>
-    <div
-      className="mt-2 py-4 px-8 bg-white border undefined"
-    >
       <p
-        className="text-sm text-center"
+        className="text-sm text-center pt-3"
       >
-        Forgot your password?
-         
         <a
           className="text-insta-green"
           href="/passwordreset"
         >
-          Reset
+          Forgot password?
         </a>
       </p>
+    </div>
+    <div
+      className="mt-2 py-4 px-8 bg-white border undefined"
+    >
       <p
         className="text-sm text-center"
       >
