@@ -154,7 +154,7 @@ const SchedulePosts = () => {
                 className="text-black font-semibold py-1 px-2 rounded-sm mr-2 opacity-50 hover:opacity-100 bg-slate-200"
                 onClick={() => setPreviewImage("")}
               >
-                Delete Post
+                Delete Photo
               </button>
             </div>
           </div>
@@ -354,7 +354,6 @@ const SchedulePosts = () => {
                     location: postLocation,
                     businessState: publishState,
                     dateTime: dbDateString,
-                    account_id: account.account_id,
                     categories: categories,
                   } as CreateNewBusinessPost;
 
