@@ -17,7 +17,7 @@ async function HasLiked(req: Request, res: Response) {
 			{message: "Please login."}
 		)
 	}
-	const like_row = (await Query(checkLikeQuery, [account?.account_id.toString(), post_to_like.toString()])) as Account[]
+	const like_row = (await Query(checkLikeQuery, [account?.account_id.toString(), post_to_like.toString()])) as Post[]
 	try {
 		if (like_row.length < 1) {
 			return res.status(200).json(
