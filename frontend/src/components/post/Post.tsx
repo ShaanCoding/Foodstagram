@@ -4,6 +4,7 @@ import { UseDeletePostMutation } from '../../api/UsePostMutation'
 import useAuth from '../../api/util/useAuth'
 import edit from '../../images/edit-button.png'
 import like from '../../images/like.png' // use this for like button (or find a new icon, then find the same icon filled in, so when you click like it becomes solid)
+import location from '../../images/location.png'
 import trash from '../../images/trash.png'
 import styles from '../../styles/Feed.module.css'
 import Carousel from '../common/Carousel'
@@ -56,23 +57,27 @@ export const Post = (props: Props) => {
 			<div className="m-12 w-4/5 h-full ml-auto mr-auto flex max-w-[550px]">
 				<div className={`flex-auto w-14`}>
 					<div className={`py-7 px-8 bg-white border ${styles.greyBorder}`}>
-						<div className="flex flex-row gap-2">
+						<div className="flex items-center mb-4 gap-3">
 							<img
 								alt="avatar"
-								className="w-8 h-8 rounded-full border-2 border-gray-700 inline-block align-middle mb-4 object-cover"
+								className="w-8 h-8 rounded-full border-2 border-gray-700 inline-block align-middle object-cover"
 								src={post.profile_picture_url}
 							/>
 							<a
 								href={`/profile/${post.username}`}
-								className="font-medium text-md text-black-500 text-left inline-block align-middle mb-4"
+								className="font-medium text-md text-black-500 text-left inline-block align-middle"
 							>
 								{post.username}
 							</a>
-							in {post.location_name}
 							<span className="grow" />
-							{post.updated_at !== null && (
-								<time className="">{moment(post.created_at).fromNow()}</time>
+							<span>
+								{post.created_at !== null && (
+								<time className="text-sm">{moment(post.created_at).fromNow()}</time>
 							)}
+							{post.updated_at !== post.created_at && (
+								<time className="italic text-xs text-gray-600 pl-1">(edited {moment(post.updated_at).fromNow()})</time>
+							)}
+							</span>
 							{post.account_id === account.account_id && (
 								<ContextMenu>
 									<button
@@ -94,18 +99,20 @@ export const Post = (props: Props) => {
 						</div>
 
 						<Carousel pictures={post.image_url} />
-						<br />
-
-						<span className="flex items-center mb-4">
+						<br/>
+						<span className="flex items-center mb-4 h-5">
 							<button
 							// onClick={likePost}
 							>
-								<img alt="Like" className="h-5 inline-block pr-2" src={like} />
+								<img alt="Like" className="h-6 inline-block pr-2" src={like} />
 							</button>
 
 							<span className="">{post.post_likes} likes</span>
+							<span className="grow"/>
+							<img alt="Location" className="h-7 inline-block pr-1" src={location} />
+								<a className="flex text-sm">in {post.location_name}</a>
 						</span>
-
+						
 						<div>
 							{comments.map((comment, index) => (
 								<Fragment key={index}>

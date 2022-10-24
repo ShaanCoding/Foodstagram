@@ -28,6 +28,7 @@ export async function Comment(req: Request, res: Response) {
 		await Query(commentQuery, [account?.account_id.toString(), post_to_comment.toString(), ])
 		return res.status(200).json(
 			{message: "Comment posted."} 
+		)
 	}
 	catch {
 		return res.status(500).json(
@@ -48,12 +49,12 @@ export function DeleteComment(req: Request, res: Response) {
 	.then(() => Query(getUserIdQuery, [req.params.post_id]))
 	.then(res => res as { account_id: number }[])
 	.then(([{ account_id }]) => {
-		if(req.account?.account_id && account_id !== req.account?.account_id) throw new Error('You are not authorized to delete this post');
+		if(req.account?.account_id && account_id !== req.account?.account_id) throw new Error('You are not authorized to delete this comment');
 	})
 	.then(() => Query(deleteCommentQuery, [req.params.post_id]))
-	.then(() => res.status(204).json({ message: 'Succesfully deleted post!' }))
+	.then(() => res.status(204).json({ message: 'Succesfully deleted comment!' }))
 	.catch(error => {
 		console.error(error);
-		res.status(500).json({ message: 'Failed to delete post' })
+		res.status(500).json({ message: 'Failed to delete comment' })
 	});
 }

@@ -30,6 +30,8 @@ import { GetCategories } from './categories'
 import { PasswordReset } from './passwordReset'
 import { GetPost } from './getPost'
 import { ValidateEmail } from './validateEmail'
+import { Like } from './like'
+import { Comment } from './comment'
 
 const router = Router()
 
@@ -164,5 +166,10 @@ router.get(
 router.get('/categories', AuthenticateUser, GetCategories)
 
 // End of business posts
+
+router.post('/like', body('post_to_like'), AuthenticateUser, Like)
+
+router.post('/comment', body('post_to_comment'), AuthenticateUser, Comment)
+
 
 export default router
