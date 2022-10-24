@@ -10,7 +10,6 @@ const SearchBar = () => {
 	const [account, isLoading] = useAuth()
 	const [searchString, setSearchString] = useState("")
 	const [placeholder, setPlaceholder] = useState('Enter Username')
-	// const [searchResult, setSearchResult] = useState([])
 	const searchUserMutation = UseSearchUserMutation()
 	const searchPostMutation = UseSearchPostMutation()
 	const [selectResult, setSelectResult] = useState(false)
@@ -41,12 +40,12 @@ const SearchBar = () => {
   useEffect(() => {
     if (placeholder === 'Enter Username') {
 			searchUserMutation.mutate({
-				searchStr: searchString,
+				searchStr: searchString
 			})
 		}
 		if (placeholder === 'Enter Location') {
 			searchPostMutation.mutate({
-				searchStr: searchString,
+				searchStr: searchString
 			})
 		}
   }, [searchString])

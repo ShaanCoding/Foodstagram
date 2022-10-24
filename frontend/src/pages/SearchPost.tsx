@@ -2,7 +2,6 @@
 import { useParams } from 'react-router-dom'
 import useAuth from '../api/util/useAuth'
 import UseFeedQuery from '../api/UseFeedQuery'
-import UseSearchPostResultsMutation from '../api/UseSearchResultPostMutation'
 import { Post } from '../components/post/Post'
 import { useEffect, useState } from 'react'
 import Spinner from '../components/common/Spinner'
@@ -32,11 +31,11 @@ const SearchPost = () => {
       finalResult.push(item.item)
     })
   }
-  console.log(finalResult)
 
   return (
     <>
-    <h1 className='text-justify text-2xl px-48'>Search results for '{searchStr}'</h1>
+      <h1 className='text-justify text-2xl px-48'>Search results for '{searchStr}'</h1>
+      
       <div> 
         {//no results
           result === undefined || result.length == 0 && finalResult.length == 0 && (
@@ -54,6 +53,7 @@ const SearchPost = () => {
             )
           })
         }
+
       </div>     
     </>
   )
