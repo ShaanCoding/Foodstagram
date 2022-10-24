@@ -55,14 +55,22 @@ const SearchBar = () => {
 		setSelectResult(false)
 	}, [selectResult])
 
-  let searchResults = []
+  let searchResults, locationResults
+
+  //remove duplilcates
+  const filterLocationResults = () => {
+
+  }
 
   if (placeholder === 'Enter Username') {
     searchResults = searchUserMutation.data?.data.data
   }
   else {
     searchResults = searchPostMutation.data?.data.data
+    locationResults = [...new Set(searchResults?.map((item:any) => item.item.location_name))]
   }
+
+  console.log(locationResults)
 
 
   return (
@@ -118,18 +126,18 @@ const SearchBar = () => {
             }
 
             {//search posts
-              placeholder === 'Enter Location' && searchResults !== undefined && searchResults.length > 0 && searchString.length > 0 && searchDropdown &&
-              searchResults.map((element: { item: Post }) => {
+              placeholder === 'Enter Location' && locationResults !== undefined && locationResults.length > 0 && searchString.length > 0 && searchDropdown &&
+              locationResults.map((location:any) => {
                 return (
                   <ul className="bg-white border border-gray-100 w-full hover:bg-grey-100 align-middle">
                     <li className='bg-white pl-8 pr-2 py-1 border-b-2 border-gray-100 relative cursor-pointer hover:bg-grey-100 hover:text-gray-900'>
-                      <div key={element.item.location_name}>
+                      <div key={location}>
                         <Link
                           onClick={(e) => { setSelectResult(true) }}
                           className='flex-row flex py-2'
-                          to={`/search/post/${element.item.location_name}`}
+                          to={`/search/post/${location}`}
                         >
-                          <p className='px-3'>{element.item.location_name}</p>
+                          <p className='px-3'>{location}</p>
                         </Link>
                       </div> 
                     </li>

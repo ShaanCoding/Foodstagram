@@ -22,7 +22,6 @@ const SearchUser = () => {
   }, [searchStr])
 
   let users = searchUserMutation.data?.data.data
-  console.log(users)
 
   return (
     <>
