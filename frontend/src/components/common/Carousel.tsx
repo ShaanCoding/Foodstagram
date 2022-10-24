@@ -37,13 +37,13 @@ const Carousel = ({ pictures }: CarouselProps) => {
 					className={classnames(buttonCSS, 'left-2')}
 				/>
 			)}
-			<div className="flex snap-x snap-mandatory h-80" ref={container}>
+			<div className="flex snap-x snap-mandatory h-80 w-full" ref={container}>
 				{pictures.map((picture, i) => (
 					<img
 						src={picture}
 						key={i}
 						alt={`Picture # ${i}`}
-						width={i === index ? 'auto' : '0px'}
+						width={i === index ? '100%' : '0px'}
 						className="h-full object-cover"
 						loading="lazy"
 					/>

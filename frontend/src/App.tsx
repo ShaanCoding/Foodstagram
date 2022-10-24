@@ -23,6 +23,8 @@ import SearchUser from './pages/SearchUser'
 import Test from './pages/Test'
 import PasswordReset from './pages/PasswordReset'
 import TwoFA from './pages/TwoFA'
+import SinglePost from './pages/SinglePost'
+import EmailConfirm from './pages/EmailConfirm'
 
 const queryClient = new QueryClient()
 
@@ -40,7 +42,9 @@ function App() {
 						<Route path="/test" element={<Test />} />
 						<Route path="/search/user/:searchStr" element={<SearchUser />} />
 						<Route path="/search/post/:searchStr" element={<SearchPost />} />
+						<Route path="/feed/:postID" element={<SinglePost />} />
 						<Route path="/feed" element={<Feed />} />
+						<Route path="/email/confirm" element={<EmailConfirm />} />
 						<Route path="/profile/:username" element={<Profile />} />
 						<Route path="/editprofile" element={<EditProfile />} />
 						<Route path="/manageposts" element={<ManagePosts />} />
