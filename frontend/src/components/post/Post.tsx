@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react'
-
+import { useQueryClient } from 'react-query'
 import { UseDeletePostMutation } from '../../api/UsePostMutation'
 import useAuth from '../../api/util/useAuth'
 import edit from '../../images/edit-button.png'
@@ -11,6 +11,7 @@ import Carousel from '../common/Carousel'
 import { ContextMenu } from '../common/ContextMenu'
 import CreatePostModal from '../common/CreatePostModal'
 import moment from 'moment'
+import { UseLikeMutation } from '.../api/UseLikeMutation'
 
 interface Props {
 	post: Post
@@ -19,11 +20,12 @@ interface Props {
 export const Post = (props: Props) => {
 	const [account, _] = useAuth()
 	const { post } = props
+	const queryClient = useQueryClient()
 
 	// TODO: fetch comments
 	const comments: [string, string][] = [
 		[post.username, post.caption],
-		['skyemcalpine', 'Making strawberry and vodka jam 🍓'],
+		['skyemcalpine', 'This is cool.'],
 		['kanyewest', 'Wow!!!'],
 		['zuck', 'Delicious.. I have to try this!'],
 	]
@@ -43,6 +45,10 @@ export const Post = (props: Props) => {
 	const [editPostModalOpen, setEditPostModalOpen] = useState(false)
 	const openEditPostModalOpen = () => setEditPostModalOpen(true)
 	const closeEditPostModalOpen = () => setEditPostModalOpen(false)
+	// const hasLikedQuery = UseHasLikedQuery(
+	// 	profileQuery.data?.data.data.account_id
+	// )
+	const likeMutation = UseLikeMutation(queryClient)
 
 	return (
 		<>
@@ -102,7 +108,16 @@ export const Post = (props: Props) => {
 						<br/>
 						<span className="flex items-center mb-4 h-5">
 							<button
-							// onClick={likePost}
+							onClick={() => {
+								// likeMutation.mutate(
+								// 	profileQuery.data?.data.data.account_id
+								// )
+							}}
+							// className={`${
+							// 	hasLikedQuery.data?.data.hasLiked
+							// 		? 'bg-white'
+							// 		: 'bg-insta-green text-white'
+							// } hello` }
 							>
 								<img alt="Like" className="h-6 inline-block pr-2" src={like} />
 							</button>

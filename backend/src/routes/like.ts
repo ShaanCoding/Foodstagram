@@ -29,7 +29,7 @@ async function Like(req: Request, res: Response) {
 	}
 	const account = req.account
 	const {post_to_like} = req.body
-	const like_row = (await Query(checkLikeQuery, [account?.account_id.toString(), post_to_like.toString()])) as Account[]
+	const like_row = (await Query(checkLikeQuery, [account?.account_id.toString(), post_to_like.toString()])) as Post[]
 	try {
 		if (like_row.length < 1) {
 			await Query(likeQuery, [account?.account_id.toString(), post_to_like.toString()])
