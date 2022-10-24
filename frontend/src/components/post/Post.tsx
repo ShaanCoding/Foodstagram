@@ -118,17 +118,19 @@ export const Post = (props: Props) => {
 						<span className="flex items-center mb-4 h-5">
 						{/*  */}
 						<img
+						className="h-5 mr-2"
 						alt="Like button"
 							onClick={() => {
 								likeMutation.mutate(
 									postQuery.data?.data.data.post_id
 								)
 							}}
-							src={`${
-								hasLikedQuery.data?.data.isFollowing
-									? {like}
-									: {liked}
-							} my-2 py-2 font-semibold text-sm border border-gray-400 rounded`}
+							// src={`${
+							// 	hasLikedQuery.data?.data.hasLiked
+							// 		? {like}
+							// 		: {liked}
+							// }`}
+							src={like}
 						>
 									</img>
 							{/*  */}
