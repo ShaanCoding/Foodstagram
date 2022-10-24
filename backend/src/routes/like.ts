@@ -43,9 +43,9 @@ async function Like(req: Request, res: Response) {
 			)
 		}
 	}
-	catch {
+	catch(e) {
 		return res.status(500).json(
-			{message: "Error occurred."} 
+			{message: e} 
 		)
 	}
 }
