@@ -15,3 +15,4 @@ Brandon - Feed Page, Following & Blocking
 Javriel - Profile & Edit Profile Page
 Alwin - Create & Delete Posts
 Shaan - Managing Posts
+Trong Dat - Search Users and Posts/Locations
