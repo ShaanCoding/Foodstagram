@@ -7,10 +7,10 @@ interface MutationVariables {
   account_id: number
 }
 
-export default function UseSearchFollowerMutation() {
-	return useMutation(['search_follower'], (variables: MutationVariables) =>
+export default function UseSearchFollowingMutation() {
+	return useMutation(['search_following'], (variables: MutationVariables) =>
 		axios
-			.post(`${GetEndpoint('api')}/api/search_follower`, {
+			.post(`${GetEndpoint('api')}/api/search_following`, {
 				searchStr: variables.searchStr,
         account_id: variables.account_id
 			})

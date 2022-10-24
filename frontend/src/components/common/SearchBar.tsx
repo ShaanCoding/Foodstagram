@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import UseSearchPostMutation from '../../api/UseSearchPostMutation'
 import UseSearchUserMutation from '../../api/UseSearchUserMutation'
-import UseSearchFollowerMutation from '../../api/UseSearchFollowerMutation'
+import UseSearchFollowingMutation from '../../api/UseSearchFollowingMutation'
 import useAuth from '../../api/util/useAuth'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -14,7 +14,7 @@ const SearchBar = () => {
   const [showAllFollowers, setShowAllFollowers] = useState(false)
 	const searchUserMutation = UseSearchUserMutation()
 	const searchPostMutation = UseSearchPostMutation()
-  const searchFollowerMutation = UseSearchFollowerMutation()
+  const searchFollowerMutation = UseSearchFollowingMutation()
 	const [selectResult, setSelectResult] = useState(false)
   const [searchDropdown, setSearchDropdown] = useState(false)
 	const navigate = useNavigate()
@@ -27,7 +27,7 @@ const SearchBar = () => {
 			setPlaceholder('Enter Location')
 			setSearchString('')
 		} else {
-      setPlaceholder('Enter Following User (search ".." to show all)')
+      setPlaceholder('Enter Following User (search "_all" to show all)')
       setSearchString('')
     }
 	}
@@ -39,8 +39,8 @@ const SearchBar = () => {
         navigate('/search/user/' + searchString)
       if (placeholder === 'Enter Location')
         navigate('/search/post/' + searchString)
-      if (placeholder === 'Enter Following User (search ".." to show all)')
-        navigate('/search/follower/' + searchString)
+      if (placeholder === 'Enter Following User (search "_all" to show all)')
+        navigate('/search/following/' + searchString)
     }
     setSearchString("")
   }
@@ -56,7 +56,7 @@ const SearchBar = () => {
 				searchStr: searchString
 			})
 		}
-    if (placeholder === 'Enter Following User (search ".." to show all)') {
+    if (placeholder === 'Enter Following User (search "_all" to show all)') {
       searchFollowerMutation.mutate({
         searchStr: searchString,
         account_id: account.account_id
@@ -85,9 +85,9 @@ const SearchBar = () => {
     searchResults = searchPostMutation.data?.data.data
     locationResults = [...new Set(searchResults?.map((item:any) => item.item.location_name))]
   }
-  if (placeholder === 'Enter Following User (search ".." to show all)') {
+  if (placeholder === 'Enter Following User (search "_all" to show all)') {
     searchResults = searchFollowerMutation.data?.data.data
-    if (searchString !== ".." && !showAllFollowers)
+    if (searchString !== "_all" && !showAllFollowers)
       searchResults = [...new Set(searchResults?.map((item:any) => item.item))]
   }
   
@@ -109,7 +109,7 @@ const SearchBar = () => {
           value={searchString}
           onChange={(e) => {
             setSearchString(e.target.value)
-            if (searchString === "..")
+            if (searchString === "_all")
               setShowAllFollowers(true)
             else
               setShowAllFollowers(false)
@@ -175,7 +175,7 @@ const SearchBar = () => {
             }
 
             {//search  following
-              placeholder === 'Enter Following User (search ".." to show all)' && searchResults !== undefined && searchResults.length > 0 && searchString.length > 0 && searchDropdown && 
+              placeholder === 'Enter Following User (search "_all" to show all)' && searchResults !== undefined && searchResults.length > 0 && searchString.length > 0 && searchDropdown && 
               searchResults.map((element:any) => {
                 return (
                   <ul className="bg-white border border-gray-100 w-full align-middle">

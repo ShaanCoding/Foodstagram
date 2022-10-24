@@ -20,6 +20,7 @@ import Profile from './pages/Profile'
 import Register from './pages/Register'
 import SearchPost from './pages/SearchPost'
 import SearchUser from './pages/SearchUser'
+import SearchFollowing from './pages/SearchFollowing'
 import Test from './pages/Test'
 import PasswordReset from './pages/PasswordReset'
 import TwoFA from './pages/TwoFA'
@@ -42,6 +43,7 @@ function App() {
 						<Route path="/test" element={<Test />} />
 						<Route path="/search/user/:searchStr" element={<SearchUser />} />
 						<Route path="/search/post/:searchStr" element={<SearchPost />} />
+						<Route path="/search/following/:searchStr" element={<SearchFollowing />} />
 						<Route path="/feed/:postID" element={<SinglePost />} />
 						<Route path="/feed" element={<Feed />} />
 						<Route path="/email/confirm" element={<EmailConfirm />} />

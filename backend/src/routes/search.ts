@@ -92,7 +92,7 @@ interface Follower {
 }
 
 //search suggestion - follower
-async function SearchFollowers (req: Request, res: Response) {
+async function SearchFollowings (req: Request, res: Response) {
 	const errors = validationResult(req)
 	if (!errors.isEmpty()) {
 		return res.status(400).json(formatErrors(errors))
@@ -120,7 +120,7 @@ async function SearchFollowers (req: Request, res: Response) {
 		})
 		let result
 
-		if (searchStr === "..")
+		if (searchStr === "_all")
 			result = followers
 		else
 			result = fuse.search(searchStr)
@@ -145,4 +145,4 @@ async function SearchFollowers (req: Request, res: Response) {
 }
 
 
-export { SearchUsers, SearchPosts, SearchFollowers }
+export { SearchUsers, SearchPosts, SearchFollowings }
