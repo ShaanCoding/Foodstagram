@@ -9,6 +9,7 @@ import styles from '../../styles/Feed.module.css'
 import Carousel from '../common/Carousel'
 import { ContextMenu } from '../common/ContextMenu'
 import CreatePostModal from '../common/CreatePostModal'
+import moment from 'moment'
 
 interface Props {
 	post: Post
@@ -68,26 +69,24 @@ export const Post = (props: Props) => {
 								{post.username}
 							</a>
 							in {post.location_name}
-
-							{post.updated_at !== null && (
-								<time className="pl-20">{post.created_at}</time>
-							)}
-							
 							<span className="grow" />
+							{post.updated_at !== null && (
+								<time className="">{moment(post.created_at).fromNow()}</time>
+							)}
 							{post.account_id === account.account_id && (
 								<ContextMenu>
 									<button
 										onClick={openEditPostModalOpen}
-										className="inline-flex flex-row w-fit p-2"
+										className="inline-flex flex-row w-full p-2 items-center hover:bg-slate-100"
 									>
-										<img src={edit} className="pl-2 h-5 inline-block pr-5" />
+										<img src={edit} className="h-5 inline-block pr-2" />
 										<span>Edit</span>
 									</button>
 									<button
 										onClick={deletePost}
-										className="inline-flex flex-row w-fit p-2"
+										className="inline-flex flex-row w-fit p-2 items-center hover:bg-slate-100"
 									>
-										<img src={trash} className="pl-2 h-5 inline-block pr-5" />
+										<img src={trash} className="h-5 inline-block pr-2" />
 										<span>Delete</span>
 									</button>
 								</ContextMenu>
@@ -97,16 +96,13 @@ export const Post = (props: Props) => {
 						<Carousel pictures={post.image_url} />
 						<br />
 
-						<span className="flex items-center mb-2">
-							<button 
+						<span className="flex items-center mb-4">
+							<button
 							// onClick={likePost}
 							>
-								<img
-								alt="Like"
-								className="h-5 inline-block pr-2"
-								src={like}
-							/></button>
-							
+								<img alt="Like" className="h-5 inline-block pr-2" src={like} />
+							</button>
+
 							<span className="">{post.post_likes} likes</span>
 						</span>
 

@@ -48,6 +48,15 @@ exports[`The Login page renders correctly 1`] = `
           type="password"
           value=""
         />
+        <input
+          autoComplete="foostagram-otp"
+          className="p-2 w-full rounded-sm mb-2 border hover:border-gray-500 focus-visible:border text-xs bg-white undefined"
+          name="otp"
+          onChange={[Function]}
+          placeholder="2FA Token"
+          type="hidden"
+          value=""
+        />
         <div
           className="mb-6"
         />

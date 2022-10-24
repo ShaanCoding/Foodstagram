@@ -3,7 +3,7 @@ import { useMutation } from 'react-query'
 import GetEndpoint from './util/GetEndpoint'
 
 interface MutationVariables {
-	searchStr: string
+	searchStr: string | undefined
 }
 
 export default function UseSearchResultPostMutation() {

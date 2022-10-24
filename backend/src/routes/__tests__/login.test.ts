@@ -1,5 +1,5 @@
 import express from 'express'
-import request  from 'supertest'
+import request from 'supertest'
 
 import Router from '../main'
 
@@ -26,9 +26,11 @@ describe('The Login Route Handler', function () {
 			.post('/login')
 			.send({ email: 'testUnverified@uts.com', password: 'testPassword' })
 			.set('Accept', 'application/json')
-		expect(res.statusCode).toBe(401)
+		expect(res.statusCode).toBe(200)
 		expect(JSON.parse(res.text)).toHaveProperty('message')
-		expect(JSON.parse(res.text).message).toBe('Invalid login credentials!')
+		expect(JSON.parse(res.text).message).toBe(
+			'Account is awaiting email verification!'
+		)
 	})
 
 	test('Fails with a non existent account', async () => {
@@ -38,7 +40,9 @@ describe('The Login Route Handler', function () {
 			.set('Accept', 'application/json')
 		expect(res.statusCode).toBe(401)
 		expect(JSON.parse(res.text)).toHaveProperty('message')
-		expect(JSON.parse(res.text).message).toBe('Invalid login credentials!')
+		expect(JSON.parse(res.text).message).toBe(
+			'Invalid credentials, please try again'
+		)
 	})
 
 	test('Fails with empty details', async () => {
