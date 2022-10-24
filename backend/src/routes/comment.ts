@@ -28,6 +28,7 @@ export async function Comment(req: Request, res: Response) {
 		await Query(commentQuery, [account?.account_id.toString(), post_to_comment.toString(), ])
 		return res.status(200).json(
 			{message: "Comment posted."} 
+		)
 	}
 	catch {
 		return res.status(500).json(
