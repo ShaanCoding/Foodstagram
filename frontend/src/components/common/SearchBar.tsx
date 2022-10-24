@@ -64,7 +64,6 @@ const SearchBar = () => {
     }
   }, [searchString])
 
-  console.log(account.account_id)
 
 	useEffect(() => {
 		setSearchString('')
@@ -92,7 +91,6 @@ const SearchBar = () => {
   }
   
 
-  console.log(showResults)
 
   return (
     <>
