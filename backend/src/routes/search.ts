@@ -118,8 +118,13 @@ async function SearchFollowers (req: Request, res: Response) {
 			minMatchCharLength: -1, 
 			threshold: 0.5
 		})
+		let result
 
-		const result: any[] = fuse.search(searchStr)
+		if (searchStr === "..")
+			result = followers
+		else
+			result = fuse.search(searchStr)
+		
 		if (result.length > 0) {
 			return res.status(200).json({
 				message: 'Followers matches found!',
