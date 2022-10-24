@@ -9,7 +9,7 @@ export function UseLikeMutation(queryClient:QueryClient) {
 		(account_id:string) => axios.post(`${GetEndpoint('api')}/like`, {post_to_like:account_id}),
 		{ retry: false, onSuccess:(data, account_id) => {
 			queryClient.invalidateQueries(["hasLiked", account_id])
-			// queryClient.invalidateQueries(['likeCount', account_id])
+			queryClient.invalidateQueries(['likeCount', account_id])
 		} },
 		
 	)

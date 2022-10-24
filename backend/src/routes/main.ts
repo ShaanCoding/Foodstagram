@@ -165,11 +165,11 @@ router.get(
 
 router.get('/categories', AuthenticateUser, GetCategories)
 
+// End of business posts
+
 router.post('/like', body('post_to_like'), AuthenticateUser, Like)
 
 router.post('/comment', body('post_to_comment'), AuthenticateUser, Comment)
 
-
-// End of business posts
 
 export default router
