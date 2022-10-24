@@ -68,7 +68,6 @@ export const Post = (props: Props) => {
 							>
 								{post.username}
 							</a>
-							in {post.location_name}
 							<span className="grow" />
 							<span>
 								{post.created_at !== null && (
@@ -78,10 +77,6 @@ export const Post = (props: Props) => {
 								<time className="italic text-xs text-gray-600 pl-1">(edited {moment(post.updated_at).fromNow()})</time>
 							)}
 							</span>
-							
-							
-							
-
 							{post.account_id === account.account_id && (
 								<ContextMenu>
 									<button
@@ -103,19 +98,23 @@ export const Post = (props: Props) => {
 						</div>
 
 						<Carousel pictures={post.image_url} />
-						<br />
-
-						<span className="flex items-center mb-4">
+						<br/>
+						<span className="flex items-center mb-4 h-5">
 							<button
 							// onClick={likePost}
 							>
-								<img alt="Like" className="h-5 inline-block pr-2" src={like} />
+								<img alt="Like" className="h-6 inline-block pr-2" src={like} />
 							</button>
 
 							<span className="">{post.post_likes} likes</span>
+							<span className="grow"/>
+							<a className="flex text-sm">
+							in {post.location_name}
+							</a>
 						</span>
-
 						<div>
+							
+						
 							{comments.map((comment, index) => (
 								<Fragment key={index}>
 									<p className="text-sm text-black-500 font-medium text-left inline-block align-middle mb-4 mr-2">
