@@ -167,7 +167,7 @@ router.get('/categories', AuthenticateUser, GetCategories)
 
 router.post('/like', body('post_to_like'), AuthenticateUser, Like)
 
-router.post('/comment', body('post_to_comment'), AuthenticateUser, Like)
+router.post('/comment', body('post_to_comment'), AuthenticateUser, Comment)
 
 
 // End of business posts
