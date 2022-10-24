@@ -1,33 +1,58 @@
 // import styles from "../styles/Search.module.css";
 import { useParams } from 'react-router-dom'
 import useAuth from '../api/util/useAuth'
+import UseFeedQuery from '../api/UseFeedQuery'
 import UseSearchPostResultsMutation from '../api/UseSearchResultPostMutation'
+import { Post } from '../components/post/Post'
 import { useEffect, useState } from 'react'
+import Spinner from '../components/common/Spinner'
+import Fuse from 'fuse.js'
 
 
 const SearchPost = () => {
   const [account, isLoading] = useAuth()
   const { searchStr } = useParams();
   const searchPostResultMutation = UseSearchPostResultsMutation()
+	const feedQuery = UseFeedQuery()
+  const feeds = feedQuery.data?.data.posts
+  let result: any = []
+  let finalResult: any = []
 
   useEffect(() => {
-    searchPostResultMutation.mutate({
-      searchStr: searchStr
-    })
+    if (feeds !== undefined && feeds.length > 0 && searchStr !== undefined) {
+      const fuse = new Fuse(feeds, {
+        shouldSort: true,
+        threshold: 0.5,
+        keys: ["location_name"]
+      })
+      result = fuse.search(searchStr)
+      if (result.length) {
+        result.forEach((item: any) => {
+          finalResult.push(item.item)
+        })
+      }
+    }
+    console.log(result)
   }, [searchStr])
-
-  let posts = searchPostResultMutation.data?.data.data
-  console.log(searchStr)
+  
 
   return (
     <>
     <h1 className='text-justify text-2xl px-48'>Search results for '{searchStr}'</h1>
-      <div className='w-full lg:w-1/2 flex justify-end items-center relative'>       
+      <div> 
+        {//no results
+          result === undefined || result.length == 0 && finalResult.length == 0 && (
+            <h1 className='mx-auto block w-2/3 text-center mt-[200px] mb-[200px] text-xl text'>
+              No results
+            </h1>
+          )
+        }
+        
         {//posts results
-          posts !== undefined && posts.length > 0 &&
-          posts.map((element: {item: Post}) => {
+        finalResult !== undefined && finalResult.length > 0 &&
+          finalResult.map((post:Post, index:number) => {
             return (
-              <h1 key={element.item.post_id}>{posts.length}</h1>
+              <Post key={index} post={post} />
             )
           })
         }

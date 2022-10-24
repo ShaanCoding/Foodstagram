@@ -15,7 +15,7 @@ import { IsFollowing } from './isfollowing'
 import { Login } from './login'
 import { Me } from './me'
 import { Enable2FA, GenerateSecret, Has2FA } from './secret'
-import { SearchUsers, SearchPosts, SearchPostResults } from './search'
+import { SearchUsers, SearchPosts} from './search'
 import { PostCount } from './postCount'
 import { ProfilePosts } from './profilePosts'
 import { ProfilePic } from './profilePic'
@@ -123,7 +123,6 @@ router.post('/login', body('email').isEmail(), body('password'), Login)
 //search routes
 router.post('/api/search_user', body('searchStr'), SearchUsers)
 router.post('/api/search_post', body('searchStr'), SearchPosts)
-router.post('/api/search_post_results', body('searchStr'), SearchPostResults)
 //end search routes
 
 router.get('/feed', AuthenticateUser, GetPosts)

@@ -35,6 +35,7 @@ const SearchBar = () => {
       if (placeholder === 'Enter Location')
         navigate('/search/post/' + searchString)
     }
+    setSearchString("")
   }
 
   useEffect(() => {
@@ -55,13 +56,13 @@ const SearchBar = () => {
 		setSelectResult(false)
 	}, [selectResult])
 
-  let searchResult = []
+  let searchResults = []
 
   if (placeholder === 'Enter Username') {
-    searchResult = searchUserMutation.data?.data.data
+    searchResults = searchUserMutation.data?.data.data
   }
   else {
-    searchResult = searchPostMutation.data?.data.data
+    searchResults = searchPostMutation.data?.data.data
   }
 
 
@@ -91,8 +92,8 @@ const SearchBar = () => {
         <div className='absolute top-10 left-1 w-full'>
           <div className='flex-col justify-center relative z-50 hover:bg-grey-100 h-auto w-full'>
             {//search usernames
-              placeholder === 'Enter Username' && searchResult !== undefined && searchResult.length > 0 && searchString.length > 0 && searchDropdown &&
-              searchResult.map((element: { item: Account }) => {
+              placeholder === 'Enter Username' && searchResults !== undefined && searchResults.length > 0 && searchString.length > 0 && searchDropdown &&
+              searchResults.map((element: { item: Account }) => {
                 return (
                   <ul className="bg-white border border-gray-100 w-full align-middle">
                     <li className='bg-white pl-8 pr-2 py-1 border-b-2 border-gray-100 relative cursor-pointer hover:bg-grey-100 hover:text-gray-900'>
@@ -118,8 +119,8 @@ const SearchBar = () => {
             }
 
             {//search posts
-              placeholder === 'Enter Location' && searchResult !== undefined && searchResult.length > 0 && searchString.length > 0 && searchDropdown &&
-              searchResult.map((element: { item: Post }) => {
+              placeholder === 'Enter Location' && searchResults !== undefined && searchResults.length > 0 && searchString.length > 0 && searchDropdown &&
+              searchResults.map((element: { item: Post }) => {
                 return (
                   <ul className="bg-white border border-gray-100 w-full hover:bg-grey-100 align-middle">
                     <li className='bg-white pl-8 pr-2 py-1 border-b-2 border-gray-100 relative cursor-pointer hover:bg-grey-100 hover:text-gray-900'>
