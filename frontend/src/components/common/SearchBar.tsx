@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import UseSearchPostMutation from '../../api/UseSearchPostMutation'
 import UseSearchUserMutation from '../../api/UseSearchUserMutation'
+import UseSearchFollowerMutation from '../../api/UseSearchFollowerMutation'
 import useAuth from '../../api/util/useAuth'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -12,6 +13,7 @@ const SearchBar = () => {
 	const [placeholder, setPlaceholder] = useState('Enter Username')
 	const searchUserMutation = UseSearchUserMutation()
 	const searchPostMutation = UseSearchPostMutation()
+  const searchFollowerMutation = UseSearchFollowerMutation()
 	const [selectResult, setSelectResult] = useState(false)
   const [searchDropdown, setSearchDropdown] = useState(false)
 	const navigate = useNavigate()
@@ -20,10 +22,13 @@ const SearchBar = () => {
 		if (e.target.value === 'User') {
 			setPlaceholder('Enter Username')
 			setSearchString('')
-		} else {
+		} else if (e.target.value === 'Location') {
 			setPlaceholder('Enter Location')
 			setSearchString('')
-		}
+		} else {
+      setPlaceholder('Enter Follower')
+      setSearchString('')
+    }
 	}
 
   const HandleSubmit = (e: any) => {
@@ -33,6 +38,8 @@ const SearchBar = () => {
         navigate('/search/user/' + searchString)
       if (placeholder === 'Enter Location')
         navigate('/search/post/' + searchString)
+      if (placeholder === 'Enter Follower')
+        navigate('/search/follower/' + searchString)
     }
     setSearchString("")
   }
@@ -48,7 +55,15 @@ const SearchBar = () => {
 				searchStr: searchString
 			})
 		}
+    if (placeholder === 'Enter Follower') {
+      searchFollowerMutation.mutate({
+        searchStr: searchString,
+        account_id: account.account_id
+      })
+    }
   }, [searchString])
+
+  console.log(account)
 
 	useEffect(() => {
 		setSearchString('')
@@ -65,12 +80,13 @@ const SearchBar = () => {
   if (placeholder === 'Enter Username') {
     searchResults = searchUserMutation.data?.data.data
   }
-  else {
+  else if (placeholder === 'Enter Location') {
     searchResults = searchPostMutation.data?.data.data
     locationResults = [...new Set(searchResults?.map((item:any) => item.item.location_name))]
   }
-
-  console.log(locationResults)
+  else {
+    searchResults = searchFollowerMutation.data?.data.data
+  }
 
 
   return (
@@ -82,6 +98,7 @@ const SearchBar = () => {
         >
           <option>User</option>
           <option>Location</option>
+          <option>Follower</option>
         </select>
         <input
           value={searchString}
