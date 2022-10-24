@@ -4,6 +4,7 @@ import { UseDeletePostMutation } from '../../api/UsePostMutation'
 import useAuth from '../../api/util/useAuth'
 import edit from '../../images/edit-button.png'
 import like from '../../images/like.png' // use this for like button (or find a new icon, then find the same icon filled in, so when you click like it becomes solid)
+import location from '../../images/location.png'
 import trash from '../../images/trash.png'
 import styles from '../../styles/Feed.module.css'
 import Carousel from '../common/Carousel'
@@ -108,13 +109,11 @@ export const Post = (props: Props) => {
 
 							<span className="">{post.post_likes} likes</span>
 							<span className="grow"/>
-							<a className="flex text-sm">
-							in {post.location_name}
-							</a>
+							<img alt="Location" className="h-7 inline-block pr-1" src={location} />
+								<a className="flex text-sm">in {post.location_name}</a>
 						</span>
-						<div>
-							
 						
+						<div>
 							{comments.map((comment, index) => (
 								<Fragment key={index}>
 									<p className="text-sm text-black-500 font-medium text-left inline-block align-middle mb-4 mr-2">
