@@ -6,6 +6,7 @@ import { Post } from '../components/post/Post'
 const Feed = () => {
 	const [account, isLoading] = useAuth()
 	const feedQuery = UseFeedQuery()
+
 	return (
 		<div>
 			{feedQuery.isLoading ||

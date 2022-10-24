@@ -15,7 +15,7 @@ import { IsFollowing } from './isfollowing'
 import { Login } from './login'
 import { Me } from './me'
 import { Enable2FA, GenerateSecret, Has2FA } from './secret'
-import { SearchUsers, SearchPosts, SearchPostResults } from './search'
+import { SearchUsers, SearchPosts} from './search'
 import { PostCount } from './postCount'
 import { ProfilePosts } from './profilePosts'
 import { ProfilePic } from './profilePic'
@@ -30,6 +30,8 @@ import { GetCategories } from './categories'
 import { PasswordReset } from './passwordReset'
 import { GetPost } from './getPost'
 import { ValidateEmail } from './validateEmail'
+import { Like } from './like'
+import { Comment } from './comment'
 
 const router = Router()
 
@@ -123,7 +125,6 @@ router.post('/login', body('email').isEmail(), body('password'), Login)
 //search routes
 router.post('/api/search_user', body('searchStr'), SearchUsers)
 router.post('/api/search_post', body('searchStr'), SearchPosts)
-router.post('/api/search_post_results', body('searchStr'), SearchPostResults)
 //end search routes
 
 router.get('/feed', AuthenticateUser, GetPosts)
@@ -164,5 +165,10 @@ router.get(
 router.get('/categories', AuthenticateUser, GetCategories)
 
 // End of business posts
+
+router.post('/like', body('post_to_like'), AuthenticateUser, Like)
+
+router.post('/comment', body('post_to_comment'), AuthenticateUser, Comment)
+
 
 export default router

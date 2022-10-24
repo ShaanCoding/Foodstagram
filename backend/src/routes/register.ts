@@ -2,6 +2,7 @@ import { json, Request, Response } from 'express'
 import { Query } from '../util/db'
 import { validationResult } from 'express-validator'
 import formatErrors from '../util/formatErrors'
+import { compare, genSalt, hash } from 'bcrypt'
 import { GenerateAccessToken } from '../util/auth'
 import sendEmailVerificationCode from '../util/verificationCode'
 
@@ -29,7 +30,10 @@ async function Register(req: Request, res: Response) {
 	const { fullName, username, email, password } = req.body
 
 	try {
-		await Query(registerQuery, [fullName, username, password, email])
+		const salt = await genSalt(10)
+		const hashed_password = await hash(password, salt)
+
+		await Query(registerQuery, [fullName, username, hashed_password, email])
 	} catch {
 		return res
 			.status(400)

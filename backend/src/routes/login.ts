@@ -3,11 +3,12 @@ import { Query } from '../util/db'
 import { validationResult } from 'express-validator'
 import formatErrors from '../util/formatErrors'
 import { GenerateAccessToken } from '../util/auth'
+import { compare, genSalt, hash } from 'bcrypt'
 import { authenticator } from 'otplib'
 import sendEmailVerificationCode from '../util/verificationCode'
 
 const loginQuery = `
-	SELECT account_id, username, email, COALESCE(2fa, '') 2fa, using_2fa, verified, COALESCE(bio, '') bio, email FROM accounts WHERE email = ? AND password_hash = ?
+	SELECT account_id, username, email, COALESCE(2fa, '') 2fa, using_2fa, verified, COALESCE(bio, '') bio, email, password_hash FROM accounts WHERE email = ?
 `
 
 async function Login(req: Request, res: Response) {
@@ -22,7 +23,7 @@ async function Login(req: Request, res: Response) {
 	}
 
 	try {
-		const rows = (await Query(loginQuery, [email, password])) as Account[]
+		const rows = (await Query(loginQuery, [email])) as Account[]
 
 		if (rows.length > 0) {
 			const account = rows[0]
@@ -41,6 +42,13 @@ async function Login(req: Request, res: Response) {
 				return res.status(200).json({
 					message: 'Account is awaiting email verification!',
 					awaitingEmailVerification: true,
+				})
+			}
+
+			const validPassword = await compare(password, rows[0].password_hash)
+			if (!validPassword) {
+				return res.status(401).json({
+					message: 'Invalid credentials, please try again',
 				})
 			}
 

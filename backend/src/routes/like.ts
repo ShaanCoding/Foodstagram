@@ -9,10 +9,6 @@ const checkLikeQuery = `
 	SELECT account_id, post_id FROM liked_posts WHERE account_id = ? AND post_id = ?
 `
 
-// const checkBlockQuery = `
-// 	SELECT account_id, blocked_account_id FROM account_blocks WHERE account_id = ? AND blocked_account_id = ?
-// `
-
 // add new record that has account_id and followed_account_id accordingly
 const likeQuery = `
 	INSERT INTO liked_posts
