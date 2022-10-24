@@ -12,29 +12,27 @@ import Fuse from 'fuse.js'
 const SearchPost = () => {
   const [account, isLoading] = useAuth()
   const { searchStr } = useParams();
-  const searchPostResultMutation = UseSearchPostResultsMutation()
 	const feedQuery = UseFeedQuery()
   const feeds = feedQuery.data?.data.posts
   let result: any = []
   let finalResult: any = []
 
-  useEffect(() => {
-    if (feeds !== undefined && feeds.length > 0 && searchStr !== undefined) {
-      const fuse = new Fuse(feeds, {
-        shouldSort: true,
-        threshold: 0.5,
-        keys: ["location_name"]
-      })
-      result = fuse.search(searchStr)
-      if (result.length) {
-        result.forEach((item: any) => {
-          finalResult.push(item.item)
-        })
-      }
-    }
-    console.log(result)
-  }, [searchStr])
-  
+
+  if (feeds !== undefined && feeds.length > 0 && searchStr !== undefined) {
+    const fuse = new Fuse(feeds, {
+      shouldSort: true,
+      threshold: 0.5,
+      keys: ["location_name"]
+    })
+    result = fuse.search(searchStr)
+  }
+
+  if (result.length) {
+    result.forEach((item: any) => {
+      finalResult.push(item.item)
+    })
+  }
+  console.log(finalResult)
 
   return (
     <>
@@ -50,9 +48,9 @@ const SearchPost = () => {
         
         {//posts results
         finalResult !== undefined && finalResult.length > 0 &&
-          finalResult.map((post:Post, index:number) => {
+          finalResult.map((Object:any) => {
             return (
-              <Post key={index} post={post} />
+              <Post key={Object.post_id} post={Object} />
             )
           })
         }
