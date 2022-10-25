@@ -32,6 +32,7 @@ import { GetPost } from './getPost'
 import { ValidateEmail } from './validateEmail'
 import { Like } from './like'
 import { Comment } from './comment'
+import { LikeCount } from './likeCount'
 
 const router = Router()
 
@@ -170,6 +171,8 @@ router.get('/categories', AuthenticateUser, GetCategories)
 router.post('/like', body('post_to_like'), AuthenticateUser, Like)
 
 router.post('/comment', body('post_to_comment'), AuthenticateUser, Comment)
+
+router.post('/likeCount', body('post_id'), AuthenticateUser, LikeCount)
 
 
 export default router
