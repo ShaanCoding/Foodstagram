@@ -2,6 +2,7 @@ import { json, Request, Response } from 'express'
 import { Query } from '../util/db'
 import { validationResult } from 'express-validator'
 import formatErrors from '../util/formatErrors'
+import { genSalt, hash } from 'bcrypt'
 
 const editProfileQuery = `
 	UPDATE accounts
@@ -25,12 +26,14 @@ async function EditProfile(req: Request, res: Response) {
 	const { fullName, username, bio, email, password, phone } = req.body
 
 	try {
+		const salt = await genSalt(10)
+		const hashed_password = await hash(password, salt)
 		await Query(editProfileQuery, [
 			fullName,
 			username,
 			bio,
 			email,
-			password,
+			hashed_password,
 			phone,
 			req.params.username,
 		])
