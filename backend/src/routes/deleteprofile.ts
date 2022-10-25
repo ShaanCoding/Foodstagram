@@ -43,7 +43,14 @@ async function DeleteProfile(req: Request, res: Response) {
 		}
 
 		await Query(deleteCodesQuery, [JSON.stringify(rows[0].account_id)])
-		await Query(deleteProfileQuery, [JSON.stringify(rows[0].account_id)])
+		try {
+			await Query(deleteProfileQuery, [JSON.stringify(rows[0].account_id)])
+		} catch {
+			return res.status(400).json({
+				message:
+					'You cannot delete an account which has posts. Please delete them first.',
+			})
+		}
 
 		return res.status(201).json({
 			message: 'Succesfully deleted account!',
