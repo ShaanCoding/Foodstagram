@@ -8,14 +8,14 @@ const checkLikeCountQuery = `
 	SELECT COUNT(*) as post_likes FROM liked_posts WHERE post_id = ?
 `
 
-async function CheckLikeCount(req: Request, res: Response) {
+async function LikeCount(req: Request, res: Response) {
 	const errors = validationResult(req)
 	if (!errors.isEmpty()) {
 		return res.status(400).json(formatErrors(errors))
 	}
 
 	try {
-		const rows = (await Query(checkLikeCountQuery, [req.params.postID])) as Post[]
+		const rows = (await Query(checkLikeCountQuery, [req.params.post_id])) as Post[]
 
 		if (rows.length > 0) {
 			return res.status(200).json({
@@ -30,4 +30,4 @@ async function CheckLikeCount(req: Request, res: Response) {
 	}
 }
 
-export { CheckLikeCount }
+export { LikeCount }

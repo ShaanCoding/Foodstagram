@@ -27,7 +27,7 @@ const SearchUser = () => {
   if (searchStr !== "_all")
     following = [...new Set(following?.map((item:any) => item.item))]
 
-  console.log(searchStr)
+    
   return (
     <>
       <h1 className='text-justify text-2xl px-48'>Search results for '{searchStr}'</h1>
