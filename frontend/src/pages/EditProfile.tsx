@@ -1,6 +1,6 @@
 import React, { MutableRefObject, useEffect, useRef, useState } from 'react'
 import styles from '../styles/Profile.module.css'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
 import Form from '../components/form/Form'
 import UseProfileQuery from '../api/UseProfileQuery'
 import UseEditProfileMutation from '../api/UseEditProfileMutation'
@@ -18,6 +18,7 @@ import DeleteProfileButton from '../components/form/DeleteProfileButton'
 
 const EditProfile = () => {
 	const [account, isLoading] = useAuth()
+	const navigate = useNavigate()
 	const queryClient = useQueryClient()
 	const profileQuery = UseProfileQuery(account.username as string)
 	const editProfileMutation = UseEditProfileMutation(account.username as string)
@@ -27,6 +28,9 @@ const EditProfile = () => {
 	const deleteProfileMutation = UseDeleteProfileMutation()
 	if (deleteProfileMutation.isError) {
 		console.log(deleteProfileMutation.error)
+	}
+	if (deleteProfileMutation.isSuccess) {
+		navigate('/logout')
 	}
 	const profilePicMutation = UseProfilePicMutation(
 		queryClient,
@@ -95,11 +99,12 @@ const EditProfile = () => {
 
 						{editProfileMutation.isError && (
 							<div className="my-6 bg-red-300 rounded-lg p-4 text-center">
-								{`Failed to update account. ${editProfileMutation.error instanceof AxiosError &&
+								{`Failed to update account. ${
+									editProfileMutation.error instanceof AxiosError &&
 									editProfileMutation.error?.response?.status === 400
-									? editProfileMutation.error.response.data.message
-									: ''
-									}`}
+										? editProfileMutation.error.response.data.message
+										: ''
+								}`}
 							</div>
 						)}
 
@@ -245,16 +250,19 @@ const EditProfile = () => {
 							</div>
 						</Form>
 
-						<div className='border-solid border-2 border-red-500 p-5 rounded-2xl mt-5 '>
-							<h2 className="text-2xl font-semibold text-center">Delete account</h2>
+						<div className="border-solid border-2 border-red-500 p-5 rounded-2xl mt-5 ">
+							<h2 className="text-2xl font-semibold text-center">
+								Delete account
+							</h2>
 
 							{deleteProfileMutation.isError && (
 								<div className="my-6 bg-red-300 rounded-lg p-4 text-center">
-									{`Incorrect password ${editProfileMutation.error instanceof AxiosError &&
+									{`Incorrect password ${
+										editProfileMutation.error instanceof AxiosError &&
 										editProfileMutation.error?.response?.status === 400
-										? editProfileMutation.error.response.data.message
-										: ''
-										}`}
+											? editProfileMutation.error.response.data.message
+											: ''
+									}`}
 								</div>
 							)}
 
