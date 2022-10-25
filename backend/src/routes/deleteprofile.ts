@@ -2,11 +2,17 @@ import { json, Request, Response } from 'express'
 import { Query } from '../util/db'
 import { validationResult } from 'express-validator'
 import formatErrors from '../util/formatErrors'
+import { compare } from 'bcrypt'
 
 const ProfileQuery = `
 	SELECT *
 	FROM accounts
-	WHERE username = ? AND password_hash = ?
+	WHERE username = ?
+`
+
+const deleteCodesQuery = `
+	DELETE FROM verification_codes
+	WHERE account_id = ?
 `
 
 const deleteProfileQuery = `
@@ -14,25 +20,36 @@ const deleteProfileQuery = `
 	WHERE account_id = ?
 `
 async function DeleteProfile(req: Request, res: Response) {
-	const { username, password } = req.body
-
-	const rows = (await Query(ProfileQuery, [username, password])) as Account[]
-
 	const errors = validationResult(req)
 	if (!errors.isEmpty()) {
 		return res.status(400).json(formatErrors(errors))
 	}
 
+	const { username, password } = req.body
+
 	try {
+		const rows = (await Query(ProfileQuery, [username])) as Account[]
+		if (rows.length != 1) {
+			return res.status(401).json({
+				message: 'Invalid credentials, please try again',
+			})
+		}
+
+		const validPassword = await compare(password, rows[0].password_hash)
+		if (!validPassword) {
+			return res.status(401).json({
+				message: 'Invalid credentials, please try again',
+			})
+		}
+
+		await Query(deleteCodesQuery, [JSON.stringify(rows[0].account_id)])
 		await Query(deleteProfileQuery, [JSON.stringify(rows[0].account_id)])
 
 		return res.status(201).json({
 			message: 'Succesfully deleted account!',
 		})
-	} catch {
-		return res
-			.status(400)
-			.json({ message: 'Invalid credentials' })
+	} catch (e) {
+		return res.status(400).json({ message: 'Invalid credentials', e })
 	}
 }
 
