@@ -9,6 +9,7 @@ const Feed = () => {
 
 	return (
 		<div>
+			<h1>Random title</h1>
 			{feedQuery.isLoading ||
 				(isLoading && (
 					<div className="h-[600px]">
@@ -24,14 +25,12 @@ const Feed = () => {
 					</h1>
 				)}
 
-			{
-				!feedQuery.isLoading &&
+			{!feedQuery.isLoading &&
 				feedQuery.isSuccess &&
 				feedQuery.data.data.posts !== undefined &&
 				feedQuery.data?.data.posts.map((post, index) => (
 					<Post key={index} post={post} />
-				))
-			}
+				))}
 		</div>
 	)
 }
