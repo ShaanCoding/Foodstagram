@@ -121,9 +121,9 @@ Distributed under the MIT License. See [LICENSE](https://github.com/ShaanCoding/
 
 - **Shaan Khan** - _Technical Lead_ - [Shaan Khan](https://github.com/ShaanCoding/) - _View Business Posts Analytics, Scheduling Business Posts, Managing Business Posts, Creating Business Posts_
 - **Jack** - _Software Architect_ - [Jack](https://github.com/jiak1) - _Login, Registeration & 2FA_
-- **Brandon** - [Brandon](https://github.com/brandonjury) - \*Feed Page, Following Users, Blocking Users\*
-- **Jibreil** - [Jibreil](https://github.com/jibreil) - \*Profile & Edit Profile Page\*
-- **Alwin Trong Dat** - [Alwin Trong Dat](https://github.com/alwin5021) - \*SearchUsers & Posts/Locations\*
+- **Brandon** - [Brandon](https://github.com/brandonjury) - _Feed Page, Following Users, Blocking Users_
+- **Jibreil** - [Jibreil](https://github.com/jibreil) - _Profile & Edit Profile Page_
+- **Alwin Trong Dat** - [Alwin Trong Dat](https://github.com/alwin5021) - _SearchUsers & Posts/Locations_
 
 ## Acknowledgements
 
