@@ -9,7 +9,6 @@ const Feed = () => {
 
 	return (
 		<div>
-			<h1>Random title</h1>
 			{feedQuery.isLoading ||
 				(isLoading && (
 					<div className="h-[600px]">

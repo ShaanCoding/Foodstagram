@@ -1,1 +1,0 @@
-test the connection with Azure
